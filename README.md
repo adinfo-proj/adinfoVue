@@ -1,3 +1,5 @@
+애드인포 개발 진행
+
 # adinfo-vue
 
 ## Project setup
