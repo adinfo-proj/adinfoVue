@@ -1,17 +1,17 @@
 <template>
-  <div id="container"> 
+  <div class="container"> 
     <!-- 1400*1140 -->
     <form action="">
       <div class="tap">
-        <a href="#none" class="cpa on"><img src="../../assets/images/icon01.png" alt="icon01">CPA광고</a>
-        <a href="#none" class="cps"><img src="../../assets/images/icon02.png" alt="icon02">CPS광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a href="#none" class="cpp"><img src="../../assets/images/icon03.png" alt="icon03">CPP광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a href="#none" class="cpm"><img src="../../assets/images/icon04.png" alt="icon04">CPM광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a href="#none" class="cpv"><img src="../../assets/images/icon05.png" alt="icon05">CPV광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a href="#none" class="cpi"><img src="../../assets/images/icon06.png" alt="icon06">CPI광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+        <a class="cpa on" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon01.png" alt="icon01">CPA광고</a>
+        <a class="cps" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon02.png" alt="icon02">CPS광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+        <a class="cpp" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon03.png" alt="icon03">CPP광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+        <a class="cpm" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon04.png" alt="icon04">CPM광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+        <a class="cpv" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon05.png" alt="icon05">CPV광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+        <a class="cpi" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon06.png" alt="icon06">CPI광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
       </div>
-      <div class="chose">
-        <div class="choseArea">
+      <div class="choose">
+        <div class="chooseArea">
           <p>광고지역 설정 <span>(중복 선택 가능)</span></p>
           <input type="checkbox" name="allArea" id="allArea" checked><label for="allArea">전국</label>
           <input type="checkbox" name="seoul" id="seoul"><label for="seoul">서울</label>
@@ -25,46 +25,49 @@
           <input type="checkbox" name="gyeongnam" id="gyeongnam"><label for="gyeongnam">경남</label>
           <input type="checkbox" name="jeju" id="jeju"><label for="jeju">제주</label>
         </div>
-        <div class="choseDate">
+        <div class="chooseDate">
           <div class="firstBox">
             <div class="startDate">
               <label for="startDate">광고 시작일<br>
-                <input type="date" id="startDate1">
+                <input type="date" id="startDate1" v-model="theDate">
                 <input type="time" id="startDate2">
               </label>
             </div>
             <div>
               <label for="closeDate">광고 종료일<br>
-                <input type="date" id="closeDate1">
+                <input type="date" id="closeDate1" v-model="theDate">
                 <input type="time" id="closeDate2">
               </label>
             </div>
           </div>
           <div class="secondBox">
-            <div class="camObj">
+            <div class="camBox">
               <label for="">캠페인 목적<br>
-                <select id="">
-                  <option value="">목적 선택</option>
-                  <option value="">상담 후 제품 구매</option>
-                  <option value="">체험 후 제품 구매</option>
-                  <option value="">회원가입(연동작업 필수)</option>
-                  <option value="">상품판매</option>
-                  <option value="">앱 설치</option>
-                  <option value="">기타</option>
+                <select class="camAim" v-model="adPurpose">
+                  <option v-for="(adIndex, index) in adPurposeObj"
+                    :key="index" 
+                    :value="adIndex.code"
+                    >{{ adIndex.codeNm }}
+                  </option>
                 </select>
               </label>
             </div>
             <div class="camParcel">
-              <label for="">캠페인 분류<br>
+              <label for="camParcel01">캠페인 분류<br>
                 <select class="camParcel01" v-model="adTopKind" @change="firstComboChg(adTopKind);">
                   <option v-for="(adIndex, index) in adTopKindObj"
                     :key="index" 
                     :value="adIndex.code"
-                  >{{ adIndex.codeNm }}</option>
+                    >{{ adIndex.codeNm }}
+                  </option>
                 </select>
 
-                <select class="camParcel02" aria-valuetext="" v-model="adMiddleKind">2차 분류를 선택
-                  <option v-for="(adIndex, index) in adMiddleKindObj" :key="index" :value="adIndex.code">{{ adIndex.codeDescr }}</option>
+                <select class="camParcel02" v-model="adMiddleKind">2차 분류를 선택
+                  <option v-for="(adIndex, index) in adMiddleKindObj"
+                    :key="index"
+                    :value="adIndex.code"
+                    >{{ adIndex.codeDescr }}
+                  </option>
                 </select>
               </label>
             </div>
@@ -90,7 +93,7 @@
             <td><input type="text" name="" id=""></td>
           </tr>
           <tr>
-            <th>광교 USP 설정</th>
+            <th>광고 USP 설정</th>
             <td><input type="text" name="" id=""></td>
           </tr>
           <tr>
@@ -138,17 +141,21 @@
 <script>
 import axios from "axios";
 
+
 export default {
+  // 
   data() {
     return {
       adKind: String,             // 캠페인 종류
       adArea: Object,             // 광고지역
       adAreaEtc: String,          // 기타지역
+      theDate: new Date().toISOString().substr(0, 10), // 오늘날짜 표기
       adSrtDt: String,            // YYYYMMDD
       adSrtTm: String,            // HHMMSS
       adEndDt: String,            // YYYYMMDD
       adEndTm: String,            // HHMMSS
-      adPurpose: Object,          // 
+      adPurpose: String,          // 캠페인 목적
+      adPurposeObj: Object,       // 캠페인 목적 객체
       adTopKind: String,          //
       adMiddleKind: String,       //
       adTopKindObj: Object,       //
@@ -177,7 +184,28 @@ export default {
     }
   },
   methods: {
-    getCommonByTp () {
+    // getNowDate(){
+
+    // },
+
+    getPurposeByTp () { // 캠페인 목적
+      axios.get("http://api.adinfo.co.kr:30000/getCommonByTp", 
+        {
+          params: {
+            tp: '0005'
+          }
+        })
+        .then(response => {
+          if(response.data.length > 0) {
+            this.adPurpose = response.data[0].code;
+            this.adPurposeObj = response.data;
+          }
+        })
+      .catch(error => {
+        console.log(error);
+      })
+    },
+    getCommonByTp () { // 캠페인 분류
       axios.get("http://api.adinfo.co.kr:30000/getCommonByTp", 
         {
           params: {
@@ -215,14 +243,16 @@ export default {
     }
   },
   created() {
+    // document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);;
     this.getCommonByTp();
+    this.getPurposeByTp();
   }
 }
 </script>
 <style>
 
   .tap,
-  .chose,
+  .choose,
   .campaign{
     margin-bottom: 20px;
   }
@@ -264,7 +294,7 @@ export default {
     width: 35px;
     height: auto;
     top: -1px;
-    right: 15  px;
+    right: 10px;
   }
   
   .tap a.on,
@@ -274,7 +304,7 @@ export default {
     color: #fff;
   }
 
-  .chose{
+  .choose{
     width: 100%;
     height: 182px;
     background: #fff;
@@ -283,29 +313,29 @@ export default {
     border: solid 1px #e5e5e5;
   }
 
-  .choseArea,
-  .choseDate{
+  .chooseArea,
+  .chooseDate{
     float: left;
   }
 
-  .choseArea P{
+  .chooseArea P{
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 11px;
     color: #444;
   }
 
-  .choseArea{
-    margin-right: 59px;
+  .chooseArea{
+    margin-right: 50px;
     width: 336px;
     height: 100%;
   }
 
-  .choseArea p span{
+  .chooseArea p span{
     color: #666;
   }
 
-  .choseArea input[type="checkbox"]{
+  .chooseArea input[type="checkbox"]{
     width: 11px;
     height: 11px;
     margin: 0 6px 8px 0;
@@ -314,35 +344,35 @@ export default {
     background: #f6f6f6;
   }
 
-  .choseArea label{
+  .chooseArea label{
     margin: 0 16px 0 0;
   }
-  .choseDate{
+  .chooseDate{
     width: 924px;
     height: 100%;
   }
 
-  .choseDate div{ 
+  .chooseDate div{ 
     height: 58px;
     margin-bottom: 20px;
   }
 
-  .choseDate .firstBox div {
+  .chooseDate .firstBox div {
     float: left;
     width: 462px;
   }
 
-  .choseDate .secondBox div {
+  .chooseDate .secondBox div {
     float: left;
   }
 
-  .choseDate label{
+  .chooseDate label{
     font-size: 16px;
     font-weight: 700;
   }
 
-  .choseDate input,
-  .choseDate select{
+  .chooseDate input,
+  .chooseDate select{
     height: 35px;
     margin: 7px 10px 0 0;
     padding: 9px 15px ;
@@ -351,22 +381,20 @@ export default {
     margin-top: 7px;
   }
 
-  .choseDate input[type="date"]{
+  .chooseDate input[type="date"]{
     width: 266px;
   }
 
-  .choseDate input[type="time"]{
+  .chooseDate input[type="time"]{
       width: 176px;
   }
 
-
-
-  .camObj{
+  .camBox{
     width: 265px;
     margin-right: 11px;
   }
 
-  .camObj select{
+  .camBox select{
     width: 100%;
   }
 
@@ -374,12 +402,12 @@ export default {
     width: 648px;
   }
 
-  .choseDate .camParcel select {
+  .chooseDate .camParcel select {
     float: left;
     width: 48.3%;
   }
 
-  .choseDate .camParcel select.camParcel01{
+  .chooseDate .camParcel select.camParcel01{
     margin-right: 11px;
   }
 
@@ -390,7 +418,7 @@ export default {
     border-radius: 10px;
   }
 
-  #container table{
+  .container table{
     width: 100%;
     border-collapse: collapse;
     border: solid 1px #e5e5e5; 
@@ -401,40 +429,41 @@ export default {
   }
 
 
-  #container th,
-  #container td {
+  .container th,
+  .container td {
     border: 1px solid #e5e5e5;
   }
 
-  #container th{
+  .container th{
     width: 149px;
     padding: 15px 21px;
     vertical-align: top;
     text-align: left;
     color: #444;
+    font-size: 16px;
   }
 
-  #container td{
+  .container td{
     height: 46px;
     padding: 8px 7px 7px;
   }
 
-  #container .notice td{
+  .container .notice td{
     height: 183px;
   }
 
-  #container td input{
+  .container td input{
     width: 100%;
     height: 100%;
     padding: 5px;
     border: solid 1px #e5e5e5;
   }
 
-  #container .camName{
+  .container .camName{
     width: 770px;
   }
 
-  #container .upload-name{
+  .container .upload-name{
     width: 260px;
     display: block;
     padding: 6px 10px;
@@ -442,7 +471,7 @@ export default {
     float: left;
   }
 
-  #container input[type="file"] {
+  .container input[type="file"] {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -453,7 +482,7 @@ export default {
     border: 0;
   }
 
-  #container .upload-name + label {
+  .container .upload-name + label {
     display: block;
     float: left;
     width: 124px;
@@ -468,18 +497,18 @@ export default {
     letter-spacing: -0.3px;
   }
 
-  #container .upload-name + label >i{
+  .container .upload-name + label >i{
       font-size: 12px;
       color: #e25b45;
       vertical-align: middle;
   }
-  #container .tableBox input[type="radio"]{
+  .container .tableBox input[type="radio"]{
     width: 10px;
     height: 10px;
     margin-right: 5px;
   }
 
-  #container .tableBox input[type="radio"] + label{
+  .container .tableBox input[type="radio"] + label{
     display: inline-block;
     margin: -5px 20px;
   }

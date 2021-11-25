@@ -22,32 +22,9 @@
               </svg>
               DASHBOOARD
             </router-link>
-            <!-- <ul>
-              <li>
-                <router-link></router-link>
-              </li>
-              <li>
-                <router-link></router-link>
-              </li>
-              <li>
-                <router-link></router-link>
-              </li>
-              <li>
-                <router-link></router-link>
-              </li>
-              <li>
-                <router-link></router-link>
-              </li>
-              <li>
-                <router-link></router-link>
-              </li>
-              <li>
-                <router-link></router-link>
-              </li>
-            </ul> -->
           </li>
           <li>
-            <a href="#none">
+            <a href="#none" v-on:click.stop.prevent>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
                 <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
                   <g id="그룹_1" data-name="그룹 1">
@@ -75,7 +52,7 @@
             </ul>
           </li>
           <li class="on">
-            <a href="#none">
+            <a href="#none" v-on:click.stop.prevent>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
                 <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
                   <g id="그룹_1" data-name="그룹 1">
@@ -109,7 +86,7 @@
             </ul>
           </li>
           <li>
-            <a href="#none">
+            <a href="#none" v-on:click.stop.prevent>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
                 <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
                   <g id="그룹_1" data-name="그룹 1">
@@ -134,7 +111,7 @@
             </ul>
           </li>
           <li>
-            <a href="#none">
+            <a href="#none" v-on:click.stop.prevent>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
                 <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
                   <g id="그룹_1" data-name="그룹 1">
@@ -171,7 +148,7 @@
             </ul> -->
           </li>
           <li>
-            <a href="#none">
+            <a href="#none" v-on:click.stop.prevent>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
                 <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
                   <g id="그룹_1" data-name="그룹 1">
@@ -208,7 +185,7 @@
             </ul> -->
           </li>
           <li>
-            <a href="#none">
+            <a href="#none" v-on:click.stop.prevent>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
                 <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
                   <g id="그룹_1" data-name="그룹 1">
@@ -244,6 +221,9 @@
               </li>
             </ul> -->
           </li>
+          <li>
+            <router-link to="TEST_etc.vue">test</router-link>
+          </li>
         </ul>
       </div>
       <!-- <router-link to="/">Home</router-link>
@@ -257,46 +237,20 @@
     </div>
   </div>
 </template>
+<script>
+  export default {
+    
+  }
+</script>
 
 <style>
-
-  /* 나눔고딕 */
-
-  /* @font-face {
-    font-family: 'NanumBarunGothic';
-    font-style: normal;
-    font-weight: 400;
-    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
-    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
-  }
-
-  @font-face {
-    font-family: 'NanumBarunGothic';
-    font-style: normal;
-    font-weight: 700;
-    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot');
-    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf') format('truetype')
-  }
-
-  @font-face {
-    font-family: 'NanumBarunGothic';
-    font-style: normal;
-    font-weight: 300;
-    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot');
-    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf') format('truetype');
-  }
-
-  .nanumbarungothic * {
-    font-family: 'NanumBarunGothic', sans-serif;
-  } */
-
   @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
   .nanumgothic * {
     font-family: 'Nanum Gothic', sans-serif;
   }
 
-  *{
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -305,12 +259,12 @@
     font-size: 12px;
   }
   
-  a{
+  a {
     text-decoration: none;
     color: #666;
   }
 
-  ul{
+  ul {
     list-style: none;
   }
   
@@ -333,7 +287,7 @@
     z-index: 99;
   }
 
-  .headerLogo{
+  .headerLogo {
     width: 100%;
     height: 98px;
     text-align: center;
@@ -341,60 +295,60 @@
     border-bottom: solid 1px #e5e5e5;
   }
 
-    .headerLogo a{
-      font-size: 32.9px;
-    }
+  .headerLogo a {
+    font-size: 32.9px;
+  }
 
-  .headerNav{
+  .headerNav {
     padding: 25.4px 0 0 28px;
   }
 
-  .headerNav>ul>li{
+  .headerNav > ul > li {
     padding-bottom: 27px;
   }
 
-  .headerNav>ul>li>ul{
+  .headerNav > ul > li > ul {
     padding: 5px 0 5px 22px ;
     /* display: none; */
   }
 
-  .headerNav>ul>li>ul>li{
+  .headerNav > ul > li > ul > li {
     padding-top: 12px;
   }
 
-  .headerNav>ul>li>a{
+  .headerNav > ul > li > a {
     font-weight: 700;
     font-size: 16px;
     color: #373737;
   }
 
-  .headerNav>ul>li>ul>li>a{
+  .headerNav > ul > li > ul > li > a {
     color: #6a6969;
     letter-spacing: -0.3px;
     font-weight: 700;
   }
 
-  .headerNav>ul>li.on>a, 
-  .headerNav>ul>li>ul>li.on>a{
+  .headerNav > ul > li.on > a, 
+  .headerNav > ul > li > ul > li.on > a {
     color: #e25b45;
   }
 
-  .headerNav>ul>li.on>ul{
+  .headerNav > ul > li.on > ul {
     display: block;
   }
 
-  .headerNav svg{
+  .headerNav svg {
     margin-right: 4px;
   }
 
   #sectionHeader,
-  #sectionBody{
+  #sectionBody {
     margin-left: 200px;
     border-right: solid 1px #e5e5e5;
     width: 1400px;
   }
 
-  #sectionHeader{
+  #sectionHeader {
     padding: 24px 20px 17px;
     font-size: 16px;
     letter-spacing: -0.4px;
@@ -402,26 +356,16 @@
     border-bottom: solid 1px #e5e5e5;
   }
 
-  #sectionHeader span{
+  #sectionHeader span {
     font-weight: normal;
     margin-left: 5px;
   }
 
-  #container{
-    width: 1400px;
+  .container {
+    height: 100%;
     background: #F6F6F6;
     padding: 20px;
     border-right: solid 1px #e5e5e5;
+    border-bottom: solid 1px #e5e5e5;
   }
-
-
-
-  /* #nav a {
-    font-weight: bold;
-    color: #2c3e50;
-  }
-
-  #nav a.router-link-exact-active {
-    color: #42b983;
-  } */
 </style>
