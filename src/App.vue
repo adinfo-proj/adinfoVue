@@ -186,6 +186,7 @@
           </li>
           <li>
             <a href="#none" v-on:click.stop.prevent>
+
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
                 <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
                   <g id="그룹_1" data-name="그룹 1">
@@ -230,7 +231,7 @@
       <router-link to="/about">About</router-link> -->
     </div>
     <div id="sectionHeader">
-      캠페인 관리 <span> > 캠페인 등록</span>
+      {{ this.$store.state.headerTopTitle }} <span> > {{ this.$store.state.headerMidTitle }}</span>
     </div>
     <div id="sectionBody">
       <router-view />

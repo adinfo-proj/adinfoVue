@@ -27,7 +27,7 @@ Vue.use(VueRouter);
 const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한에 따른 display: block으로 변경 예정
   {// 메인페이지
     path: "/",
-    name: "MENU_0000",
+    name: "HOME",
     component: MENU_0000,
   },
   {// 메인페이지
@@ -110,7 +110,7 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
 ];
 
 const router = new VueRouter({
-  //mode: "history",
+//  mode: "history",
   base: process.env.BASE_URL,
   routes,
 });
