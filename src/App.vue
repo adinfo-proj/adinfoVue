@@ -38,16 +38,16 @@
             </a>
             <ul>
               <li>
-                <router-link  to="MENU_0101">- 일자별 통계</router-link>
+                <router-link  to="MENU_0101">일자별 통계</router-link>
               </li>
               <li>
-                <router-link  to="MENU_0102">- 캠페인별 통계</router-link>
+                <router-link  to="MENU_0102">캠페인별 통계</router-link>
               </li>
               <li>
-                <router-link  to="MENU_0103">- 그룹별 통계</router-link>
+                <router-link  to="MENU_0103">그룹별 통계</router-link>
               </li>
               <li>
-                <router-link  to="MENU_0104">- 마케터별 통계</router-link>
+                <router-link  to="MENU_0104">마케터별 통계</router-link>
               </li>
             </ul>
           </li>
@@ -66,22 +66,22 @@
             </a>
             <ul>
               <li>
-                <router-link to="MENU_0201">- 캠페인 목록</router-link>
+                <router-link to="MENU_0201">캠페인 목록</router-link>
               </li>
               <li class="on">
-                <router-link to="MENU_0202">- 신규 캠페인 등록</router-link>
+                <router-link to="MENU_0202">신규 캠페인 등록</router-link>
               </li>
               <li>
-                <router-link to="MENU_0203">- 캠페인 변경 내역</router-link>
+                <router-link to="MENU_0203">캠페인 변경 내역</router-link>
               </li>
               <li>
-                <router-link to="MENU_0204">- 자동 충전</router-link>
+                <router-link to="MENU_0204">자동 충전</router-link>
               </li>
               <li>
-                <router-link to="MENU_0205">- 문자 발송 서비스</router-link>
+                <router-link to="MENU_0205">문자 발송 서비스</router-link>
               </li>
               <li>
-                <router-link to="MENU_0206">- 캠페인 홍보자료 관리</router-link>
+                <router-link to="MENU_0206">캠페인 홍보자료 관리</router-link>
               </li>
             </ul>
           </li>
@@ -100,13 +100,13 @@
             </a>
             <ul>
               <li>
-                <router-link to="MENU_0301">- POSTBACK 등록 현황</router-link>
+                <router-link to="MENU_0301">POSTBACK 등록 현황</router-link>
               </li>
               <li>
-                <router-link to="MENU_0302">- POSTBACK 등록 처리</router-link>
+                <router-link to="MENU_0302">POSTBACK 등록 처리</router-link>
               </li>
               <li>
-                <router-link to="MENU_0303">- POSTBACK 데이터 조회</router-link>
+                <router-link to="MENU_0303">POSTBACK 데이터 조회</router-link>
               </li>
             </ul>
           </li>
@@ -301,7 +301,7 @@
   }
 
   .headerNav {
-    padding: 25.4px 0 0 28px;
+    padding: 25px 0 0 20px;
   }
 
   .headerNav > ul > li {
@@ -309,7 +309,7 @@
   }
 
   .headerNav > ul > li > ul {
-    padding: 5px 0 5px 22px ;
+    padding: 5px 0 5px 30px ;
     /* display: none; */
   }
 
@@ -366,7 +366,6 @@
     height: 100%;
     background: #F6F6F6;
     padding: 20px;
-    border-right: solid 1px #e5e5e5;
     border-bottom: solid 1px #e5e5e5;
   }
 </style>

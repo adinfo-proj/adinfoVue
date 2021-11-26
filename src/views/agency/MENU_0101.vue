@@ -46,6 +46,8 @@
 							<td>250,000원</td>
 							<td>승인 대기중</td>
 						</tr>
+						<tr>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -57,6 +59,7 @@
 		
 	}
 </script>
+
 <style>
 
 </style>

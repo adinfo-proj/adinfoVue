@@ -2,13 +2,13 @@
   <div class="container"> 
     <!-- 1400*1140 -->
     <form action="">
-      <div class="tap">
-        <a class="cpa on" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon01.png" alt="icon01">CPA광고</a>
-        <a class="cps" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon02.png" alt="icon02">CPS광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a class="cpp" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon03.png" alt="icon03">CPP광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a class="cpm" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon04.png" alt="icon04">CPM광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a class="cpv" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon05.png" alt="icon05">CPV광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a class="cpi" href="#none" v-on:click.stop.prevent><img src="../../assets/images/icon06.png" alt="icon06">CPI광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+      <div class="tap"> <!-- 추후 각 a태그 별 변수 지정-->
+        <a class="cpa on" href="javascript:void(0)"><img src="../../assets/images/icon01.png" alt="icon01">CPA광고</a> 
+        <a class="cps" href="javascript:void(0)"><img src="../../assets/images/icon02.png" alt="icon02">CPS광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+        <a class="cpp" href="javascript:void(0)"><img src="../../assets/images/icon03.png" alt="icon03">CPP광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+        <a class="cpm" href="javascript:void(0)"><img src="../../assets/images/icon04.png" alt="icon04">CPM광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+        <a class="cpv" href="javascript:void(0)"><img src="../../assets/images/icon05.png" alt="icon05">CPV광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+        <a class="cpi" href="javascript:void(0)"><img src="../../assets/images/icon06.png" alt="icon06">CPI광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
       </div>
       <div class="choose">
         <div class="chooseArea">
@@ -83,14 +83,15 @@
           <tr>
             <th>캠페인 배너</th>
             <td>
-              <input class="upload-name" value="파일선택" disabled="disabled">
+              <input class="upload_name" value="" disabled="disabled">
               <label for="myFile">이미지 등록하기 <i class="fas fa-plus"></i></label> 
-              <input type="file" accept=".jpg, .png, .gif" id="myFile" class="upload-hidden">
+              <input type="file" accept=".jpg, .png, .gif" id="myFile" class="upload_hidden">
             </td>
           </tr>
           <tr class="notice">
             <th>캠페인 내용</th>
-            <td><input type="text" name="" id=""></td>
+            <td><textarea name="" id="camContents"></textarea></td>
+            <!-- cols="30" rows="10" -->
           </tr>
           <tr>
             <th>광고 USP 설정</th>
@@ -156,18 +157,18 @@ export default {
       adEndTm: String,            // HHMMSS
       adPurpose: String,          // 캠페인 목적
       adPurposeObj: Object,       // 캠페인 목적 객체
-      adTopKind: String,          //
-      adMiddleKind: String,       //
-      adTopKindObj: Object,       //
-      adMiddleKindObj: Object,    //
-      adName: String,
-      adComment: String,
-      adUsp: String,
-      smsYn: Boolean,
-      smsNo: String,
-      landingPageTitle: String,
-      landingUrl: String,
-      adPrice: String,
+      adTopKind: String,          // 캠페인 1차 분류 
+      adMiddleKind: String,       // 캠페인 2차 분류
+      adTopKindObj: Object,       // 캠페인 1차 분류 객체
+      adMiddleKindObj: Object,    // 캠페인 2차 분류 객체
+      adName: String,             // 캠페인 명
+      adComment: String,          // 캠페인 내용
+      adUsp: String,              // 광고 이벤트설정
+      smsYn: Boolean,             // DB 접수 시 SMS 수신 여부 Y
+      smsNo: String,              // DB 접수 시 SMS 수신 여부
+      landingPageTitle: String,   // DB 접수 시 SMS 수신 번호
+      landingUrl: String,         // 캠페인 단가
+      adPrice: String,            // 캠페인 프로모션 단가
       adPromotionPrice: String,
       dayLimit: String,
       approval: String,
@@ -440,7 +441,6 @@ export default {
     vertical-align: top;
     text-align: left;
     color: #444;
-    font-size: 16px;
   }
 
   .container td{
@@ -452,18 +452,23 @@ export default {
     height: 183px;
   }
 
-  .container td input{
+  .container td input,
+  #camContents{
     width: 100%;
     height: 100%;
     padding: 5px;
     border: solid 1px #e5e5e5;
   }
 
+  #camContents {
+    resize: none
+  }
+
   .container .camName{
     width: 770px;
   }
 
-  .container .upload-name{
+  .container .upload_name{
     width: 260px;
     display: block;
     padding: 6px 10px;
@@ -482,7 +487,7 @@ export default {
     border: 0;
   }
 
-  .container .upload-name + label {
+  .container .upload_name + label {
     display: block;
     float: left;
     width: 124px;
@@ -497,10 +502,10 @@ export default {
     letter-spacing: -0.3px;
   }
 
-  .container .upload-name + label >i{
-      font-size: 12px;
-      color: #e25b45;
-      vertical-align: middle;
+  .container .upload_name + label >i{
+    font-size: 12px;
+    color: #e25b45;
+    vertical-align: middle;
   }
   .container .tableBox input[type="radio"]{
     width: 10px;
