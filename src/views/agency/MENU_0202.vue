@@ -3,12 +3,12 @@
     <!-- 1400*1140 -->
     <form action="">
       <div class="tap"> <!-- 추후 각 a태그 별 변수 지정-->
-        <a class="cpa on" href="javascript:void(0)"><img src="../../assets/images/icon01.png" alt="icon01">CPA광고</a> 
-        <a class="cps" href="javascript:void(0)"><img src="../../assets/images/icon02.png" alt="icon02">CPS광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a class="cpp" href="javascript:void(0)"><img src="../../assets/images/icon03.png" alt="icon03">CPP광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a class="cpm" href="javascript:void(0)"><img src="../../assets/images/icon04.png" alt="icon04">CPM광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a class="cpv" href="javascript:void(0)"><img src="../../assets/images/icon05.png" alt="icon05">CPV광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
-        <a class="cpi" href="javascript:void(0)"><img src="../../assets/images/icon06.png" alt="icon06">CPI광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+          <a class="cpa on" href="javascript:void(0)"><img src="../../assets/images/icon01.png" alt="icon01">CPA광고</a> 
+          <a class="cps" href="javascript:void(0)"><img src="../../assets/images/icon02.png" alt="icon02">CPS광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+          <a class="cpp" href="javascript:void(0)"><img src="../../assets/images/icon03.png" alt="icon03">CPP광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+          <a class="cpm" href="javascript:void(0)"><img src="../../assets/images/icon04.png" alt="icon04">CPM광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+          <a class="cpv" href="javascript:void(0)"><img src="../../assets/images/icon05.png" alt="icon05">CPV광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
+          <a class="cpi" href="javascript:void(0)"><img src="../../assets/images/icon06.png" alt="icon06">CPI광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
       </div>
       <div class="choose">
         <div class="chooseArea">
@@ -107,7 +107,34 @@
           </tr>
         </table>
       </div>
-      <div class="lend tableBox">
+      <div class="promotion tableBox">
+        <table>
+          <tr>
+            <th>랜딩페이지 명</th>
+            <td><input type="text" name="" id=""></td>
+          </tr>
+          <tr>
+            <th>랜딩페이지 URL</th>
+            <td><input type="text" name="" id=""></td>
+          </tr>
+          <tr>
+            <th>캠페인 내용</th>
+            <td>a</td>
+          </tr>
+          <tr>
+            <th>광고 USP 설정</th>
+            <td>a</td>
+          </tr>
+          <tr>
+            <th>애드인포 CPA 이용 정책</th>
+            <td>
+              <input type="radio" name="cpa" id="cpaY"><label for="cpaY">네</label>
+              <input type="radio" name="cpa" id="cpaN"><label for="cpaN">아니오</label>
+            </td>
+          </tr>
+        </table>
+      </div>
+            <div class="lend tableBox">
         <table>
           <tr>
             <th>랜딩페이지 명</th>
@@ -185,12 +212,8 @@ export default {
     }
   },
   methods: {
-    // getNowDate(){
-
-    // },
-
     getPurposeByTp () { // 캠페인 목적
-      axios.get("http://api.adinfo.co.kr:30000/getCommonByTp", 
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
         {
           params: {
             tp: '0005'
@@ -207,7 +230,7 @@ export default {
       })
     },
     getCommonByTp () { // 캠페인 분류
-      axios.get("http://api.adinfo.co.kr:30000/getCommonByTp", 
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
         {
           params: {
             tp: '0000'
@@ -225,7 +248,7 @@ export default {
       })
     },
     firstComboChg(code) {
-      axios.get("http://39.115.113.174:30000/getCommonCodeByCode", 
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
         {
           params: {
             tp: '0001',
@@ -244,7 +267,6 @@ export default {
     }
   },
   created() {
-    // document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);;
     this.getCommonByTp();
     this.getPurposeByTp();
   }
@@ -254,7 +276,7 @@ export default {
 
   .tap,
   .choose,
-  .campaign{
+  .tableBox{
     margin-bottom: 20px;
   }
 
@@ -419,7 +441,7 @@ export default {
     border-radius: 10px;
   }
 
-  .container .campaign table {
+  .container .tableBox table {
     width: 100%;
     border-collapse: collapse;
     border: solid 1px #e5e5e5; 
@@ -430,12 +452,12 @@ export default {
   }
 
 
-  .container .campaign th,
-  .container .campaign td {
+  .container .tableBox th,
+  .container .tableBox td {
     border: 1px solid #e5e5e5;
   }
 
-  .container .campaign th {
+  .container .tableBox th {
     width: 149px;
     padding: 15px 21px;
     vertical-align: top;
@@ -443,7 +465,7 @@ export default {
     color: #444;
   }
 
-  .container .campaign td {
+  .container .tableBox td {
     height: 46px;
     padding: 8px 7px 7px;
   }
@@ -452,12 +474,12 @@ export default {
     height: 183px;
   }
 
-  .container .campaign td input,
+  .container .tableBox td input,
   #camContents{
     width: 100%;
     height: 100%;
     padding: 5px;
-    border: solid 1px #e5e5e5;
+    border: 1px solid #e5e5e5;
   }
 
   #camContents {
@@ -468,7 +490,7 @@ export default {
     width: 770px;
   }
 
-  .container .upload_name {
+  .container .tableBox .upload_name {
     width: 260px;
     display: block;
     padding: 6px 10px;
@@ -476,7 +498,7 @@ export default {
     float: left;
   }
 
-  .container input[type="file"] {
+  .container .tableBox input[type="file"] {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -487,7 +509,7 @@ export default {
     border: 0;
   }
 
-  .container .upload_name + label {
+  .container .tableBox .upload_name + label {
     display: block;
     float: left;
     width: 124px;
@@ -500,9 +522,10 @@ export default {
     font-weight: 700;
     font-size: 12px;
     letter-spacing: -0.3px;
+    cursor: pointer;
   }
 
-  .container .upload_name + label >i {
+  .container .tableBox .upload_name + label >i {
     font-size: 12px;
     color: #e25b45;
     vertical-align: middle;

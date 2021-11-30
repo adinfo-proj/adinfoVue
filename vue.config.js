@@ -8,6 +8,6 @@ module.exports = {
   devServer: {
     disableHostCheck: true,
     port: 8080,
-//    proxy: 'http://dbfactory.kr:30000'
+    proxy: 'http://api.adinfo.co.kr:30000'
   }
 }
