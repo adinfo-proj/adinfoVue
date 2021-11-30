@@ -223,12 +223,10 @@
             </ul> -->
           </li>
           <li>
-            <router-link to="TEST_etc.vue">test</router-link>
+            <router-link to="TEST_etc">test</router-link>
           </li>
         </ul>
       </div>
-      <!-- <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link> -->
     </div>
     <div id="sectionHeader">
       {{ this.$store.state.headerTopTitle }} <span> > {{ this.$store.state.headerMidTitle }}</span>

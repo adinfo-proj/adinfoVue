@@ -103,8 +103,8 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     component: MENU_0303,
   },
   {// POSTBACK 등록 현황
-    path: "/test",
-    name: "test",
+    path: "/TEST_etc",
+    name: "TEST_etc",
     component: TEST_etc,
   },
 ];

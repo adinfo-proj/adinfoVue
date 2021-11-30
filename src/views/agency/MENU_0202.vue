@@ -412,14 +412,14 @@ export default {
     margin-right: 11px;
   }
 
-  .tableBox{
+  .tableBox {
     border: solid 1px #e5e5e5; 
     width: 100%;
     background: #fff;
     border-radius: 10px;
   }
 
-  .container table{
+  .container .campaign table {
     width: 100%;
     border-collapse: collapse;
     border: solid 1px #e5e5e5; 
@@ -430,12 +430,12 @@ export default {
   }
 
 
-  .container th,
-  .container td {
+  .container .campaign th,
+  .container .campaign td {
     border: 1px solid #e5e5e5;
   }
 
-  .container th{
+  .container .campaign th {
     width: 149px;
     padding: 15px 21px;
     vertical-align: top;
@@ -443,16 +443,16 @@ export default {
     color: #444;
   }
 
-  .container td{
+  .container .campaign td {
     height: 46px;
     padding: 8px 7px 7px;
   }
 
-  .container .notice td{
+  .container .notice td {
     height: 183px;
   }
 
-  .container td input,
+  .container .campaign td input,
   #camContents{
     width: 100%;
     height: 100%;
@@ -464,11 +464,11 @@ export default {
     resize: none
   }
 
-  .container .camName{
+  .container .camName {
     width: 770px;
   }
 
-  .container .upload_name{
+  .container .upload_name {
     width: 260px;
     display: block;
     padding: 6px 10px;
@@ -502,18 +502,18 @@ export default {
     letter-spacing: -0.3px;
   }
 
-  .container .upload_name + label >i{
+  .container .upload_name + label >i {
     font-size: 12px;
     color: #e25b45;
     vertical-align: middle;
   }
-  .container .tableBox input[type="radio"]{
+  .container .tableBox input[type="radio"] {
     width: 10px;
     height: 10px;
     margin-right: 5px;
   }
 
-  .container .tableBox input[type="radio"] + label{
+  .container .tableBox input[type="radio"] + label {
     display: inline-block;
     margin: -5px 20px;
   }
