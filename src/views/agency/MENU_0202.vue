@@ -36,60 +36,60 @@
             <label for="startDate">광고 시작일시<br></label>
             <input type="date" id="startDate1" v-model="theDate">
             <select name="" id="startDate2">
-              <option value="time00">00</option>
-              <option value="time01">01</option>
-              <option value="time02">02</option>
-              <option value="time03">03</option>
-              <option value="time04">04</option>
-              <option value="time05">05</option>
-              <option value="time06">06</option>
-              <option value="time07">07</option>
-              <option value="time08">08</option>
-              <option value="time09">09</option>
-              <option value="time10">10</option>
-              <option value="time11">11</option>
-              <option value="time12">12</option>
-              <option value="time13">13</option>
-              <option value="time14">14</option>
-              <option value="time15">15</option>
-              <option value="time16">16</option>
-              <option value="time17">17</option>
-              <option value="time18">18</option>
-              <option value="time19">19</option>
-              <option value="time20">20</option>
-              <option value="time21">21</option>
-              <option value="time22">22</option>
-              <option value="time23">23</option>
+              <option value="time00">00시</option>
+              <option value="time01">01시</option>
+              <option value="time02">02시</option>
+              <option value="time03">03시</option>
+              <option value="time04">04시</option>
+              <option value="time05">05시</option>
+              <option value="time06">06시</option>
+              <option value="time07">07시</option>
+              <option value="time08">08시</option>
+              <option value="time09">09시</option>
+              <option value="time10">10시</option>
+              <option value="time11">11시</option>
+              <option value="time12">12시</option>
+              <option value="time13">13시</option>
+              <option value="time14">14시</option>
+              <option value="time15">15시</option>
+              <option value="time16">16시</option>
+              <option value="time17">17시</option>
+              <option value="time18">18시</option>
+              <option value="time19">19시</option>
+              <option value="time20">20시</option>
+              <option value="time21">21시</option>
+              <option value="time22">22시</option>
+              <option value="time23">23시</option>
             </select>
           </div>
           <div>
             <label for="closeDate">광고 종료일시<br></label>
             <input type="date" id="closeDate1" v-model="theDate">
             <select name="" id="closeDate2">
-              <option value="time00">00</option>
-              <option value="time01">01</option>
-              <option value="time02">02</option>
-              <option value="time03">03</option>
-              <option value="time04">04</option>
-              <option value="time05">05</option>
-              <option value="time06">06</option>
-              <option value="time07">07</option>
-              <option value="time08">08</option>
-              <option value="time09">09</option>
-              <option value="time10">10</option>
-              <option value="time11">11</option>
-              <option value="time12">12</option>
-              <option value="time13">13</option>
-              <option value="time14">14</option>
-              <option value="time15">15</option>
-              <option value="time16">16</option>
-              <option value="time17">17</option>
-              <option value="time18">18</option>
-              <option value="time19">19</option>
-              <option value="time20">20</option>
-              <option value="time21">21</option>
-              <option value="time22">22</option>
-              <option value="time23">23</option>
+              <option value="time00">00시</option>
+              <option value="time01">01시</option>
+              <option value="time02">02시</option>
+              <option value="time03">03시</option>
+              <option value="time04">04시</option>
+              <option value="time05">05시</option>
+              <option value="time06">06시</option>
+              <option value="time07">07시</option>
+              <option value="time08">08시</option>
+              <option value="time09">09시</option>
+              <option value="time10">10시</option>
+              <option value="time11">11시</option>
+              <option value="time12">12시</option>
+              <option value="time13">13시</option>
+              <option value="time14">14시</option>
+              <option value="time15">15시</option>
+              <option value="time16">16시</option>
+              <option value="time17">17시</option>
+              <option value="time18">18시</option>
+              <option value="time19">19시</option>
+              <option value="time20">20시</option>
+              <option value="time21">21시</option>
+              <option value="time22">22시</option>
+              <option value="time23">23시</option>
             </select>
           </div>
         </div>
@@ -131,7 +131,7 @@
       <table>
         <tr>
           <th>캠페인 명</th>
-          <td><input type="text" class="camName"></td>
+          <td><input type="text" class="camName" autofocus></td>
         </tr>
         <tr>
           <th>캠페인 배너</th>
@@ -154,7 +154,7 @@
           <th>SMS 수신 여부</th>
           <td>
             DB접수 시 SMS를 수신합니다. 
-            <input type="radio" name="sms" id="smsY"><label for="smsY">네</label>
+            <input type="radio" name="sms" id="smsY"><label for="smsY">예</label>
             <input type="radio" name="sms" id="smsN"><label for="smsN">아니오</label>
           </td>
         </tr>
@@ -169,7 +169,7 @@
           <td><input type="text" name="" id=""></td>
         </tr>
         <tr>
-          <td class="tableHead">수량</td>
+          <td class="tableHead">DB 진행 수량</td>
           <td><input type="text" name="" id=""></td>
           <td class="tableHead">승인률</td>
           <td><input type="text" name="" id=""></td>
@@ -190,19 +190,52 @@
           <td colspan="3"><input type="text" name="" id=""></td>
         </tr>
         <tr>
+          <td class="tableHead">진행(선호) 채널</td>
+          <td colspan="3" class="chooseCheck">
+
+
+
+          <div class="checkingBox">
+            <input type="checkbox" id="prohibitAll"
+            :checked="banChannelAll"
+            @change="BanChannelAll()"><label for="prohibitAll">전체</label>
+          </div>
+
+          <div class="checkingBox"
+            v-for="(banChannel, index) in banChannelObj"
+            :key="index"
+            @change="BanChannelOne(index)"
+          >
+
+            <input 
+              type="checkbox" 
+              :checked="banChannel.flag"
+            ><label for="preferNaverSearch">{{ banChannel.codeNm }}</label>            
+          </div>
+
+
+
+
+
+
+
+
+          </td>
+        </tr>
+        <tr>
           <td class="tableHead">금지 채널</td>
           <td colspan="3" class="chooseCheck">
-            <input type="checkbox" name="naverSearch" id="naverSearch" ><label for="naverSearch">네이버 검색</label>
-            <input type="checkbox" name="naverCafe" id="naverCafe"><label for="naverCafe">네이버 카페</label>
-            <input type="checkbox" name="naverBand" id="naverBand" ><label for="naverBand">네이버 밴드</label>
-            <input type="checkbox" name="naverGfa" id="naverGfa" ><label for="naverGfa">네이버 GFA</label>
-            <input type="checkbox" name="googleGdn" id="googleGdn" ><label for="googleGdn">구글 GDN</label>
-            <input type="checkbox" name="mediaPress" id="mediaPress" ><label for="mediaPress">언론미디어</label>
-            <input type="checkbox" name="blog" id="blog" ><label for="blog">블로그</label>
-            <input type="checkbox" name="daumCafe" id="daumCafe" ><label for="daumCafe">다음 카페</label>
-            <input type="checkbox" name="facebook" id="facebook" ><label for="facebook">페이스북</label>
-            <input type="checkbox" name="insta" id="insta" ><label for="insta">인스타그램</label>
-            <input type="checkbox" name="kakao" id="kakao" ><label for="kakao">카카오</label>
+            <input type="checkbox" name="prohibitChannel" id="prohibitNaverSearch" value="prohibitNaverSearch"><label for="naverSearch">네이버 검색</label>
+            <input type="checkbox" name="prohibitChannel" id="prohibitNaverCafe" value="prohibitNaverCafe"><label for="naverCafe">네이버 카페</label>
+            <input type="checkbox" name="prohibitChannel" id="prohibitNaverBand" value="prohibitNaverBand"><label for="naverBand">네이버 밴드</label>
+            <input type="checkbox" name="prohibitChannel" id="prohibitNaverGfa" value="prohibitNaverGfa"><label for="naverGfa">네이버 GFA</label>
+            <input type="checkbox" name="prohibitChannel" id="prohibitGoogleGdn" value="prohibitGoogleGdn"><label for="googleGdn">구글 GDN</label>
+            <input type="checkbox" name="prohibitChannel" id="prohibitMediaPress" value="prohibitMediaPress"><label for="mediaPress">언론미디어</label>
+            <input type="checkbox" name="prohibitChannel" id="prohibitBlog" value="prohibitBlog"><label for="blog">블로그</label>
+            <input type="checkbox" name="prohibitChannel" id="prohibitDaumCafe" value="prohibitDaumCafe"><label for="daumCafe">다음 카페</label>
+            <input type="checkbox" name="prohibitChannel" id="prohibitFacebook" value="prohibitFacebook"><label for="facebook">페이스북</label>
+            <input type="checkbox" name="prohibitChannel" id="prohibitInsta"  value="prohibitInsta"><label for="insta">인스타그램</label>
+            <input type="checkbox" name="prohibitChannel" id="prohibitKakao"  value="prohibitKakao"><label for="kakao">카카오</label>
           </td>
         </tr>
         <tr>
@@ -210,7 +243,7 @@
           <td colspan="3"><input type="text" name="" id=""></td>
         </tr>
         <tr>
-          <td class="tableHead">금지 단어</td>
+          <td class="tableHead">금지 키워드</td>
           <td colspan="3"><input type="text" name="" id=""></td>
         </tr>
         <tr>
@@ -235,7 +268,7 @@
         <tr>
           <td class="tableHead">외부 입력 사용</td>
           <td>
-            <input type="radio" name="cpa" id="cpaY"><label for="cpaY">네</label>
+            <input type="radio" name="cpa" id="cpaY"><label for="cpaY">예</label>
             <input type="radio" name="cpa" id="cpaN"><label for="cpaN">아니오</label>
           </td>
           <td class="tableHead">기타자료</td>
@@ -253,7 +286,7 @@
           <td class="tableHead" rowspan="2">랜딩페이지 보유</td>
           <td class="tableMiddle">랜딩 URL</td>
           <td colspan="2">
-            <input type="text" name="" id="">
+            <input type="text" name="" id=""> 
           </td>
         </tr>
         <tr>
@@ -321,6 +354,13 @@ export default {
       adMiddleKind: String,       // 캠페인 2차 분류
       adTopKindObj: Object,       // 캠페인 1차 분류 객체
       adMiddleKindObj: Object,    // 캠페인 2차 분류 객체
+
+      
+      banChannel: Object,         // 선호채널
+      banChannelObj: [],      // 선호채널 객체
+      banChannelAll: true,     // 전체선택체크박스
+
+
       adName: String,             // 캠페인 명
       adComment: String,          // 캠페인 내용
       adUsp: String,              // 광고 이벤트설정
@@ -345,7 +385,7 @@ export default {
     }
   },
   methods: {
-    getPurposeByTp () { // 캠페인 목적
+    getCommonByTp0005 () { // 캠페인 목적
       axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
         {
           params: {
@@ -362,7 +402,7 @@ export default {
         console.log(error);
       })
     },
-    getCommonByTp () { // 캠페인 분류
+    getCommonByTp0000 () { // 캠페인 분류(대분류)
       axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
         {
           params: {
@@ -380,7 +420,7 @@ export default {
         console.log(error);
       })
     },
-    firstComboChg(code) {
+    firstComboChg(code) { // 캼패안 분류(소분류)
       axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
         {
           params: {
@@ -397,11 +437,124 @@ export default {
       .catch(error => {
         console.log(error);
       })
+    },
+    getCommonByTp0015() {
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      {
+        params: {
+          tp: '0015'
+        } // 실제로 브라우저에서 입력 시 http://127.0.0.1:30000/CommonCode/getCommonByTp?tp=0015 로 자동으로 불러와짐
+      })
+      .then(response => {
+        console.log(response);
+
+        if(response.data.length > 0) {
+          this.banChannelObj = response.data;
+          for( let i = 0 ; i < this.banChannelObj.length ; i++) {
+            this.banChannelObj[i].flag = true;  
+          }
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
+
+
+
+
+
+    BanChannelAll() {
+      if(this.banChannelAll == true) {
+        
+        for( let i = 0 ; i < this.banChannelObj.length ; i++) {
+          this.banChannelObj[i].flag = false;
+        }
+
+        this.banChannelAll = false;
+
+      }
+      else {
+        for( let i = 0 ; i < this.banChannelObj.length ; i++) {
+          this.banChannelObj[i].flag = true;
+        }
+
+        this.banChannelAll = true;
+      }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    BanChannelOne(index) {
+      if(this.banChannelObj[index].flag == true) {
+        this.banChannelObj[index].flag = false;
+        this.banChannelAll = false;        
+      }
+      else {
+        let bFlag = true;
+        this.banChannelObj[index].flag = true;
+
+        for( let i = 0 ; i < this.banChannelObj.length ; i++) {
+          if( this.banChannelObj[i].flag == false) {
+            bFlag = false;
+          }
+        }
+
+        if( bFlag == true) {
+          this.banChannelAll = true;
+        }
+      }
+
+
+
+
+
+
+
+
+/*
+      if(this.banChannelObj[index].flag == true) {
+        let bFlag = true;
+        for( let i = 0 ; i < this.banChannelObj.length ; i++) {
+          if( this.banChannelObj[i].flag == false) {
+            bFlag = false;
+          }
+        }
+
+        if(bFlag == true) {
+          this.banChannelAll = true;
+
+          for( let i = 0 ; i < this.banChannelObj.length ; i++) {
+            this.banChannelObj[i].flag = true;
+          }
+        }
+      }
+      else {
+        this.banChannelAll = false;
+      }
+*/
+
+
     }
   },
+  watch: {
+  },
   created() {
-    this.getCommonByTp();
-    this.getPurposeByTp();
+    this.getCommonByTp0000();
+    this.getCommonByTp0005();
+    this.getCommonByTp0015();
   }
 }
 </script>
@@ -579,6 +732,11 @@ export default {
     margin-right: 2%;
   }
 
+  .chooseDate select option{
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+
   .camBox select {
     width: 100%;
   }
@@ -727,6 +885,10 @@ export default {
     width: 60px;
   }
 
+  .container .tableBox .checkingBox{
+    float: left;
+  }
+
   .container .tableBox input[type="checkbox"] {
     margin: 0 5px;
     transform: translateY(2px);
@@ -787,7 +949,7 @@ export default {
     color: #fff;
     font-weight: 700;
     font-size: 16px;
-    border: none;
+    border: none   ;
   }
 
 

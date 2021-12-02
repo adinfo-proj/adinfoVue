@@ -20,7 +20,7 @@
                   <ellipse id="타원_2" data-name="타원 2" cx="2.471" cy="6.588" rx="2.471" ry="6.588" transform="translate(127.235 137.941)" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
                 </g>
               </svg>
-              DASHBOOARD
+              DASHBOARD
             </router-link>
           </li>
           <li>
