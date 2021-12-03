@@ -1,7 +1,7 @@
 <template>
   <div class="container"> 
     <!-- 1400*1140 -->
-    <div class="tap"> <!-- 추후 각 a태그 별 변수 지정-->
+    <div class="tap" > <!-- 추후 각 a태그 별 변수 지정-->
       <a class="cpa on" href="javascript:void(0)"><img src="../../assets/images/icon01.png" alt="icon01">CPA광고</a> 
       <a class="cps" href="javascript:void(0)"><img src="../../assets/images/icon02.png" alt="icon02">CPS광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
       <a class="cpp" href="javascript:void(0)"><img src="../../assets/images/icon03.png" alt="icon03">CPP광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
@@ -34,62 +34,62 @@
         <div class="firstBox">
           <div class="startDate">
             <label for="startDate">광고 시작일시<br></label>
-            <input type="date" id="startDate1" v-model="theDate">
-            <select name="" id="startDate2">
-              <option value="time00">00시</option>
-              <option value="time01">01시</option>
-              <option value="time02">02시</option>
-              <option value="time03">03시</option>
-              <option value="time04">04시</option>
-              <option value="time05">05시</option>
-              <option value="time06">06시</option>
-              <option value="time07">07시</option>
-              <option value="time08">08시</option>
-              <option value="time09">09시</option>
-              <option value="time10">10시</option>
-              <option value="time11">11시</option>
-              <option value="time12">12시</option>
-              <option value="time13">13시</option>
-              <option value="time14">14시</option>
-              <option value="time15">15시</option>
-              <option value="time16">16시</option>
-              <option value="time17">17시</option>
-              <option value="time18">18시</option>
-              <option value="time19">19시</option>
-              <option value="time20">20시</option>
-              <option value="time21">21시</option>
-              <option value="time22">22시</option>
-              <option value="time23">23시</option>
+            <input type="date" id="startDate1" v-model="adSrtDt">
+            <select name="" id="startDate2" v-model="adSrtTm">
+              <option value="00">00시</option>
+              <option value="01">01시</option>
+              <option value="02">02시</option>
+              <option value="03">03시</option>
+              <option value="04">04시</option>
+              <option value="05">05시</option>
+              <option value="06">06시</option>
+              <option value="07">07시</option>
+              <option value="08">08시</option>
+              <option value="09">09시</option>
+              <option value="10">10시</option>
+              <option value="11">11시</option>
+              <option value="12">12시</option>
+              <option value="13">13시</option>
+              <option value="14">14시</option>
+              <option value="15">15시</option>
+              <option value="16">16시</option>
+              <option value="17">17시</option>
+              <option value="18">18시</option>
+              <option value="19">19시</option>
+              <option value="20">20시</option>
+              <option value="21">21시</option>
+              <option value="22">22시</option>
+              <option value="23">23시</option>
             </select>
           </div>
           <div>
             <label for="closeDate">광고 종료일시<br></label>
-            <input type="date" id="closeDate1" v-model="theDate">
-            <select name="" id="closeDate2">
-              <option value="time00">00시</option>
-              <option value="time01">01시</option>
-              <option value="time02">02시</option>
-              <option value="time03">03시</option>
-              <option value="time04">04시</option>
-              <option value="time05">05시</option>
-              <option value="time06">06시</option>
-              <option value="time07">07시</option>
-              <option value="time08">08시</option>
-              <option value="time09">09시</option>
-              <option value="time10">10시</option>
-              <option value="time11">11시</option>
-              <option value="time12">12시</option>
-              <option value="time13">13시</option>
-              <option value="time14">14시</option>
-              <option value="time15">15시</option>
-              <option value="time16">16시</option>
-              <option value="time17">17시</option>
-              <option value="time18">18시</option>
-              <option value="time19">19시</option>
-              <option value="time20">20시</option>
-              <option value="time21">21시</option>
-              <option value="time22">22시</option>
-              <option value="time23">23시</option>
+            <input type="date" id="closeDate1" v-model="adEndDt">
+            <select name="" id="closeDate2"  v-model="adEndTm">
+              <option value="00">00시</option>
+              <option value="01">01시</option>
+              <option value="02">02시</option>
+              <option value="03">03시</option>
+              <option value="04">04시</option>
+              <option value="05">05시</option>
+              <option value="06">06시</option>
+              <option value="07">07시</option>
+              <option value="08">08시</option>
+              <option value="09">09시</option>
+              <option value="10">10시</option>
+              <option value="11">11시</option>
+              <option value="12">12시</option>
+              <option value="13">13시</option>
+              <option value="14">14시</option>
+              <option value="15">15시</option>
+              <option value="16">16시</option>
+              <option value="17">17시</option>
+              <option value="18">18시</option>
+              <option value="19">19시</option>
+              <option value="20">20시</option>
+              <option value="21">21시</option>
+              <option value="22">22시</option>
+              <option value="23">23시</option>
             </select>
           </div>
         </div>
@@ -118,7 +118,7 @@
               <select class="camParcel02" v-model="adMiddleKind">2차 분류를 선택
                 <option v-for="(adIndex, index) in adMiddleKindObj"
                   :key="index"
-                  :value="adIndex.code"
+                  :value="adIndex.subCode"
                   >{{ adIndex.codeDescr }}
                 </option>
               </select>
@@ -131,7 +131,7 @@
       <table>
         <tr>
           <th>캠페인 명</th>
-          <td><input type="text" class="camName" autofocus></td>
+          <td><input type="text" class="camName" v-model="adName" autofocus></td>
         </tr>
         <tr>
           <th>캠페인 배너</th>
@@ -143,19 +143,20 @@
         </tr>
         <tr class="notice">
           <th>캠페인 내용</th>
-          <td><textarea name="" id="camContents"></textarea></td>
+          <td><textarea name="" id="camContents" v-model="adComment"></textarea></td>
           <!-- cols="30" rows="10" -->
         </tr>
         <tr>
           <th>광고 USP 설정</th>
-          <td><input type="text" name="" id=""></td>
+          <td><input type="text" name="" id="" v-model="adUsp"></td>
         </tr>
         <tr>
           <th>SMS 수신 여부</th>
           <td>
             DB접수 시 SMS를 수신합니다. 
-            <input type="radio" name="sms" id="smsY"><label for="smsY">예</label>
-            <input type="radio" name="sms" id="smsN"><label for="smsN">아니오</label>
+            <input type="radio" name="sms" id="smsY" v-model="smsYn" value="Y"><label for="smsY">예</label>
+            <input type="text" id="phoneNum" placeholder="연락처를 입력해주세요." maxlength="11" v-model="smsNo">
+            <input type="radio" name="sms" id="smsN" v-model="smsYn" value="N" ><label for="smsN">아니오</label> 
           </td>
         </tr>
       </table>
@@ -164,30 +165,30 @@
       <table>
         <tr>
           <td class="tableHead">캠페인 단가</td>
-          <td><input type="text" name="" id=""></td>
+          <td><input type="text" name="" id="" v-model="adPrice"></td>
           <td class="tableHead">캠페인 프로모션 단가</td>
-          <td><input type="text" name="" id=""></td>
+          <td><input type="text" name="" id="" v-model="adPromotionPrice"></td>
         </tr>
         <tr>
           <td class="tableHead">DB 진행 수량</td>
-          <td><input type="text" name="" id=""></td>
+          <td><input type="text" name="" id="" v-model="adMinQty" placeholder="최소 수량 100건 이상"></td>
           <td class="tableHead">승인률</td>
-          <td><input type="text" name="" id=""></td>
+          <td><input type="text" name="" id="" v-model="approval"></td>
         </tr>
         <tr>
           <td class="tableHead">일별 DB 접수 제한</td>
-          <td><input type="text" name="" id=""></td>
+          <td><input type="text" name="" id="" v-model="dayLimit"></td>
           <td class="tableHead">연령 타겟</td>
           <td>
-            <input type="radio" name="tagetAge" id="tagetAgeY"><label for="tagetAgeY">나이제한 없음</label>
-            <input type="radio" name="tagetAge" id="tagetAgeN"><label for="tagetAgeN">나이제한 있음</label>
-            <input type="text" name="tagetAge" class="tagetAge" id="fromAge"> ~ 
-            <input type="text" name="tagetAge" class="tagetAge" id="toAge">
+            <input type="radio" name="tagetAge" id="tagetAgeY" v-model="ageTarget" value="N"><label for="tagetAgeY">나이제한 없음</label>
+            <input type="radio" name="tagetAge" id="tagetAgeN" v-model="ageTarget" value="Y"><label for="tagetAgeN">나이제한 있음</label>
+            <input type="text" name="tagetAge" class="tagetAge" id="fromAge" v-model="ageTargetFrom"> ~ 
+            <input type="text" name="tagetAge" class="tagetAge" id="toAge" v-model="ageTargetTo">
           </td>
         </tr>
         <tr>
           <td class="tableHead">필수 키워드</td>
-          <td colspan="3"><input type="text" name="" id=""></td>
+          <td colspan="3"><input type="text" name="" id="" v-model="reqWordCond"></td>
         </tr>
         <tr>
           <td class="tableHead">진행(선호) 채널</td>
@@ -198,24 +199,20 @@
           <div class="checkingBox">
             <input type="checkbox" id="prohibitAll"
             :checked="banChannelAll"
-            @change="BanChannelAll()"><label for="prohibitAll">전체</label>
+            @click="BanChannelAll()"><label for="prohibitAll">전체</label>
           </div>
 
           <div class="checkingBox"
             v-for="(banChannel, index) in banChannelObj"
             :key="index"
-            @change="BanChannelOne(index)"
+            @click="BanChannelOne(index)"
           >
 
             <input 
               type="checkbox" 
               :checked="banChannel.flag"
-            ><label for="preferNaverSearch">{{ banChannel.codeNm }}</label>            
+            ><label for="">{{ banChannel.codeNm }}</label>            
           </div>
-
-
-
-
 
 
 
@@ -225,19 +222,29 @@
         <tr>
           <td class="tableHead">금지 채널</td>
           <td colspan="3" class="chooseCheck">
-            <input type="checkbox" name="prohibitChannel" id="prohibitNaverSearch" value="prohibitNaverSearch"><label for="naverSearch">네이버 검색</label>
-            <input type="checkbox" name="prohibitChannel" id="prohibitNaverCafe" value="prohibitNaverCafe"><label for="naverCafe">네이버 카페</label>
-            <input type="checkbox" name="prohibitChannel" id="prohibitNaverBand" value="prohibitNaverBand"><label for="naverBand">네이버 밴드</label>
-            <input type="checkbox" name="prohibitChannel" id="prohibitNaverGfa" value="prohibitNaverGfa"><label for="naverGfa">네이버 GFA</label>
-            <input type="checkbox" name="prohibitChannel" id="prohibitGoogleGdn" value="prohibitGoogleGdn"><label for="googleGdn">구글 GDN</label>
-            <input type="checkbox" name="prohibitChannel" id="prohibitMediaPress" value="prohibitMediaPress"><label for="mediaPress">언론미디어</label>
-            <input type="checkbox" name="prohibitChannel" id="prohibitBlog" value="prohibitBlog"><label for="blog">블로그</label>
-            <input type="checkbox" name="prohibitChannel" id="prohibitDaumCafe" value="prohibitDaumCafe"><label for="daumCafe">다음 카페</label>
-            <input type="checkbox" name="prohibitChannel" id="prohibitFacebook" value="prohibitFacebook"><label for="facebook">페이스북</label>
-            <input type="checkbox" name="prohibitChannel" id="prohibitInsta"  value="prohibitInsta"><label for="insta">인스타그램</label>
-            <input type="checkbox" name="prohibitChannel" id="prohibitKakao"  value="prohibitKakao"><label for="kakao">카카오</label>
+
+            <div class="checkingBox"
+              v-for="(banExChannel, index) in banExChannelObj"
+              :key="index"
+              @click="BanExChannelOne(index)"
+            >
+
+              <input 
+                type="checkbox" 
+                :checked="banExChannel.flag"
+              ><label for="">{{ banExChannel.codeNm }}</label>            
+            </div>
           </td>
         </tr>
+
+
+
+
+
+
+
+
+
         <tr>
           <td class="tableHead">금지 이미지</td>
           <td colspan="3"><input type="text" name="" id=""></td>
@@ -247,22 +254,48 @@
           <td colspan="3"><input type="text" name="" id=""></td>
         </tr>
         <tr>
+
+
+
+          <!-- 무효조건 관련-->
+
           <td class="tableHead">무효 조건</td>
           <td colspan="3">
-            <input type="checkbox" name="cancle01" id="cancle01" ><label for="cancle01">결번</label>
-            <input type="checkbox" name="cancle02" id="cancle02"><label for="cancle02">중복</label>
-            <input type="checkbox" name="cancle03" id="cancle03" ><label for="cancle03">외국인</label>
-            <input type="checkbox" name="cancle04" id="cancle04" ><label for="cancle04">미성년자</label>
+
+            <div class="checkingBox nullify"
+              v-for="(nullifyCond, index) in nullifyCondObj"
+              :key="index"
+            >
+
+              <input
+                type="checkbox" 
+                name ="cancleCond"
+              ><label for="cancleCond">{{ nullifyCond.codeNm }}</label>            
+            </div>
+            <input type="text" id="cancleCondEtc">
+            
           </td>
+
+
+
+
+
+
+
+
+
+
+
+
         </tr>
         <tr>
           <td class="tableHead">취소 조건</td>
-          <td><input type="text" name="" id=""></td>
+          <td><input type="text" name="" id="" v-model="cancelCond"></td>
           <td class="tableHead">자동화 확정 일수</td>
           <td>
-            <input type="radio" name="confirmDate" id="date7"><label for="date7">7일</label>
-            <input type="radio" name="confirmDate" id="date15"><label for="date15">15일</label>
-            <input type="radio" name="confirmDate" id="dateETC"><label for="dateETC">기타(협의 필요) <input type="text" name="" id="dateETC2"></label>
+            <input type="radio" name="confirmDate" id="date7" v-model="autoConfirm" value="day7"><label for="date7">7일</label>
+            <input type="radio" name="confirmDate" id="date15" v-model="autoConfirm" value="day15"><label for="date15">15일</label>
+            <input type="radio" name="confirmDate" id="dateETC" v-model="autoConfirm" value="dayEtc"><label for="dateETC">기타(협의 필요) <input type="text" name="" id="dateETC2"></label>
           </td>
         </tr>
         <tr>
@@ -280,16 +313,20 @@
         </tr>
       </table>
     </div>
+    
+    <p class="lendLabel">랜딩페이지 보유 여부</p>
+    <input type="radio" name="lendPage" id="lendPageY"><label for="lendPageY">페이지 보유</label>
+    <input type="radio" name="lendPage" id="lendPageN"><label for="lendPageN">페이지 미보유</label>
     <div class="lend tableBox">
       <table>
-        <tr>
+        <tr class="lendOwn">
           <td class="tableHead" rowspan="2">랜딩페이지 보유</td>
-          <td class="tableMiddle">랜딩 URL</td>
-          <td colspan="2">
+          <td class="tableMiddleRight">랜딩 URL</td>
+          <td class="tableMiddleLeft" colspan="2">
             <input type="text" name="" id=""> 
           </td>
         </tr>
-        <tr>
+        <tr class="lendOwn">
           <td colspan="2">외부입력 폼 제공
             <input type="radio" name="" id=""><label for="">예</label>
             <input type="radio" name="" id=""><label for="">아니오</label>
@@ -299,25 +336,25 @@
             <button id="popUP02">랜딩 픽셀,스크립트 설치 요청하기</button>
           </td>
         </tr>
-        <tr>
+        <tr class="lendNotOwn">
           <td class="tableHead" rowspan="4">랜딩페이지 미보유</td>
-          <td class="tableMiddle">참고 URL</td>
-          <td colspan="2">
+          <td class="tableMiddleRight">참고 URL</td>
+          <td class="tableMiddleLeft" colspan="2">
             <input type="text" name="" id="">
           </td>
         </tr>
-        <tr>
-          <td class="tableMiddle">참고이미지</td>
-          <td colspan="2">
+        <tr class="lendNotOwn">
+          <td class="tableMiddleRight">참고이미지</td>
+          <td class="tableMiddleLeft" colspan="2">
             <input id="etcImages" class="upload_name" value="" disabled="disabled">
             <label for="referFile">이미지 등록하기 <i class="fas fa-plus"></i></label> 
             <input type="file" accept="" id="referFile" class="upload_hidden">
           </td>
         </tr>
-        <tr class="obscured">
+        <tr class="obscured lendNotOwn">
           <td colspan="3"></td>
         </tr>
-        <tr>
+        <tr class="lendNotOwn">
           <td colspan="3" class="tableMiddle" d>
             <input type="checkbox" name="" id=""><label for="">이름</label>
             <input type="checkbox" name="" id=""><label for="">전화번호</label>
@@ -326,9 +363,8 @@
       </table>
     </div>
     <div class="submitBtn">
-      <button > 등록하기 </button>
+      <button @click="createCampaign()"> 등록하기 </button>
     </div>
-
   </div>
 </template>
 
@@ -340,45 +376,54 @@ export default {
   // 
   data() {
     return {
-      adKind: String,             // 캠페인 종류
-      adArea: Object,             // 광고지역
-      adAreaEtc: String,          // 기타지역
-      theDate: new Date().toISOString().substr(0, 10), // 오늘날짜 표기
-      adSrtDt: String,            // YYYYMMDD
-      adSrtTm: String,            // HHMMSS
-      adEndDt: String,            // YYYYMMDD
-      adEndTm: String,            // HHMMSS
-      adPurpose: String,          // 캠페인 목적
-      adPurposeObj: Object,       // 캠페인 목적 객체
-      adTopKind: String,          // 캠페인 1차 분류 
-      adMiddleKind: String,       // 캠페인 2차 분류
-      adTopKindObj: Object,       // 캠페인 1차 분류 객체
-      adMiddleKindObj: Object,    // 캠페인 2차 분류 객체
+      adKind: '',             // 캠페인 종류
+      adArea: '',             // 광고지역
+      adAreaEtc: '',          // 기타지역
+      adSrtDt: new Date().toISOString().substr(0, 10),            // YYYYMMDD
+      adSrtTm: '',            // HHMMSS
+      adEndDt: new Date().toISOString().substr(0, 10),            // YYYYMMDD
+      adEndTm: '',            // HHMMSS
+      adPurpose: '',          // 캠페인 목적
+      adPurposeObj: '',       // 캠페인 목적 객체
+      adTopKind: '',          // 캠페인 1차 분류 
+      adMiddleKind: '',       // 캠페인 2차 분류
+      adTopKindObj: '',       // 캠페인 1차 분류 객체
+      adMiddleKindObj: '',    // 캠페인 2차 분류 객체
 
+      adName: '',             // 캠페인 명
+      adComment: '',          // 캠페인 내용
+      adUsp: '',              // 광고 이벤트설정
+      smsYn: '',             // DB 접수 시 SMS 수신 여부 Y
+      smsNo: '',              // DB 접수 시 SMS 수신 여부
+      adPrice: '',            // 캠페인 단가
+      adPromotionPrice: '',   // 캠페인 프로모션 단가
+      adMinQty: '',           // 캠페인 최소 수량
+      dayLimit: '',           // 일별 DB 접수 제한 건수
+      approval: '',           // 승인률
+      ageTarget: '',          // 연령 타겟 {from:"", to: ""}
+      ageTargetFrom: '',      // from
+      ageTargetTo: '',        // to
+      reqWordCond: '',        // 필수 키워드
       
-      banChannel: Object,         // 선호채널
-      banChannelObj: [],      // 선호채널 객체
-      banChannelAll: true,     // 전체선택체크박스
+      banChannel: '',         // 선호채널
+      banChannelObj: '',      // 선호채널 객체
+      banChannelAll: true,        // 전체선택체크박스
+      banExChannel: '',       // 금지채널
+      banExChannelObj: '',    // 금지채널
+      banWordCond: '',        // 금지단어
+      
+      nullifyCond:'',         // 무효조건
+      nullifyCondObj:'',      // 무효조건 객체
+      cancelCond: '',         // 취소조건
+      autoConfirm: '',        // 자동확정일수
 
 
-      adName: String,             // 캠페인 명
-      adComment: String,          // 캠페인 내용
-      adUsp: String,              // 광고 이벤트설정
-      smsYn: Boolean,             // DB 접수 시 SMS 수신 여부 Y
-      smsNo: String,              // DB 접수 시 SMS 수신 여부
-      landingPageTitle: String,   // DB 접수 시 SMS 수신 번호
-      landingUrl: String,         // 캠페인 단가
-      adPrice: String,            // 캠페인 프로모션 단가
-      adPromotionPrice: String,
-      dayLimit: String,
-      approval: String,
-      ageTarget: Object,     // {from:"", to: ""}
-      reqWordCond: String,
-      banChannelCond: Object,
-      banImageCond: String,
-      banWordCond: String,
-      nullifyCond: Object,
-      cancelCond: Object,
+
+
+
+      landingPageTitle: '',   // DB 접수 시 SMS 수신 번호
+      landingUrl: '',         // 캠페인 단가
+
       apdText1: String,
       apdText2: String,
       apdText3: String,
@@ -430,7 +475,7 @@ export default {
       })
       .then(response => {
         if(response.data.length > 0) {
-          this.adMiddleKind = response.data[0].code;
+          this.adMiddleKind = response.data[0].subCode;
           this.adMiddleKindObj = response.data;
         }
       })
@@ -438,33 +483,53 @@ export default {
         console.log(error);
       })
     },
-    getCommonByTp0015() {
+    getCommonByTp0015(inPos) {
       axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      // --> 나중에 수정할것 // "http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
       {
         params: {
           tp: '0015'
         } // 실제로 브라우저에서 입력 시 http://127.0.0.1:30000/CommonCode/getCommonByTp?tp=0015 로 자동으로 불러와짐
       })
       .then(response => {
-        console.log(response);
-
-        if(response.data.length > 0) {
+        if(inPos === 1) {
           this.banChannelObj = response.data;
-          for( let i = 0 ; i < this.banChannelObj.length ; i++) {
-            this.banChannelObj[i].flag = true;  
+        }
+        else {
+          this.banExChannelObj = response.data;
+
+          for(let i = 0 ; i < this.banExChannelObj.length; i++) {
+            this.banExChannelObj[i].flag = false;
           }
         }
+        
       })
       .catch(error => {
         console.log(error);
       })
     },
 
+    getCommonByTp0017() {
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      {
+        params: {
+          tp: '0017'
+        }
+      })
+      .then(response => {
+        if(response.data.length > 0) {
+          for( let i = 0 ; i < this.nullifyCondObj.length ; i++) {
+            this.nullifyCondObj = response.data;
+          }
+        }
+        
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
 
-
-
-
-    BanChannelAll() {
+    BanChannelAll() { // 전체 선택 함수
       if(this.banChannelAll == true) {
         
         for( let i = 0 ; i < this.banChannelObj.length ; i++) {
@@ -477,27 +542,13 @@ export default {
       else {
         for( let i = 0 ; i < this.banChannelObj.length ; i++) {
           this.banChannelObj[i].flag = true;
+          this.banExChannelObj[i].flag = false;
         }
 
         this.banChannelAll = true;
       }
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    BanChannelOne(index) {
+    BanChannelOne(index) { // 개별 선택 시 전체선택 값에 대한 함수
       if(this.banChannelObj[index].flag == true) {
         this.banChannelObj[index].flag = false;
         this.banChannelAll = false;        
@@ -514,47 +565,146 @@ export default {
 
         if( bFlag == true) {
           this.banChannelAll = true;
-        }
+        }        
       }
 
-
-
-
-
-
-
-
-/*
-      if(this.banChannelObj[index].flag == true) {
-        let bFlag = true;
-        for( let i = 0 ; i < this.banChannelObj.length ; i++) {
-          if( this.banChannelObj[i].flag == false) {
-            bFlag = false;
-          }
-        }
-
-        if(bFlag == true) {
-          this.banChannelAll = true;
-
-          for( let i = 0 ; i < this.banChannelObj.length ; i++) {
-            this.banChannelObj[i].flag = true;
-          }
-        }
+      if( this.banChannelObj[index].flag == true) {
+        this.banExChannelObj[index].flag = false;
       }
-      else {
+    },
+    BanExChannelOne(index) {
+      this.banExChannelObj[index].flag == false 
+      ? this.banExChannelObj[index].flag = true 
+      : this.banExChannelObj[index].flag = false;
+
+      if( this.banExChannelObj[index].flag == true ) {
+        this.banChannelObj[index].flag = false;
         this.banChannelAll = false;
+      }    
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    createCampaign() {
+      //------------------------------------------------------------------------------
+      // 날짜에서 2021-12-03 에서 '-'를 제거한다. 예) 2021-12-03 -> 20211203
+      //------------------------------------------------------------------------------
+      this.adSrtDt = this.adSrtDt.replace(/-/gi,"", (match) => {
+        return '' + match + '';
+      });
+      this.adEndDt = this.adEndDt.replace(/-/gi,"", (match) => {
+        return '' + match + '';
+      });
+
+      //------------------------------------------------------------------------------
+      // 진행(선호)채널에서 선택한 코드만 Array로 담아 전송.
+      //------------------------------------------------------------------------------
+      console.log("Step 00");
+      for(let i = 0 ; i < this.banChannelObj.length; i++) {
+        console.log("Step 01");
+        if( this.banChannelObj[i].flag == true) {
+          console.log("banChannelObj["+i+"].flag : [" + this.banChannelObj[i].flag + "]");
+        }
+        console.log("Step 02");
       }
+      console.log("Step 03");
+
+    
+/*
+      let arr3 = this.banChannelObj.map((currValue) => {
+        if( currValue.flag == true){
+          return currValue.code;
+        }
+      })
 */
+      const arr3 = this.banChannelObj.filter((currValue) => {
+          return currValue.flag == true
+      })
+
+      console.log("arr3 : " + JSON.stringify(arr3));
+      console.log("arr3 : " +arr3[0].code);
+
+  
 
 
-    }
+
+
+      axios.get("http://api.adinfo.co.kr:30000/manage/newcampaign", {
+        params: {
+              adKind: 'CPA'
+            , adArea: '00000'
+            , adSrtDt: this.adSrtDt
+            , adSrtTm: this.adSrtTm
+            , adEndDt: this.adEndDt
+            , adEndTm: this.adEndTm
+            , adPurpose: this.adPurpose
+            , adMiddleKind: this.adMiddleKind
+            , adName: this.adName           
+            , adComment: this.adComment     
+            , adUsp: this.adUsp         
+            , smsYn: this.smsYn         
+            , smsNo: this.smsNo         
+            , adPrice: this.adPrice     
+            , adPromotionPrice: this.adPromotionPrice 
+            , adMinQty: this.adMinQty                
+            , dayLimit: this.dayLimit         
+            , approval: this.approval         
+            , ageTarget: this.ageTarget       
+            , ageTargetFrom: this.ageTargetFrom
+            , ageTargetTo: this.ageTargetTo
+            , reqWordCon: this.reqWordCond    
+            , banChannel: this.banChannel     
+            , banExChannel: this.banExChannel 
+            , banWordCond: this.banWordCond   
+            , nullifyCond: this.nullifyCond   
+            , cancelCond: this.cancelCond     
+            , autoConfirm: this.autoConfirm   
+        }
+      })
+      .then(response => {
+        console.log(response);        
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   },
   watch: {
+
   },
   created() {
     this.getCommonByTp0000();
     this.getCommonByTp0005();
-    this.getCommonByTp0015();
+    this.getCommonByTp0015(1);
+    this.getCommonByTp0015(2);
+    this.getCommonByTp0017();
   }
 }
 </script>
@@ -872,8 +1022,24 @@ export default {
     width: 530px;
   }
 
+  .container .tableBox input[type="text"]#phoneNum
+   {
+    width: 0px;
+    transition: 0.5s;
+    opacity: 0;
+    padding: 0 10px;
+  }
+
+  .container .tableBox #smsY:checked  ~ #phoneNum {
+    width: 200px;
+    margin: 0 10px;
+    opacity: 1;
+  }
+
+
+
   .container .tableBox input[type="text"].tagetAge,
-  .container .tableBox input[type="text"]#dateETC2 {
+  .container .tableBox input[type="text"]#dateETC2   {
     width: 80px;
     height: 100%;
     margin: 0 15px;
@@ -881,8 +1047,21 @@ export default {
     padding: 0 10px;
   }
 
+
   .container .tableBox input[type="text"]#dateETC2 {
     width: 60px;
+  }
+
+  .container .tableBox .nullify{
+    transform: translateY(6px);
+  }
+
+  .container .tableBox input[type="text"]#cancleCondEtc
+  {
+    width: 150px;
+    height: 100%;
+    margin: 0 5px;
+    padding: 0 10px;
   }
 
   .container .tableBox .checkingBox{
@@ -905,11 +1084,15 @@ export default {
   .gideBtn {
     width: 410px;
   }
-
-  .container .tableBox td.tableMiddle {
+  .container .tableBox .tableMiddleRight {
     width: 83px;
     border-right: none;
   }
+
+  .container .tableBox .tableMiddleLeft {
+    border-left: none;
+  }
+
 
   .gideBtn button {
     width: 188px;
