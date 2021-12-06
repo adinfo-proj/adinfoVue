@@ -6,6 +6,7 @@
       </div>
       <div class="headerNav">
         <ul>
+          
           <li>
             <router-link to="MENU_0000">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
@@ -38,7 +39,7 @@
             </a>
             <ul>
               <li>
-                <router-link  to="MENU_0101">일자별 통계</router-link>
+                <router-link  to="MENU_0101" >일자별 통계</router-link>
               </li>
               <li>
                 <router-link  to="MENU_0102">캠페인별 통계</router-link>

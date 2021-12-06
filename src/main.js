@@ -15,6 +15,10 @@ Vue.use(ProgressBar)
 import KProgress from 'k-progress';
 Vue.component('k-progress', KProgress);
 
+// ckeditor
+import CKEditor from 'ckeditor4-vue';
+Vue.use( CKEditor );
+
 Vue.config.productionTip = false;
 
 new Vue({

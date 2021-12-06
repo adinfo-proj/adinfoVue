@@ -11,12 +11,12 @@
     </div>
     <div class="choose">
       <div class="chooseArea">
-        <p>광고지역 설정 <span>(중복 선택 가능)</span></p>
-        <span class="chooseAreaDeta">서울특별시 전체</span>
-        <span class="chooseAreaDeta">수원시</span>
-        <span class="chooseAreaDeta">부천시</span>
-        <span class="chooseAreaDeta">인천광역시</span>
-        <span class="chooseAreaDeta">동두천시</span>
+        <p>광고지역 설정<span>(중복 선택 가능)</span></p>
+        <span class="chooseAreaDeta">서울특별시<i class="fas fa-times xBtn"></i></span>
+        <span class="chooseAreaDeta">수원시<i class="fas fa-times xBtn"></i></span>
+        <span class="chooseAreaDeta">부천시<i class="fas fa-times xBtn"></i></span>
+        <span class="chooseAreaDeta">인천광역시<i class="fas fa-times xBtn"></i></span>
+        <span class="chooseAreaDeta">동두천시<i class="fas fa-times xBtn"></i></span>
         <!-- 다시 작성 할 부분 -->
         <div class="chooseBtn">
           <button>추가하기 <i class="fas fa-plus"></i></button>
@@ -24,8 +24,8 @@
       </div>
       <div class="chooseExcept">
         <p>광고제외지역 설정</p>
-        <span class="chooseAreaDeta">동두천시 소요동</span>
-        <span class="chooseAreaDeta">인천시 강화군</span>
+        <span class="chooseAreaDeta">동두천시 소요동<i class="fas fa-times xBtn"></i></span>
+        <span class="chooseAreaDeta">인천시 강화군<i class="fas fa-times xBtn"></i></span>
         <div class="chooseBtn">
           <button>추가하기 <i class="fas fa-plus"></i></button>
         </div>
@@ -130,20 +130,22 @@
     <div class="campaign tableBox">
       <table>
         <tr>
-          <th>캠페인 명</th>
+          <th>캠페인 명<span class="necItem"> (필수)</span></th>
           <td><input type="text" class="camName" v-model="adName" autofocus></td>
         </tr>
         <tr>
-          <th>캠페인 배너</th>
+          <th>캠페인 배너<span class="necItem"> (필수)</span></th>
           <td>
-            <input class="upload_name" value="" disabled="disabled">
-            <label for="myFile">이미지 등록하기 <i class="fas fa-plus"></i></label> 
-            <input type="file" accept=".jpg, .png, .gif" id="myFile" class="upload_hidden">
+            <input class="upload_name" id="bannerName" disabled="disabled">
+            <label for="bannerUpload">이미지 등록하기 <i class="fas fa-plus"></i></label> 
+            <input type="file" accept="image/*" id="bannerUpload" class="upload_hidden" @change="uploadBanner()">
           </td>
         </tr>
         <tr class="notice">
-          <th>캠페인 내용</th>
-          <td><textarea name="" id="camContents" v-model="adComment"></textarea></td>
+          <th>캠페인 내용<span class="necItem"> (필수)</span></th>
+          <td>
+            <ckeditor id="camContents" v-model="adComment" :config="editorConfig"></ckeditor>
+          </td>
           <!-- cols="30" rows="10" -->
         </tr>
         <tr>
@@ -154,9 +156,9 @@
           <th>SMS 수신 여부</th>
           <td>
             DB접수 시 SMS를 수신합니다. 
-            <input type="radio" name="sms" id="smsY" v-model="smsYn" value="Y"><label for="smsY">예</label>
+            <input type="radio" name="sms" id="smsY" v-model="smsYn" value="smsY"><label for="smsY">예</label>
             <input type="text" id="phoneNum" placeholder="연락처를 입력해주세요." maxlength="11" v-model="smsNo">
-            <input type="radio" name="sms" id="smsN" v-model="smsYn" value="N" ><label for="smsN">아니오</label> 
+            <input type="radio" name="sms" id="smsN" v-model="smsYn" value="smsYN" checked><label for="smsN">아니오</label> 
           </td>
         </tr>
       </table>
@@ -173,16 +175,16 @@
           <td class="tableHead">DB 진행 수량</td>
           <td><input type="text" name="" id="" v-model="adMinQty" placeholder="최소 수량 100건 이상"></td>
           <td class="tableHead">승인률</td>
-          <td><input type="text" name="" id="" v-model="approval"></td>
+          <td><input type="text" name="" id="" v-model="approval" placeholder="최저 승인율 50%입니다"></td>
         </tr>
         <tr>
           <td class="tableHead">일별 DB 접수 제한</td>
           <td><input type="text" name="" id="" v-model="dayLimit"></td>
           <td class="tableHead">연령 타겟</td>
           <td>
-            <input type="radio" name="tagetAge" id="tagetAgeY" v-model="ageTarget" value="N"><label for="tagetAgeY">나이제한 없음</label>
-            <input type="radio" name="tagetAge" id="tagetAgeN" v-model="ageTarget" value="Y"><label for="tagetAgeN">나이제한 있음</label>
-            <input type="text" name="tagetAge" class="tagetAge" id="fromAge" v-model="ageTargetFrom"> ~ 
+            <input type="radio" name="tagetAge" id="tagetAgeY" v-model="ageTarget" value="ageN"><label for="tagetAgeY">나이제한 없음</label>
+            <input type="radio" name="tagetAge" id="tagetAgeN" v-model="ageTarget" value="ageY"><label for="tagetAgeN">나이제한 있음</label>
+            <input type="text" name="tagetAge" class="tagetAge" id="fromAge" v-model="ageTargetFrom"><span class="ageIcon">~</span>
             <input type="text" name="tagetAge" class="tagetAge" id="toAge" v-model="ageTargetTo">
           </td>
         </tr>
@@ -193,42 +195,16 @@
         <tr>
           <td class="tableHead">진행(선호) 채널</td>
           <td colspan="3" class="chooseCheck">
-
-
-
-          <div class="checkingBox">
-            <input type="checkbox" id="prohibitAll"
-            :checked="banChannelAll"
-            @click="BanChannelAll()"><label for="prohibitAll">전체</label>
-          </div>
-
-          <div class="checkingBox"
-            v-for="(banChannel, index) in banChannelObj"
-            :key="index"
-            @click="BanChannelOne(index)"
-          >
-
-            <input 
-              type="checkbox" 
-              :checked="banChannel.flag"
-            ><label for="">{{ banChannel.codeNm }}</label>            
-          </div>
-
-
-
-
-          </td>
-        </tr>
-        <tr>
-          <td class="tableHead">금지 채널</td>
-          <td colspan="3" class="chooseCheck">
-
+            <div class="checkingBox">
+              <input type="checkbox" id="prohibitAll"
+              :checked="banExChannelAll"
+              @click="BanExChannelAll()"><label for="prohibitAll">전체</label>
+            </div>
             <div class="checkingBox"
               v-for="(banExChannel, index) in banExChannelObj"
               :key="index"
               @click="BanExChannelOne(index)"
             >
-
               <input 
                 type="checkbox" 
                 :checked="banExChannel.flag"
@@ -236,15 +212,21 @@
             </div>
           </td>
         </tr>
-
-
-
-
-
-
-
-
-
+        <tr>
+          <td class="tableHead">금지 채널</td>
+          <td colspan="3" class="chooseCheck">
+            <div class="checkingBox"
+              v-for="(banChannel, index) in banChannelObj"
+              :key="index"
+              @click="BanChannelOne(index)"
+            >
+              <input 
+                type="checkbox" 
+                :checked="banChannel.flag"
+              ><label for="">{{ banChannel.codeNm }}</label>            
+            </div>
+          </td>
+        </tr>
         <tr>
           <td class="tableHead">금지 이미지</td>
           <td colspan="3"><input type="text" name="" id=""></td>
@@ -254,39 +236,20 @@
           <td colspan="3"><input type="text" name="" id=""></td>
         </tr>
         <tr>
-
-
-
           <!-- 무효조건 관련-->
-
           <td class="tableHead">무효 조건</td>
           <td colspan="3">
-
             <div class="checkingBox nullify"
               v-for="(nullifyCond, index) in nullifyCondObj"
               :key="index"
             >
-
               <input
                 type="checkbox" 
                 name ="cancleCond"
-              ><label for="cancleCond">{{ nullifyCond.codeNm }}</label>            
+              ><label for="cancleCond">{{ nullifyCond.codeNm }}</label>
             </div>
-            <input type="text" id="cancleCondEtc">
-            
+            <input type="text" id="nullifyText">
           </td>
-
-
-
-
-
-
-
-
-
-
-
-
         </tr>
         <tr>
           <td class="tableHead">취소 조건</td>
@@ -295,14 +258,14 @@
           <td>
             <input type="radio" name="confirmDate" id="date7" v-model="autoConfirm" value="day7"><label for="date7">7일</label>
             <input type="radio" name="confirmDate" id="date15" v-model="autoConfirm" value="day15"><label for="date15">15일</label>
-            <input type="radio" name="confirmDate" id="dateETC" v-model="autoConfirm" value="dayEtc"><label for="dateETC">기타(협의 필요) <input type="text" name="" id="dateETC2"></label>
+            <input type="radio" name="confirmDate" id="dateEtc" v-model="autoConfirm" value="dayEtc"><label for="dateEtc">기타(협의 필요)</label><input type="text" name="" id="dateEtc2">
           </td>
         </tr>
         <tr>
           <td class="tableHead">외부 입력 사용</td>
           <td>
-            <input type="radio" name="cpa" id="cpaY"><label for="cpaY">예</label>
-            <input type="radio" name="cpa" id="cpaN"><label for="cpaN">아니오</label>
+            <input type="radio" name="cpa" id="cpaY" v-model="cpaYn" value="cpaY"><label for="cpaY">예</label>
+            <input type="radio" name="cpa" id="cpaN" v-model="cpaYn" value="cpaN"><label for="cpaN">아니오</label>
           </td>
           <td class="tableHead">기타자료</td>
           <td>기타자료는 홍보자료실에 등록 바랍니다</td>
@@ -313,48 +276,49 @@
         </tr>
       </table>
     </div>
-    
-    <p class="lendLabel">랜딩페이지 보유 여부</p>
-    <input type="radio" name="lendPage" id="lendPageY"><label for="lendPageY">페이지 보유</label>
-    <input type="radio" name="lendPage" id="lendPageN"><label for="lendPageN">페이지 미보유</label>
+    <div>
+      <a href="javascript:void(0)" class="lendTapBtn" @click="lendSelectFunc(0)" v-bind:class="{on : 0 == lendSelect}">랜딩페이지 보유</a>
+      <a href="javascript:void(0)" class="lendTapBtn" @click="lendSelectFunc(1)" v-bind:class="{on : 1 == lendSelect}">랜딩페이지 미보유</a>
+    </div>
     <div class="lend tableBox">
       <table>
-        <tr class="lendOwn">
+        <tr class="lendOwn" v-if="lendSelect == 0">
           <td class="tableHead" rowspan="2">랜딩페이지 보유</td>
           <td class="tableMiddleRight">랜딩 URL</td>
           <td class="tableMiddleLeft" colspan="2">
             <input type="text" name="" id=""> 
           </td>
         </tr>
-        <tr class="lendOwn">
+        <tr class="lendOwn" v-if="lendSelect == 0">
           <td colspan="2">외부입력 폼 제공
-            <input type="radio" name="" id=""><label for="">예</label>
-            <input type="radio" name="" id=""><label for="">아니오</label>
+            <input type="radio" name="extForm" id="extFormY" v-model="extFormYn" value="extFormY"><label for="">예</label>
+            <input type="radio" name="extForm" id="extFormN" v-model="extFormYn" value="extFormN"><label for="">아니오</label>
           </td>
           <td class="gideBtn">
             <button id="popUP01">픽셀,스크립트 설치 가이드 보기</button>
             <button id="popUP02">랜딩 픽셀,스크립트 설치 요청하기</button>
           </td>
         </tr>
-        <tr class="lendNotOwn">
+        <tr class="lendNotOwn" v-if="lendSelect == 1">
           <td class="tableHead" rowspan="4">랜딩페이지 미보유</td>
           <td class="tableMiddleRight">참고 URL</td>
           <td class="tableMiddleLeft" colspan="2">
             <input type="text" name="" id="">
           </td>
         </tr>
-        <tr class="lendNotOwn">
+        <tr class="lendNotOwn" v-if="lendSelect == 1">
           <td class="tableMiddleRight">참고이미지</td>
           <td class="tableMiddleLeft" colspan="2">
             <input id="etcImages" class="upload_name" value="" disabled="disabled">
             <label for="referFile">이미지 등록하기 <i class="fas fa-plus"></i></label> 
-            <input type="file" accept="" id="referFile" class="upload_hidden">
+            <input type="file" accept="" id="referFile" class="upload_hidden" multiple>
+            <!-- multiple  : 여러개의 파일선택 여부-->
           </td>
         </tr>
         <tr class="obscured lendNotOwn">
           <td colspan="3"></td>
         </tr>
-        <tr class="lendNotOwn">
+        <tr class="lendNotOwn" v-if="lendSelect == 1">
           <td colspan="3" class="tableMiddle" d>
             <input type="checkbox" name="" id=""><label for="">이름</label>
             <input type="checkbox" name="" id=""><label for="">전화번호</label>
@@ -362,6 +326,7 @@
         </tr>
       </table>
     </div>
+    
     <div class="submitBtn">
       <button @click="createCampaign()"> 등록하기 </button>
     </div>
@@ -376,13 +341,19 @@ export default {
   // 
   data() {
     return {
+      editorConfig: {},
+      lendSelect: 0,
+      
+
+
+
       adKind: '',             // 캠페인 종류
       adArea: '',             // 광고지역
       adAreaEtc: '',          // 기타지역
       adSrtDt: new Date().toISOString().substr(0, 10),            // YYYYMMDD
-      adSrtTm: '',            // HHMMSS
+      adSrtTm: '00',            // HHMMSS
       adEndDt: new Date().toISOString().substr(0, 10),            // YYYYMMDD
-      adEndTm: '',            // HHMMSS
+      adEndTm: '00',            // HHMMSS
       adPurpose: '',          // 캠페인 목적
       adPurposeObj: '',       // 캠페인 목적 객체
       adTopKind: '',          // 캠페인 1차 분류 
@@ -392,30 +363,32 @@ export default {
 
       adName: '',             // 캠페인 명
       adComment: '',          // 캠페인 내용
+
       adUsp: '',              // 광고 이벤트설정
-      smsYn: '',             // DB 접수 시 SMS 수신 여부 Y
+      smsYn: 'smsYN',             // DB 접수 시 SMS 수신 여부 Y
       smsNo: '',              // DB 접수 시 SMS 수신 여부
       adPrice: '',            // 캠페인 단가
-      adPromotionPrice: '',   // 캠페인 프로모션 단가
+      adPromotionPrice: '0',   // 캠페인 프로모션 단가
       adMinQty: '',           // 캠페인 최소 수량
       dayLimit: '',           // 일별 DB 접수 제한 건수
       approval: '',           // 승인률
-      ageTarget: '',          // 연령 타겟 {from:"", to: ""}
+      ageTarget: 'ageN',          // 연령 타겟 {from:"", to: ""}
       ageTargetFrom: '',      // from
       ageTargetTo: '',        // to
       reqWordCond: '',        // 필수 키워드
       
-      banChannel: '',         // 선호채널
-      banChannelObj: '',      // 선호채널 객체
-      banChannelAll: true,        // 전체선택체크박스
-      banExChannel: '',       // 금지채널
-      banExChannelObj: '',    // 금지채널
+      banExChannel: '',         // 선호채널
+      banExChannelObj: '',      // 선호채널 객체
+      banExChannelAll: true,        // 전체선택체크박스
+      banChannel: '',       // 금지채널
+      banChannelObj: '',    // 금지채널
       banWordCond: '',        // 금지단어
       
       nullifyCond:'',         // 무효조건
       nullifyCondObj:'',      // 무효조건 객체
       cancelCond: '',         // 취소조건
-      autoConfirm: '',        // 자동확정일수
+      autoConfirm: 'day7',        // 자동확정일수
+      cpaYn: 'cpaN',
 
 
 
@@ -424,12 +397,18 @@ export default {
       landingPageTitle: '',   // DB 접수 시 SMS 수신 번호
       landingUrl: '',         // 캠페인 단가
 
+      extFormYn:'extFormN',     // 랜딩페이지 보유여부
+
+
       apdText1: String,
       apdText2: String,
       apdText3: String,
     }
   },
   methods: {
+    //******************************************************************************
+    // 캠페인 목적
+    //******************************************************************************
     getCommonByTp0005 () { // 캠페인 목적
       axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
         {
@@ -445,8 +424,11 @@ export default {
         })
       .catch(error => {
         console.log(error);
-      })
+      })      
     },
+    //******************************************************************************
+    // 캠페인 분류(대분류)
+    //******************************************************************************
     getCommonByTp0000 () { // 캠페인 분류(대분류)
       axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
         {
@@ -465,6 +447,9 @@ export default {
         console.log(error);
       })
     },
+    //******************************************************************************
+    // 캠페인 분류(중분류)
+    //******************************************************************************
     firstComboChg(code) { // 캼패안 분류(소분류)
       axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
         {
@@ -483,6 +468,9 @@ export default {
         console.log(error);
       })
     },
+    //******************************************************************************
+    // 캠페인 금지 채널 목록
+    //******************************************************************************
     getCommonByTp0015(inPos) {
       axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
       // --> 나중에 수정할것 // "http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
@@ -493,13 +481,13 @@ export default {
       })
       .then(response => {
         if(inPos === 1) {
-          this.banChannelObj = response.data;
+          this.banExChannelObj = response.data;
         }
         else {
-          this.banExChannelObj = response.data;
+          this.banChannelObj = response.data;
 
-          for(let i = 0 ; i < this.banExChannelObj.length; i++) {
-            this.banExChannelObj[i].flag = false;
+          for(let i = 0 ; i < this.banChannelObj.length; i++) {
+            this.banChannelObj[i].flag = false;
           }
         }
         
@@ -508,7 +496,9 @@ export default {
         console.log(error);
       })
     },
-
+    //******************************************************************************
+    // DB무효조건 목록
+    //******************************************************************************
     getCommonByTp0017() {
       axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
       {
@@ -517,10 +507,9 @@ export default {
         }
       })
       .then(response => {
+
         if(response.data.length > 0) {
-          for( let i = 0 ; i < this.nullifyCondObj.length ; i++) {
-            this.nullifyCondObj = response.data;
-          }
+          this.nullifyCondObj = response.data;
         }
         
       })
@@ -528,127 +517,151 @@ export default {
         console.log(error);
       })
     },
-
-    BanChannelAll() { // 전체 선택 함수
-      if(this.banChannelAll == true) {
+    //******************************************************************************
+    // 진행(선호) 채널 전체 선택 시 처리함수
+    //******************************************************************************
+    BanExChannelAll() { // 전체 선택 함수
+      if(this.banExChannelAll == true) {
         
-        for( let i = 0 ; i < this.banChannelObj.length ; i++) {
-          this.banChannelObj[i].flag = false;
-        }
-
-        this.banChannelAll = false;
-
-      }
-      else {
-        for( let i = 0 ; i < this.banChannelObj.length ; i++) {
-          this.banChannelObj[i].flag = true;
+        for( let i = 0 ; i < this.banExChannelObj.length ; i++) {
           this.banExChannelObj[i].flag = false;
         }
 
-        this.banChannelAll = true;
+        this.banExChannelAll = false;
+
+      }
+      else {
+        for( let i = 0 ; i < this.banExChannelObj.length ; i++) {
+          this.banExChannelObj[i].flag = true;
+          this.banChannelObj[i].flag = false;
+        }
+
+        this.banExChannelAll = true;
       }
     },
-    BanChannelOne(index) { // 개별 선택 시 전체선택 값에 대한 함수
-      if(this.banChannelObj[index].flag == true) {
-        this.banChannelObj[index].flag = false;
-        this.banChannelAll = false;        
+    //******************************************************************************
+    // 진행(선호) 채널 개별 선택 시 처리함수
+    //******************************************************************************
+    BanExChannelOne(index) { // 개별 선택 시 전체선택 값에 대한 함수
+      if(this.banExChannelObj[index].flag == true) {
+        this.banExChannelObj[index].flag = false;
+        this.banExChannelAll = false;        
       }
       else {
         let bFlag = true;
-        this.banChannelObj[index].flag = true;
+        this.banExChannelObj[index].flag = true;
 
-        for( let i = 0 ; i < this.banChannelObj.length ; i++) {
-          if( this.banChannelObj[i].flag == false) {
+        for( let i = 0 ; i < this.banExChannelObj.length ; i++) {
+          if( this.banExChannelObj[i].flag == false) {
             bFlag = false;
           }
         }
 
         if( bFlag == true) {
-          this.banChannelAll = true;
+          this.banExChannelAll = true;
         }        
       }
 
-      if( this.banChannelObj[index].flag == true) {
-        this.banExChannelObj[index].flag = false;
+      if( this.banExChannelObj[index].flag == true) {
+        this.banChannelObj[index].flag = false;
       }
     },
-    BanExChannelOne(index) {
-      this.banExChannelObj[index].flag == false 
-      ? this.banExChannelObj[index].flag = true 
-      : this.banExChannelObj[index].flag = false;
+    //******************************************************************************
+    // 금지 채널 개별 선택 시 처리함수
+    //******************************************************************************
+    BanChannelOne(index) {
+      this.banChannelObj[index].flag == false 
+      ? this.banChannelObj[index].flag = true 
+      : this.banChannelObj[index].flag = false;
 
-      if( this.banExChannelObj[index].flag == true ) {
-        this.banChannelObj[index].flag = false;
-        this.banChannelAll = false;
+      if( this.banChannelObj[index].flag == true ) {
+        this.banExChannelObj[index].flag = false;
+        this.banExChannelAll = false;
       }    
     },
+    //******************************************************************************
+    // 배너 업로드 시 text 박스의 값 보여지기
+    //******************************************************************************
+    uploadBanner(){ // 이미지 업로드 
+      //------------------------------------------------------------------------------
+      // vue 형식으로 바꿔야 할것!!!!
+      //------------------------------------------------------------------------------
+      let imagesUp = document.querySelector("#bannerUpload");
+      imagesUp =  imagesUp.files[0].name;
+      console.log(imagesUp)
+      let imagesName = document.querySelector("#bannerName");
+
+      imagesName.setAttribute('placeholder', imagesUp)
 
 
+    },
 
-
-
-
-
-
-
-
-
-
-
-
+    lendSelectFunc(pos) {
+			this.lendSelect = pos;
+		},
+    //******************************************************************************
+    // 최종 등록하기 버튼 선택
+    //******************************************************************************
     createCampaign() {
+      //------------------------------------------------------------------------------
+      // input validation check
+      //------------------------------------------------------------------------------
+      if(this.adName == null || this.adName == '') {
+        alert("캠페인명을 입력해주세요.");
+        this.$refs.adName.focus(); ///$refs
+        return;
+      }
+
+      if(this.adComment == null || this.adComment == '') {
+        alert("캠페인 내용을 입력해주세요.");
+        this.$refs.adComment.focus();
+        return;
+      }
+
+      if(this.adComment == null || this.adComment == '') {
+        alert("캠페인 내용을 입력해주세요.");
+        this.$refs.adComment.focus();
+        return;
+      }
+
       //------------------------------------------------------------------------------
       // 날짜에서 2021-12-03 에서 '-'를 제거한다. 예) 2021-12-03 -> 20211203
       //------------------------------------------------------------------------------
-      this.adSrtDt = this.adSrtDt.replace(/-/gi,"", (match) => {
+      let lAdSrtDt = this.adSrtDt.replace(/-/gi,"", (match) => {
         return '' + match + '';
       });
-      this.adEndDt = this.adEndDt.replace(/-/gi,"", (match) => {
+      let lAdEndDt = this.adEndDt.replace(/-/gi,"", (match) => {
         return '' + match + '';
       });
 
       //------------------------------------------------------------------------------
       // 진행(선호)채널에서 선택한 코드만 Array로 담아 전송.
       //------------------------------------------------------------------------------
-      console.log("Step 00");
-      for(let i = 0 ; i < this.banChannelObj.length; i++) {
-        console.log("Step 01");
-        if( this.banChannelObj[i].flag == true) {
-          console.log("banChannelObj["+i+"].flag : [" + this.banChannelObj[i].flag + "]");
-        }
-        console.log("Step 02");
-      }
-      console.log("Step 03");
-
-    
-/*
-      let arr3 = this.banChannelObj.map((currValue) => {
-        if( currValue.flag == true){
-          return currValue.code;
-        }
-      })
-*/
-      const arr3 = this.banChannelObj.filter((currValue) => {
-          return currValue.flag == true
-      })
-
-      console.log("arr3 : " + JSON.stringify(arr3));
-      console.log("arr3 : " +arr3[0].code);
-
-  
-
-
-
+      let banChannelObjLet = this.banChannelObj.filter(curValue => curValue.flag == true) // 먼저 true 인것을 찾음
+                                               .map   (curValue => curValue.code)         // true인 object의 code값만 추출
+                                               .join  ("|");                              // array 구분로 ','를 사용
+      //------------------------------------------------------------------------------
+      // 금지 채널에서 선택한 코드만 Array로 담아 전송.
+      //------------------------------------------------------------------------------
+      let banExChannelObjLet = this.banExChannelObj.filter(curValue => curValue.flag == true)
+                                                   .map   (curValue => curValue.code)
+                                                   .join  ("|");
 
       axios.get("http://api.adinfo.co.kr:30000/manage/newcampaign", {
         params: {
-              adKind: 'CPA'
+            // Store 정보
+              mbId: this.$store.state.mbId
+            , operId: this.$store.state.operId
+
+            // Page 정보
+            , adKind: '01'
             , adArea: '00000'
-            , adSrtDt: this.adSrtDt
+            , adSrtDt: lAdSrtDt
             , adSrtTm: this.adSrtTm
-            , adEndDt: this.adEndDt
+            , adEndDt: lAdEndDt
             , adEndTm: this.adEndTm
             , adPurpose: this.adPurpose
+            , adTopKind: this.adTopKind
             , adMiddleKind: this.adMiddleKind
             , adName: this.adName           
             , adComment: this.adComment     
@@ -664,8 +677,9 @@ export default {
             , ageTargetFrom: this.ageTargetFrom
             , ageTargetTo: this.ageTargetTo
             , reqWordCon: this.reqWordCond    
-            , banChannel: this.banChannel     
-            , banExChannel: this.banExChannel 
+            , banChannel: banChannelObjLet
+            , banExChannel: banExChannelObjLet
+            , banImageCond: this.banImageCond
             , banWordCond: this.banWordCond   
             , nullifyCond: this.nullifyCond   
             , cancelCond: this.cancelCond     
@@ -673,28 +687,15 @@ export default {
         }
       })
       .then(response => {
-        console.log(response);        
+        console.log(response);
+        if( response.data > 0) {
+          alert('정상적으로 캠페인이 등록되어습니다.');
+        }
       })
       .catch(error => {
         console.log(error);
       })
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   },
   watch: {
 
@@ -768,9 +769,9 @@ export default {
 
   .choose {
     width: 100%;
-    height: 182px;
+    height: 200px;
     background: #fff;
-    padding: 19px;
+    padding: 19px 19px 0 19px;
     border-radius: 10px;
     border: solid 1px #e5e5e5;
   }
@@ -802,13 +803,22 @@ export default {
   
   /* 지역 추가하기 버튼 */
 
-  .chooseArea>span,
-  .chooseExcept>span{
+  .chooseArea>.chooseAreaDeta,
+  .chooseExcept>.chooseAreaDeta{
     display: inline-block;
     padding: 6px 10px;
     border: 1px solid #e5e5e5;
-    margin: 0 6px 6px 0;
+    margin: 0 4px 6px 0;
     border-radius: 20px;
+  }
+
+  .chooseArea>span>.xBtn,
+  .chooseExcept>span>.xBtn{
+
+    /* 추후에 얇은걸로 변경하기!!!!! */
+    margin-left: 5px;
+    transform: translateY(1px);
+    cursor: pointer;
   }
 
   .chooseBtn button{
@@ -904,6 +914,8 @@ export default {
     margin-right: 0;
   }
 
+  /* 입력값 */
+
   .tableBox {
     border: solid 1px #e5e5e5; 
     border-radius: 10px;
@@ -945,8 +957,13 @@ export default {
     height: 183px;
   }
 
-  .container .tableBox input[type="text"],
-  #camContents {
+  .container .tableBox .necItem{
+    color: red;
+    transform: translateY(-2px);
+    font-size: 10px;
+  }
+
+  .container .tableBox input[type="text"]{
     width: 100%;
     height: 100%;
     padding: 5px;
@@ -954,7 +971,9 @@ export default {
     border-radius: 3px;
   }
 
-  #camContents {
+  .container .tableBox #camContents {
+    width: 100%;
+    height: 100%;
     resize: none
   }
 
@@ -1022,12 +1041,20 @@ export default {
     width: 530px;
   }
 
-  .container .tableBox input[type="text"]#phoneNum
+  .container .tableBox input[type="text"]#phoneNum,
+  .container .tableBox input[type="text"].tagetAge,
+  .container .tableBox input[type="text"]#dateEtc2
    {
     width: 0px;
     transition: 0.5s;
+    height: 100%;
     opacity: 0;
     padding: 0 10px;
+  }
+
+  .container .tableBox #tagetAgeN  ~ .ageIcon {
+    opacity: 0;
+    transition: 0.5s;
   }
 
   .container .tableBox #smsY:checked  ~ #phoneNum {
@@ -1036,10 +1063,7 @@ export default {
     opacity: 1;
   }
 
-
-
-  .container .tableBox input[type="text"].tagetAge,
-  .container .tableBox input[type="text"]#dateETC2   {
+  .container .tableBox #tagetAgeN:checked  ~ .tagetAge {
     width: 80px;
     height: 100%;
     margin: 0 15px;
@@ -1047,13 +1071,28 @@ export default {
     padding: 0 10px;
   }
 
-
-  .container .tableBox input[type="text"]#dateETC2 {
-    width: 60px;
+  .container .tableBox #tagetAgeN:checked  ~ .tagetAge,
+  .container .tableBox #tagetAgeN:checked  ~ .ageIcon {
+    opacity: 1;
   }
+
+  
+  .container .tableBox #dateEtc:checked  ~ #dateEtc2 {
+    width: 60px;
+    margin: 0 15px;
+    text-align: right;
+    padding: 0 10px;
+    opacity: 1;
+  }
+
+
 
   .container .tableBox .nullify{
     transform: translateY(6px);
+  }
+
+  .container .tableBox #nullifyText{
+    width: 100px;
   }
 
   .container .tableBox input[type="text"]#cancleCondEtc
@@ -1075,6 +1114,11 @@ export default {
 
   .container .tableBox input[type="checkbox"] + label {
     margin-right: 10px;
+  }
+  .container .lend{
+    clear: both;
+    border-top-left-radius: 0;
+    background: #fff;
   }
 
   .container .tableBox .obscured{
@@ -1134,6 +1178,27 @@ export default {
     font-size: 16px;
     border: none   ;
   }
+
+  .lendTapBtn{
+    display: block;
+		width: 151px;
+		height: 45px;
+		float: left;
+		padding: 14px 0;
+		text-align: center;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		background: #e7e7e7;
+		font-size: 14px;
+		font-weight: 700;
+    border: 1px solid #e5e5e5;
+    border-bottom: none;
+  }
+
+  .lendTapBtn.on{
+		background: #fff;
+		color: #e25b45;
+	}
 
 
 </style>

@@ -5,8 +5,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    headerTopTitle: "데이터 센터",
-    headerMidTitle: "신규 캠페인 등록",
+      mbId: 'MB_001'
+    , operId: 'db@dbfactory.kr'
+    , adGradeCd: '01'
+
+    , headerTopTitle: "데이터 센터"
+    , headerMidTitle: "신규 캠페인 등록"
   },
   mutations: {},
   actions: {},
