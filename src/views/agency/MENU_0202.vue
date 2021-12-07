@@ -133,34 +133,14 @@
           <th>캠페인 명<span class="necItem"> (필수)</span></th>
           <td><input type="text" class="camName" v-model="adName" autofocus></td>
         </tr>
-
-
-
-
-
-
         <tr>
           <th>캠페인 배너<span class="necItem"> (필수)</span></th>
           <td>
-            <input class="upload_name" id="bannerName"  disabled="disabled" v-bind:placeholder="adBannerName" >
-            <label for="bannerUpload">이미지 등록하기 <i class="fas fa-plus"></i></label> 
-            <input type="file" accept="image/*" id="bannerUpload" class="upload_hidden" :v-model="adBanner" @change="uploadBanner()" >
+            <input class="upload_name" id="bannerName"  disabled="disabled" v-bind:placeholder="adBannerName">
+            <label for="bannerUpload">이미지 등록하기 <i class="fas fa-plus"></i></label>
+            <input type="file" accept="image/*" id="bannerUpload" class="upload_hidden" ref="upImage" @change="uploadBanner()">
           </td>
         </tr>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <tr class="notice">
           <th>캠페인 내용<span class="necItem"> (필수)</span></th>
           <td>
@@ -607,10 +587,9 @@ export default {
     // 배너 업로드 시 text 박스의 값 보여지기
     //******************************************************************************
     uploadBanner(){ // 이미지 업로드 
-
-     let imagesUp = document.querySelector("#bannerUpload");
-     this.adBannerName =  imagesUp.files[0].name;
-
+      this.adBanner = this.$refs.upImage.files;
+      this.adBannerName = this.adBanner[0].name;
+      console.log(this.adBanner);
     },
     //******************************************************************************
     // 배너 업로드 시 text 박스의 값 보여지기
@@ -659,7 +638,7 @@ export default {
       //------------------------------------------------------------------------------
       let banChannelObjLet = this.banChannelObj.filter(curValue => curValue.flag == true) // 먼저 true 인것을 찾음
                                                .map   (curValue => curValue.code)         // true인 object의 code값만 추출
-                                               .join  ("|");                              // array 구분로 ','를 사용
+                                               .join  ("|");                              // array 구분으로 '|'를 사용
       //------------------------------------------------------------------------------
       // 금지 채널에서 선택한 코드만 Array로 담아 전송.
       //------------------------------------------------------------------------------
@@ -667,7 +646,10 @@ export default {
                                                    .map   (curValue => curValue.code)
                                                    .join  ("|");
 
-      axios.get("http://api.adinfo.co.kr:30000/manage/newcampaign", {
+      let form = new FormData()
+      form.append("file", this.adBanner); // api file name
+
+      axios.post("http://api.adinfo.co.kr:30000/manage/newcampaign", {
         params: {
             // Store 정보
               mbId: this.$store.state.mbId
@@ -683,7 +665,8 @@ export default {
             , adPurpose: this.adPurpose
             , adTopKind: this.adTopKind
             , adMiddleKind: this.adMiddleKind
-            , adName: this.adName           
+            , adName: this.adName    
+            , adBanner: ''       
             , adComment: this.adComment     
             , adUsp: this.adUsp         
             , smsYn: this.smsYn         
@@ -704,7 +687,11 @@ export default {
             , nullifyCond: this.nullifyCond   
             , cancelCond: this.cancelCond     
             , autoConfirm: this.autoConfirm   
-        }
+            , file: form
+        },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then(response => {
         console.log(response);
