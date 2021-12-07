@@ -152,15 +152,6 @@
           <th>광고 USP 설정</th>
           <td><input type="text" name="" id="" v-model="adUsp"></td>
         </tr>
-        <tr>
-          <th>SMS 수신 여부</th>
-          <td>
-            DB접수 시 SMS를 수신합니다. 
-            <input type="radio" name="sms" id="smsY" v-model="smsYn" value="smsY"><label for="smsY">예</label>
-            <input type="text" id="phoneNum" placeholder="연락처를 입력해주세요." maxlength="11" v-model="smsNo">
-            <input type="radio" name="sms" id="smsN" v-model="smsYn" value="smsYN" checked><label for="smsN">아니오</label> 
-          </td>
-        </tr>
       </table>
     </div>
     <div class="promotion tableBox">
@@ -252,10 +243,15 @@
           </td>
         </tr>
         <tr>
-          
+
+
+
+
+
+
           <td class="tableHead">취소 조건</td>
           <td colspan="3">
-            <div class="checkingBox nullify"
+            <div class="checkingBox cancelBox"
               v-for="(cancelCond, index) in cancelCondObj"
               :key="index"
             >
@@ -264,16 +260,29 @@
                 name ="cancleCond"
               ><label for="cancleCond">{{ cancelCond.codeNm }}</label>
             </div>
-            <input type="text" id="nullifyText">
+            <input type="text" id="cancelText">
           </td>
+
+
+
+
+
+
+
+
+
+
+
         </tr>
         <tr>
-          <td class="tableHead">외부 입력 사용</td>
+          <td class="tableHead">SMS 수신 여부</td>
           <td>
-            <input type="radio" name="cpa" id="cpaY" v-model="cpaYn" value="cpaY"><label for="cpaY">예</label>
-            <input type="radio" name="cpa" id="cpaN" v-model="cpaYn" value="cpaN"><label for="cpaN">아니오</label>
+            DB접수 시 SMS를 수신합니다. 
+            <input type="radio" name="sms" id="smsY" v-model="smsYn" value="smsY"><label for="smsY">예</label>
+            <input type="text" id="phoneNum" placeholder="연락처를 입력해주세요." maxlength="11" v-model="smsNo">
+            <input type="radio" name="sms" id="smsN" v-model="smsYn" value="smsYN" checked><label for="smsN">아니오</label> 
           </td>
-            <td class="tableHead">자동화 확정 일수</td>
+          <td class="tableHead">자동화 확정 일수</td>
           <td>
             <input type="radio" name="confirmDate" id="date7" v-model="autoConfirm" value="day7"><label for="date7">7일</label>
             <input type="radio" name="confirmDate" id="date15" v-model="autoConfirm" value="day15"><label for="date15">15일</label>
@@ -293,14 +302,14 @@
     <div class="lend tableBox">
       <table>
         <tr class="lendOwn" v-if="lendSelect == 0">
-          <td class="tableHead" rowspan="2">랜딩페이지 보유</td>
-          <td class="tableMiddleRight">랜딩 URL</td>
-          <td class="tableMiddleLeft" colspan="2">
+          <td class="tableHead">랜딩 URL</td>
+          <td colspan="2">
             <input type="text" name="" id=""> 
           </td>
         </tr>
         <tr class="lendOwn" v-if="lendSelect == 0">
-          <td colspan="2">외부입력 폼 제공
+          <td class="tableHead">외부입력 폼 제공</td>
+          <td>
             <input type="radio" name="extForm" id="extFormY" v-model="extFormYn" value="extFormY"><label for="">예</label>
             <input type="radio" name="extForm" id="extFormN" v-model="extFormYn" value="extFormN"><label for="">아니오</label>
           </td>
@@ -310,43 +319,42 @@
           </td>
         </tr>
         <tr class="lendNotOwn" v-if="lendSelect == 1">
-          <td class="tableHead" rowspan="4">랜딩페이지 미보유</td>
-          <td class="tableMiddleRight">참고 URL</td>
-          <td class="tableMiddleLeft" colspan="2">
+          <td class="tableHead">참고 URL</td>
+          <td>
             <input type="text" name="" id="">
           </td>
         </tr>
         <tr class="lendNotOwn" v-if="lendSelect == 1">
-
-
-
-
-
-          <td class="tableMiddleRight">참고이미지</td>
-          <td class="tableMiddleLeft" colspan="2">
+          <td class="tableHead">참고이미지</td>
+          <td>
             <input id="etcImages" class="upload_name" disabled="disabled" v-bind:placeholder="etcImeageName">
             <label for="referFile">이미지 등록하기 <i class="fas fa-plus"></i></label> 
             <input type="file" accept="" id="referFile" class="upload_hidden" ref="etcImage" multiple @change="uploadfile()">
             <!-- multiple  : 여러개의 파일선택 여부-->
-
-
-
-
-
           </td>
         </tr>
         <tr class="obscured lendNotOwn">
-          <td colspan="3"></td>
+          <td colspan="2"></td>
         </tr>
         <tr class="lendNotOwn" v-if="lendSelect == 1">
-          <td colspan="3" class="tableMiddle" d>
-            <input type="checkbox" name="" id=""><label for="">이름</label>
-            <input type="checkbox" name="" id=""><label for="">전화번호</label>
+          <td class="tableHead">수집항목</td>
+          <td>
+            <div class="checkingBox collection"
+              v-for="(landCollection, index) in landCollectionObj"
+              :key="index"
+
+            >
+              <input
+                type="checkbox" 
+                name ="cancleCond"
+              ><label for="cancleCond">{{ landCollection.codeNm }}</label>
+            </div>
+            <input type="text" id="landText">
+
           </td>
         </tr>
       </table>
     </div>
-    
     <div class="submitBtn">
       <button @click="createCampaign()"> 등록하기 </button>
     </div>
@@ -355,6 +363,8 @@
 
 <script>
 import axios from "axios";
+import $ from 'jquery';
+
 
 
 export default {
@@ -371,9 +381,9 @@ export default {
       adArea: '',             // 광고지역
       adAreaEtc: '',          // 기타지역
       adSrtDt: new Date().toISOString().substr(0, 10),            // YYYYMMDD
-      adSrtTm: '00',            // HHMMSS
+      adSrtTm: '00',          // HHMMSS
       adEndDt: new Date().toISOString().substr(0, 10),            // YYYYMMDD
-      adEndTm: '00',            // HHMMSS
+      adEndTm: '00',          // HHMMSS
       adPurpose: '',          // 캠페인 목적
       adPurposeObj: '',       // 캠페인 목적 객체
       adTopKind: '',          // 캠페인 1차 분류 
@@ -396,23 +406,23 @@ export default {
       adMinQty: '',           // 캠페인 최소 수량
       dayLimit: '',           // 일별 DB 접수 제한 건수
       approval: '',           // 승인률
-      ageTarget: 'ageN',          // 연령 타겟 {from:"", to: ""}
+      ageTarget: 'ageN',      // 연령 타겟 {from:"", to: ""}
       ageTargetFrom: '',      // from
       ageTargetTo: '',        // to
       reqWordCond: '',        // 필수 키워드
       
-      banExChannel: '',         // 선호채널
-      banExChannelObj: '',      // 선호채널 객체
-      banExChannelAll: true,        // 전체선택체크박스
-      banChannel: '',       // 금지채널
-      banChannelObj: '',    // 금지채널
+      banExChannel: '',       // 선호채널
+      banExChannelObj: '',    // 선호채널 객체
+      banExChannelAll: true,  // 전체선택체크박스
+      banChannel: '',         // 금지채널
+      banChannelObj: '',      // 금지채널
       banWordCond: '',        // 금지단어
       
       nullifyCond:'',         // 무효조건
       nullifyCondObj:'',      // 무효조건 객체
       cancelCond: '',         // 취소조건
-      cancelCondObj: '',         // 취소조건
-      autoConfirm: 'day7',        // 자동확정일수
+      cancelCondObj: '',      // 취소조건 객체
+      autoConfirm: 'day7',    // 자동확정일수
       cpaYn: 'cpaN',
 
 
@@ -422,9 +432,10 @@ export default {
       landingPageTitle: '',   // DB 접수 시 SMS 수신 번호
       landingUrl: '',         // 캠페인 단가
 
-      extFormYn:'extFormN',     // 랜딩페이지 보유여부
-      etcImeageName: '',        //  참고이미지
-
+      extFormYn:'extFormN',   // 랜딩페이지 보유여부
+      etcImeageName: '',      //  참고이미지
+      landCollection:'',      // 수집항목
+      landCollectionObj:'',   // 수집항목 객체
 
 
 
@@ -559,6 +570,30 @@ export default {
 
         if(response.data.length > 0) {
           this.cancelCondObj = response.data;
+          for(let i = 0 ; i < this.cancelCondObj.length; i++) {
+            this.cancelCondObj[i].flag = false;
+          }
+        }
+        
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
+    //******************************************************************************
+    // 수집항목 목록
+    //******************************************************************************
+    getCommonByTp0021() {
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      {
+        params: {
+          tp: '0021'
+        }
+      })
+      .then(response => {
+
+        if(response.data.length > 0) {
+          this.landCollectionObj = response.data;
         }
         
       })
@@ -654,12 +689,29 @@ export default {
 
     },
     //******************************************************************************
-    // 배너 업로드 시 text 박스의 값 보여지기
+    // 랜딩페이지 보유 미보유
     //******************************************************************************
 
     lendSelectFunc(pos) {
 			this.lendSelect = pos;
 		},
+    //******************************************************************************
+    // 기타 입력 박스 클래스 추가 함수
+    //******************************************************************************
+
+    test() {
+      let test01= $(".checkingBox.cancelBox").last().find("input").find("class");
+
+      console.log(test01)
+
+		// 	// if($(".nullify").last().fine("input").value == true){
+    //   //   $("#nullifyText").addClass("active")
+    //   // }
+    //   // else{nullify
+    //   //   $("#nullifyText").removeClass("active")
+    //   //   }
+		
+    },
     //******************************************************************************
     // 최종 등록하기 버튼 선택
     //******************************************************************************
@@ -779,6 +831,8 @@ export default {
     this.getCommonByTp0015(2);
     this.getCommonByTp0017();
     this.getCommonByTp0020();
+    this.getCommonByTp0021();
+    this.test();
   }
 }
 </script>
@@ -1160,13 +1214,31 @@ export default {
 
 
 
-  .container .tableBox .nullify{
+  .container .tableBox .nullify,
+  .container .tableBox .nullify,
+  .container .tableBox .collection
+  {
     transform: translateY(6px);
   }
 
-  .container .tableBox #nullifyText{
+  .container .tableBox #nullifyText,
+  .container .tableBox #cancelText,
+  .container .tableBox #landText{
     width: 100px;
+    opacity: 0;
+    transform: translate(0);
+    transition: 0.5s;
   }
+
+
+  .container .tableBox #nullifyText.active,
+  .container .tableBox #cancelText.active,
+  .container .tableBox #landText.active{
+    opacity: 1;
+    transform: translate(1);
+  }
+
+
 
   .container .tableBox input[type="text"]#cancleCondEtc
   {
@@ -1200,10 +1272,6 @@ export default {
 
   .gideBtn {
     width: 410px;
-  }
-  .container .tableBox .tableMiddleRight {
-    width: 83px;
-    border-right: none;
   }
 
   .container .tableBox .tableMiddleLeft {
