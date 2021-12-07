@@ -133,14 +133,34 @@
           <th>캠페인 명<span class="necItem"> (필수)</span></th>
           <td><input type="text" class="camName" v-model="adName" autofocus></td>
         </tr>
+
+
+
+
+
+
         <tr>
           <th>캠페인 배너<span class="necItem"> (필수)</span></th>
           <td>
-            <input class="upload_name" id="bannerName" disabled="disabled">
+            <input class="upload_name" id="bannerName"  disabled="disabled" v-bind:placeholder="adBannerName" >
             <label for="bannerUpload">이미지 등록하기 <i class="fas fa-plus"></i></label> 
-            <input type="file" accept="image/*" id="bannerUpload" class="upload_hidden" @change="uploadBanner()">
+            <input type="file" accept="image/*" id="bannerUpload" class="upload_hidden" :v-model="adBanner" @change="uploadBanner()" >
           </td>
         </tr>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <tr class="notice">
           <th>캠페인 내용<span class="necItem"> (필수)</span></th>
           <td>
@@ -362,6 +382,10 @@ export default {
       adMiddleKindObj: '',    // 캠페인 2차 분류 객체
 
       adName: '',             // 캠페인 명
+
+      adBanner: '',           // 캠페인 배너 업로드
+      adBannerName:'',        // 캠페인 배너 명
+      
       adComment: '',          // 캠페인 내용
 
       adUsp: '',              // 광고 이벤트설정
@@ -583,18 +607,14 @@ export default {
     // 배너 업로드 시 text 박스의 값 보여지기
     //******************************************************************************
     uploadBanner(){ // 이미지 업로드 
-      //------------------------------------------------------------------------------
-      // vue 형식으로 바꿔야 할것!!!!
-      //------------------------------------------------------------------------------
-      let imagesUp = document.querySelector("#bannerUpload");
-      imagesUp =  imagesUp.files[0].name;
-      console.log(imagesUp)
-      let imagesName = document.querySelector("#bannerName");
 
-      imagesName.setAttribute('placeholder', imagesUp)
-
+     let imagesUp = document.querySelector("#bannerUpload");
+     this.adBannerName =  imagesUp.files[0].name;
 
     },
+    //******************************************************************************
+    // 배너 업로드 시 text 박스의 값 보여지기
+    //******************************************************************************
 
     lendSelectFunc(pos) {
 			this.lendSelect = pos;
@@ -701,6 +721,9 @@ export default {
 
   },
   created() {
+    this.$store.state.headerTopTitle = "데이터 센터";
+    this.$store.state.headerMidTitle = "신규 캠페인 등록";
+
     this.getCommonByTp0000();
     this.getCommonByTp0005();
     this.getCommonByTp0015(1);

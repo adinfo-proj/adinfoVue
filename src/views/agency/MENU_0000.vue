@@ -945,8 +945,11 @@ export default {
 		divSelectFunc(pos) {
 			this.divSelect = pos;
 		}
+	},
+	created() {
+    this.$store.state.headerTopTitle = "DASHBOARD";
+    this.$store.state.headerMidTitle = "DASHBOARD";
 	}
-
 }
 </script>
 
