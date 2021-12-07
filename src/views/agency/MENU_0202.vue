@@ -307,12 +307,22 @@
           </td>
         </tr>
         <tr class="lendNotOwn" v-if="lendSelect == 1">
+
+
+
+
+
           <td class="tableMiddleRight">참고이미지</td>
           <td class="tableMiddleLeft" colspan="2">
-            <input id="etcImages" class="upload_name" value="" disabled="disabled">
+            <input id="etcImages" class="upload_name" disabled="disabled" v-bind:placeholder="etcImeageName">
             <label for="referFile">이미지 등록하기 <i class="fas fa-plus"></i></label> 
-            <input type="file" accept="" id="referFile" class="upload_hidden" multiple>
+            <input type="file" accept="" id="referFile" class="upload_hidden" ref="etcImage" multiple @change="uploadfile()">
             <!-- multiple  : 여러개의 파일선택 여부-->
+
+
+
+
+
           </td>
         </tr>
         <tr class="obscured lendNotOwn">
@@ -402,6 +412,8 @@ export default {
       landingUrl: '',         // 캠페인 단가
 
       extFormYn:'extFormN',     // 랜딩페이지 보유여부
+
+
 
 
       apdText1: String,
@@ -586,10 +598,17 @@ export default {
     //******************************************************************************
     // 배너 업로드 시 text 박스의 값 보여지기
     //******************************************************************************
-    uploadBanner(){ // 이미지 업로드 
+    uploadBanner(){
       this.adBanner = this.$refs.upImage.files;
       this.adBannerName = this.adBanner[0].name;
-      console.log(this.adBanner);
+    },
+    //******************************************************************************
+    // 파일 업로드 시 text 박스의 값 보여지기
+    //******************************************************************************
+
+    uploadfile(){
+      this.etcImeageName = this.$refs.etcImage.files.map   (curValue => curValue.name)
+                                                   .join  ("|");
     },
     //******************************************************************************
     // 배너 업로드 시 text 박스의 값 보여지기
@@ -665,28 +684,28 @@ export default {
             , adPurpose: this.adPurpose
             , adTopKind: this.adTopKind
             , adMiddleKind: this.adMiddleKind
-            , adName: this.adName    
-            , adBanner: ''       
-            , adComment: this.adComment     
-            , adUsp: this.adUsp         
-            , smsYn: this.smsYn         
-            , smsNo: this.smsNo         
-            , adPrice: this.adPrice     
-            , adPromotionPrice: this.adPromotionPrice 
-            , adMinQty: this.adMinQty                
-            , dayLimit: this.dayLimit         
-            , approval: this.approval         
-            , ageTarget: this.ageTarget       
+            , adName: this.adName
+            , adBanner: ''
+            , adComment: this.adComment
+            , adUsp: this.adUsp
+            , smsYn: this.smsYn
+            , smsNo: this.smsNo
+            , adPrice: this.adPrice
+            , adPromotionPrice: this.adPromotionPrice
+            , adMinQty: this.adMinQty
+            , dayLimit: this.dayLimit
+            , approval: this.approval
+            , ageTarget: this.ageTarget
             , ageTargetFrom: this.ageTargetFrom
             , ageTargetTo: this.ageTargetTo
-            , reqWordCon: this.reqWordCond    
+            , reqWordCon: this.reqWordCond
             , banChannel: banChannelObjLet
             , banExChannel: banExChannelObjLet
             , banImageCond: this.banImageCond
-            , banWordCond: this.banWordCond   
-            , nullifyCond: this.nullifyCond   
-            , cancelCond: this.cancelCond     
-            , autoConfirm: this.autoConfirm   
+            , banWordCond: this.banWordCond
+            , nullifyCond: this.nullifyCond
+            , cancelCond: this.cancelCond
+            , autoConfirm: this.autoConfirm
             , file: form
         },
         headers: {
