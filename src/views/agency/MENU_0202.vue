@@ -252,13 +252,19 @@
           </td>
         </tr>
         <tr>
+          
           <td class="tableHead">취소 조건</td>
-          <td><input type="text" name="" id="" v-model="cancelCond"></td>
-          <td class="tableHead">자동화 확정 일수</td>
-          <td>
-            <input type="radio" name="confirmDate" id="date7" v-model="autoConfirm" value="day7"><label for="date7">7일</label>
-            <input type="radio" name="confirmDate" id="date15" v-model="autoConfirm" value="day15"><label for="date15">15일</label>
-            <input type="radio" name="confirmDate" id="dateEtc" v-model="autoConfirm" value="dayEtc"><label for="dateEtc">기타(협의 필요)</label><input type="text" name="" id="dateEtc2">
+          <td colspan="3">
+            <div class="checkingBox nullify"
+              v-for="(cancelCond, index) in cancelCondObj"
+              :key="index"
+            >
+              <input
+                type="checkbox" 
+                name ="cancleCond"
+              ><label for="cancleCond">{{ cancelCond.codeNm }}</label>
+            </div>
+            <input type="text" id="nullifyText">
           </td>
         </tr>
         <tr>
@@ -267,8 +273,12 @@
             <input type="radio" name="cpa" id="cpaY" v-model="cpaYn" value="cpaY"><label for="cpaY">예</label>
             <input type="radio" name="cpa" id="cpaN" v-model="cpaYn" value="cpaN"><label for="cpaN">아니오</label>
           </td>
-          <td class="tableHead">기타자료</td>
-          <td>기타자료는 홍보자료실에 등록 바랍니다</td>
+            <td class="tableHead">자동화 확정 일수</td>
+          <td>
+            <input type="radio" name="confirmDate" id="date7" v-model="autoConfirm" value="day7"><label for="date7">7일</label>
+            <input type="radio" name="confirmDate" id="date15" v-model="autoConfirm" value="day15"><label for="date15">15일</label>
+            <input type="radio" name="confirmDate" id="dateEtc" v-model="autoConfirm" value="dayEtc"><label for="dateEtc">기타(협의 필요)</label><input type="text" name="" id="dateEtc2">
+          </td>
         </tr>
         <tr>
           <td class="tableHead">기타</td>
@@ -401,6 +411,7 @@ export default {
       nullifyCond:'',         // 무효조건
       nullifyCondObj:'',      // 무효조건 객체
       cancelCond: '',         // 취소조건
+      cancelCondObj: '',         // 취소조건
       autoConfirm: 'day7',        // 자동확정일수
       cpaYn: 'cpaN',
 
@@ -412,6 +423,7 @@ export default {
       landingUrl: '',         // 캠페인 단가
 
       extFormYn:'extFormN',     // 랜딩페이지 보유여부
+      etcImeageName: '',        //  참고이미지
 
 
 
@@ -534,6 +546,27 @@ export default {
       })
     },
     //******************************************************************************
+    // DB취소조건 목록
+    //******************************************************************************
+    getCommonByTp0020() {
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      {
+        params: {
+          tp: '0020'
+        }
+      })
+      .then(response => {
+
+        if(response.data.length > 0) {
+          this.cancelCondObj = response.data;
+        }
+        
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
+    //******************************************************************************
     // 진행(선호) 채널 전체 선택 시 처리함수
     //******************************************************************************
     BanExChannelAll() { // 전체 선택 함수
@@ -607,8 +640,18 @@ export default {
     //******************************************************************************
 
     uploadfile(){
-      this.etcImeageName = this.$refs.etcImage.files.map   (curValue => curValue.name)
-                                                   .join  ("|");
+ 
+      let etcFile = this.$refs.etcImage.files;
+      
+      let etcName = [];
+
+      for(let i = 0 ; i<etcFile.length ; i++){
+        etcName.push(etcFile[i].name)
+        console.log(etcName)
+      }
+      this.etcImeageName = etcName;
+
+
     },
     //******************************************************************************
     // 배너 업로드 시 text 박스의 값 보여지기
@@ -727,7 +770,7 @@ export default {
 
   },
   created() {
-    this.$store.state.headerTopTitle = "데이터 센터";
+    this.$store.state.headerTopTitle = "캠페인 관리";
     this.$store.state.headerMidTitle = "신규 캠페인 등록";
 
     this.getCommonByTp0000();
@@ -735,6 +778,7 @@ export default {
     this.getCommonByTp0015(1);
     this.getCommonByTp0015(2);
     this.getCommonByTp0017();
+    this.getCommonByTp0020();
   }
 }
 </script>
