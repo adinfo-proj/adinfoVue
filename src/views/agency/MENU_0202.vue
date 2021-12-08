@@ -10,26 +10,6 @@
       <a class="cpi" href="javascript:void(0)"><img src="../../assets/images/icon06.png" alt="icon06">CPI광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
     </div>
     <div class="choose">
-      <div class="chooseArea">
-        <p>광고지역 설정<span>(중복 선택 가능)</span></p>
-        <span class="chooseAreaDeta">서울특별시<i class="fas fa-times xBtn"></i></span>
-        <span class="chooseAreaDeta">수원시<i class="fas fa-times xBtn"></i></span>
-        <span class="chooseAreaDeta">부천시<i class="fas fa-times xBtn"></i></span>
-        <span class="chooseAreaDeta">인천광역시<i class="fas fa-times xBtn"></i></span>
-        <span class="chooseAreaDeta">동두천시<i class="fas fa-times xBtn"></i></span>
-        <!-- 다시 작성 할 부분 -->
-        <div class="chooseBtn">
-          <button>추가하기 <i class="fas fa-plus"></i></button>
-        </div>
-      </div>
-      <div class="chooseExcept">
-        <p>광고제외지역 설정</p>
-        <span class="chooseAreaDeta">동두천시 소요동<i class="fas fa-times xBtn"></i></span>
-        <span class="chooseAreaDeta">인천시 강화군<i class="fas fa-times xBtn"></i></span>
-        <div class="chooseBtn">
-          <button>추가하기 <i class="fas fa-plus"></i></button>
-        </div>
-      </div>
       <div class="chooseDate">
         <div class="firstBox">
           <div class="startDate">
@@ -126,6 +106,26 @@
           </div>
         </div>
       </div>
+      <div class="chooseArea">
+        <p>광고지역 설정<span>(중복 선택 가능)</span></p>
+        <span class="chooseAreaDeta">서울특별시<i class="fas fa-times xBtn"></i></span>
+        <span class="chooseAreaDeta">수원시<i class="fas fa-times xBtn"></i></span>
+        <span class="chooseAreaDeta">부천시<i class="fas fa-times xBtn"></i></span>
+        <span class="chooseAreaDeta">인천광역시<i class="fas fa-times xBtn"></i></span>
+        <span class="chooseAreaDeta">동두천시<i class="fas fa-times xBtn"></i></span>
+        <!-- 다시 작성 할 부분 -->
+        <div class="chooseBtn">
+          <button>추가하기 <i class="fas fa-plus"></i></button>
+        </div>
+      </div>
+      <div class="chooseExcept">
+        <p>광고제외지역 설정</p>
+        <span class="chooseAreaDeta">동두천시 소요동<i class="fas fa-times xBtn"></i></span>
+        <span class="chooseAreaDeta">인천시 강화군<i class="fas fa-times xBtn"></i></span>
+        <div class="chooseBtn">
+          <button>추가하기 <i class="fas fa-plus"></i></button>
+        </div>
+      </div>
     </div>
     <div class="campaign tableBox">
       <table>
@@ -157,13 +157,13 @@
     <div class="promotion tableBox">
       <table>
         <tr>
-          <td class="tableHead">캠페인 단가</td>
+          <td class="tableHead">캠페인 단가<span class="necItem"> (필수)</span></td>
           <td><input type="text" name="" id="" v-model="adPrice"></td>
           <td class="tableHead">캠페인 프로모션 단가</td>
           <td><input type="text" name="" id="" v-model="adPromotionPrice"></td>
         </tr>
         <tr>
-          <td class="tableHead">DB 진행 수량</td>
+          <td class="tableHead">DB 진행 수량<span class="necItem"> (필수)</span></td>
           <td><input type="text" name="" id="" v-model="adMinQty" placeholder="최소 수량 100건 이상"></td>
           <td class="tableHead">승인률</td>
           <td><input type="text" name="" id="" v-model="approval" placeholder="최저 승인율 50%입니다"></td>
@@ -171,7 +171,7 @@
         <tr>
           <td class="tableHead">일별 DB 접수 제한</td>
           <td><input type="text" name="" id="" v-model="dayLimit"></td>
-          <td class="tableHead">연령 타겟</td>
+          <td class="tableHead">연령 타겟<span class="necItem"> (필수)</span></td>
           <td>
             <input type="radio" name="tagetAge" id="tagetAgeY" v-model="ageTarget" value="ageN"><label for="tagetAgeY">나이제한 없음</label>
             <input type="radio" name="tagetAge" id="tagetAgeN" v-model="ageTarget" value="ageY"><label for="tagetAgeN">나이제한 있음</label>
@@ -184,12 +184,14 @@
           <td colspan="3"><input type="text" name="" id="" v-model="reqWordCond"></td>
         </tr>
         <tr>
-          <td class="tableHead">진행(선호) 채널</td>
+          <td class="tableHead">진행(선호) 채널<span class="necItem"> (필수)</span></td>
           <td colspan="3" class="chooseCheck">
-            <div class="checkingBox">
+            <div class="checkingBox"
+            @click="BanExChannelAll()">
               <input type="checkbox" id="prohibitAll"
               :checked="banExChannelAll"
-              @click="BanExChannelAll()"><label for="prohibitAll">전체</label>
+              >
+              <label for="prohibitAll">전체</label>
             </div>
             <div class="checkingBox"
               v-for="(banExChannel, index) in banExChannelObj"
@@ -204,7 +206,7 @@
           </td>
         </tr>
         <tr>
-          <td class="tableHead">금지 채널</td>
+          <td class="tableHead">금지 채널<span class="necItem"> (필수)</span></td>
           <td colspan="3" class="chooseCheck">
             <div class="checkingBox"
               v-for="(banChannel, index) in banChannelObj"
@@ -213,8 +215,9 @@
             >
               <input 
                 type="checkbox" 
-                :checked="banChannel.flag"
-              ><label for="">{{ banChannel.codeNm }}</label>            
+                :checked="banChannel.flag" 
+              >
+              <label for="">{{ banChannel.codeNm }}</label>            
             </div>
           </td>
         </tr>
@@ -228,65 +231,52 @@
         </tr>
         <tr>
           <!-- 무효조건 관련-->
-          <td class="tableHead">무효 조건</td>
+          <td class="tableHead">무효 조건<span class="necItem"> (필수)</span></td>
           <td colspan="3">
             <div class="checkingBox nullify"
               v-for="(nullifyCond, index) in nullifyCondObj"
               :key="index"
+              @click="nullifyTextBox(index);"
             >
               <input
                 type="checkbox" 
-                name ="cancleCond"
-              ><label for="cancleCond">{{ nullifyCond.codeNm }}</label>
+                name ="nullifyCond"
+                :checked="nullifyCond.flag"
+              ><label for="nullifyCond">{{ nullifyCond.codeNm }}</label>
             </div>
             <input type="text" id="nullifyText">
           </td>
         </tr>
         <tr>
-
-
-
-
-
-
-          <td class="tableHead">취소 조건</td>
+          <td class="tableHead">취소 조건<span class="necItem"> (필수)</span></td>
           <td colspan="3">
             <div class="checkingBox cancelBox"
               v-for="(cancelCond, index) in cancelCondObj"
               :key="index"
+               @click="cancelTextBox(index);"
             >
               <input
                 type="checkbox" 
                 name ="cancleCond"
+                :checked="cancelCond.flag"
               ><label for="cancleCond">{{ cancelCond.codeNm }}</label>
             </div>
             <input type="text" id="cancelText">
           </td>
-
-
-
-
-
-
-
-
-
-
-
         </tr>
         <tr>
           <td class="tableHead">SMS 수신 여부</td>
           <td>
             DB접수 시 SMS를 수신합니다. 
             <input type="radio" name="sms" id="smsY" v-model="smsYn" value="smsY"><label for="smsY">예</label>
-            <input type="text" id="phoneNum" placeholder="연락처를 입력해주세요." maxlength="11" v-model="smsNo">
+            <input type="tel" id="phoneNum" placeholder="연락처를 입력해주세요." maxlength="11" v-model="smsNo">
             <input type="radio" name="sms" id="smsN" v-model="smsYn" value="smsYN" checked><label for="smsN">아니오</label> 
           </td>
           <td class="tableHead">자동화 확정 일수</td>
           <td>
             <input type="radio" name="confirmDate" id="date7" v-model="autoConfirm" value="day7"><label for="date7">7일</label>
             <input type="radio" name="confirmDate" id="date15" v-model="autoConfirm" value="day15"><label for="date15">15일</label>
-            <input type="radio" name="confirmDate" id="dateEtc" v-model="autoConfirm" value="dayEtc"><label for="dateEtc">기타(협의 필요)</label><input type="text" name="" id="dateEtc2">
+            <input type="radio" name="confirmDate" id="dateEtc" v-model="autoConfirm" value="dayEtc"><label for="dateEtc">기타(협의 필요)</label><input type="text" name="" id="dateEtc2" >
           </td>
         </tr>
         <tr>
@@ -337,19 +327,20 @@
           <td colspan="2"></td>
         </tr>
         <tr class="lendNotOwn" v-if="lendSelect == 1">
-          <td class="tableHead">수집항목</td>
+          <td class="tableHead">수집 항목</td>
           <td>
             <div class="checkingBox collection"
               v-for="(landCollection, index) in landCollectionObj"
               :key="index"
-
+              @click="landColTextBox(index);"
             >
               <input
                 type="checkbox" 
-                name ="cancleCond"
-              ><label for="cancleCond">{{ landCollection.codeNm }}</label>
+                name ="landCollection"
+                :checked="landCollection.flag"
+              ><label for="landCollection">{{ landCollection.codeNm }}</label>
             </div>
-            <input type="text" id="landText">
+            <input type="text" id="landText" placeholder="EX) 지역, 문의사항, 신청사유 등">
 
           </td>
         </tr>
@@ -358,13 +349,140 @@
     <div class="submitBtn">
       <button @click="createCampaign()"> 등록하기 </button>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="modalChooseArea">
+      <div class="popUpArea">
+        <div class="areaTop">
+          <div class="areaCity">
+            <div class="popUpTitle">
+              광역시 / 도
+            </div>
+            <div class="popUpAreaList">
+              <ul>
+                <li
+                  v-for="(adAreaCity, index) in adAreaCityObj"
+                  :key="index" 
+                  :value="adAreaCity.code"
+                  >{{ adAreaCity.codeNm }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="areaZone">
+            <div class="popUpTitle">
+              시 / 군 / 구
+            </div>
+            <div class="popUpAreaList">
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+              <div class="areaCheck">
+                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
+              </div>
+            </div>
+          </div>
+          <div class="areaChooseZone">
+            <p> <i class="fas fa-chevron-left"></i> 최대 10곳까지 선택 가능합니다 <i class="fas fa-chevron-right"></i> </p>
+            <span class="chooseAreaDeta">서울특별시<i class="fas fa-times xBtn"></i></span>
+            <span class="chooseAreaDeta">수원시<i class="fas fa-times xBtn"></i></span>
+            <span class="chooseAreaDeta">부천시<i class="fas fa-times xBtn"></i></span>
+            <span class="chooseAreaDeta">인천광역시<i class="fas fa-times xBtn"></i></span>
+            <span class="chooseAreaDeta">동두천시<i class="fas fa-times xBtn"></i></span>
+          </div>
+        </div>
+        <div class="areaBottom">
+          <button class="areaCan">취소</button>
+          <button class="areaSub">확인</button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import $ from 'jquery';
-
 
 
 export default {
@@ -374,9 +492,6 @@ export default {
       editorConfig: {},
       lendSelect: 0,
       
-
-
-
       adKind: '',             // 캠페인 종류
       adArea: '',             // 광고지역
       adAreaEtc: '',          // 기타지역
@@ -426,9 +541,6 @@ export default {
       cpaYn: 'cpaN',
 
 
-
-
-
       landingPageTitle: '',   // DB 접수 시 SMS 수신 번호
       landingUrl: '',         // 캠페인 단가
 
@@ -438,6 +550,10 @@ export default {
       landCollectionObj:'',   // 수집항목 객체
 
 
+      adAreaCity: '',         // 특별시/도 선택 목록 
+      adAreaCityObj: '',      // 특별시/도 선택 목록 객체
+      adAreaSubCity: '',      // 시/구/군 선택 목록 
+      adAreaSubCityObj: '',   // 시/구/군 선택 목록 객체
 
       apdText1: String,
       apdText2: String,
@@ -549,6 +665,9 @@ export default {
 
         if(response.data.length > 0) {
           this.nullifyCondObj = response.data;
+          for(let i = 0 ; i < this.nullifyCondObj.length; i++) {
+            this.nullifyCondObj[i].flag = false;
+          }
         }
         
       })
@@ -594,6 +713,9 @@ export default {
 
         if(response.data.length > 0) {
           this.landCollectionObj = response.data;
+          for(let i = 0 ; i < this.landCollectionObj.length; i++) {
+            this.landCollectionObj[i].flag = false;
+          }
         }
         
       })
@@ -601,6 +723,86 @@ export default {
         console.log(error);
       })
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //******************************************************************************
+    // 모달 팝업창
+    //******************************************************************************
+
+    //******************************************************************************
+    // 지역선택 목록
+    //******************************************************************************
+    getCommonByTp0019 () { // 캠페인 분류(대분류)
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+        {
+          params: {
+            tp: '0019'
+        }
+      })
+      .then(response => {
+        if(response.data.length > 0) {
+          this.adAreaCityObj = response.data;
+          console.log(this.adAreaCityObj)
+          // this.firstComboChg(this.adTopKind);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
+        //******************************************************************************
+    // 캠페인 분류(중분류)
+    //******************************************************************************
+    // areaComboChg(code) { // 캼패안 분류(소분류)
+    //   axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
+    //     {
+    //       params: {
+    //         tp: '0001',
+    //         code: code
+    //     }
+    //   })
+    //   .then(response => {
+    //     if(response.data.length > 0) {
+    //       this.adMiddleKind = response.data[0].subCode;
+    //       this.adMiddleKindObj = response.data;
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   })
+    // },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //******************************************************************************
     // 진행(선호) 채널 전체 선택 시 처리함수
     //******************************************************************************
@@ -673,7 +875,6 @@ export default {
     //******************************************************************************
     // 파일 업로드 시 text 박스의 값 보여지기
     //******************************************************************************
-
     uploadfile(){
  
       let etcFile = this.$refs.etcImage.files;
@@ -689,28 +890,59 @@ export default {
 
     },
     //******************************************************************************
-    // 랜딩페이지 보유 미보유
+    // 랜딩페이지 보유 미보유 Tap 기능
     //******************************************************************************
 
     lendSelectFunc(pos) {
 			this.lendSelect = pos;
 		},
     //******************************************************************************
-    // 기타 입력 박스 클래스 추가 함수
+    // 무효조건 기타 입력 박스 클래스 추가 함수
     //******************************************************************************
+    nullifyTextBox(index) {
+      this.nullifyCondObj[index].flag == false 
+      ? this.nullifyCondObj[index].flag = true 
+      : this.nullifyCondObj[index].flag = false;
 
-    test() {
-      let test01= $(".checkingBox.cancelBox").last().find("input").find("class");
+      console.log(index + " : "+this.nullifyCondObj[index].flag)
+      
+      if(this.nullifyCondObj[index].flag == true && this.nullifyCondObj[index].code == 99){
+        $("#nullifyText").addClass("active")
+      }else if(this.nullifyCondObj[index].code == 99 && this.nullifyCondObj[index].flag == false){
+        $("#nullifyText").removeClass("active")
+      }
+    },
+    //******************************************************************************
+    // 취소조건 기타 입력 박스 클래스 추가 함수
+    //******************************************************************************
+    cancelTextBox(index) {
+      this.cancelCondObj[index].flag == false 
+      ? this.cancelCondObj[index].flag = true 
+      : this.cancelCondObj[index].flag = false;
 
-      console.log(test01)
+      console.log(index + " : "+this.cancelCondObj[index].flag)
 
-		// 	// if($(".nullify").last().fine("input").value == true){
-    //   //   $("#nullifyText").addClass("active")
-    //   // }
-    //   // else{nullify
-    //   //   $("#nullifyText").removeClass("active")
-    //   //   }
-		
+      if(this.cancelCondObj[index].flag == true && this.cancelCondObj[index].code == 99){
+        $("#cancelText").addClass("active")
+      }else if(this.cancelCondObj[index].code == 99&& this.cancelCondObj[index].flag == false){
+        $("#cancelText").removeClass("active")
+      }
+    },
+    //******************************************************************************
+    // 수집항목 기타 입력 박스 클래스 추가 함수
+    //******************************************************************************
+    landColTextBox(index) {
+      this.landCollectionObj[index].flag == false 
+      ? this.landCollectionObj[index].flag = true 
+      : this.landCollectionObj[index].flag = false;
+
+      console.log(index + " : "+this.landCollectionObj[index].flag)
+
+      if(this.landCollectionObj[index].flag == true && this.landCollectionObj[index].code == 99){
+        $("#landText").addClass("active")
+      }else if(this.landCollectionObj[index].code == 99&& this.landCollectionObj[index].flag == false){
+        $("#landText").removeClass("active")
+      }
     },
     //******************************************************************************
     // 최종 등록하기 버튼 선택
@@ -819,8 +1051,28 @@ export default {
     },
   },
   watch: {
+    //******************************************************************************
+    // 입력 값에 정규표현식 숫자만 및 "," 표시
+    //******************************************************************************\
+          // 캠페인 단가
+    adPrice : function() {
+      return this.adPrice = this.adPrice.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+          // 캠페인 프로모션 단가
+    adPromotionPrice : function() {
+      return this.adPromotionPrice = this.adPromotionPrice.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+          // DB 진행 수량
+    adMinQty : function() {
+      return this.adMinQty = this.adMinQty.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+          // DB승인율
+    approval : function() {
+      return this.approval = this.approval.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
 
-  },
+  }, 
+
   created() {
     this.$store.state.headerTopTitle = "캠페인 관리";
     this.$store.state.headerMidTitle = "신규 캠페인 등록";
@@ -830,9 +1082,9 @@ export default {
     this.getCommonByTp0015(1);
     this.getCommonByTp0015(2);
     this.getCommonByTp0017();
+    this.getCommonByTp0019();
     this.getCommonByTp0020();
     this.getCommonByTp0021();
-    this.test();
   }
 }
 </script>
@@ -905,7 +1157,7 @@ export default {
 
   .chooseArea,
   .chooseExcept,
-  .chooseDate  {
+  .chooseDate {
     float: left;
   }
 
@@ -917,9 +1169,13 @@ export default {
     color: #444;
   }
 
+  .chooseDate,
+  .chooseArea {
+    margin-right: 2%;
+  }
+
   .chooseArea,
   .chooseExcept {
-    margin-right: 2%;
     width: 26%;
     height: 100%;
   }
@@ -929,9 +1185,8 @@ export default {
   }
   
   /* 지역 추가하기 버튼 */
-
   .chooseArea>.chooseAreaDeta,
-  .chooseExcept>.chooseAreaDeta{
+  .chooseExcept>.chooseAreaDeta {
     display: inline-block;
     padding: 6px 10px;
     border: 1px solid #e5e5e5;
@@ -940,7 +1195,7 @@ export default {
   }
 
   .chooseArea>span>.xBtn,
-  .chooseExcept>span>.xBtn{
+  .chooseExcept>span>.xBtn {
 
     /* 추후에 얇은걸로 변경하기!!!!! */
     margin-left: 5px;
@@ -948,7 +1203,7 @@ export default {
     cursor: pointer;
   }
 
-  .chooseBtn button{
+  .chooseBtn button {
     margin-top: 5px;
     padding: 6px 15px;
     border-radius: 10px;
@@ -1010,7 +1265,7 @@ export default {
   }
 
   .chooseDate #startDate2,
-  .chooseDate #closeDate2{
+  .chooseDate #closeDate2 {
       width: 37%;
   }
 
@@ -1019,7 +1274,7 @@ export default {
     margin-right: 2%;
   }
 
-  .chooseDate select option{
+  .chooseDate select option {
     padding: 5px 10px;
     border-radius: 10px;
   }
@@ -1084,13 +1339,13 @@ export default {
     height: 183px;
   }
 
-  .container .tableBox .necItem{
+  .container .tableBox .necItem {
     color: red;
     transform: translateY(-2px);
     font-size: 10px;
   }
 
-  .container .tableBox input[type="text"]{
+  .container .tableBox input[type="text"] {
     width: 100%;
     height: 100%;
     padding: 5px;
@@ -1168,13 +1423,18 @@ export default {
     width: 530px;
   }
 
-  .container .tableBox input[type="text"]#phoneNum,
+  .container .tableBox input[type="tel"] {
+    height: 100%;
+    padding: 5px;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+  }
+
+  .container .tableBox input[type="tel"]#phoneNum,
   .container .tableBox input[type="text"].tagetAge,
-  .container .tableBox input[type="text"]#dateEtc2
-   {
+  .container .tableBox input[type="text"]#dateEtc2 {
     width: 0px;
     transition: 0.5s;
-    height: 100%;
     opacity: 0;
     padding: 0 10px;
   }
@@ -1205,7 +1465,7 @@ export default {
 
   
   .container .tableBox #dateEtc:checked  ~ #dateEtc2 {
-    width: 60px;
+    width: 150px;
     margin: 0 15px;
     text-align: right;
     padding: 0 10px;
@@ -1215,40 +1475,43 @@ export default {
 
 
   .container .tableBox .nullify,
-  .container .tableBox .nullify,
-  .container .tableBox .collection
-  {
+  .container .tableBox .cancelBox,
+  .container .tableBox .collection {
     transform: translateY(6px);
   }
 
   .container .tableBox #nullifyText,
   .container .tableBox #cancelText,
-  .container .tableBox #landText{
+  .container .tableBox #landText {
     width: 100px;
     opacity: 0;
-    transform: translate(0);
+    transform: scaleX(0);
     transition: 0.5s;
+    transform-origin: left
+  }
+
+  .container .tableBox #landText {
+    width: 250px;
   }
 
 
   .container .tableBox #nullifyText.active,
   .container .tableBox #cancelText.active,
-  .container .tableBox #landText.active{
+  .container .tableBox #landText.active {
     opacity: 1;
-    transform: translate(1);
+    transform: scaleX(1);
   }
 
 
 
-  .container .tableBox input[type="text"]#cancleCondEtc
-  {
+  .container .tableBox input[type="text"]#cancleCondEtc {
     width: 150px;
     height: 100%;
     margin: 0 5px;
     padding: 0 10px;
   }
 
-  .container .tableBox .checkingBox{
+  .container .tableBox .checkingBox {
     float: left;
   }
 
@@ -1258,15 +1521,15 @@ export default {
   }
 
   .container .tableBox input[type="checkbox"] + label {
-    margin-right: 10px;
+    margin-right: 5px;
   }
-  .container .lend{
+  .container .lend {
     clear: both;
     border-top-left-radius: 0;
     background: #fff;
   }
 
-  .container .tableBox .obscured{
+  .container .tableBox .obscured {
     display: none;
   }
 
@@ -1304,11 +1567,11 @@ export default {
     width: 960px;
   }
 
-  .container .submitBtn{
+  .container .submitBtn {
     text-align: center;
   }
 
-  .container .submitBtn button{
+  .container .submitBtn button {
     width: 140px;
     background: #e25b45;
     border-radius: 50px;
@@ -1320,7 +1583,8 @@ export default {
     border: none   ;
   }
 
-  .lendTapBtn{
+
+  .lendTapBtn {
     display: block;
 		width: 151px;
 		height: 45px;
@@ -1336,10 +1600,158 @@ export default {
     border-bottom: none;
   }
 
-  .lendTapBtn.on{
+  .lendTapBtn.on {
 		background: #fff;
 		color: #e25b45;
 	}
 
 
+  /* 지역선택 팝업 */
+
+
+  #modalChooseArea {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    width: 100vw;
+    height: 100vw;
+    background: rgba(0,0,0,0.7);
+  }
+
+  #modalChooseArea .popUpArea {
+    width: 655px;
+    height: 390px;
+    padding-bottom: 20px;
+    background: #fff;
+    border-radius: 10px;
+    position: absolute;
+    left: 550px;
+    top: 200px;
+    overflow: hidden;
+  }
+
+  #modalChooseArea .popUpArea .areaTop {
+    width: 100%;
+    height: 310px;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .areaCity,
+  #modalChooseArea .popUpArea .areaTop .areaZone,
+  #modalChooseArea .popUpArea .areaTop .areaChooseZone {
+    float: left;
+    height: 100%;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .areaCity {
+    width: 154px;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .areaZone {
+    width: 214px;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .areaChooseZone {
+    width: 287px;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 15px;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .areaCity,
+  #modalChooseArea .popUpArea .areaTop .areaZone {
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .popUpTitle {
+    border-bottom: 1px solid #e5e5e5;
+    background: #f6f6f6;
+    padding: 17px 0 14px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #444;
+  }
+  #modalChooseArea .popUpArea .areaTop .popUpAreaList {
+    height: 261px;
+    overflow-y: scroll;
+    font-weight: 700;
+    color: #444;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .popUpAreaList li {
+    height: 34px;
+    padding: 9px 21px;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .popUpAreaList li:hover {
+    background: #e25b45;
+    color: #fff;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .popUpAreaList li.active {
+    background: #e25b45;
+    color: #fff;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .popUpAreaList .areaCheck {
+    width: 50%;
+    float: left;
+    padding: 10px 0 10px 15px;
+
+  }
+
+  #modalChooseArea .popUpArea .areaTop .areaZone .popUpAreaList {
+    padding-top: 15px;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .popUpAreaList .areaCheck input {
+    transform: translateY(3px);
+    margin-right: 5px;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .areaChooseZone p,
+  #modalChooseArea .popUpArea .areaTop .areaChooseZone p i {
+    font-size: 14px;
+    font-weight: 700;
+    color: red;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .areaChooseZone p {
+    padding-bottom: 10px;
+    text-align: center;
+  }
+
+  #modalChooseArea .popUpArea .areaTop .areaChooseZone span {
+    display: inline-block;
+    padding: 5px 8px;
+  }
+  #modalChooseArea .popUpArea .areaTop .areaChooseZone span i {
+    margin-left: 3px;
+  }
+
+  #modalChooseArea .areaBottom {
+    text-align: center;
+    padding: 21px;
+  }
+
+  #modalChooseArea .areaBottom button {
+    width: 137px;
+    height: 40px;
+    text-align: center;
+    border-radius: 20px;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  #modalChooseArea .areaBottom .areaCan {
+    background: #8d8d8d;
+    margin-right: 11px;
+  }
+
+  #modalChooseArea .areaBottom .areaSub {
+    background: #e25b45;
+  }
 </style>
