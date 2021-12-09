@@ -106,27 +106,50 @@
           </div>
         </div>
       </div>
+
+
+
       <div class="chooseArea">
         <p>광고지역 설정<span>(중복 선택 가능)</span></p>
-        <span class="chooseAreaDeta">서울특별시<i class="fas fa-times xBtn"></i></span>
-        <span class="chooseAreaDeta">수원시<i class="fas fa-times xBtn"></i></span>
-        <span class="chooseAreaDeta">부천시<i class="fas fa-times xBtn"></i></span>
-        <span class="chooseAreaDeta">인천광역시<i class="fas fa-times xBtn"></i></span>
-        <span class="chooseAreaDeta">동두천시<i class="fas fa-times xBtn"></i></span>
+
+        <span class="chooseAreaDeta"
+          v-for="(adIndex, index) in this.$store.state.addAreaListObj"
+          :key="index"
+          :value="adIndex.subCode"
+        >{{ adIndex.codeNm }} {{ adIndex.codeDescr }}</span>
+        
+
+
         <!-- 다시 작성 할 부분 -->
         <div class="chooseBtn">
-          <button>추가하기 <i class="fas fa-plus"></i></button>
+          <button @click="AddArea();">설정하기 <i class="fas fa-plus"></i></button>
         </div>
       </div>
+
+
+
       <div class="chooseExcept">
         <p>광고제외지역 설정</p>
-        <span class="chooseAreaDeta">동두천시 소요동<i class="fas fa-times xBtn"></i></span>
-        <span class="chooseAreaDeta">인천시 강화군<i class="fas fa-times xBtn"></i></span>
+        <!-- <span class="chooseAreaDeta">동두천시 소요동<i class="fas fa-times xBtn"></i></span>
+        <span class="chooseAreaDeta">인천시 강화군<i class="fas fa-times xBtn"></i></span> -->
+        <span class="chooseAreaDeta"
+          v-for="(adIndex, index) in this.$store.state.removeAreaListObj"
+          :key="index"
+          :value="adIndex.subCode"
+        >{{ adIndex.codeNm }} {{ adIndex.codeDescr }}</span>
+
+
         <div class="chooseBtn">
-          <button>추가하기 <i class="fas fa-plus"></i></button>
+          <button @click="RemoveArea();">설정하기 <i class="fas fa-plus"></i></button>
         </div>
       </div>
+
+
+
     </div>
+
+
+
     <div class="campaign tableBox">
       <table>
         <tr>
@@ -350,6 +373,8 @@
       <button @click="createCampaign()"> 등록하기 </button>
     </div>
 
+    <AddAreaDialog></AddAreaDialog>
+    <RemoveAreaDialog></RemoveAreaDialog>
 
 
 
@@ -361,115 +386,6 @@
 
 
 
-
-
-
-    <div id="modalChooseArea">
-      <div class="popUpArea">
-        <div class="areaTop">
-          <div class="areaCity">
-            <div class="popUpTitle">
-              광역시 / 도
-            </div>
-            <div class="popUpAreaList">
-              <ul>
-                <li
-                  v-for="(adAreaCity, index) in adAreaCityObj"
-                  :key="index" 
-                  :value="adAreaCity.code"
-                  >{{ adAreaCity.codeNm }}
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="areaZone">
-            <div class="popUpTitle">
-              시 / 군 / 구
-            </div>
-            <div class="popUpAreaList">
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-              <div class="areaCheck">
-                <input type="checkbox" name="areaList"><label for="areaList">전체선택</label>
-              </div>
-            </div>
-          </div>
-          <div class="areaChooseZone">
-            <p> <i class="fas fa-chevron-left"></i> 최대 10곳까지 선택 가능합니다 <i class="fas fa-chevron-right"></i> </p>
-            <span class="chooseAreaDeta">서울특별시<i class="fas fa-times xBtn"></i></span>
-            <span class="chooseAreaDeta">수원시<i class="fas fa-times xBtn"></i></span>
-            <span class="chooseAreaDeta">부천시<i class="fas fa-times xBtn"></i></span>
-            <span class="chooseAreaDeta">인천광역시<i class="fas fa-times xBtn"></i></span>
-            <span class="chooseAreaDeta">동두천시<i class="fas fa-times xBtn"></i></span>
-          </div>
-        </div>
-        <div class="areaBottom">
-          <button class="areaCan">취소</button>
-          <button class="areaSub">확인</button>
-        </div>
-      </div>
-    </div>
 
 
 
@@ -483,10 +399,16 @@
 <script>
 import axios from "axios";
 import $ from 'jquery';
+import AddAreaDialog from "../../components/dialog/AddAreaDialog"
+import RemoveAreaDialog from "../../components/dialog/RemoveAreaDialog"
 
 
 export default {
   // 
+  components: {
+      AddAreaDialog
+    , RemoveAreaDialog
+  },
   data() {
     return {
       editorConfig: {},
@@ -550,10 +472,7 @@ export default {
       landCollectionObj:'',   // 수집항목 객체
 
 
-      adAreaCity: '',         // 특별시/도 선택 목록 
-      adAreaCityObj: '',      // 특별시/도 선택 목록 객체
-      adAreaSubCity: '',      // 시/구/군 선택 목록 
-      adAreaSubCityObj: '',   // 시/구/군 선택 목록 객체
+
 
       apdText1: String,
       apdText2: String,
@@ -561,6 +480,7 @@ export default {
     }
   },
   methods: {
+    
     //******************************************************************************
     // 캠페인 목적
     //******************************************************************************
@@ -723,86 +643,16 @@ export default {
         console.log(error);
       })
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //******************************************************************************
-    // 모달 팝업창
+    // 광고지역 모달팝업 팝업 함수
     //******************************************************************************
 
-    //******************************************************************************
-    // 지역선택 목록
-    //******************************************************************************
-    getCommonByTp0019 () { // 캠페인 분류(대분류)
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
-        {
-          params: {
-            tp: '0019'
-        }
-      })
-      .then(response => {
-        if(response.data.length > 0) {
-          this.adAreaCityObj = response.data;
-          console.log(this.adAreaCityObj)
-          // this.firstComboChg(this.adTopKind);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      })
+    AddArea() {
+      $("#modalChooseArea").css({display:"block"})
     },
-        //******************************************************************************
-    // 캠페인 분류(중분류)
-    //******************************************************************************
-    // areaComboChg(code) { // 캼패안 분류(소분류)
-    //   axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
-    //     {
-    //       params: {
-    //         tp: '0001',
-    //         code: code
-    //     }
-    //   })
-    //   .then(response => {
-    //     if(response.data.length > 0) {
-    //       this.adMiddleKind = response.data[0].subCode;
-    //       this.adMiddleKindObj = response.data;
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   })
-    // },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    RemoveArea() {
+      $("#modalRemoveArea").css({display:"block"})
+    },
     //******************************************************************************
     // 진행(선호) 채널 전체 선택 시 처리함수
     //******************************************************************************
@@ -876,23 +726,19 @@ export default {
     // 파일 업로드 시 text 박스의 값 보여지기
     //******************************************************************************
     uploadfile(){
- 
       let etcFile = this.$refs.etcImage.files;
-      
       let etcName = [];
 
       for(let i = 0 ; i<etcFile.length ; i++){
         etcName.push(etcFile[i].name)
         console.log(etcName)
       }
+
       this.etcImeageName = etcName;
-
-
     },
     //******************************************************************************
     // 랜딩페이지 보유 미보유 Tap 기능
     //******************************************************************************
-
     lendSelectFunc(pos) {
 			this.lendSelect = pos;
 		},
@@ -1082,7 +928,6 @@ export default {
     this.getCommonByTp0015(1);
     this.getCommonByTp0015(2);
     this.getCommonByTp0017();
-    this.getCommonByTp0019();
     this.getCommonByTp0020();
     this.getCommonByTp0021();
   }
@@ -1606,152 +1451,6 @@ export default {
 	}
 
 
-  /* 지역선택 팝업 */
+  /* 지역선택 모달 팝업 */
 
-
-  #modalChooseArea {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 9999;
-    width: 100vw;
-    height: 100vw;
-    background: rgba(0,0,0,0.7);
-  }
-
-  #modalChooseArea .popUpArea {
-    width: 655px;
-    height: 390px;
-    padding-bottom: 20px;
-    background: #fff;
-    border-radius: 10px;
-    position: absolute;
-    left: 550px;
-    top: 200px;
-    overflow: hidden;
-  }
-
-  #modalChooseArea .popUpArea .areaTop {
-    width: 100%;
-    height: 310px;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .areaCity,
-  #modalChooseArea .popUpArea .areaTop .areaZone,
-  #modalChooseArea .popUpArea .areaTop .areaChooseZone {
-    float: left;
-    height: 100%;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .areaCity {
-    width: 154px;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .areaZone {
-    width: 214px;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .areaChooseZone {
-    width: 287px;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 15px;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .areaCity,
-  #modalChooseArea .popUpArea .areaTop .areaZone {
-    border-right: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .popUpTitle {
-    border-bottom: 1px solid #e5e5e5;
-    background: #f6f6f6;
-    padding: 17px 0 14px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 700;
-    color: #444;
-  }
-  #modalChooseArea .popUpArea .areaTop .popUpAreaList {
-    height: 261px;
-    overflow-y: scroll;
-    font-weight: 700;
-    color: #444;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .popUpAreaList li {
-    height: 34px;
-    padding: 9px 21px;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .popUpAreaList li:hover {
-    background: #e25b45;
-    color: #fff;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .popUpAreaList li.active {
-    background: #e25b45;
-    color: #fff;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .popUpAreaList .areaCheck {
-    width: 50%;
-    float: left;
-    padding: 10px 0 10px 15px;
-
-  }
-
-  #modalChooseArea .popUpArea .areaTop .areaZone .popUpAreaList {
-    padding-top: 15px;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .popUpAreaList .areaCheck input {
-    transform: translateY(3px);
-    margin-right: 5px;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .areaChooseZone p,
-  #modalChooseArea .popUpArea .areaTop .areaChooseZone p i {
-    font-size: 14px;
-    font-weight: 700;
-    color: red;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .areaChooseZone p {
-    padding-bottom: 10px;
-    text-align: center;
-  }
-
-  #modalChooseArea .popUpArea .areaTop .areaChooseZone span {
-    display: inline-block;
-    padding: 5px 8px;
-  }
-  #modalChooseArea .popUpArea .areaTop .areaChooseZone span i {
-    margin-left: 3px;
-  }
-
-  #modalChooseArea .areaBottom {
-    text-align: center;
-    padding: 21px;
-  }
-
-  #modalChooseArea .areaBottom button {
-    width: 137px;
-    height: 40px;
-    text-align: center;
-    border-radius: 20px;
-    border: none;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-  }
-
-  #modalChooseArea .areaBottom .areaCan {
-    background: #8d8d8d;
-    margin-right: 11px;
-  }
-
-  #modalChooseArea .areaBottom .areaSub {
-    background: #e25b45;
-  }
 </style>
