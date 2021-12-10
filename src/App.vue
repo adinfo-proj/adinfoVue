@@ -328,17 +328,17 @@
   .headerNav {
     padding: 15px 0 0 0;
   }
-
+/*
   .headerNav > ul > li {
     padding: 10px 20px 17px 20px;
-  }
+  }*/
 
   .headerNav > ul > li.on{
     background: #393939;
   }
 
   .headerNav > ul > li > ul {
-    padding: 5px 0 5px 30px ;
+    padding: 5px 0 5px 50px ;
     /* display: none; */
   }
 
@@ -347,9 +347,12 @@
   }
 
   .headerNav > ul > li > a {
+    display: block;
     font-weight: 700;
     font-size: 16px;
     color: #fff;
+    padding: 10px 20px 17px 20px;
+    position: relative;
   }
 
   .headerNav > ul > li > ul > li > a {
@@ -358,9 +361,24 @@
     font-weight: 700;
   }
 
-  .headerNav > ul > li.on > a, 
+  .headerNav > ul > li.on > a {
+    background: #e25b45;
+    color: #fff;
+  }
+  .headerNav > ul > li.on > a:after {
+    content: "";
+    background: url(./assets/images/TapIcon.png);
+    height: 15px;
+    width: 7px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+
   .headerNav > ul > li > ul > li.on > a {
     color: #e25b45;
+    
   }
 
   .headerNav > ul > li.on > ul {
