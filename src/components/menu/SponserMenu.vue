@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="headerLogo">
-      <router-link to="/">LOGO!@<img src="" alt=""></router-link>
+      <router-link to="/">광고주<img src="" alt=""></router-link>
     </div>
     <div class="headerNav">
       <ul>

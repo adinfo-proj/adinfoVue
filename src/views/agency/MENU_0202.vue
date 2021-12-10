@@ -418,10 +418,10 @@ export default {
       adKind: '',             // 캠페인 종류
       adArea: '',             // 광고지역
       adAreaEtc: '',          // 기타지역
-      adSrtDt: new Date().toISOString().substr(0, 10),            // YYYYMMDD
+      adSrtDt: this.$DateAdd(0),            // YYYYMMDD
       adSrtTm: '00',          // HHMMSS
-      adEndDt: new Date(this.oneYearAgo.setFullYear(this.oneYearAgo.getFullYear() + 1)).toISOString().substr(0, 10),            // YYYYMMDD
-      adEndTm: '00',          // HHMMSS
+      adEndDt: this.$DateAdd(364),            // YYYYMMDD
+      adEndTm: '23',          // HHMMSS
       adPurpose: '',          // 캠페인 목적
       adPurposeObj: '',       // 캠페인 목적 객체
       adTopKind: '',          // 캠페인 1차 분류 
@@ -921,8 +921,6 @@ export default {
   }, 
 
   created() {
-    this.now = new Date();
-    this.oneYearAgo = new Date(this.now.setFullYear(this.now.getFullYear() + 1));
     this.$store.state.headerTopTitle = "캠페인 관리";
     this.$store.state.headerMidTitle = "신규 캠페인 등록";
 

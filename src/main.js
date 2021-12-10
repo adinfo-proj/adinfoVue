@@ -4,16 +4,9 @@ import router from "./router";
 import store from "./store";
 import axios from 'axios';
 
-
-
-// 프로그래스 바 1
-import ProgressBar from 'vuejs-progress-bar'
-Vue.use(ProgressBar)
-
-
-// 프로그래스 바 2
-import KProgress from 'k-progress';
-Vue.component('k-progress', KProgress);
+// 날짜 계산용 라이브러리
+import DateCalc from "./plugins/DateCalc"
+Vue.use(DateCalc)
 
 // ckeditor
 import CKEditor from 'ckeditor4-vue';
