@@ -59,7 +59,6 @@
         </div>
       </div>
       <div class="areaBottom">
-        <button class="areaCan" @click="ModalCancle();">취소</button>
         <button class="areaSub" @click="MadalSubmit();">확인</button>
       </div>
     </div>
@@ -137,13 +136,13 @@ export default {
     AddAreaList(index) {
       let addSubList = new Object;
 
-      if(this.removeAreaListObj.length >= 10 ){
+      if( this.removeAreaListObj.length >= 10 ){
         alert("지역 선택은 10개까지만 가능합니다.");
         return;
       }
 
-      for(let i = 0 ; i < this.removeAreaListObj.length ; i++){
-        if(this.removeAreaListObj[i].code == this.adAreaSubCityObj[index].code && this.removeAreaListObj[i].subCode == this.adAreaSubCityObj[index].subCode){
+      for( let i = 0 ; i < this.removeAreaListObj.length ; i++ ){
+        if( this.removeAreaListObj[i].subCode == this.adAreaSubCityObj[index].subCode ){
           return;
         }
       }

@@ -59,7 +59,6 @@
         </div>
       </div>
       <div class="areaBottom">
-        <button class="areaCan" @click="ModalCancle();">취소</button>
         <button class="areaSub" @click="MadalSubmit();">확인</button>
       </div>
     </div>
@@ -81,6 +80,7 @@ export default {
       , befAdAreaCityCode: ''    // 주소값 대분류 현재값
       , areaList: ''
       , addAreaListObj: this.$store.state.addAreaListObj
+      , removeAreaListObj: this.$store.state.removeAreaListObj
     }
   },
   methods: {
@@ -142,11 +142,15 @@ export default {
         return;
       }
 
+
+
       for(let i = 0 ; i < this.addAreaListObj.length ; i++){
-        if(this.addAreaListObj[i].code == this.adAreaSubCityObj[index].code && this.addAreaListObj[i].subCode == this.adAreaSubCityObj[index].subCode){
+        if(this.addAreaListObj[i].subCode == this.adAreaSubCityObj[index].subCode){
           return;
         }
       }
+
+
       
       addSubList.code = this.adAreaSubCityObj[index].code;
       addSubList.codeNm = this.adAreaSubCityObj[index].codeNm;

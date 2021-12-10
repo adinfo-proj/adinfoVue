@@ -130,8 +130,6 @@
 
       <div class="chooseExcept">
         <p>광고제외지역 설정</p>
-        <!-- <span class="chooseAreaDeta">동두천시 소요동<i class="fas fa-times xBtn"></i></span>
-        <span class="chooseAreaDeta">인천시 강화군<i class="fas fa-times xBtn"></i></span> -->
         <span class="chooseAreaDeta"
           v-for="(adIndex, index) in this.$store.state.removeAreaListObj"
           :key="index"
@@ -413,13 +411,16 @@ export default {
     return {
       editorConfig: {},
       lendSelect: 0,
+
       
+      now: '',
+      oneYearAgo: '',
       adKind: '',             // 캠페인 종류
       adArea: '',             // 광고지역
       adAreaEtc: '',          // 기타지역
       adSrtDt: new Date().toISOString().substr(0, 10),            // YYYYMMDD
       adSrtTm: '00',          // HHMMSS
-      adEndDt: new Date().toISOString().substr(0, 10),            // YYYYMMDD
+      adEndDt: new Date(this.oneYearAgo.setFullYear(this.oneYearAgo.getFullYear() + 1)).toISOString().substr(0, 10),            // YYYYMMDD
       adEndTm: '00',          // HHMMSS
       adPurpose: '',          // 캠페인 목적
       adPurposeObj: '',       // 캠페인 목적 객체
@@ -920,6 +921,8 @@ export default {
   }, 
 
   created() {
+    this.now = new Date();
+    this.oneYearAgo = new Date(this.now.setFullYear(this.now.getFullYear() + 1));
     this.$store.state.headerTopTitle = "캠페인 관리";
     this.$store.state.headerMidTitle = "신규 캠페인 등록";
 
