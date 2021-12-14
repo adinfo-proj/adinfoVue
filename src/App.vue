@@ -25,7 +25,7 @@
             <li><a href="javascript:void(0)"
             @click="SignMadal();">회원가입</a></li>
             <li><a href="javascript:void(0)"
-            @click="SearchPopUp();">아이디 찾기</a></li>
+            @click="SearchIdModal();">아이디 찾기</a></li>
             <li><a href="javascript:void(0)">비밀번호 찾기</a></li>
           </ul>
         </div>
@@ -174,70 +174,82 @@
         </div>
       </div>
       <!-- 아이디/ 비밀번호 찾기 창 -->
-
-      <div id="searchPopUp">
+      <div id="searchModar">
         <div class="searchBox">
           <h2>회원 아이디 / 비밀번호 찾기</h2>
           <div class="searchTap">
-            <a class="on" href="javascript:void(0)">아이디 찾기</a>
-            <a href="javascript:void(0)">비밀번호 찾기</a>
+            <a href="javascript:void(0)"
+              @click="SearchFunc(0)" v-bind:class="{on : 0 == searchSelect}"
+            >
+              아이디 찾기
+            </a>
+            <a href="javascript:void(0)"
+              @click="SearchFunc(1)" v-bind:class="{on : 1 == searchSelect}"
+            >
+              비밀번호 찾기
+            </a>
           </div>
           <div class="searchTapBox">
-            <div class="searchId">
-              <div class="serachSubBox1">
-                <p>회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.<span></span></p>
-                <table>
-                  <tr>
-                    <th>
-                      이 름
-                    </th>
-                    <td>
-                      <input type="text" name="serchIdname" id="serchIdname">
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>
-                      핸드폰 번호
-                    </th>
-                    <td>
-                      <input type="text" name="serchIdPhone" id="serchIdPhone">
-                    </td>
-                  </tr>
-                </table>
+            <div class="searchTapSub">
+              <div class="searchId"
+                v-if="searchSelect == 0"
+              >
+                <div class="serachSubBox1">
+                  <p>회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.<span></span></p>
+                  <table>
+                    <tr>
+                      <th>
+                        이 름
+                      </th>
+                      <td>
+                        <input type="text" name="serchIdname" id="serchIdname">
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>
+                        핸드폰 번호
+                      </th>
+                      <td>
+                        <input type="text" name="serchIdPhone" id="serchIdPhone">
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="serachSubBox2">
+                  <p>회원님의 아이디 찾기가 완료되었습니다.<br>
+                    등록하신 아이디는 <span>qwer1234@naver.com</span>입니다.</p>
+                </div>
               </div>
-              <div class="serachSubBox2">
-                <p>회원님의 아이디 찾기가 완료되었습니다.</p>
-                <p>등록하신 아이디는 <span>qwer1234@naver.com</span>입니다.</p>
+              <div class="searchPw"
+                v-if="searchSelect == 1">
+                <div class="serachSubBox1">
+                  <p>임시 비밀번호를 생성하여 SMS로 보내드립니다.</p>
+                  <table>
+                    <tr>
+                      <th>
+                        아이디
+                      </th>
+                      <td>
+                        <input type="text" name="serchIdname" id="serchIdname">
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="serachSubBox2">
+                  <p>회원님의 휴대폰으로 <span>임시 비밀번호</span>가 전송되었습니다.<br>
+                    발급받으신 임시 비밀번호로 로그인 후,<br>
+                    새 비밀번호로 변경하여 사용하시기 바랍니다.</p>
+                </div>
               </div>
-              <button>확인</button>
             </div>
-            <div class="searchPw">
-              <div class="serachSubBox1">
-                <p>임시 비밀번호를 생성하여 SMS로 보내드립니다.</p>
-                <table>
-                  <tr>
-                    <th>
-                      아이디
-                    </th>
-                    <td>
-                      <input type="text" name="serchIdname" id="serchIdname">
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="serachSubBox2">
-                <p>회원님의 휴대폰으로 <span>임시 비밀번호</span>가 전송되었습니다.<br>
-                  발급받으신 임시 비밀번호로 로그인 후,<br>
-                  새 비밀번호로 변경하여 사용하시기 바랍니다.</p>
-              </div>
-              <button>확인</button>
-            </div>
+            <button>확인</button>
           </div>
-        <div class="searchCancleBtn">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13" viewBox="0 0 13 13">
-            <image id="X" width="13" height="13" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAABHNCSVQICAgIfAhkiAAAAFVJREFUKFOt0kkKACAIAED9/6NLCsXcDwndmnLDRQEASGcaC6+BKTz3GE2gPKxRBZ9MLIqgSz1CGoa1Zqis8dtPNqW2pmxeafe6Abs5dYBXTDZiCgRula4/5XLvrFUAAAAASUVORK5CYII="/>
-          </svg>
-        </div>
+          <button class="searchCancleBtn"
+           @click="SearchIdModalCancle();">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13" viewBox="0 0 13 13">
+              <image id="X" width="13" height="13" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAABHNCSVQICAgIfAhkiAAAAFVJREFUKFOt0kkKACAIAED9/6NLCsXcDwndmnLDRQEASGcaC6+BKTz3GE2gPKxRBZ9MLIqgSz1CGoa1Zqis8dtPNqW2pmxeafe6Abs5dYBXTDZiCgRula4/5XLvrFUAAAAASUVORK5CYII="/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -254,7 +266,16 @@
         <marketer-menu  v-if="this.$store.state.adGradeCd == '04'">4</marketer-menu>
       </div>
       <div id="sectionHeader">
-        {{ this.$store.state.headerTopTitle }} <span> > {{ this.$store.state.headerMidTitle }}</span>
+        <div class="menuPage">
+          {{ this.$store.state.headerTopTitle }} <span> > {{ this.$store.state.headerMidTitle }}</span>
+        </div>
+        <div class="dataInNow">
+
+        </div>
+
+
+
+
       </div>
       <div id="sectionBody">
         <router-view />
@@ -285,13 +306,14 @@
       return {
           emailId: ''                         // 로그인 아이디
         , emailPw: ''                         // 로그인 패스워드
+        , searchSelect: 0                      // 아이디 찾기 탭버튼
       }
     },
     methods: {
       //******************************************************************************
       // 로그인 함수
       //******************************************************************************
-      LogIn() {
+        LogIn() {
         axios.post("http://api.adinfo.co.kr:30000/login", {
           emailId: this.emailId,
           emailPw: this.emailPw
@@ -348,15 +370,19 @@
       //******************************************************************************
       // 아이디 / 비밀번호 팝업 함수
       //******************************************************************************
-      , SearchPopUp() {
-        $("#searchPopUp").css({display: "block"})
+      , SearchIdModal() {
+        $("#searchModar").css({display: "block"})
       }
 
       //******************************************************************************
       // 아이디 / 비밀번호 취소 함수
       //******************************************************************************
-      , SearchPopUpCancle() {
-        $("#searchPopUp").css({display: "none"})
+      , SearchIdModalCancle() {
+        $("#searchModar").css({display: "none"})
+      }
+
+      , SearchFunc(pos) {
+        this.searchSelect = pos;
       }
 
     }
@@ -720,7 +746,7 @@
      margin-right: 10px;
   }
 
-  #singPopUp table td button{
+  #singPopUp table td button {
     width: 89px;
     height: 28px;
     border-radius: 10px;
@@ -764,7 +790,7 @@
 
 
   /* 아이디 / 비밀번호 찾기 CSS */
-  #searchPopUp {
+  #searchModar {
     display: none;
     position: fixed;
     width: 100vw;
@@ -772,7 +798,7 @@
     background: rgba(0, 0, 0, 0.6);
   }
 
-  #searchPopUp .searchBox {
+  #searchModar .searchBox {
     width: 390px;
     height: 400px;
     background: #fff;
@@ -786,7 +812,7 @@
     text-align: center;
   }
 
-  #searchPopUp .searchCancleBtn{
+  #searchModar button.searchCancleBtn {
     position: absolute;
     width: 33px;
     height: 33px;
@@ -794,26 +820,28 @@
     padding: 10px;
     right: -34px;
     top: 12px;
+    border: none;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
   }
 
-  #searchPopUp .searchBox h2 {
+  #searchModar .searchBox h2 {
     font-size: 20px;
     font-weight: 400;
     color: #444;
     margin-bottom: 29px;
   }
 
-  #searchPopUp .searchBox .searchTap {
+  #searchModar .searchBox .searchTap {
     height: 49px;
     padding: 3px;
     border-radius: 10px;
     border: 1px solid #e5e5e5; 
     background: #f1f1f1;
+    margin-bottom: 10px;
   }
 
-  #searchPopUp .searchBox .searchTap a{
+  #searchModar .searchBox .searchTap a {
     display: block;
     float: left;
     width: 50%;
@@ -823,12 +851,56 @@
     border-radius: 10px;
   }
 
-  #searchPopUp .searchBox .searchTap a.on {
+  #searchModar .searchBox .searchTap a.on {
     background: #fff;
     border: 1px solid #e25b45;
     color: #e25b45;
     font-weight: 800;
     padding: 13px;
+  }
+
+
+  #searchModar .searchBox .searchTapBox .searchTapSub {
+    width: 100%;
+    height: 170px;
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+    padding: 0 27px;
+    margin-bottom: 15px;
+  }
+
+  #searchModar .searchBox .searchTapBox th {
+    text-align: left;
+    width: 70px;
+  }
+
+  #searchModar .searchBox .searchTapBox td {
+    padding: 5px;
+  }
+
+  #searchModar .searchBox .searchTapBox td input {
+    width: 229px;
+    height: 31px;
+    border: 1px solid #e5e5e5;
+  }
+
+  #searchModar .searchBox .searchTapBox .serachSubBox1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #searchModar .searchBox .searchTapBox .serachSubBox2 {
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding: 60px 0;
+    line-height: 1.5;
+  }
+
+  #searchModar .searchBox .searchTapBox .serachSubBox2 span {
+    color: #e25b45;
+    font-weight: 700;
   }
 
 
@@ -933,15 +1005,19 @@
     width: 1400px;
   }
 
-  #sectionHeader {
+  #sectionHeader{
     padding: 24px 20px 17px;
-    font-size: 16px;
-    letter-spacing: -0.4px;
-    font-weight: 700;
     border-bottom: solid 1px #e5e5e5;
   }
 
-  #sectionHeader span {
+  #sectionHeader .menuPage {
+    font-size: 16px;
+    letter-spacing: -0.4px;
+    font-weight: 700;
+    width: 250px;
+  }
+
+  #sectionHeader .menuPage span {
     font-weight: normal;
     margin-left: 5px;
   }
