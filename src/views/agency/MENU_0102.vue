@@ -1,6 +1,6 @@
 <template>
   <div>
-		캠페인별 통계
+		캠페인별 통계 12
 	</div>
 </template>
 
