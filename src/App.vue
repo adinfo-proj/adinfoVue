@@ -868,25 +868,34 @@
     padding: 0 27px;
     margin-bottom: 15px;
   }
+  
+  #searchModar .searchBox .searchTapBox table {
+    width: 100%;
+  }
 
   #searchModar .searchBox .searchTapBox th {
     text-align: left;
     width: 70px;
   }
 
+
   #searchModar .searchBox .searchTapBox td {
     padding: 5px;
   }
 
   #searchModar .searchBox .searchTapBox td input {
-    width: 229px;
+    width: 100%;
     height: 31px;
     border: 1px solid #e5e5e5;
   }
 
   #searchModar .searchBox .searchTapBox .serachSubBox1 {
+  }
+
+  #searchModar .searchBox .searchTapBox .serachSubBox1 p {
+    height: 69px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
   }
 
@@ -898,9 +907,27 @@
     line-height: 1.5;
   }
 
-  #searchModar .searchBox .searchTapBox .serachSubBox2 span {
+  #searchModar .searchBox .searchTapBox .searchPw .serachSubBox1 p {
+    margin-top: 15px;
+  }
+
+  #searchModar .searchBox .searchTapBox .searchPw .serachSubBox1 table{
+    margin-top: 15px;
+  }
+
+  #searchModar .searchBox .searchTapBox span {
     color: #e25b45;
     font-weight: 700;
+  }
+
+  #searchModar > .searchBox > .searchTapBox > button {
+    width: 170px;
+    height: 48px;
+    border: none;
+    border-radius: 20px;
+    background: #e25b45;
+    color: #fff;
+    font-size: 16px;
   }
 
 
