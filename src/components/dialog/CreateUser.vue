@@ -49,7 +49,7 @@
       </p>
     </div>
     <div class="radioBox">
-      <input type="radio" name="termsYn" id="termsY"><label for="termsY">동의합니다.</label> 
+      <input type="radio" name="termsYn" id="termsY"><label for="termsY" >동의합니다.</label> 
       <input type="radio" name="termsYn" id="termsN"><label for="termsN">동의하지 않습니다.</label>
     </div>
     <h3> 개인정보취급방침</h3>
@@ -68,26 +68,7 @@
         <tr>
           <th>이메일(아이디)</th>
           <td class="tableWi">
-            <input type="text">
-            @
-            <input type="text">
-            <select name="mailDomain" id="mailDomain">
-              <option value="1">직접입력</option>
-              <option value="naver.com">naver.com</option>
-              <option value="daum.net">daum.net</option>
-              <option value="hanmail.net">hanmail.net</option>
-              <option value="hotmail.com">hotmail.com</option>
-              <option value="nate.com">nate.com</option>
-              <option value="yahoo.co.kr">yahoo.co.     kr</option>
-              <option value="paran.com">paran.com</option>
-              <option value="empas.com">empas.com</option>
-              <option value="dreamwiz.com">dreamwiz.com</option>
-              <option value="freechal.com">freechal.com</option>
-              <option value="lycos.co.kr">lycos.co.kr</option>
-              <option value="korea.com">korea.com</option>
-              <option value="gmail.com">gmail.com</option>
-              <option value="hanmir.com">hanmir.com</option>
-            </select>  
+            <input type="text" placeholder="abc@abd.co.kr">
           </td>
           <th>이름/회사명</th>
           <td>
@@ -312,11 +293,6 @@
     padding: 6px 10px;
     border: solid 1px #e5e5e5;
     width: 270px;
-  }
-
-  #singPopUp table .tableWi input[type="text"],
-  #singPopUp table .tableWi select {
-    width: 108px;
   }
 
   #singPopUp table td input[type="text"] {

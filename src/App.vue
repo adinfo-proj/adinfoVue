@@ -14,7 +14,7 @@
           {{ this.$store.state.headerTopTitle }} <span> > {{ this.$store.state.headerMidTitle }}</span>
         </div>
         <div class="dataInNow">
-
+         
         </div>
 
 
@@ -50,6 +50,7 @@
       return {
           emailId: ''                         // 로그인 아이디
         , emailPw: ''                         // 로그인 패스워드
+//        , todayDt: this.$DateAdd(0),
       }
     },
     methods: {
