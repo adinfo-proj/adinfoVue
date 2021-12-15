@@ -1,63 +1,32 @@
 <template>
   <div id="singPopUp">
     <h2>애드인포 회원가입</h2>
-    <!-- <div>
-
+    <div class="adGradeBox">
+      <input type="radio" name="adGradeCd" id="adGradeCd02" v-model="adGradeCd" value="02" checked>
+      <label for="adGradeCd02">
+        <span>
+          <img class="singOff" src="../../assets/images/signIcon/icon_003.png" alt="signIcon1">
+          <img class="singOn" src="../../assets/images/signIcon/icon_003_1.png" alt="signIcon1">
+        </span>
+        회원사
+      </label>
+      <input type="radio" name="adGradeCd" id="adGradeCd03" v-model="adGradeCd" value="03">
+      <label for="adGradeCd03">
+        <span>
+          <img class="singOff" src="../../assets/images/signIcon/icon_002.png" alt="signIcon1">
+          <img class="singOn" src="../../assets/images/signIcon/icon_002_1.png" alt="signIcon1">
+        </span>
+        광고주
+      </label>
+      <input type="radio" name="adGradeCd" id="adGradeCd04" v-model="adGradeCd" value="04">
+      <label for="adGradeCd04">
+        <span>
+          <img class="singOff" src="../../assets/images/signIcon/icon_001.png" alt="signIcon1">
+          <img class="singOn" src="../../assets/images/signIcon/icon_001_1.png" alt="signIcon1">
+        </span>
+        마케터
+      </label>
     </div>
-    <input type="radio" name="adGradeCd" id="">
-    <label for="">
-      <div>
-        <img class="singOff" src="../../assets/images/signIcon/icon_003.png" alt="signIcon1">
-        <img class="singOn" src="../../assets/images/signIcon/icon_003_1.png" alt="signIcon1">
-      </div>
-      회원사
-    </label>
-    <input type="radio" name="adGradeCd" id="">
-    <label for="">
-      <div>
-        <img class="singOff" src="../../assets/images/signIcon/icon_002.png" alt="signIcon1">
-        <img class="singOn" src="../../assets/images/signIcon/icon_002_1.png" alt="signIcon1">
-      </div>
-      광고주
-    </label>
-    <input type="radio" name="adGradeCd" id="">
-    <label for="">
-      <div>
-        <img class="singOff" src="../../assets/images/signIcon/icon_001.png" alt="signIcon1">
-        <img class="singOn" src="../../assets/images/signIcon/icon_001_1.png" alt="signIcon1">
-      </div>
-      마케터
-    </label> -->
-    
-    <ul>
-      <li class="memberType" display="none">
-        <a href="javascript:void(0)">
-          <div>
-            <img class="singOff" src="../../assets/images/signIcon/icon_001.png" alt="signIcon1">
-            <img class="singOn" src="../../assets/images/signIcon/icon_001_1.png" alt="signIcon1">
-          </div>
-          회원사
-        </a>
-        </li>
-      <li>
-        <a href="javascript:void(0)">
-          <div>
-            <img class="singOff" src="../../assets/images/signIcon/icon_002.png" alt="signIcon1">
-            <img class="singOn" src="../../assets/images/signIcon/icon_002_1.png" alt="signIcon1">
-          </div>
-          광고주
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0)">
-          <div>
-            <img class="singOff" src="../../assets/images/signIcon/icon_003.png" alt="signIcon1">
-            <img class="singOn" src="../../assets/images/signIcon/icon_003_1.png" alt="signIcon1">
-          </div>
-          마케터
-        </a>
-      </li>
-    </ul>
     <h3>서비스 이용약관</h3>
     <div class="termsBox">
       <p>
@@ -74,8 +43,8 @@
       </p>
     </div>
     <div class="radioBox">
-      <input type="radio" name="termsYn" id="termsY"><label for="termsY" >동의합니다.</label> 
-      <input type="radio" name="termsYn" id="termsN"><label for="termsN">동의하지 않습니다.</label>
+      <input type="radio" name="termsYn" id="termsY" v-model="termsYn" value="Y"><label for="termsY" >동의합니다.</label> 
+      <input type="radio" name="termsYn" id="termsN" v-model="termsYn" value="N"><label for="termsN">동의하지 않습니다.</label>
     </div>
     <h3> 개인정보취급방침</h3>
     <div class="termsBox">
@@ -84,8 +53,8 @@
       </p>
     </div>
     <div class="radioBox">
-      <input type="radio" name="policyYn" id="policyY"><label for="policyY">동의합니다.</label> 
-      <input type="radio" name="policyYn" id="policyN"><label for="policyN">동의하지 않습니다.</label>
+      <input type="radio" name="policyYn" id="policyY" v-model="policyYn" value="Y"><label for="policyY">동의합니다.</label> 
+      <input type="radio" name="policyYn" id="policyN" v-model="policyYn" value="N"><label for="policyN">동의하지 않습니다.</label>
     </div>
     <h3>정보입력</h3>
     <div class="tableBox">
@@ -97,7 +66,7 @@
           </td>
           <th>이름/회사명</th>
           <td>
-            <input type="text" class="wMax" v-model="userName">
+            <input type="text" class="wMax">
           </td>
         </tr>
         <tr>
@@ -110,7 +79,7 @@
         <tr>
           <th>비밀번호 확인</th>
           <td colspan="3">
-            <input type="password" name="userPwCon" id="userPwCon">
+            <input type="password" name="userPwCon" id="userPwCon" v-model="userPassConf">
             <label for="userPwCon">* 비밀번호 확인을 위해 다시 한번 입력 해 주세요. </label>
           </td>
         </tr>
@@ -146,10 +115,14 @@
   export default {
     data() {
       return {
-          emailId: ''
-        , emailPw: ''
-        , userName: ''
-        , clntSubsNo: ''        
+          emailId: ''           // 이메일 주소
+        , userPass: ''           // 패스워드
+        , userPassConf: ''       // 패스워드 확인
+        , userName: ''          // 가입자 이름(혹은 회사명)
+        , clntSubsNo: ''        // 휴대폰번호 
+        , adGradeCd: '02'         // 고객등급
+        , termsYn: ''           // 서비스이용약관 YN
+        , policyYn: ''         // 개인정보취급 방침 YN
       }
     },
     methods: {
@@ -165,6 +138,42 @@
       , SignPost() {
 
 
+        if(this.termsYn == 'N' || this.termsYn == '') {
+          alert('동의해랏! 1')
+          return;
+        }
+
+        if(this.policyYn == 'N' || this.policyYn == '') {
+          alert('동의해랏! 2')
+          return;
+        }
+
+        if(this.emailId == null || this.emailId == '') {
+          alert('이메일주소 입력')
+          this.emailId.
+          return;
+        }
+
+        if(this.userName == null || this.userName == '') {
+          alert('동의해랏! 2')
+          return;
+        }
+
+        if(this.userPass == null || this.userPass == '') {
+          alert('동의해랏! 2')
+          return;
+        }
+
+        if(this.clntSubsNo == null || this.clntSubsNo == '') {
+          alert('동의해랏! 2')
+          return;
+        }
+
+        if(this.userPass != this.userPassConf) {
+          alert('동의해랏! 2')
+          return;
+        }
+
         //------------------------------------------------------------------------------
         // 정보 보내기
         //------------------------------------------------------------------------------
@@ -173,7 +182,7 @@
           , userPass: this.userPass
           , userName: this.userName
           , clntSubsNo: this.clntSubsNo
-          , adGradeCd: '04'
+          , adGradeCd: this.adGradeCd
         };
 
         const frm = new FormData();
@@ -236,22 +245,25 @@
     margin-bottom: 22px;
   }
 
-  #singPopUp ul {
+
+  #singPopUp .adGradeBox{
     margin-bottom: 20px;
     height: 60px;
   }
 
-  #singPopUp ul li {
+  /* 탭버튼 다시 만들기 */
+
+  #singPopUp .adGradeBox input[type="radio"]{
+    display: none;
+  }
+
+  #singPopUp .adGradeBox input[type="radio"] + label{
+    display: flex;
     float: left;
     width: 33.333%;
-  }
-  
-  #singPopUp ul li a {
-    width: 100%;
-    height: 60px;
+    height: 100%;
     text-align: center;
     padding: 16px 107px;
-    display: flex;
     justify-content: space-around;
     align-items: center;
     font-size: 16px;
@@ -263,34 +275,43 @@
     border-bottom: 1px solid #000;
   }
 
-  #singPopUp > ul > li > a > div {
+
+  #singPopUp .adGradeBox label span{
     display: inline-block;
     height: 25px;
   }
 
-  #singPopUp > ul > li > a > div > img {
+
+
+  #singPopUp .adGradeBox label span img {
     height: 25px;
   }
 
-  #singPopUp > ul > li > a > div > .singOn {
+
+  #singPopUp .adGradeBox label span .singOn {
     display: none;
   }
 
-  #singPopUp > ul > li.memberType > a {
+
+  #singPopUp .adGradeBox input[type="radio"]:checked + label {
+
     background: #fff;
     border: 1px solid #000;
     border-bottom: none;
     color: #e25b45;
   }
 
-  #singPopUp > ul > li.memberType > a > div > .singOn {
+
+
+  #singPopUp .adGradeBox input[type="radio"]:checked + label .singOn {
     display: inline;
 
   }
 
-  #singPopUp > ul > li.memberType > a > div > .singOff {
+  #singPopUp .adGradeBox input[type="radio"]:checked + label .singOff {
     display: none;
   }
+
 
   #singPopUp h3 {
     margin-bottom: 10px;
