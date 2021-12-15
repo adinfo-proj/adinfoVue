@@ -1,8 +1,36 @@
 <template>
   <div id="singPopUp">
     <h2>애드인포 회원가입</h2>
+    <!-- <div>
+
+    </div>
+    <input type="radio" name="adGradeCd" id="">
+    <label for="">
+      <div>
+        <img class="singOff" src="../../assets/images/signIcon/icon_003.png" alt="signIcon1">
+        <img class="singOn" src="../../assets/images/signIcon/icon_003_1.png" alt="signIcon1">
+      </div>
+      회원사
+    </label>
+    <input type="radio" name="adGradeCd" id="">
+    <label for="">
+      <div>
+        <img class="singOff" src="../../assets/images/signIcon/icon_002.png" alt="signIcon1">
+        <img class="singOn" src="../../assets/images/signIcon/icon_002_1.png" alt="signIcon1">
+      </div>
+      광고주
+    </label>
+    <input type="radio" name="adGradeCd" id="">
+    <label for="">
+      <div>
+        <img class="singOff" src="../../assets/images/signIcon/icon_001.png" alt="signIcon1">
+        <img class="singOn" src="../../assets/images/signIcon/icon_001_1.png" alt="signIcon1">
+      </div>
+      마케터
+    </label> -->
+    
     <ul>
-      <li class="memberType">
+      <li class="memberType" display="none">
         <a href="javascript:void(0)">
           <div>
             <img class="singOff" src="../../assets/images/signIcon/icon_001.png" alt="signIcon1">
@@ -43,9 +71,6 @@
         <br>
         조문체계도버튼연혁<br>
         제1조(목적) 이 법은 개인정보의 처리 및 보호에 관한 사항을 정함으로써 개인의 자유와 권리를 보호하고, 나아가 개인의 존엄과 가치를 구현함을 목적으로 한다.  개정 2014. 3. 24.><br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab ex ducimus aliquid minus mollitia. Et, incidunt nulla sint aliquam, beatae ullam eum mollitia unde quo iste quibusdam voluptatibus velit corporis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis adipisci quaerat, earum optio quia numquam voluptatum nisi eaque sunt amet labore molestiae, mollitia nihil fugiat minus in rerum consequuntur rem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed natus ducimus id rem magni, blanditiis dolorem eum nemo harum, sapiente laudantium? Nesciunt inventore illum voluptatem esse, possimus aliquid quaerat vel. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam consectetur eveniet asperiores dolorem reiciendis omnis iure, a dolore distinctio, aperiam voluptas, quis fugit autem cum ipsam. Facere perferendis temporibus provident. Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore dolor provident at quos vitae architecto iure inventore perspiciatis, aut magnam, praesentium, fugit quas suscipit iusto quia alias qui consectetur necessitatibus?
-
-
       </p>
     </div>
     <div class="radioBox">
@@ -68,17 +93,17 @@
         <tr>
           <th>이메일(아이디)</th>
           <td class="tableWi">
-            <input type="text" placeholder="abc@abd.co.kr">
+            <input type="text" placeholder="abc@abd.co.kr" v-model="emailId">
           </td>
           <th>이름/회사명</th>
           <td>
-            <input type="text" class="wMax">
+            <input type="text" class="wMax" v-model="userName">
           </td>
         </tr>
         <tr>
           <th>비밀번호</th>
           <td colspan="3">
-            <input type="password" name="userPw" id="userPw">
+            <input type="password" name="userPw" id="userPw" v-model="userPass">
             <label for="userPw">* 영문 / 숫자 (특수문자 ~!@#$%^-* 만 사용 가능)를 조합하여 최소 8자 이상 13자 이내</label>
           </td>
         </tr>
@@ -92,7 +117,7 @@
         <tr>
           <th>휴대전화번호</th>
           <td colspan="3">
-            <input type="tel" name="phoneNum" id="phoneNum">
+            <input type="tel" name="phoneNum" id="phoneNum" v-model="clntSubsNo">
             <button>
               본인확인
             </button>
@@ -102,11 +127,11 @@
     </div>
     <div class="signBtnBox">
       <button class="signCancleBtn"
-        @click="SignMadalCancle();">
+        @click="SignMadalCancle()">
         취소하기
       </button>
       <button class="signBtn"
-        @click="SignPost();"
+        @click="SignPost()"
       >
         가입하기
       </button>
@@ -115,11 +140,17 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import $ from 'jquery';
   
   export default {
     data() {
-
+      return {
+          emailId: ''
+        , emailPw: ''
+        , userName: ''
+        , clntSubsNo: ''        
+      }
     },
     methods: {
       //******************************************************************************
@@ -132,12 +163,49 @@
       // 회원가입 데이터 전송함수
       //******************************************************************************
       , SignPost() {
-        // axios.post()
 
 
-        alert("회원가입이 완료되었습니다.")
-        $("#singPopUp").css({display: "none"})
+        //------------------------------------------------------------------------------
+        // 정보 보내기
+        //------------------------------------------------------------------------------
+        var data = {
+            emailId: this.emailId
+          , userPass: this.userPass
+          , userName: this.userName
+          , clntSubsNo: this.clntSubsNo
+          , adGradeCd: '04'
+        };
 
+        const frm = new FormData();
+        frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));		
+
+        axios.post("http://api.adinfo.co.kr:30000/addmember", frm)
+        .then(response => {
+          console.log(response);
+
+          if( response.data.status == true ) {
+            $("#singPopUp").css({display: "none"})
+
+            this.loginView = false;
+            this.$store.state.emailId = response.data.emailId
+            this.$store.state.jwtAuthToken = response.data.jwtAuthToken
+            this.$store.state.adGradeCd = response.data.adGradeCd
+
+            // 토큰값을 LocalStorage에 저장한다.
+            localStorage.setItem("email", this.$store.state.emailId);
+            localStorage.setItem("token", this.$store.state.jwtAuthToken);
+            localStorage.setItem("grade", this.$store.state.adGradeCd);
+
+            alert("회원가입이 완료되었습니다. DashBoard로 넘어갑니다.")
+
+            // this.$router.push({ path : "MENU_0000" })
+          } else {
+            alert(response.data.message)
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
       }
     } 
   }

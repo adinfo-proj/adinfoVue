@@ -41,11 +41,6 @@
     </div>
     <CreateUser></CreateUser>
     <SearchUser></SearchUser>
-    
-  
-
-
-
   </div>
 </template>
 
@@ -63,8 +58,8 @@ export default {
   },
   data() {
     return {
-          emailId: ''
-        , emailPw: ''
+        emailId: ''
+      , emailPw: ''
     }
   },
   methods: {
@@ -75,9 +70,9 @@ export default {
       })
       .then(response => {
         console.log(response);
-        let logStatus = response.data.status
+        // let logStatus = response.data.status
 
-        if( logStatus == "0" ) {
+        if( response.data.status == "0" ) {
           this.loginView = false;
           this.$store.state.emailId = response.data.emailId
           this.$store.state.jwtAuthToken = response.data.authToken
