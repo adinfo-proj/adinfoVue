@@ -11,10 +11,44 @@
       </div>
       <div id="sectionHeader">
         <div class="menuPage">
-          {{ this.$store.state.headerTopTitle }} <span> > {{ this.$store.state.headerMidTitle }}</span>
+          {{ this.$store.state.headerTopTitle }}
+          <span>></span>
+          <span class="subMenuName">{{ this.$store.state.headerMidTitle }}</span>
+          <span class="dataInNow">
+            {{todayDt}}
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
+              <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-68.765 -30.211)">
+                <g id="그룹_35" data-name="그룹 35">
+                  <circle id="타원_10" data-name="타원 10" cx="10.5" cy="10.5" r="10.5" transform="translate(68.765 30.211)" fill="#f0f0f0"/>
+                  <path id="패스_94" data-name="패스 94" d="M79.265,45.964a5.253,5.253,0,1,1,0-10.506v1.75a3.5,3.5,0,1,0,3.5,3.5h1.75A5.259,5.259,0,0,1,79.265,45.964Z" fill="#3d3d3d"/>
+                  <path id="패스_95" data-name="패스 95" d="M78.592,34.13l3.191,2.261-3.191,2.261Z" fill="#3d3d3d"/>
+                </g>
+              </g>
+            </svg>
+          </span>
         </div>
-        <div class="dataInNow">
-         
+        <div class="userNamePage">
+          <span>환영합니다. 홍길동 광고주님</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="31.44" height="31" viewBox="0 0 31.44 31">
+            <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="15.72" cy="15.5" rx="15.72" ry="15.5" fill="#eaebec"/>
+            <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-346.159 -154.88)" opacity="0.8">
+              <ellipse id="타원_9" data-name="타원 9" cx="3.787" cy="3.877" rx="3.787" ry="3.877" transform="translate(358.372 162.365)" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.958"/>
+              <path id="패스_91" data-name="패스 91" d="M369.734,176.667a8.7,8.7,0,0,0-1.293-1.971,8.276,8.276,0,0,0-12.285-.305,8.7,8.7,0,0,0-1.572,2.276" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.958"/>
+            </g>
+          </svg>
+          <a class="userNotice">
+            <svg  xmlns="http://www.w3.org/2000/svg" width="31.44" height="31" viewBox="0 0 31.44 31">
+              <ellipse id="Ellipse_2_copy_2" data-name="Ellipse 2 copy 2" cx="15.72" cy="15.5" rx="15.72" ry="15.5" fill="#eaebec"/>
+              <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-141.56 -347.353)" opacity="0.8">
+                <path id="패스_92" data-name="패스 92" d="M151.715,366.925a1.253,1.253,0,0,1-1.057-.553h0a1,1,0,0,1,.2-1.315l1.1-.944V360.3a5.533,5.533,0,0,1,11.066,0v3.816l1.1.944a1,1,0,0,1,.2,1.315h0a1.253,1.253,0,0,1-1.057.553Z" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.97"/>
+                <path id="패스_93" data-name="패스 93" d="M160.56,366.984a3.064,3.064,0,0,1-6.12,0Z" fill="#e6e6e6" stroke="#222" stroke-linejoin="round" stroke-width="0.97"/>
+              </g>
+            </svg>
+          </a>
+          <button class="logOutBtn" @click="LogOut()">로그아웃</button>
+
+
+
         </div>
 
 
@@ -50,11 +84,18 @@
       return {
           emailId: ''                         // 로그인 아이디
         , emailPw: ''                         // 로그인 패스워드
-//        , todayDt: this.$DateAdd(0),
+        , todayDt: this.$DateAdd(0),
       }
     },
     methods: {
-
+      LogOut() {
+        // 토큰값을 LocalStorage에 지운다.
+        localStorage.removeItem("email");
+        localStorage.removeItem("token");
+        localStorage.removeItem("grade");
+        this.$router.push({ path : "Login" })
+        
+      }
 
     }
   }
@@ -131,7 +172,7 @@
     padding: 10px 20px 17px 20px;
   }*/
 
-  .headerNav > ul > li.on{
+  .headerNav > ul > li.on {
     background: #393939;
   }
 
@@ -195,21 +236,100 @@
   }
 
   #sectionHeader{
-    padding: 24px 20px 17px;
+    padding: 5px 20px 11px;
     border-bottom: solid 1px #e5e5e5;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center            ;
   }
+
+
+  
 
   #sectionHeader .menuPage {
     font-size: 16px;
+    padding-right: 10px;
     letter-spacing: -0.4px;
     font-weight: 700;
-    width: 250px;
   }
+
+   #sectionHeader .menuPage .subMenuName {
+     position: relative;
+     padding-right: 20px;
+   }
+
+  
+ 
+  #sectionHeader .menuPage .subMenuName:after {
+    clear: both;
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -5px;
+    width: 1px;
+    height: 10px;
+    background: #707070;
+  }
+ 
+
 
   #sectionHeader .menuPage span {
     font-weight: normal;
     margin-left: 5px;
   }
+
+  #sectionHeader .menuPage .dataInNow {
+    margin-left: 20px;
+  }
+
+  #sectionHeader .menuPage .dataInNow svg {
+    transform: translate(8px, 7px);
+  }
+
+  #sectionHeader .userNamePage span {
+    display: inline-block;
+    margin-right: 9px;; 
+    transform: translateY(-2.5px);
+  }
+
+  #sectionHeader .userNamePage svg {
+    margin-right: 9.1px;
+    transform: translateY(8px);
+  }
+
+  #sectionHeader .userNamePage .userNotice {
+    position: relative;
+  }
+
+  #sectionHeader .userNamePage .userNotice::after {
+    clear: both;
+    content: "1";
+    position: absolute;
+    top: -13px;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    background: #e25b45;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 10px;
+    padding: 2.5px;
+    box-sizing: border-box;
+  }
+
+  #sectionHeader .userNamePage .logOutBtn {
+    width: 67px;
+    height: 31px;
+    transform: translateY(-4px);
+    color: #666;
+    border: none;
+    background: #eaebec;
+    border-radius: 31px;
+  }
+  
 
   .container {
     height: 100%;

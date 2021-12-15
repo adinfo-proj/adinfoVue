@@ -20,7 +20,7 @@
             v-if="searchSelect == 0"
           >
             <div class="serachSubBox1">
-              <p>{{message}}<span>{{message1}}</span></p>
+              <p>{{message}}<span>{{message1}}<br>{{message2}}</span></p>
               <table>
                 <tr>
                   <th>
@@ -35,14 +35,14 @@
                     핸드폰 번호
                   </th>
                   <td>
-                    <input type="text" name="serchIdPhone" id="serchIdPhone" v-model="clntSubsNo">
+                    <input type="text" name="serchIdPhone" id="serchIdPhone" v-model="clntSubsNo" placeholder="회원가입 시 입력한 연락처">
                   </td>
                 </tr>
               </table>
             </div>
             <div class="serachSubBox2">
               <p>회원님의 아이디 찾기가 완료되었습니다.<br>
-                등록하신 아이디는 <span>qwer1234@naver.com</span>입니다.</p>
+                등록하신 아이디는 <span>{{retUeserId}}</span>입니다.</p>
             </div>
           </div>
           <div class="searchPw"
@@ -67,8 +67,10 @@
             </div>
           </div>
         </div>
-        <button
-        @click="SearchUeser()">{{confirmBtn}}</button>
+        <button class="searchCheckBtn"
+        @click="SearchUeser()">확인</button>
+        <button class="searchBtn"
+        @click="SearchIdModalCancle()">로그인 하기</button>
       </div>
       <button class="searchCancleBtn"
         @click="SearchIdModalCancle();">
@@ -92,11 +94,10 @@
 
         , userName: ''
         , clntSubsNo: ''
-
-        , confirmBtn: '확인'
+        , retUeserId:''
         , message: '회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.'
         , message1: ''
-
+        , message2: ''
       }
     },
     methods: {
@@ -106,12 +107,12 @@
       SearchUeser() {
         if( this.searchSelect == 0) {
           if(this.userName == null || this.userName == '') {
-            alert('동의해랏! 2')
+            alert('이름 혹은 회사명을 입력해주세요')
             return;
           }
 
           if(this.clntSubsNo == null || this.clntSubsNo == '') {
-            alert('동의해랏! 2')
+            alert('연락처를 입력해주세요.')
             return;
           }
 
@@ -131,25 +132,27 @@
           .then(response => {
             console.log(response);
 
-            // if( response.data.status == true ) {
+            //
+
+            if( response.data.status == true ) {
+              
+              $(".searchId .serachSubBox1").css({display: "none"})
+              $(".searchId .serachSubBox2").css({display: "block"})
+              $("#searchModar .searchBox .searchTapBox .searchCheckBtn").css({display: "none"})
+              $("#searchModar .searchBox .searchTapBox .searchBtn").css({display: "inline"})
+
+              this.retUeserId = response.data.message;
+
+
             //   $("#singPopUp").css({display: "none"})
 
-            //   this.loginView = false;
-            //   this.$store.state.emailId = response.data.emailId
-            //   this.$store.state.jwtAuthToken = response.data.jwtAuthToken
-            //   this.$store.state.adGradeCd = response.data.adGradeCd
+            } else {
 
-            //   // 토큰값을 LocalStorage에 저장한다.
-            //   localStorage.setItem("email", this.$store.state.emailId);
-            //   localStorage.setItem("token", this.$store.state.jwtAuthToken);
-            //   localStorage.setItem("grade", this.$store.state.adGradeCd);
-
-            //   alert("회원가입이 완료되었습니다. DashBoard로 넘어갑니다.")
-
-              // this.$router.push({ path : "MENU_0000" })
-            // } else {
-            //   alert(response.data.message)
-            // }
+              this.message = '';
+              this.message1 = "요청하신 고객정보가 존재하지 않습니다.";
+              this.message2 = "다시 입력바랍니다.";
+              return;
+            }
           })
           .catch(error => {
             console.log(error);
@@ -170,6 +173,17 @@
 
       , SearchFunc(pos) {
         this.searchSelect = pos;
+
+        this.userName = ''
+        this.clntSubsNo = ''
+        this.retUeserId =''
+        this.message = '회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.'
+        this.message1 = ''
+        this.message2 = ''
+        $("#searchModar .searchBox .searchTapBox .searchCheckBtn").css({display: "inline"})
+        $("#searchModar .searchBox .searchTapBox .searchBtn").css({display: "none"})
+
+
       }
 
     }
@@ -276,11 +290,11 @@
     width: 100%;
     height: 31px;
     border: 1px solid #e5e5e5;
+    padding: 2px 10px;
   }
 
-  #searchModar .searchBox .searchTapBox .serachSubBox1 {
-    
-  }
+
+
 
   #searchModar .searchBox .searchTapBox .serachSubBox1 p {
     height: 69px;
@@ -289,7 +303,7 @@
     align-items: center;
   }
 
-  #searchModar .searchBox .searchTapBox .serachSubBox2 {
+  .serachSubBox2 {
     display: none;
     width: 100%;
     height: 100%;
@@ -310,7 +324,7 @@
     font-weight: 700;
   }
 
-  #searchModar > .searchBox > .searchTapBox > button {
+  #searchModar .searchBox .searchTapBox button {
     width: 170px;
     height: 48px;
     border: none;
@@ -318,5 +332,9 @@
     background: #e25b45;
     color: #fff;
     font-size: 16px;
+  }
+
+  #searchModar .searchBox .searchTapBox .searchBtn {
+    display: none;
   }
 </style>
