@@ -27,7 +27,7 @@
                     이 름
                   </th>
                   <td>
-                    <input type="text" name="serchIdname" id="serchIdname">
+                    <input type="text" name="serchIdname" id="serchIdname" v-model="userName">
                   </td>
                 </tr>
                 <tr>
@@ -35,7 +35,7 @@
                     핸드폰 번호
                   </th>
                   <td>
-                    <input type="text" name="serchIdPhone" id="serchIdPhone">
+                    <input type="text" name="serchIdPhone" id="serchIdPhone" v-model="clntSubsNo">
                   </td>
                 </tr>
               </table>
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-  // import axios from "axios";
+  import axios from "axios";
   import $ from 'jquery';
 
    export default {
@@ -89,20 +89,75 @@
     data() {
       return {
           searchSelect: 0                      // 아이디 찾기 탭버튼
+
+        , userName: ''
+        , clntSubsNo: ''
+
         , confirmBtn: '확인'
         , message: '회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.'
         , message1: ''
+
       }
     },
     methods: {
       //******************************************************************************
-      // 아이디 / 비밀번호 찾기 함수
-      //******************************************************************************
-      
+      // 아이디 찾기 함수
+      //******************************************************************************      
       SearchUeser() {
+        if( this.searchSelect == 0) {
+          if(this.userName == null || this.userName == '') {
+            alert('동의해랏! 2')
+            return;
+          }
 
-        
+          if(this.clntSubsNo == null || this.clntSubsNo == '') {
+            alert('동의해랏! 2')
+            return;
+          }
 
+          //------------------------------------------------------------------------------
+          // 정보 보내기
+          //------------------------------------------------------------------------------
+          var data = {
+              mbId: 20000
+            , userName: this.userName
+            , clntSubsNo: this.clntSubsNo
+          };
+
+          const frm = new FormData();
+          frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));		
+
+          axios.post("http://api.adinfo.co.kr:30000/findid", frm)
+          .then(response => {
+            console.log(response);
+
+            // if( response.data.status == true ) {
+            //   $("#singPopUp").css({display: "none"})
+
+            //   this.loginView = false;
+            //   this.$store.state.emailId = response.data.emailId
+            //   this.$store.state.jwtAuthToken = response.data.jwtAuthToken
+            //   this.$store.state.adGradeCd = response.data.adGradeCd
+
+            //   // 토큰값을 LocalStorage에 저장한다.
+            //   localStorage.setItem("email", this.$store.state.emailId);
+            //   localStorage.setItem("token", this.$store.state.jwtAuthToken);
+            //   localStorage.setItem("grade", this.$store.state.adGradeCd);
+
+            //   alert("회원가입이 완료되었습니다. DashBoard로 넘어갑니다.")
+
+              // this.$router.push({ path : "MENU_0000" })
+            // } else {
+            //   alert(response.data.message)
+            // }
+          })
+          .catch(error => {
+            console.log(error);
+          })
+        }
+        else {
+          console.log("1");
+        }
 
       }
 
