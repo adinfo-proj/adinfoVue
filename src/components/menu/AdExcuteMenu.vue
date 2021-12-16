@@ -5,33 +5,24 @@
     </div>
     <div class="headerNav">
       <ul>
-        <li>
+        <li @click="MenuBar()">
           <router-link to="MENU_0000">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-              <g id="그룹_8" data-name="그룹 8" transform="translate(-122.706 -137.529)">
-                <g id="그룹_7" data-name="그룹 7">
-                  <path id="패스_19" data-name="패스 19" d="M125.268,149.389a8.566,8.566,0,0,1,8.761.1" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_20" data-name="패스 20" d="M134.087,139.618a8.564,8.564,0,0,1-8.762,0" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_21" data-name="패스 21" d="M134.029,149.493a8.566,8.566,0,0,0-8.761-.1" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                </g>
-                <line id="선_1" data-name="선 1" x2="13.176" transform="translate(123.118 144.529)" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                <circle id="타원_1" data-name="타원 1" cx="6.588" cy="6.588" r="6.588" transform="translate(123.118 137.941)" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                <ellipse id="타원_2" data-name="타원 2" cx="2.471" cy="6.588" rx="2.471" ry="6.588" transform="translate(127.235 137.941)" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-              </g>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14" viewBox="0 0 14 14">
+              <defs>
+                <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 14 14">
+                  <image width="14" height="14" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFyGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDYgNzkuMTY0NzUzLCAyMDIxLzAyLzE1LTExOjUyOjEzICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTEyLTE2VDEwOjEzOjE1KzA5OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIxLTEyLTE2VDEwOjEzOjE1KzA5OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0xMi0xNlQxMDoxMzoxNSswOTowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDphNTUxMGI0MS1iZjUwLTkzNDctODRjOC0yYjcwMjdiZjUxYjIiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDpmZmNhYmY1NS03NjM5LTg1NDctODNlZi0wY2U1ZjU0NWU4NTMiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDozMzM3M2JmZC0yZmMxLTBhNDItOGUyZS03YWUxZDAxZmRiYjMiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDozMzM3M2JmZC0yZmMxLTBhNDItOGUyZS03YWUxZDAxZmRiYjMiIHN0RXZ0OndoZW49IjIwMjEtMTItMTZUMTA6MTM6MTUrMDk6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMi4zIChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6YTU1MTBiNDEtYmY1MC05MzQ3LTg0YzgtMmI3MDI3YmY1MWIyIiBzdEV2dDp3aGVuPSIyMDIxLTEyLTE2VDEwOjEzOjE1KzA5OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+o+QcEAAAATRJREFUKJGd0r0rhWEYBvCfc15SGORjUAadmV0hf4DNJJOyKOrYJRkUC4PllDKhlM1ISaf8AbIYGE6diFgokRje+63H6qqnnvt6rvvrue+WWq0mwSCqmMZAcE2cYAeNQlhKnJZQj8cvTMb5Cq4emj+Oc5GpjHG84D3OS3Dl0MxBFuWtYhSfOMQHNiLoBzowgjZc4SyLKNt4COEPFnEd9jC2IrPQVjNMYSzptRf3iX0fXIEj1DN0YzZ5qGDeX1SisgLdJf9Ehlcc4Cm4WezhLezO4HbC7sNCCaeYSYI9Yyixh4IrMIPTLCJd4lg+mgrO0YJv+QI8oV8+92VMZPKtWMcNunAbGVbRjjX0yFfvEStoFJ+zL59VM/prjfudfK7FnHdDK0tq35RvTTUcL4JvRgujkiX/BV7/Sw0sZZJqAAAAAElFTkSuQmCC"/>
+                </pattern>
+              </defs>
+              <rect id="DashBoardIcon" width="14" height="14" rx="7" fill="url(#pattern)"/>
             </svg>
+
             DASHBOOARD
           </router-link>
         </li>
-        <li>
+        <li @click="MenuBar()">
           <a href="#none" v-on:click.stop.prevent>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-              <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
-                <g id="그룹_1" data-name="그룹 1">
-                  <path id="패스_1" data-name="패스 1" d="M67.941,143.976l-6.588-3.223,6.588-3.223,6.588,3.223Z" fill="#e6e6e6" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_2" data-name="패스 2" d="M74.529,144.118l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_3" data-name="패스 3" d="M74.529,147.483l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                </g>
-              </g>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14" viewBox="0 0 14 14">
+              <image id="MenuIcon" width="14" height="14" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFyGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDYgNzkuMTY0NzUzLCAyMDIxLzAyLzE1LTExOjUyOjEzICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0xMi0xNlQxMDoxODo0NyswOTowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowYmNmODgxNS1lODczLTEzNGMtOWIxZC00NDQ4MjZmMzMwY2QiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDoyZDQxNjgzOC04ZjY5LWViNGItOWE1Mi0wNGIzNDBkMzFiM2EiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIHN0RXZ0OndoZW49IjIwMjEtMTItMTZUMTA6MTg6NDcrMDk6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMi4zIChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MGJjZjg4MTUtZTg3My0xMzRjLTliMWQtNDQ0ODI2ZjMzMGNkIiBzdEV2dDp3aGVuPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/Dln3gAAAThJREFUKJGF0q1LpFEcxfHP3B2EFQWTwuZFQZwiBrNBi8Fo2GgxTF0Ei0WUBVEEwWkTDGITLJrEP0DLYJCFtQgbDIJaRNDwHGR2EPbCgfuc+z2/5+3UWq2WnlXHD6znehUHeO2GSk9gCXfYw7doL95SmI9gH5r4i10Mo79rYH+83TBN9NXxByP40vvMPetrtI2Vgnlc4PE/QWEuMF9whRlM4wzPnwSeczYd9qqggQFcYw6TOMZTdBxvLswAGgWz6Kg++xBusJCBjexvcrYadrZgC1MYjLkW6DYaitcJM4WtghrusYKJvFMHm1En3kSYe9Tq2E/4F35n+g6WuwIP2X/HT7wV1Q+9xCnaGA24ET3Ea4e5RLPgJXcdwzlOcIjx6DDeeZh9vHx0T1XitqrQiziKv6kq/T8lfwfPHU0CWYYFNwAAAABJRU5ErkJggg=="/>
             </svg>
             데이터 센터
           </a>
@@ -50,16 +41,10 @@
             </li>
           </ul>
         </li>
-        <li class="on">
+        <li @click="MenuBar()">
           <a href="#none" v-on:click.stop.prevent>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-              <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
-                <g id="그룹_1" data-name="그룹 1">
-                  <path id="패스_1" data-name="패스 1" d="M67.941,143.976l-6.588-3.223,6.588-3.223,6.588,3.223Z" fill="#e6e6e6" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_2" data-name="패스 2" d="M74.529,144.118l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_3" data-name="패스 3" d="M74.529,147.483l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                </g>
-              </g>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14" viewBox="0 0 14 14">
+              <image id="MenuIcon" width="14" height="14" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFyGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDYgNzkuMTY0NzUzLCAyMDIxLzAyLzE1LTExOjUyOjEzICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0xMi0xNlQxMDoxODo0NyswOTowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowYmNmODgxNS1lODczLTEzNGMtOWIxZC00NDQ4MjZmMzMwY2QiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDoyZDQxNjgzOC04ZjY5LWViNGItOWE1Mi0wNGIzNDBkMzFiM2EiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIHN0RXZ0OndoZW49IjIwMjEtMTItMTZUMTA6MTg6NDcrMDk6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMi4zIChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MGJjZjg4MTUtZTg3My0xMzRjLTliMWQtNDQ0ODI2ZjMzMGNkIiBzdEV2dDp3aGVuPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/Dln3gAAAThJREFUKJGF0q1LpFEcxfHP3B2EFQWTwuZFQZwiBrNBi8Fo2GgxTF0Ei0WUBVEEwWkTDGITLJrEP0DLYJCFtQgbDIJaRNDwHGR2EPbCgfuc+z2/5+3UWq2WnlXHD6znehUHeO2GSk9gCXfYw7doL95SmI9gH5r4i10Mo79rYH+83TBN9NXxByP40vvMPetrtI2Vgnlc4PE/QWEuMF9whRlM4wzPnwSeczYd9qqggQFcYw6TOMZTdBxvLswAGgWz6Kg++xBusJCBjexvcrYadrZgC1MYjLkW6DYaitcJM4WtghrusYKJvFMHm1En3kSYe9Tq2E/4F35n+g6WuwIP2X/HT7wV1Q+9xCnaGA24ET3Ea4e5RLPgJXcdwzlOcIjx6DDeeZh9vHx0T1XitqrQiziKv6kq/T8lfwfPHU0CWYYFNwAAAABJRU5ErkJggg=="/>
             </svg>
             캠페인 관리
           </a>
@@ -67,7 +52,7 @@
             <li>
               <router-link to="MENU_0201">캠페인 목록</router-link>
             </li>
-            <li class="on">
+            <li>
               <router-link to="MENU_0202">신규 캠페인 등록</router-link>
             </li>
             <li>
@@ -84,16 +69,10 @@
             </li>
           </ul>
         </li>
-        <li>
+        <li @click="MenuBar()">
           <a href="#none" v-on:click.stop.prevent>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-              <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
-                <g id="그룹_1" data-name="그룹 1">
-                  <path id="패스_1" data-name="패스 1" d="M67.941,143.976l-6.588-3.223,6.588-3.223,6.588,3.223Z" fill="#e6e6e6" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_2" data-name="패스 2" d="M74.529,144.118l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_3" data-name="패스 3" d="M74.529,147.483l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                </g>
-              </g>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14" viewBox="0 0 14 14">
+              <image id="MenuIcon" width="14" height="14" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFyGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDYgNzkuMTY0NzUzLCAyMDIxLzAyLzE1LTExOjUyOjEzICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0xMi0xNlQxMDoxODo0NyswOTowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowYmNmODgxNS1lODczLTEzNGMtOWIxZC00NDQ4MjZmMzMwY2QiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDoyZDQxNjgzOC04ZjY5LWViNGItOWE1Mi0wNGIzNDBkMzFiM2EiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIHN0RXZ0OndoZW49IjIwMjEtMTItMTZUMTA6MTg6NDcrMDk6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMi4zIChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MGJjZjg4MTUtZTg3My0xMzRjLTliMWQtNDQ0ODI2ZjMzMGNkIiBzdEV2dDp3aGVuPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/Dln3gAAAThJREFUKJGF0q1LpFEcxfHP3B2EFQWTwuZFQZwiBrNBi8Fo2GgxTF0Ei0WUBVEEwWkTDGITLJrEP0DLYJCFtQgbDIJaRNDwHGR2EPbCgfuc+z2/5+3UWq2WnlXHD6znehUHeO2GSk9gCXfYw7doL95SmI9gH5r4i10Mo79rYH+83TBN9NXxByP40vvMPetrtI2Vgnlc4PE/QWEuMF9whRlM4wzPnwSeczYd9qqggQFcYw6TOMZTdBxvLswAGgWz6Kg++xBusJCBjexvcrYadrZgC1MYjLkW6DYaitcJM4WtghrusYKJvFMHm1En3kSYe9Tq2E/4F35n+g6WuwIP2X/HT7wV1Q+9xCnaGA24ET3Ea4e5RLPgJXcdwzlOcIjx6DDeeZh9vHx0T1XitqrQiziKv6kq/T8lfwfPHU0CWYYFNwAAAABJRU5ErkJggg=="/>
             </svg>
             POSTBACK 관리
           </a>
@@ -109,16 +88,10 @@
             </li>
           </ul>
         </li>
-        <li>
+        <li @click="MenuBar()">
           <a href="#none" v-on:click.stop.prevent>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-              <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
-                <g id="그룹_1" data-name="그룹 1">
-                  <path id="패스_1" data-name="패스 1" d="M67.941,143.976l-6.588-3.223,6.588-3.223,6.588,3.223Z" fill="#e6e6e6" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_2" data-name="패스 2" d="M74.529,144.118l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_3" data-name="패스 3" d="M74.529,147.483l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                </g>
-              </g>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14" viewBox="0 0 14 14">
+              <image id="MenuIcon" width="14" height="14" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFyGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDYgNzkuMTY0NzUzLCAyMDIxLzAyLzE1LTExOjUyOjEzICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0xMi0xNlQxMDoxODo0NyswOTowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowYmNmODgxNS1lODczLTEzNGMtOWIxZC00NDQ4MjZmMzMwY2QiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDoyZDQxNjgzOC04ZjY5LWViNGItOWE1Mi0wNGIzNDBkMzFiM2EiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIHN0RXZ0OndoZW49IjIwMjEtMTItMTZUMTA6MTg6NDcrMDk6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMi4zIChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MGJjZjg4MTUtZTg3My0xMzRjLTliMWQtNDQ0ODI2ZjMzMGNkIiBzdEV2dDp3aGVuPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/Dln3gAAAThJREFUKJGF0q1LpFEcxfHP3B2EFQWTwuZFQZwiBrNBi8Fo2GgxTF0Ei0WUBVEEwWkTDGITLJrEP0DLYJCFtQgbDIJaRNDwHGR2EPbCgfuc+z2/5+3UWq2WnlXHD6znehUHeO2GSk9gCXfYw7doL95SmI9gH5r4i10Mo79rYH+83TBN9NXxByP40vvMPetrtI2Vgnlc4PE/QWEuMF9whRlM4wzPnwSeczYd9qqggQFcYw6TOMZTdBxvLswAGgWz6Kg++xBusJCBjexvcrYadrZgC1MYjLkW6DYaitcJM4WtghrusYKJvFMHm1En3kSYe9Tq2E/4F35n+g6WuwIP2X/HT7wV1Q+9xCnaGA24ET3Ea4e5RLPgJXcdwzlOcIjx6DDeeZh9vHx0T1XitqrQiziKv6kq/T8lfwfPHU0CWYYFNwAAAABJRU5ErkJggg=="/>
             </svg>
             광고비 관리
           </a>
@@ -131,16 +104,10 @@
             <li><router-link to="MENU_0406">환불 신청/취소</router-link></li>
           </ul> -->
         </li>
-        <li>
+        <li @click="MenuBar()">
           <a href="#none" v-on:click.stop.prevent>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-              <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
-                <g id="그룹_1" data-name="그룹 1">
-                  <path id="패스_1" data-name="패스 1" d="M67.941,143.976l-6.588-3.223,6.588-3.223,6.588,3.223Z" fill="#e6e6e6" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_2" data-name="패스 2" d="M74.529,144.118l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_3" data-name="패스 3" d="M74.529,147.483l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                </g>
-              </g>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14" viewBox="0 0 14 14">
+              <image id="MenuIcon" width="14" height="14" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFyGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDYgNzkuMTY0NzUzLCAyMDIxLzAyLzE1LTExOjUyOjEzICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0xMi0xNlQxMDoxODo0NyswOTowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowYmNmODgxNS1lODczLTEzNGMtOWIxZC00NDQ4MjZmMzMwY2QiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDoyZDQxNjgzOC04ZjY5LWViNGItOWE1Mi0wNGIzNDBkMzFiM2EiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIHN0RXZ0OndoZW49IjIwMjEtMTItMTZUMTA6MTg6NDcrMDk6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMi4zIChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MGJjZjg4MTUtZTg3My0xMzRjLTliMWQtNDQ0ODI2ZjMzMGNkIiBzdEV2dDp3aGVuPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/Dln3gAAAThJREFUKJGF0q1LpFEcxfHP3B2EFQWTwuZFQZwiBrNBi8Fo2GgxTF0Ei0WUBVEEwWkTDGITLJrEP0DLYJCFtQgbDIJaRNDwHGR2EPbCgfuc+z2/5+3UWq2WnlXHD6znehUHeO2GSk9gCXfYw7doL95SmI9gH5r4i10Mo79rYH+83TBN9NXxByP40vvMPetrtI2Vgnlc4PE/QWEuMF9whRlM4wzPnwSeczYd9qqggQFcYw6TOMZTdBxvLswAGgWz6Kg++xBusJCBjexvcrYadrZgC1MYjLkW6DYaitcJM4WtghrusYKJvFMHm1En3kSYe9Tq2E/4F35n+g6WuwIP2X/HT7wV1Q+9xCnaGA24ET3Ea4e5RLPgJXcdwzlOcIjx6DDeeZh9vHx0T1XitqrQiziKv6kq/T8lfwfPHU0CWYYFNwAAAABJRU5ErkJggg=="/>
             </svg>
             광고주 관리
           </a>
@@ -151,32 +118,18 @@
             <li><router-link to="MENU_0504">광고주 연동 설정</router-link></li>
           </ul>
         </li>
-        <li>
+        <li @click="MenuBar()">
           <a href="#none" v-on:click.stop.prevent>
-
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-              <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
-                <g id="그룹_1" data-name="그룹 1">
-                  <path id="패스_1" data-name="패스 1" d="M67.941,143.976l-6.588-3.223,6.588-3.223,6.588,3.223Z" fill="#e6e6e6" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_2" data-name="패스 2" d="M74.529,144.118l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_3" data-name="패스 3" d="M74.529,147.483l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                </g>
-              </g>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14" viewBox="0 0 14 14">
+              <image id="MenuIcon" width="14" height="14" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFyGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDYgNzkuMTY0NzUzLCAyMDIxLzAyLzE1LTExOjUyOjEzICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0xMi0xNlQxMDoxODo0NyswOTowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowYmNmODgxNS1lODczLTEzNGMtOWIxZC00NDQ4MjZmMzMwY2QiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDoyZDQxNjgzOC04ZjY5LWViNGItOWE1Mi0wNGIzNDBkMzFiM2EiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIHN0RXZ0OndoZW49IjIwMjEtMTItMTZUMTA6MTg6NDcrMDk6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMi4zIChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MGJjZjg4MTUtZTg3My0xMzRjLTliMWQtNDQ0ODI2ZjMzMGNkIiBzdEV2dDp3aGVuPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/Dln3gAAAThJREFUKJGF0q1LpFEcxfHP3B2EFQWTwuZFQZwiBrNBi8Fo2GgxTF0Ei0WUBVEEwWkTDGITLJrEP0DLYJCFtQgbDIJaRNDwHGR2EPbCgfuc+z2/5+3UWq2WnlXHD6znehUHeO2GSk9gCXfYw7doL95SmI9gH5r4i10Mo79rYH+83TBN9NXxByP40vvMPetrtI2Vgnlc4PE/QWEuMF9whRlM4wzPnwSeczYd9qqggQFcYw6TOMZTdBxvLswAGgWz6Kg++xBusJCBjexvcrYadrZgC1MYjLkW6DYaitcJM4WtghrusYKJvFMHm1En3kSYe9Tq2E/4F35n+g6WuwIP2X/HT7wV1Q+9xCnaGA24ET3Ea4e5RLPgJXcdwzlOcIjx6DDeeZh9vHx0T1XitqrQiziKv6kq/T8lfwfPHU0CWYYFNwAAAABJRU5ErkJggg=="/>
             </svg>
             마케터 관리
           </a>
         </li>
         <li>
           <a href="#none" v-on:click.stop.prevent>
-
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-              <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-60.941 -137.118)">
-                <g id="그룹_1" data-name="그룹 1">
-                  <path id="패스_1" data-name="패스 1" d="M67.941,143.976l-6.588-3.223,6.588-3.223,6.588,3.223Z" fill="#e6e6e6" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_2" data-name="패스 2" d="M74.529,144.118l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                  <path id="패스_3" data-name="패스 3" d="M74.529,147.483l-6.588,3.223-6.588-3.223" fill="none" stroke="#222" stroke-linejoin="round" stroke-width="0.824"/>
-                </g>
-              </g>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14" viewBox="0 0 14 14">
+              <image id="MenuIcon" width="14" height="14" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFyGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDYgNzkuMTY0NzUzLCAyMDIxLzAyLzE1LTExOjUyOjEzICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0xMi0xNlQxMDoxODo0NyswOTowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowYmNmODgxNS1lODczLTEzNGMtOWIxZC00NDQ4MjZmMzMwY2QiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDoyZDQxNjgzOC04ZjY5LWViNGItOWE1Mi0wNGIzNDBkMzFiM2EiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MDYzZDY3YS04ODBhLTMwNGQtYTZiNi0yYzQxODY4NzRhM2EiIHN0RXZ0OndoZW49IjIwMjEtMTItMTZUMTA6MTg6NDcrMDk6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMi4zIChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MGJjZjg4MTUtZTg3My0xMzRjLTliMWQtNDQ0ODI2ZjMzMGNkIiBzdEV2dDp3aGVuPSIyMDIxLTEyLTE2VDEwOjE4OjQ3KzA5OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjIuMyAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/Dln3gAAAThJREFUKJGF0q1LpFEcxfHP3B2EFQWTwuZFQZwiBrNBi8Fo2GgxTF0Ei0WUBVEEwWkTDGITLJrEP0DLYJCFtQgbDIJaRNDwHGR2EPbCgfuc+z2/5+3UWq2WnlXHD6znehUHeO2GSk9gCXfYw7doL95SmI9gH5r4i10Mo79rYH+83TBN9NXxByP40vvMPetrtI2Vgnlc4PE/QWEuMF9whRlM4wzPnwSeczYd9qqggQFcYw6TOMZTdBxvLswAGgWz6Kg++xBusJCBjexvcrYadrZgC1MYjLkW6DYaitcJM4WtghrusYKJvFMHm1En3kSYe9Tq2E/4F35n+g6WuwIP2X/HT7wV1Q+9xCnaGA24ET3Ea4e5RLPgJXcdwzlOcIjx6DDeeZh9vHx0T1XitqrQiziKv6kq/T8lfwfPHU0CWYYFNwAAAABJRU5ErkJggg=="/>
             </svg>
             캠페인 그룹 관리
           </a>
@@ -188,3 +141,23 @@
     </div>
   </div>
 </template>
+
+<script>
+  //import $ from 'jquery';
+  export default {
+    data() {
+      return {
+
+      }
+    },
+    methods:{
+      MenuBar() {
+        console.log("1")
+
+        //$(this).addClass("on")
+        //$(this).slideDown()
+        //$(".headerNav ul li").removeClass("on")
+      }
+    }
+  }
+</script>

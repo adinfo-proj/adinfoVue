@@ -63,7 +63,7 @@
 </template>
 <script>
   // import axios from "axios";
-  // import $ from 'jquery';
+  //import $ from 'jquery';
 
   import AdminMenu from './components/menu/AdminMenu'
   import AdExcuteMenu from './components/menu/AdExcuteMenu'
@@ -88,14 +88,32 @@
       }
     },
     methods: {
+      //******************************************************************************
+      // 로그아웃 함수
+      //******************************************************************************
       LogOut() {
         // 토큰값을 LocalStorage에 지운다.
         localStorage.removeItem("email");
         localStorage.removeItem("token");
         localStorage.removeItem("grade");
         this.$router.push({ path : "Login" })
-        
+      },
+
+      //******************************************************************************
+      // 메뉴 슬라이드 함수
+      //******************************************************************************
+
+
+      MenuBar() {
+        console.log("1")
+
+        //$(this).stop.slideDown()
+        //$(this).addClass("on")
+        //$(".headerNav ul li").removeClass("on")
       }
+
+
+
 
     }
   }
@@ -156,7 +174,7 @@
     height: 98px;
     text-align: center;
     padding: 28.2px;
-    border-bottom: solid 1px #e5e5e5;
+    border-bottom: solid 1px #393939;
   }
 
   .headerLogo a {
@@ -164,40 +182,41 @@
     color: #fff;
   }
 
-  .headerNav {
-    padding: 15px 0 0 0;
-  }
-/*
   .headerNav > ul > li {
-    padding: 10px 20px 17px 20px;
-  }*/
-
-  .headerNav > ul > li.on {
-    background: #393939;
-  }
-
-  .headerNav > ul > li > ul {
-    padding: 5px 0 5px 50px ;
-    /* display: none; */
-  }
-
-  .headerNav > ul > li > ul > li {
-    padding-top: 12px;
+    border-bottom: solid 1px #393939;
   }
 
   .headerNav > ul > li > a {
     display: block;
     font-weight: 700;
-    font-size: 16px;
-    color: #fff;
+    font-size: 14px;
+    color: #999;
     padding: 10px 20px 17px 20px;
     position: relative;
   }
 
+  .headerNav > ul > li > a > svg {
+    transform: translateY(2.5px);
+  }
+
+  .headerNav > ul > li > ul {
+    padding: 10px 0 10px 50px ;
+    display: none;
+  }
+
+  .headerNav > ul > li > ul > li {
+    padding: 6px 0;
+  }
+
   .headerNav > ul > li > ul > li > a {
-    color: #fff;
+    color: #999;
     letter-spacing: -0.3px;
     font-weight: 700;
+  }
+
+
+  .headerNav > ul > li.on {
+    background: #393939;
   }
 
   .headerNav > ul > li.on > a {
@@ -237,7 +256,7 @@
 
   #sectionHeader{
     padding: 5px 20px 11px;
-    border-bottom: solid 1px #e5e5e5;
+    border-bottom: solid 1px #707070;
     height: 50px;
     display: flex;
     justify-content: space-between;
@@ -248,7 +267,8 @@
   
 
   #sectionHeader .menuPage {
-    font-size: 16px;
+    color: #222;
+    font-size: 14px;
     padding-right: 10px;
     letter-spacing: -0.4px;
     font-weight: 700;

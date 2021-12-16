@@ -1012,7 +1012,7 @@ export default {
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 11px;
-    color: #444;
+    color: #222;
   }
 
   .chooseDate,
@@ -1176,7 +1176,7 @@ export default {
     padding: 17px 10px 0 20px;
     vertical-align: top;
     text-align: left;
-    color: #444;
+    color: #222;
 
   }
 

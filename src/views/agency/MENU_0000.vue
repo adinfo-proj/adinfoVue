@@ -81,134 +81,135 @@
 							<tr>
 								<th class="tableNum">번호</th>
 								<th class="tableCamName">캠페인명</th>
-								<th class="money01">총 충전 광고비</th>
-								<th class="money02">잔여 광고비</th>
-								<th class="money03">이벤트 광고비</th>
 								<th class="todayNum">금일수량</th>
 								<th class="beforeNum">전일수량</th>
 								<th class="rateBox">유효율</th>
+								<th class="money02">잔여 광고비</th>
+								<th class="money03">이벤트 광고비</th>
+								<th class="money01">총 충전 광고비</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<th class="tableNum">1</th>
 								<td class="tableCamName">모아만의원</td>
-								<td class="money01">1,000,000원</td>
-								<td class="money02">500,000원</td>
-								<td class="money03">100,000원</td>
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">71%</span>
 									<span class="rateBar"><span class="progressRateBar"></span></span>
 								</td>
+								<td class="money02">500,000원</td>
+								<td class="money03">100,000원</td>
+								<td class="money01">1,000,000원</td>
 							</tr>
 							<tr>
 								<th class="tableNum">2</th>
 								<td class="tableCamName">모아만의원</td>
-								<td class="money01">1,000,000원</td>
-								<td class="money02">500,000원</td>
-								<td class="money03">100,000원</td>
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">50%</span>
 									<span class="rateBar"><span class="progressRateBar"></span></span>
 								</td>
+								<td class="money02">500,000원</td>
+								<td class="money03">100,000원</td>
+								<td class="money01">1,000,000원</td>
 							</tr>
 							<tr>
 								<th class="tableNum">3</th>
 								<td class="tableCamName">모아만의원</td>
-								<td class="money01">1,000,000원</td>
-								<td class="money02">500,000원</td>
-								<td class="money03">100,000원</td>
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">60%</span>
 									<span class="rateBar"><span class="progressRateBar"></span></span>
 								</td>
+								<td class="money02">500,000원</td>
+								<td class="money03">100,000원</td>
+								<td class="money01">1,000,000원</td>
 							</tr>
 							<tr>
 								<th class="tableNum">4</th>
 								<td class="tableCamName">모아만의원</td>
-								<td class="money01">1,000,000원</td>
-								<td class="money02">500,000원</td>
-								<td class="money03">100,000원</td>
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">32%</span>
 									<span class="rateBar"><span class="progressRateBar"></span></span>
 								</td>
+								<td class="money02">500,000원</td>
+								<td class="money03">100,000원</td>
+								<td class="money01">1,000,000원</td>
 							</tr>
 							<tr>
 								<th class="tableNum">5</th>
 								<td class="tableCamName">모아만의원</td>
-								<td class="money01">1,000,000원</td>
-								<td class="money02">500,000원</td>
-								<td class="money03">100,000원</td>
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">25%</span>
 									<span class="rateBar"><span class="progressRateBar"></span></span>
 								</td>
+								<td class="money02">500,000원</td>
+								<td class="money03">100,000원</td>
+								<td class="money01">1,000,000원</td>
 							</tr>
 							<tr>
 								<th class="tableNum">6</th>
 								<td class="tableCamName">모아만의원</td>
-								<td class="money01">1,000,000원</td>
-								<td class="money02">500,000원</td>
-								<td class="money03">100,000원</td>
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">10%</span>
 									<span class="rateBar"><span class="progressRateBar"></span></span>
 								</td>
+								<td class="money02">500,000원</td>
+								<td class="money03">100,000원</td>
+								<td class="money01">1,000,000원</td>
 							</tr>
 							<tr>
 								<th class="tableNum">7</th>
 								<td class="tableCamName">모아만의원</td>
-								<td class="money01">1,000,000원</td>
-								<td class="money02">500,000원</td>
-								<td class="money03">100,000원</td>
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">90%</span>
 									<span class="rateBar"><span class="progressRateBar"></span></span>
 								</td>
-							</tr>
-							<tr>
-								<th class="tableNum">8</th>
-								<td class="tableCamName">모아만의원</td>
-								<td class="money01">1,000,000원</td>
 								<td class="money02">500,000원</td>
 								<td class="money03">100,000원</td>
+								<td class="money01">1,000,000원</td>
+							</tr>
+							<tr>
+									<th class="tableNum">8</th>
+								<td class="tableCamName">모아만의원</td>
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">45%</span>
 									<span class="rateBar"><span class="progressRateBar"></span></span>
 								</td>
+								<td class="money02">500,000원</td>
+								<td class="money03">100,000원</td>
+								<td class="money01">1,000,000원</td>
 							</tr>
 							<tr>
 								<th class="tableNum">9</th>
 								<td class="tableCamName">모아만의원</td>
-								<td class="money01">1,000,000원</td>
-								<td class="money02">500,000원</td>
-								<td class="money03">100,000원</td>
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">85%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="85" max="100"></progress>
 								</td>
+								<td class="money02">500,000원</td>
+								<td class="money03">100,000원</td>
+								<td class="money01">1,000,000원</td>
 							</tr>
 							<tr>
 								<th class="tableNum">10</th>
 								<td class="tableCamName">모아만의원</td>
-								<td class="money01">1,000,000원</td>
-								<td class="money02">500,000원</td>
-								<td class="money03">100,000원</td>
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">80%</span>
 									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="80" max="100"></progress>
 								</td>
+								<td class="money02">500,000원</td>
+								<td class="money03">100,000원</td>
+								<td class="money01">1,000,000원</td>
 							</tr>
 						</tbody>
 						<tfoot>
@@ -1156,7 +1157,8 @@ export default {
 		width: 23%;
 	} */
 
-	.rateBox>span {
+	.rateBox > span,
+	.rateBox > progress {
 		margin-left: 15px;
 	}
 
@@ -1169,6 +1171,21 @@ export default {
 		border: 1px solid #e3e3e3;
 		overflow: hidden;
 	}
+	
+	.dataBox .rateBox progress.rateBar {
+		width: 55%;
+		height: 10px;
+	}
+
+	.dataBox .rateBox progress.rateBar::-webkit-progress-bar{
+		background: #f8f8f8;
+		
+	}
+
+	.dataBox .rateBox progress.rateBar::-webkit-progress-value {
+		background-color: #e25b45;
+		border-radius: 10px;
+	}
 
 	.dataBox .rateBox .rateBar .progressRateBar {
 		display: block;
@@ -1176,7 +1193,6 @@ export default {
 		background: #e25b45;
 		width: 50%;
 		float: left;
-		border-radius: 10px;
 	}
 
 	.dataBox tfoot {
