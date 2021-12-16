@@ -184,6 +184,7 @@
 
   .headerNav > ul > li {
     border-bottom: solid 1px #393939;
+    transition: 0.5s;
   }
 
   .headerNav > ul > li > a {
@@ -191,8 +192,9 @@
     font-weight: 700;
     font-size: 14px;
     color: #999;
-    padding: 10px 20px 17px 20px;
+    padding: 15px 20px;
     position: relative;
+    transition: 0.5s;
   }
 
   .headerNav > ul > li > a > svg {
@@ -205,13 +207,14 @@
   }
 
   .headerNav > ul > li > ul > li {
-    padding: 6px 0;
+    padding: 9px 0;
   }
 
   .headerNav > ul > li > ul > li > a {
     color: #999;
     letter-spacing: -0.3px;
     font-weight: 700;
+    transition: 0.5s;
   }
 
 
@@ -223,6 +226,12 @@
     background: #e25b45;
     color: #fff;
   }
+
+  .headerNav > ul > li:hover > a {
+    background: #e25b45;
+    color: #fff;
+  }
+
   .headerNav > ul > li.on > a:after {
     content: "";
     background: url(./assets/images/TapIcon.png);
@@ -234,15 +243,17 @@
     transform: translateY(-50%);
   }
 
-  .headerNav > ul > li > ul > li.on > a {
-    color: #e25b45;
-    
-  }
-
   .headerNav > ul > li.on > ul {
     display: block;
   }
 
+  .headerNav > ul > li > ul > li.subOn > a {
+    color: #e25b45; 
+  }
+
+  .headerNav > ul > li > ul > li:hover > a {
+    color: #e25b45; 
+  }
   .headerNav svg {
     margin-right: 4px;
   }
@@ -254,7 +265,7 @@
     width: 1400px;
   }
 
-  #sectionHeader{
+  #sectionHeader {
     padding: 5px 20px 11px;
     border-bottom: solid 1px #707070;
     height: 50px;

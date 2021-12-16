@@ -842,6 +842,9 @@ export default {
       //------------------------------------------------------------------------------
       // 정보 보내기
       //------------------------------------------------------------------------------
+      //------------------------------------------------------------------------------
+      // 정보 보내기
+      //------------------------------------------------------------------------------
       var data = {
           mbId: this.$store.state.mbId
         //, operId:  this.$store.state.emailId
@@ -879,12 +882,12 @@ export default {
         , autoConfirm: this.autoConfirm
       };
 
-     const frm = new FormData();
-      frm.append("upFile", this.adBanner[0]);
-      frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));		
+      const frm = new FormData();
+        frm.append("upFile", this.adBanner[0]);
+        frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));		
 
       axios.post("http://api.adinfo.co.kr:30000/newcampaign", frm, {
-        headers: {'Content-Type': 'multipart/form-data'}        
+        headers: {'Content-Type': 'multipart/form-data'}    
       })
       .then(response => {
         console.log(response);

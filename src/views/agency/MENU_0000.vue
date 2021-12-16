@@ -96,7 +96,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">71%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="71" max="100"></progress>
 								</td>
 								<td class="money02">500,000원</td>
 								<td class="money03">100,000원</td>
@@ -108,7 +108,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">50%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="50" max="100"></progress>
 								</td>
 								<td class="money02">500,000원</td>
 								<td class="money03">100,000원</td>
@@ -120,7 +120,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">60%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="60" max="100"></progress>
 								</td>
 								<td class="money02">500,000원</td>
 								<td class="money03">100,000원</td>
@@ -132,7 +132,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">32%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="32" max="100"></progress>
 								</td>
 								<td class="money02">500,000원</td>
 								<td class="money03">100,000원</td>
@@ -144,7 +144,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">25%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="25" max="100"></progress>
 								</td>
 								<td class="money02">500,000원</td>
 								<td class="money03">100,000원</td>
@@ -156,7 +156,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">10%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="10" max="100"></progress>
 								</td>
 								<td class="money02">500,000원</td>
 								<td class="money03">100,000원</td>
@@ -168,7 +168,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">90%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="90" max="100"></progress>
 								</td>
 								<td class="money02">500,000원</td>
 								<td class="money03">100,000원</td>
@@ -180,7 +180,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">45%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="45" max="100"></progress>
 								</td>
 								<td class="money02">500,000원</td>
 								<td class="money03">100,000원</td>
@@ -204,7 +204,6 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">80%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
 									<progress class="rateBar" value="80" max="100"></progress>
 								</td>
 								<td class="money02">500,000원</td>
@@ -582,7 +581,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">71%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="71" max="100"></progress>
 								</td>
 							</tr>
 							<tr>
@@ -594,7 +593,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">50%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="50" max="100"></progress>
 								</td>
 							</tr>
 							<tr>
@@ -606,7 +605,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">60%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="60" max="100"></progress>
 								</td>
 							</tr>
 							<tr>
@@ -618,7 +617,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">32%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="32" max="100"></progress>
 								</td>
 							</tr>
 							<tr>
@@ -630,7 +629,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">25%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="25" max="100"></progress>
 								</td>
 							</tr>
 							<tr>
@@ -642,7 +641,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">10%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="10" max="100"></progress>
 								</td>
 							</tr>
 							<tr>
@@ -654,7 +653,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">90%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="90" max="100"></progress>
 								</td>
 							</tr>
 							<tr>
@@ -666,7 +665,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">45%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="45" max="100"></progress>
 								</td>
 							</tr>
 							<tr>
@@ -678,7 +677,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">85%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="85" max="100"></progress>
 								</td>
 							</tr>
 							<tr>
@@ -690,7 +689,7 @@
 								<td class="todayNum">10/50</td>
 								<td class="beforeNum">10/50</td>
 								<td class="rateBox"> 50/500 <span class="rateDate">80%</span>
-									<span class="rateBar"><span class="progressRateBar"></span></span>
+									<progress class="rateBar" value="80" max="100"></progress>
 								</td>
 							</tr>
 						</tbody>
@@ -1001,6 +1000,7 @@ export default {
 
 	.topBox .moneySubBox b {
 		font-size: 20px;
+		color: #222;
 	}
 
 	.topBox .notice {
@@ -1013,6 +1013,7 @@ export default {
 
 	.topBox .notice h2 {
 		font-size: 16px;
+		color: #222;
 	}
 
 	.topBox .notice li {
@@ -1111,6 +1112,7 @@ export default {
 	}
 
 	.dataBox thead th {
+		color: #222;
 		position: relative;
 	}
 
@@ -1163,19 +1165,12 @@ export default {
 	}
 
 	.dataBox .rateBox .rateBar {
-		display: inline-block;
 		width: 55%;
 		height: 10px;
-		background: #f8f8f8;
 		border-radius: 10px;
 		border: 1px solid #e3e3e3;
-		overflow: hidden;
 	}
 	
-	.dataBox .rateBox progress.rateBar {
-		width: 55%;
-		height: 10px;
-	}
 
 	.dataBox .rateBox progress.rateBar::-webkit-progress-bar{
 		background: #f8f8f8;
@@ -1185,14 +1180,6 @@ export default {
 	.dataBox .rateBox progress.rateBar::-webkit-progress-value {
 		background-color: #e25b45;
 		border-radius: 10px;
-	}
-
-	.dataBox .rateBox .rateBar .progressRateBar {
-		display: block;
-		height: 100%;
-		background: #e25b45;
-		width: 50%;
-		float: left;
 	}
 
 	.dataBox tfoot {
