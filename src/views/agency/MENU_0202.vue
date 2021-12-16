@@ -437,14 +437,14 @@ export default {
       adComment: '',          // 캠페인 내용
 
       adUsp: '',              // 광고 이벤트설정
-      smsYn: 'smsYN',             // DB 접수 시 SMS 수신 여부 Y
+      smsYn: 'N',             // DB 접수 시 SMS 수신 여부 Y
       smsNo: '',              // DB 접수 시 SMS 수신 여부
       adPrice: '',            // 캠페인 단가
       adPromotionPrice: '0',   // 캠페인 프로모션 단가
       adMinQty: '',           // 캠페인 최소 수량
       dayLimit: '',           // 일별 DB 접수 제한 건수
       approval: '',           // 승인률
-      ageTarget: 'ageN',      // 연령 타겟 {from:"", to: ""}
+      ageTarget: 'N',      // 연령 타겟 {from:"", to: ""}
       ageTargetFrom: '',      // from
       ageTargetTo: '',        // to
       reqWordCond: '',        // 필수 키워드
@@ -460,14 +460,14 @@ export default {
       nullifyCondObj:'',      // 무효조건 객체
       cancelCond: '',         // 취소조건
       cancelCondObj: '',      // 취소조건 객체
-      autoConfirm: 'day7',    // 자동확정일수
-      cpaYn: 'cpaN',
+      autoConfirm: '07',    // 자동확정일수
+      cpaYn: 'N',
 
 
       landingPageTitle: '',   // DB 접수 시 SMS 수신 번호
       landingUrl: '',         // 캠페인 단가
 
-      extFormYn:'extFormN',   // 랜딩페이지 보유여부
+      extFormYn:'N',   // 랜딩페이지 보유여부
       etcImeageName: '',      //  참고이미지
       landCollection:'',      // 수집항목
       landCollectionObj:'',   // 수집항목 객체
@@ -839,52 +839,52 @@ export default {
                                                    .map   (curValue => curValue.code)
                                                    .join  ("|");
 
-      let form = new FormData()
-      form.append("file", this.adBanner); // api file name
+      //------------------------------------------------------------------------------
+      // 정보 보내기
+      //------------------------------------------------------------------------------
+      var data = {
+          mbId: this.$store.state.mbId
+        //, operId:  this.$store.state.emailId
+        , operId:  'aa'
+        , emailId:  '01'
+        , emailPw:  '00000'
 
-      axios.post("http://api.adinfo.co.kr:30000/manage/newcampaign", {
-        params: {
-            // Store 정보
-              mbId: this.$store.state.mbId
-            , operId: this.$store.state.operId
+        , adSrtDt: lAdSrtDt
+        , adSrtTm: this.adSrtTm
+        , adEndDt: lAdEndDt
+        , adEndTm: this.adEndTm
+        , adPurpose: this.adPurpose
+        , adTopKind: this.adTopKind
+        , adMiddleKind: this.adMiddleKind
+        , adName: this.adName
+        , adComment: this.adComment
+        , adUsp: this.adUsp
+        , adPrice: this.adPrice
+        , adPromotionPrice: this.adPromotionPrice
+        , adMinQty: this.adMinQty
+        , dayLimit: this.dayLimit
+        , approval: this.approval
+        , ageTarget: this.ageTarget
+        , ageTargetFrom: this.ageTargetFrom
+        , ageTargetTo: this.ageTargetTo
+        , reqWordCond: this.reqWordCond
+        , banChannelCond: banChannelObjLet
+        , banExChannelCond: banExChannelObjLet
+        , banImageCond: this.banImageCond
+        , banWordCond: this.banWordCond
+        , nullifyCond: this.nullifyCondObjLet
+        , cancelCond: this.cancelCondObjLet
+        , smsYn: this.smsYn
+        , smsNo: this.smsNo        
+        , autoConfirm: this.autoConfirm
+      };
 
-            // Page 정보
-            , adKind: '01'
-            , adArea: '00000'
-            , adSrtDt: lAdSrtDt
-            , adSrtTm: this.adSrtTm
-            , adEndDt: lAdEndDt
-            , adEndTm: this.adEndTm
-            , adPurpose: this.adPurpose
-            , adTopKind: this.adTopKind
-            , adMiddleKind: this.adMiddleKind
-            , adName: this.adName
-            , adBanner: ''
-            , adComment: this.adComment
-            , adUsp: this.adUsp
-            , smsYn: this.smsYn
-            , smsNo: this.smsNo
-            , adPrice: this.adPrice
-            , adPromotionPrice: this.adPromotionPrice
-            , adMinQty: this.adMinQty
-            , dayLimit: this.dayLimit
-            , approval: this.approval
-            , ageTarget: this.ageTarget
-            , ageTargetFrom: this.ageTargetFrom
-            , ageTargetTo: this.ageTargetTo
-            , reqWordCon: this.reqWordCond
-            , banChannel: banChannelObjLet
-            , banExChannel: banExChannelObjLet
-            , banImageCond: this.banImageCond
-            , banWordCond: this.banWordCond
-            , nullifyCond: this.nullifyCond
-            , cancelCond: this.cancelCond
-            , autoConfirm: this.autoConfirm
-            , file: form
-        },
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+     const frm = new FormData();
+      frm.append("upFile", this.adBanner[0]);
+      frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));		
+
+      axios.post("http://api.adinfo.co.kr:30000/newcampaign", frm, {
+        headers: {'Content-Type': 'multipart/form-data'}        
       })
       .then(response => {
         console.log(response);
