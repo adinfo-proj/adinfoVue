@@ -18,7 +18,7 @@
             </button>
         </div>
       </div>
-      <div class="logSerch">
+      <div class="logSearch">
         <input type="checkbox" name="stayLog" id="stayLog"><label for="stayLog"> 로그인 유지</label>
         <ul>
             <li><a href="javascript:void(0)"
@@ -196,36 +196,36 @@ export default {
      font-weight: 700;
    }
 
-  #logIn .logInBox .logSerch {
+  #logIn .logInBox .logSearch {
     clear: both;
     padding-bottom: 20px;
     border-bottom: 1px solid #000;
   }
 
-  #logIn .logInBox .logSerch input[type="checkbox"] {
+  #logIn .logInBox .logSearch input[type="checkbox"] {
     width: 20px;
     height: 20px;
     margin-top: -9px;
     transform: translateY(6px);
   }
 
-  #logIn .logInBox .logSerch label {
+  #logIn .logInBox .logSearch label {
     color: #444;
     font-weight: 700;
     margin: 6px;
   }
 
-  #logIn .logInBox .logSerch ul {
+  #logIn .logInBox .logSearch ul {
     float: right;
   }
 
-  #logIn .logInBox .logSerch ul li {
+  #logIn .logInBox .logSearch ul li {
     float: left;
     padding: 0 11px;
     position: relative;
   }
 
-  #logIn .logInBox .logSerch ul li:before {
+  #logIn .logInBox .logSearch ul li:before {
     clear: both;
     content: "";
     width: 1px;
@@ -236,7 +236,7 @@ export default {
     background: #e5e5e5;
   }
 
-  #logIn .logInBox .logSerch ul li:first-child:before {
+  #logIn .logInBox .logSearch ul li:first-child:before {
     display: none;
   }
 

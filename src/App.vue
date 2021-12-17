@@ -184,7 +184,6 @@
 
   .headerNav > ul > li {
     border-bottom: solid 1px #393939;
-    transition: 0.5s;
   }
 
   .headerNav > ul > li > a {
@@ -194,7 +193,6 @@
     color: #999;
     padding: 15px 20px;
     position: relative;
-    transition: 0.5s;
   }
 
   .headerNav > ul > li > a > svg {
@@ -214,7 +212,7 @@
     color: #999;
     letter-spacing: -0.3px;
     font-weight: 700;
-    transition: 0.5s;
+   
   }
 
 
@@ -230,6 +228,7 @@
   .headerNav > ul > li:hover > a {
     background: #e25b45;
     color: #fff;
+    /* transition: 0.5s; */
   }
 
   .headerNav > ul > li.on > a:after {
@@ -252,7 +251,8 @@
   }
 
   .headerNav > ul > li > ul > li:hover > a {
-    color: #e25b45; 
+    color: #e25b45;
+    /* transition: 0.5s; */
   }
   .headerNav svg {
     margin-right: 4px;

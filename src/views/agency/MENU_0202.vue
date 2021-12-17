@@ -1,7 +1,6 @@
 <template>
   <div class="container"> 
-    <!-- 1400*1140 -->
-    <div class="tap" > <!-- 추후 각 a태그 별 변수 지정-->
+    <div class="tap" > <!-- 추후 input:radio로 변경 예정-->
       <a class="cpa on" href="javascript:void(0)"><img src="../../assets/images/icon01.png" alt="icon01">CPA광고</a> 
       <a class="cps" href="javascript:void(0)"><img src="../../assets/images/icon02.png" alt="icon02">CPS광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
       <a class="cpp" href="javascript:void(0)"><img src="../../assets/images/icon03.png" alt="icon03">CPP광고 <img src="../../assets/images/readyIcon.png" alt="readyIcon" class="readyIcon"></a>
@@ -106,28 +105,18 @@
           </div>
         </div>
       </div>
-
-
-
       <div class="chooseArea">
         <p>광고지역 설정<span>(중복 선택 가능)</span></p>
-
         <span class="chooseAreaDeta"
           v-for="(adIndex, index) in this.$store.state.addAreaListObj"
           :key="index"
           :value="adIndex.subCode"
         >{{ adIndex.codeNm }} {{ adIndex.codeDescr }}</span>
-        
-
-
         <!-- 다시 작성 할 부분 -->
         <div class="chooseBtn">
           <button @click="AddArea();">설정하기 <i class="fas fa-plus"></i></button>
         </div>
       </div>
-
-
-
       <div class="chooseExcept">
         <p>광고제외지역 설정</p>
         <span class="chooseAreaDeta"
@@ -135,19 +124,11 @@
           :key="index"
           :value="adIndex.subCode"
         >{{ adIndex.codeNm }} {{ adIndex.codeDescr }}</span>
-
-
         <div class="chooseBtn">
           <button @click="RemoveArea();">설정하기 <i class="fas fa-plus"></i></button>
         </div>
       </div>
-
-
-
     </div>
-
-
-
     <div class="campaign tableBox">
       <table>
         <tr>
