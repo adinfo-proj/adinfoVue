@@ -175,9 +175,12 @@
           <td><input type="text" name="" id="" v-model="dayLimit"></td>
           <td class="tableHead">연령 타겟<span class="necItem"> (필수)</span></td>
           <td>
-            <input type="radio" name="tagetAge" id="tagetAgeY" v-model="ageTarget" value="ageN"><label for="tagetAgeY">나이제한 없음</label>
-            <input type="radio" name="tagetAge" id="tagetAgeN" v-model="ageTarget" value="ageY"><label for="tagetAgeN">나이제한 있음</label>
-            <input type="text" name="tagetAge" class="tagetAge" id="fromAge" v-model="ageTargetFrom"><span class="ageIcon">~</span>
+            <input type="radio" name="tagetAge" id="tagetAgeY" v-model="ageTarget" value="N">
+            <label for="tagetAgeY">나이제한 없음</label>
+            <input type="radio" name="tagetAge" id="tagetAgeN" v-model="ageTarget" value="Y">
+            <label for="tagetAgeN">나이제한 있음</label>
+            <input type="text" name="tagetAge" class="tagetAge" id="fromAge" v-model="ageTargetFrom">
+            <span class="ageIcon">~</span>
             <input type="text" name="tagetAge" class="tagetAge" id="toAge" v-model="ageTargetTo">
           </td>
         </tr>
@@ -270,15 +273,15 @@
           <td class="tableHead">SMS 수신 여부</td>
           <td>
             DB접수 시 SMS를 수신합니다. 
-            <input type="radio" name="sms" id="smsY" v-model="smsYn" value="smsY"><label for="smsY">예</label>
+            <input type="radio" name="sms" id="smsY" v-model="smsYn" value="Y"><label for="smsY">예</label>
             <input type="tel" id="phoneNum" placeholder="연락처를 입력해주세요." maxlength="11" v-model="smsNo">
-            <input type="radio" name="sms" id="smsN" v-model="smsYn" value="smsYN" checked><label for="smsN">아니오</label> 
+            <input type="radio" name="sms" id="smsN" v-model="smsYn" value="N" checked><label for="smsN">아니오</label> 
           </td>
           <td class="tableHead">자동화 확정 일수</td>
           <td>
-            <input type="radio" name="confirmDate" id="date7" v-model="autoConfirm" value="day7"><label for="date7">7일</label>
-            <input type="radio" name="confirmDate" id="date15" v-model="autoConfirm" value="day15"><label for="date15">15일</label>
-            <input type="radio" name="confirmDate" id="dateEtc" v-model="autoConfirm" value="dayEtc"><label for="dateEtc">기타(협의 필요)</label><input type="text" name="" id="dateEtc2" >
+            <input type="radio" name="confirmDate" id="date7" v-model="autoConfirm" value="07"><label for="date7">7일</label>
+            <input type="radio" name="confirmDate" id="date15" v-model="autoConfirm" value="15"><label for="date15">15일</label>
+            <input type="radio" name="confirmDate" id="dateEtc" v-model="autoConfirm" value="99"><label for="dateEtc">기타(협의 필요)</label><input type="text" name="" id="dateEtc2" >
           </td>
         </tr>
         <tr>
@@ -302,8 +305,8 @@
         <tr class="lendOwn" v-if="lendSelect == 0">
           <td class="tableHead">외부입력 폼 제공</td>
           <td>
-            <input type="radio" name="extForm" id="extFormY" v-model="extFormYn" value="extFormY"><label for="">예</label>
-            <input type="radio" name="extForm" id="extFormN" v-model="extFormYn" value="extFormN"><label for="">아니오</label>
+            <input type="radio" name="extForm" id="extFormY" v-model="extFormYn" value="Y"><label for="">예</label>
+            <input type="radio" name="extForm" id="extFormN" v-model="extFormYn" value="N"><label for="">아니오</label>
           </td>
           <td class="gideBtn">
             <button id="popUP01">픽셀,스크립트 설치 가이드 보기</button>
