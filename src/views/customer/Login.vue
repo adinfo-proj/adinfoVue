@@ -114,8 +114,6 @@ export default {
 </script>
 
 <style scoped>
-  /* 로그인 페이지 CSS */
-
   #logIn {
     position: fixed;
     left: 0;
@@ -203,16 +201,38 @@ export default {
   }
 
   #logIn .logInBox .logSearch input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    margin-top: -9px;
-    transform: translateY(6px);
+    display: none;
   }
 
-  #logIn .logInBox .logSearch label {
+  #logIn .logInBox .logSearch input[type="checkbox"] + label {
     color: #444;
     font-weight: 700;
-    margin: 6px;
+    padding: 6px 6px 6px 26px;
+    position: relative;
+  }
+
+  #logIn .logInBox .logSearch input[type="checkbox"] + label:before {
+    clear: both;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    content: "\f078";
+    color: #c9c9c9;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 11.5px;
+    border: 2px solid #c9c9c9;
+    border-radius: 50%;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 3px;
+    left: 0px;
+    top: 3px;
+  }
+
+    #logIn .logInBox .logSearch input[type="checkbox"]:checked + label:before {
+    color: #e25b45;
+    border: 2px solid #e25b45;
   }
 
   #logIn .logInBox .logSearch ul {
@@ -265,6 +285,4 @@ export default {
     font-weight: 700;
     color: #666;
   }
-
-  /* 로그인 페이지 CSS  끝 */
 </style>

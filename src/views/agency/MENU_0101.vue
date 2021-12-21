@@ -223,7 +223,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="viewTr" v-bind:class="{dbSelect : 0 == dbSelectData}">
+						<tr class="viewTr" @click="dbData(0)" v-bind:class="{dbSelect : 0 == dbSelectData}">
 							<th class="dailyNum">10</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -232,7 +232,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(0)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 0 == dbSelectData}">
@@ -299,7 +299,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 1 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(1)" v-bind:class="{dbSelect : 1 == dbSelectData}">
 							<th class="dailyNum">9</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -308,7 +308,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(1)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 1 == dbSelectData}">
@@ -375,7 +375,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 2 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(2)" v-bind:class="{dbSelect : 2 == dbSelectData}">
 							<th class="dailyNum">8</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -384,7 +384,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(2)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 2 == dbSelectData}">
@@ -451,7 +451,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 3 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(3)" v-bind:class="{dbSelect : 3 == dbSelectData}">
 							<th class="dailyNum">7</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -460,7 +460,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(3)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 3 == dbSelectData}">
@@ -527,7 +527,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 4 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(4)" v-bind:class="{dbSelect : 4 == dbSelectData}">
 							<th class="dailyNum">6</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -536,7 +536,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="취소"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(4)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 4 == dbSelectData}">
@@ -603,7 +603,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 5 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(5)" v-bind:class="{dbSelect : 5 == dbSelectData}">
 							<th class="dailyNum">5</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -612,7 +612,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(5)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 5 == dbSelectData}">
@@ -679,7 +679,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 6 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(6)" v-bind:class="{dbSelect : 6 == dbSelectData}">
 							<th class="dailyNum">4</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -688,7 +688,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(6)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 6 == dbSelectData}">
@@ -755,7 +755,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 7 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(7)" v-bind:class="{dbSelect : 7 == dbSelectData}">
 							<th class="dailyNum">3</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -764,7 +764,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(7)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 7 == dbSelectData}">
@@ -831,7 +831,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 8 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(8)" v-bind:class="{dbSelect : 8 == dbSelectData}">
 							<th class="dailyNum">2</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -840,7 +840,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(8)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 8 == dbSelectData}">
@@ -907,7 +907,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 9 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(9)" v-bind:class="{dbSelect : 9 == dbSelectData}">
 							<th class="dailyNum">1</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -916,7 +916,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="취소"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(9)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 9 == dbSelectData}">
@@ -1013,7 +1013,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="viewTr" v-bind:class="{dbSelect : 10 == dbSelectData}">
+						<tr class="viewTr" @click="dbData(10)" v-bind:class="{dbSelect : 10 == dbSelectData}">
 							<th class="dailyNum">10</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1022,7 +1022,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(10)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 10 == dbSelectData}">
@@ -1089,7 +1089,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 11 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(11)" v-bind:class="{dbSelect : 11 == dbSelectData}">
 							<th class="dailyNum">9</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1098,7 +1098,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(11)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 11 == dbSelectData}">
@@ -1165,7 +1165,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 12 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(12)" v-bind:class="{dbSelect : 12 == dbSelectData}">
 							<th class="dailyNum">8</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1174,7 +1174,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(12)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 12 == dbSelectData}">
@@ -1241,7 +1241,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 13 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(13)" v-bind:class="{dbSelect : 13 == dbSelectData}">
 							<th class="dailyNum">7</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1250,7 +1250,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(13)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 13 == dbSelectData}">
@@ -1317,7 +1317,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 14 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(14)" v-bind:class="{dbSelect : 14 == dbSelectData}">
 							<th class="dailyNum">6</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1326,7 +1326,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="취소"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(14)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 14 == dbSelectData}">
@@ -1393,7 +1393,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 15 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(15)" v-bind:class="{dbSelect : 15 == dbSelectData}">
 							<th class="dailyNum">5</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1402,7 +1402,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(15)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 15 == dbSelectData}">
@@ -1469,7 +1469,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 16 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(16)" v-bind:class="{dbSelect : 16 == dbSelectData}">
 							<th class="dailyNum">4</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1478,7 +1478,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(16)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 16 == dbSelectData}">
@@ -1545,7 +1545,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 17 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(17)" v-bind:class="{dbSelect : 17 == dbSelectData}">
 							<th class="dailyNum">3</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1554,7 +1554,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(17)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 17 == dbSelectData}">
@@ -1621,7 +1621,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 18 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(18)" v-bind:class="{dbSelect : 18 == dbSelectData}">
 							<th class="dailyNum">2</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1630,7 +1630,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(18)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 18 == dbSelectData}">
@@ -1697,7 +1697,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 19 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(19)" v-bind:class="{dbSelect : 19 == dbSelectData}">
 							<th class="dailyNum">1</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1706,7 +1706,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="취소"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(19)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 19 == dbSelectData}">
@@ -1803,7 +1803,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="viewTr" v-bind:class="{dbSelect : 20 == dbSelectData}">
+						<tr class="viewTr" @click="dbData(20)" v-bind:class="{dbSelect : 20 == dbSelectData}">
 							<th class="dailyNum">10</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1812,7 +1812,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(20)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 20 == dbSelectData}">
@@ -1879,7 +1879,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 21 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(21)" v-bind:class="{dbSelect : 21 == dbSelectData}">
 							<th class="dailyNum">9</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1888,7 +1888,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(21)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 21 == dbSelectData}">
@@ -1955,7 +1955,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 22 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(22)" v-bind:class="{dbSelect : 22 == dbSelectData}">
 							<th class="dailyNum">8</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -1964,7 +1964,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(22)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 22 == dbSelectData}">
@@ -2031,7 +2031,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 23 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(23)" v-bind:class="{dbSelect : 23 == dbSelectData}">
 							<th class="dailyNum">7</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -2040,7 +2040,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(23)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 23 == dbSelectData}">
@@ -2107,7 +2107,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 24 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(24)" v-bind:class="{dbSelect : 24 == dbSelectData}">
 							<th class="dailyNum">6</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -2116,7 +2116,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="취소"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(24)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 24 == dbSelectData}">
@@ -2183,7 +2183,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 25 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(25)" v-bind:class="{dbSelect : 25 == dbSelectData}">
 							<th class="dailyNum">5</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -2192,7 +2192,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(25)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 25 == dbSelectData}">
@@ -2259,7 +2259,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 26 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(26)" v-bind:class="{dbSelect : 26 == dbSelectData}">
 							<th class="dailyNum">4</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -2268,7 +2268,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(26)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 26 == dbSelectData}">
@@ -2335,7 +2335,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 27 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(27)" v-bind:class="{dbSelect : 27 == dbSelectData}">
 							<th class="dailyNum">3</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -2344,7 +2344,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(27)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 27 == dbSelectData}">
@@ -2411,7 +2411,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 28 == dbSelectData}">
+            <tr class="viewTr" @click="dbData(28)" v-bind:class="{dbSelect : 28 == dbSelectData}">
 							<th class="dailyNum">2</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -2420,7 +2420,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(28)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 28 == dbSelectData}">
@@ -2487,7 +2487,7 @@
                 </div>
               </td>
             </tr>
-            <tr class="viewTr" v-bind:class="{dbSelect : 29 == dbSelectData}">
+            <tr class="viewTr"  @click="dbData(29)" v-bind:class="{dbSelect : 29 == dbSelectData}">
 							<th class="dailyNum">1</th>
 							<td class="dailyName">모아만 의원</td>
 							<td class="maketerCode">011125144</td>
@@ -2496,7 +2496,7 @@
 							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="취소"></td>
 							<td class="dbPrice">250,000원</td>
 							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"  @click="dbData(29)"></i>
+                <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : 29 == dbSelectData}">
@@ -2830,7 +2830,6 @@
 
   .dailyDataSub .dailySub table .inData i {
     float: right;
-    cursor: pointer;
   }
 
   .dailyDataSub .dailySub table thead th:after {
@@ -2859,6 +2858,10 @@
     padding: 0;
   }
 
+  .dailyDataSub .dailySub .viewTr{
+    cursor: pointer;
+  }
+
   .dailyDataSub .dailySub .dbSelect{
     position: relative;
   }
@@ -2873,11 +2876,9 @@
     top: -0.5px;
   }
 
-  .dailyDataSub .dailySub .dbSelect i{
+  .dailyDataSub .dailySub .dbSelect i {
     transform: rotate(180deg);
     color: #e25b45;
-    position: relative;
-    z-index: 999;
   }
 
   

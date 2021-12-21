@@ -143,7 +143,7 @@
           </a>
         </li>
         <li>
-          <router-link to="TEST_etc.vue" @click="MenuBar(8)">test</router-link>
+          <router-link to="TEST_etc.vue">test</router-link>
         </li>
       </ul>
     </div>
@@ -167,7 +167,6 @@
         else if(this.menuSelect >= 1){
           this.subMenuSelect = '0'+ pos + '01'
           let page = "MENU_"+ this.subMenuSelect
-          console.log(this.subMenuSelect)
           this.$router.push({ path : page })
 
         }

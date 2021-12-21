@@ -287,6 +287,7 @@
         <tr>
           <td class="tableHead">기타</td>
             <td colspan="3"><input type="text" name="" id=""></td>
+
         </tr>
       </table>
     </div>
@@ -1018,8 +1019,8 @@ export default {
   }
   
   /* 지역 추가하기 버튼 */
-  .chooseArea>.chooseAreaDeta,
-  .chooseExcept>.chooseAreaDeta {
+  .chooseArea > .chooseAreaDeta,
+  .chooseExcept > .chooseAreaDeta {
     display: inline-block;
     padding: 6px 10px;
     border: 1px solid #e5e5e5;
@@ -1027,9 +1028,8 @@ export default {
     border-radius: 20px;
   }
 
-  .chooseArea>span>.xBtn,
-  .chooseExcept>span>.xBtn {
-
+  .chooseArea > span > .xBtn,
+  .chooseExcept > span > .xBtn {
     /* 추후에 얇은걸로 변경하기!!!!! */
     margin-left: 5px;
     transform: translateY(1px);
@@ -1233,7 +1233,7 @@ export default {
   }
 
 
-  .container .tableBox .upload_name + label >i {
+  .container .tableBox .upload_name + label > i {
     font-size: 12px;
     color: #e25b45;
     vertical-align: middle;
@@ -1245,12 +1245,7 @@ export default {
   }
 
   /* 이미지 등록하기 버튼  끝*/
-  .container .tableBox input[type="radio"] {
-    width: 10px;
-    height: 10px;
-    margin: 0 5px 0 15px;
-    transform: translateY(1px);
-  }
+
 
   .promotion table td:nth-child(2) {
     width: 530px;
@@ -1348,14 +1343,49 @@ export default {
     float: left;
   }
 
-  .container .tableBox input[type="checkbox"] {
-    margin: 0 5px;
-    transform: translateY(2px);
+  .container .tableBox input[type="checkbox"],
+  .container .tableBox input[type="radio"] {
+    display: none;
   }
 
-  .container .tableBox input[type="checkbox"] + label {
-    margin-right: 5px;
+
+
+  .container .tableBox input[type="checkbox"] + label,
+  .container .tableBox input[type="radio"] + label {
+    position: relative;
+    padding: 0 5px 0 23px;
   }
+
+  .container .tableBox input[type="checkbox"] + label:before,
+  .container .tableBox input[type="radio"] + label:before {
+    clear: both;
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border: 1px solid #cbcbcb;
+    background: #f6f6f6;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    content: "";
+    border-radius: 2px;
+  }
+
+  .container .tableBox input[type="checkbox"]:checked + label::after,
+  .container .tableBox input[type="radio"]:checked + label:after { 
+    clear: both;
+    position: absolute;
+    display: block;
+    content: "\f00c";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 7px;
+    left: 7px;
+    top: 1px;
+    color: #e25b45;
+  }
+
+
   .container .lend {
     clear: both;
     border-top-left-radius: 0;

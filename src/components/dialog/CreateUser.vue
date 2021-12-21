@@ -221,8 +221,6 @@
 </script>
 
 <style>
-  /* 회원가입 CSS */
-
   #singPopUp {
     position: absolute;
     display: none;
@@ -250,8 +248,6 @@
     margin-bottom: 20px;
     height: 60px;
   }
-
-  /* 탭버튼 다시 만들기 */
 
   #singPopUp .adGradeBox input[type="radio"]{
     display: none;
@@ -294,7 +290,6 @@
 
 
   #singPopUp .adGradeBox input[type="radio"]:checked + label {
-
     background: #fff;
     border: 1px solid #000;
     border-bottom: none;
@@ -343,11 +338,41 @@
   }
 
   #singPopUp .radioBox input[type="radio"] {
-    transform: translateY(2px);
+    display: none;
+  }
+
+  #singPopUp .radioBox input[type="radio"] + label {
+    padding-left: 26.8px;
+    position: relative;
+  }
+
+  #singPopUp .radioBox input[type="radio"] + label:before {
+    clear: both;
+    position: absolute;
     width: 11px;
     height: 11px;
-    margin: 0 5.8px 0 10px;
+    border: 1px solid #cbcbcb;
+    background: #f6f6f6;
+    left: 5.8px;
+    top: 50%;
+    transform: translateY(-50%);
+    content: "";
+    border-radius: 2px;
   }
+
+  #singPopUp .radioBox input[type="radio"]:checked + label:after {
+    clear: both;
+    position: absolute;
+    display: block;
+    content: "\f00c";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 7px;
+    left: 7px;
+    top: 1px;
+    color: #e25b45;
+  }
+
 
   #singPopUp table {
     width: 100%;
@@ -439,7 +464,4 @@
   #singPopUp .signBtnBox .signBtn {
     background: #e25b45;
   }
-
-
-  /* 회원가입 CSS 끝 */
 </style>
