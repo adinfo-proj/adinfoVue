@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from "../store/index";
 import LOGIN from "../views/customer/Login";
 
 import MENU_0000 from "../views/agency/MENU_0000.vue";
@@ -135,10 +134,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log("Step 1 : [" + to.matched + "]")
+  
   if (to.matched.some(record => record.meta.requiresAuth)) {
 
-    console.log("Step 2 : [" + store.state.jwtAuthToken + "]")
+    
     
     // 이 라우트는 인증이 필요하며 로그인 한 경우 확인하십시오.
     // 그렇지 않은 경우 로그인 페이지로 리디렉션하십시오.

@@ -25,13 +25,10 @@ export default new Vuex.Store({
   },
   getters: {
     jwtAuthValid: function() {
-      console.log("jwtAuthValid : [" + this.jwtAuthToken + "]")
       if ( (this.jwtAuthToken !== "") && (this.jwtAuthToken !== null) && (this.jwtAuthToken !== 'undefined')) {
-        console.log("jwtAuthValid is true")
         return true
       }
       else {
-        console.log("jwtAuthValid is false")
         return false
       }
     }
