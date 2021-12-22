@@ -16,7 +16,7 @@
               <rect id="DashBoardIcon" width="14" height="14" rx="7" fill="url(#pattern)"/>
             </svg>
 
-            DASHBOOARD
+            DASHBOARD
           </router-link>
         </li>
         <li v-bind:class="{on : 1 == menuSelect}">

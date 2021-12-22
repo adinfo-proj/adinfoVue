@@ -192,7 +192,8 @@
           <td class="tableHead">진행(선호) 채널<span class="necItem"> (필수)</span></td>
           <td colspan="3" class="chooseCheck">
             <div class="checkingBox"
-            @click="BanExChannelAll()">
+              @click="BanExChannelAll()"
+            >
               <input type="checkbox" id="prohibitAll"
               :checked="banExChannelAll"
               >
@@ -660,6 +661,7 @@ export default {
 
         this.banExChannelAll = true;
       }
+      console.log(this.banExChannelAll)
     },
     //******************************************************************************
     // 진행(선호) 채널 개별 선택 시 처리함수
@@ -1343,7 +1345,7 @@ export default {
     float: left;
   }
 
-  .container .tableBox input[type="checkbox"],
+  /* .container .tableBox input[type="checkbox"],
   .container .tableBox input[type="radio"] {
     display: none;
   }
@@ -1369,7 +1371,7 @@ export default {
     transform: translateY(-50%);
     content: "";
     border-radius: 2px;
-  }
+  } 
 
   .container .tableBox input[type="checkbox"]:checked + label::after,
   .container .tableBox input[type="radio"]:checked + label:after { 
@@ -1384,6 +1386,8 @@ export default {
     top: 1px;
     color: #e25b45;
   }
+
+  */
 
 
   .container .lend {
@@ -1467,8 +1471,7 @@ export default {
 		background: #fff;
 		color: #e25b45;
 	}
-
-
+  
   /* 지역선택 모달 팝업 */
 
 </style>
