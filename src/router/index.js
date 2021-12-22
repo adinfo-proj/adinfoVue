@@ -14,8 +14,11 @@ import MENU_0204 from "../views/agency/MENU_0204.vue";
 import MENU_0205 from "../views/agency/MENU_0205.vue";
 import MENU_0206 from "../views/agency/MENU_0206.vue";
 import MENU_0301 from "../views/agency/MENU_0301.vue";
-import MENU_0302 from "../views/agency/MENU_0303.vue";
-import MENU_0303 from "../views/agency/MENU_0302.vue";
+import MENU_0302 from "../views/agency/MENU_0302.vue";
+import MENU_0303 from "../views/agency/MENU_0303.vue";
+import MENU_0601 from "../views/agency/MENU_0601.vue";
+import MENU_0701 from "../views/agency/MENU_0701.vue";
+
 import TEST_etc from "../views/agency/TEST_etc.vue";
 
 
@@ -119,6 +122,18 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     component: MENU_0303,
     meta: { requiresAuth: true }
   },
+  {// 마케터관리
+      path: "/MENU_0601",
+      name: "MENU_0601",
+      component: MENU_0601,
+      meta: { requiresAuth: true }
+    },
+  {// 캠페인 그룹관리
+      path: "/MENU_0701",
+      name: "MENU_0701",
+      component: MENU_0701,
+      meta: { requiresAuth: true }
+    },
   {// POSTBACK 등록 현황
     path: "/TEST_etc",
     name: "TEST_etc",

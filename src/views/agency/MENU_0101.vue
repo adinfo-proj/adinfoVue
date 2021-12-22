@@ -1,20 +1,26 @@
 <template>
 	<div class="container">
 		<div class="campanignSearch">
-			<select name="camName" id="camName">
-				<option value="">캠페인명 1</option>
-				<option value="">캠페인명 2</option>
-				<option value="">캠페인명 3</option>
+			<select name="camName" id="camName" v-model="campSelect" @change="campaignListChange(campSelect)">
+				<option v-for="(campaignNameList, index) in campaignNameListObj"
+					:key="index" 
+					:value="campaignNameList.caId"					
+					>{{ campaignNameList.name }}
+				</option>
 			</select>
-      <input type="radio" name="searchDay" id="searchAllDay" class="searchSubDate" checked> <label for="searchAllDay">전체</label>
-      <input type="radio" name="searchDay" id="searchToday" class="searchSubDate"> <label for="searchToday">오늘</label>
-      <input type="radio" name="searchDay" id="searchYesterday" class="searchSubDate"> <label for="searchYesterday">어제</label>
-      <input type="radio" name="searchDay" id="searchThreeDay" class="searchSubDate"> <label for="searchThreeDay">3일</label>
-      <input type="radio" name="searchDay" id="searchSevenDay" class="searchSubDate"> <label for="searchSevenDay">7일</label>		
-      <input type="date" id="searchStartDate1"  v-model="serchDataDt"> ~ 
-      <input type="date" id="searchEndDate1" v-model="serchDataDt02">
+      <input type="radio" name="searchDay" id="searchToday" class="searchSubDate" @click="ChangeDateRange(1)" checked> <label for="searchToday">오늘</label>
+      <input type="radio" name="searchDay" id="searchYesterday" class="searchSubDate" @click="ChangeDateRange(2)"> <label for="searchYesterday">어제</label>
+      <input type="radio" name="searchDay" id="searchThreeDay" class="searchSubDate" @click="ChangeDateRange(3)"> <label for="searchThreeDay">3일</label>
+      <input type="radio" name="searchDay" id="searchSevenDay" class="searchSubDate" @click="ChangeDateRange(4)"> <label for="searchSevenDay">7일</label>
+			<input type="radio" name="searchDay" id="searchthirtyDay" @click="ChangeDateRange(5)" class="searchSubDate"> <label for="searchthirtyDay">30일</label>		
+      <input type="radio" name="searchDay" id="searchYear" class="searchSubDate" @click="ChangeDateRange(0)"> <label for="searchYear">1년</label>
+      <input type="date" id="searchStartDate1"  v-model="serchDataFromDt"> ~ 
+      <input type="date" id="searchEndDate1" v-model="serchDataToDt">
+      <button class="searchDateBtn">조회</button>
+
+      <button @click="DbData(1111111)"> + -</button>
 		</div>
-		<div class="dailyDataBox">
+		<div class="dailyDataBox"  v-bind:class="{dbSelect : 1111111 == dbSelectData}">
 			<div class="dailyDataMiddle">
 				<h2 class="dataEm">
           {{"00"}}
@@ -75,7 +81,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="dailyDataBox">
+		<div class="dailyDataBox" v-bind:class="{dbSelect : 1111111 == dbSelectData}">
       <div class="dailyDataMiddle">
 				<h2>
 					{{"000"}}
@@ -197,7 +203,7 @@
               <image id="icon" width="11" height="12" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAMCAYAAAC0qUeeAAAABHNCSVQICAgIfAhkiAAAAGxJREFUKFNj/P//PwM6eBzjBhJklF2yC0WKcSgrhnoK5CFGIAZ7EEozAD0KYjPAPQhUDOJjBg1EE0gDhmJ0DWCFGIpBAlDTYRrgJsI0MD6Kdv0PcxNMMchKZDbUoP8oitFMh1uPohgjvnEIAACmsll1nvDKAQAAAABJRU5ErkJggg=="/>
             </svg>
           </button>
-          <select name="" id="">
+          <select name="" id="" v-model="selectRowCount">
             <option value="10">10개</option>
             <option value="20">20개</option>
             <option value="30">30개</option>
@@ -212,7 +218,7 @@
 						<tr>
 							<th class="dailyNum">번호</th>
 							<th class="dailyName">캠페인명</th>
-							<th class="maketerCode">마케터 코드</th>
+							<th class="maketerCode">마케터 ID</th>
 							<th class="inTime">유입 시간</th>
 							<th class="inIP">접수 IP</th>
 							<th class="dbState">DB상태</th>
@@ -220,20 +226,24 @@
 							<th class="inData">고객입력 정보</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr class="viewTr" @click="dbData(0)" v-bind:class="{dbSelect : 0 == dbSelectData}">
+					<tbody v-for="(campaignFullData, index) in campaignFullDataObj"
+						:key="index" 
+						>
+						<tr class="viewTr" @click="DbData(index)" v-bind:class="{dbSelect : index == dbSelectData}">
 							<th class="dailyNum">10</th>
-							<td class="dailyName">모아만 의원</td>
-							<td class="maketerCode">011125144</td>
-							<td class="inTime">2021-11-11 12:05:55</td>
-							<td class="inIP">221.545.1.111</td>
-							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
-							<td class="dbPrice">250,000원</td>
+							<td class="dailyName">{{ campaignFullData.caName }}</td>
+							<td class="maketerCode">{{ campaignFullData.mkId }}</td>
+							<td class="inTime">{{campaignFullData.insDt}} {{campaignFullData.insTm}}</td>
+							<td class="inIP">{{ campaignFullData.regIp }}</td>
+							<td class="dbState" v-if="campaignFullData.confirmTp == 'N'"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
+							<td class="dbState" v-else-if="campaignFullData.confirmTp == 'C'"><img src="../../assets/images/menu0101/cancleIcon.png" alt="취소"></td>
+							<td class="dbState" v-else-if="campaignFullData.confirmTp == 'R'"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
+							<td class="dbPrice">{{ campaignFullData.mkPrice }} 원</td>
 							<td class="inData">승인 대기중
                 <i class="fas fa-chevron-down"></i>
               </td>
 						</tr>
-            <tr class="hidetr" v-bind:class="{dbSubSelect : 0 == dbSelectData}">
+            <tr class="hidetr" v-bind:class="{dbSubSelect : index == dbSelectData}">
               <td colspan="8" class="padNone">
                 <div class="dbDataBox">
                   <div class="basicData">
@@ -242,709 +252,25 @@
                       <table>
                         <tr>
                           <th>식별 ID</th>
-                          <td>1a52wd222</td>
+                          <td>{{ campaignFullData.seqNo }}</td>
                           <th>이름</th>
-                          <td>홍길동</td>
+                          <td>{{ campaignFullData.value02 }}</td>
                           <th>나이</th>
-                          <td>38세</td>
+                          <td></td>
                         </tr>
                         <tr>
                           <th>성별</th>
-                          <td>여성</td>
+                          <td></td>
                           <th>전화번호</th>
-                          <td colspan="3">010-1234-5678</td>
+                          <td colspan="3">{{ campaignFullData.value01 }}</td>
                         </tr>
                         <tr>
                           <th>기타1</th>
-                          <td>기타내용</td>
+                          <td></td>
                           <th>기타2</th>
-                          <td>기타내용</td>
+                          <td></td>
                           <th>기타3</th>
-                          <td>기타내용</td>
-                        </tr>
-                        <tr>
-                          <th>메모</th>
-                          <td colspan="5">메모를 기입할 수 있습니다.</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="payData">
-                    <h6>고객 추가정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>유입채널</th>
-                          <td>*****</td>
-                          <th>접수지역</th>
-                          <td>*****</td>
-                        </tr>
-                        <tr>
-                          <th>유입URL</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>2차전환 체크</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>접수기기</th>
-                          <td colspan="3">**{**}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr class="viewTr" @click="dbData(1)" v-bind:class="{dbSelect : 1 == dbSelectData}">
-							<th class="dailyNum">9</th>
-							<td class="dailyName">모아만 의원</td>
-							<td class="maketerCode">011125144</td>
-							<td class="inTime">2021-11-11 12:05:55</td>
-							<td class="inIP">221.545.1.111</td>
-							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
-							<td class="dbPrice">250,000원</td>
-							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"></i>
-              </td>
-						</tr>
-            <tr class="hidetr" v-bind:class="{dbSubSelect : 1 == dbSelectData}">
-              <td colspan="8" class="padNone">
-                <div class="dbDataBox">
-                  <div class="basicData">
-                    <h6>고객 기본정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>식별 ID</th>
-                          <td>1a52wd222</td>
-                          <th>이름</th>
-                          <td>홍길동</td>
-                          <th>나이</th>
-                          <td>38세</td>
-                        </tr>
-                        <tr>
-                          <th>성별</th>
-                          <td>여성</td>
-                          <th>전화번호</th>
-                          <td colspan="3">010-1234-5678</td>
-                        </tr>
-                        <tr>
-                          <th>기타1</th>
-                          <td>기타내용</td>
-                          <th>기타2</th>
-                          <td>기타내용</td>
-                          <th>기타3</th>
-                          <td>기타내용</td>
-                        </tr>
-                        <tr>
-                          <th>메모</th>
-                          <td colspan="5">메모를 기입할 수 있습니다.</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="payData">
-                    <h6>고객 추가정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>유입채널</th>
-                          <td>*****</td>
-                          <th>접수지역</th>
-                          <td>*****</td>
-                        </tr>
-                        <tr>
-                          <th>유입URL</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>2차전환 체크</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>접수기기</th>
-                          <td colspan="3">**{**}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr class="viewTr" @click="dbData(2)" v-bind:class="{dbSelect : 2 == dbSelectData}">
-							<th class="dailyNum">8</th>
-							<td class="dailyName">모아만 의원</td>
-							<td class="maketerCode">011125144</td>
-							<td class="inTime">2021-11-11 12:05:55</td>
-							<td class="inIP">221.545.1.111</td>
-							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="접수"></td>
-							<td class="dbPrice">250,000원</td>
-							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"></i>
-              </td>
-						</tr>
-            <tr class="hidetr" v-bind:class="{dbSubSelect : 2 == dbSelectData}">
-              <td colspan="8" class="padNone">
-                <div class="dbDataBox">
-                  <div class="basicData">
-                    <h6>고객 기본정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>식별 ID</th>
-                          <td>1a52wd222</td>
-                          <th>이름</th>
-                          <td>홍길동</td>
-                          <th>나이</th>
-                          <td>38세</td>
-                        </tr>
-                        <tr>
-                          <th>성별</th>
-                          <td>여성</td>
-                          <th>전화번호</th>
-                          <td colspan="3">010-1234-5678</td>
-                        </tr>
-                        <tr>
-                          <th>기타1</th>
-                          <td>기타내용</td>
-                          <th>기타2</th>
-                          <td>기타내용</td>
-                          <th>기타3</th>
-                          <td>기타내용</td>
-                        </tr>
-                        <tr>
-                          <th>메모</th>
-                          <td colspan="5">메모를 기입할 수 있습니다.</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="payData">
-                    <h6>고객 추가정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>유입채널</th>
-                          <td>*****</td>
-                          <th>접수지역</th>
-                          <td>*****</td>
-                        </tr>
-                        <tr>
-                          <th>유입URL</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>2차전환 체크</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>접수기기</th>
-                          <td colspan="3">**{**}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr class="viewTr" @click="dbData(3)" v-bind:class="{dbSelect : 3 == dbSelectData}">
-							<th class="dailyNum">7</th>
-							<td class="dailyName">모아만 의원</td>
-							<td class="maketerCode">011125144</td>
-							<td class="inTime">2021-11-11 12:05:55</td>
-							<td class="inIP">221.545.1.111</td>
-							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
-							<td class="dbPrice">250,000원</td>
-							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"></i>
-              </td>
-						</tr>
-            <tr class="hidetr" v-bind:class="{dbSubSelect : 3 == dbSelectData}">
-              <td colspan="8" class="padNone">
-                <div class="dbDataBox">
-                  <div class="basicData">
-                    <h6>고객 기본정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>식별 ID</th>
-                          <td>1a52wd222</td>
-                          <th>이름</th>
-                          <td>홍길동</td>
-                          <th>나이</th>
-                          <td>38세</td>
-                        </tr>
-                        <tr>
-                          <th>성별</th>
-                          <td>여성</td>
-                          <th>전화번호</th>
-                          <td colspan="3">010-1234-5678</td>
-                        </tr>
-                        <tr>
-                          <th>기타1</th>
-                          <td>기타내용</td>
-                          <th>기타2</th>
-                          <td>기타내용</td>
-                          <th>기타3</th>
-                          <td>기타내용</td>
-                        </tr>
-                        <tr>
-                          <th>메모</th>
-                          <td colspan="5">메모를 기입할 수 있습니다.</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="payData">
-                    <h6>고객 추가정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>유입채널</th>
-                          <td>*****</td>
-                          <th>접수지역</th>
-                          <td>*****</td>
-                        </tr>
-                        <tr>
-                          <th>유입URL</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>2차전환 체크</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>접수기기</th>
-                          <td colspan="3">**{**}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr class="viewTr" @click="dbData(4)" v-bind:class="{dbSelect : 4 == dbSelectData}">
-							<th class="dailyNum">6</th>
-							<td class="dailyName">모아만 의원</td>
-							<td class="maketerCode">011125144</td>
-							<td class="inTime">2021-11-11 12:05:55</td>
-							<td class="inIP">221.545.1.111</td>
-							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="취소"></td>
-							<td class="dbPrice">250,000원</td>
-							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"></i>
-              </td>
-						</tr>
-            <tr class="hidetr" v-bind:class="{dbSubSelect : 4 == dbSelectData}">
-              <td colspan="8" class="padNone">
-                <div class="dbDataBox">
-                  <div class="basicData">
-                    <h6>고객 기본정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>식별 ID</th>
-                          <td>1a52wd222</td>
-                          <th>이름</th>
-                          <td>홍길동</td>
-                          <th>나이</th>
-                          <td>38세</td>
-                        </tr>
-                        <tr>
-                          <th>성별</th>
-                          <td>여성</td>
-                          <th>전화번호</th>
-                          <td colspan="3">010-1234-5678</td>
-                        </tr>
-                        <tr>
-                          <th>기타1</th>
-                          <td>기타내용</td>
-                          <th>기타2</th>
-                          <td>기타내용</td>
-                          <th>기타3</th>
-                          <td>기타내용</td>
-                        </tr>
-                        <tr>
-                          <th>메모</th>
-                          <td colspan="5">메모를 기입할 수 있습니다.</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="payData">
-                    <h6>고객 추가정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>유입채널</th>
-                          <td>*****</td>
-                          <th>접수지역</th>
-                          <td>*****</td>
-                        </tr>
-                        <tr>
-                          <th>유입URL</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>2차전환 체크</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>접수기기</th>
-                          <td colspan="3">**{**}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr class="viewTr" @click="dbData(5)" v-bind:class="{dbSelect : 5 == dbSelectData}">
-							<th class="dailyNum">5</th>
-							<td class="dailyName">모아만 의원</td>
-							<td class="maketerCode">011125144</td>
-							<td class="inTime">2021-11-11 12:05:55</td>
-							<td class="inIP">221.545.1.111</td>
-							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
-							<td class="dbPrice">250,000원</td>
-							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"></i>
-              </td>
-						</tr>
-            <tr class="hidetr" v-bind:class="{dbSubSelect : 5 == dbSelectData}">
-              <td colspan="8" class="padNone">
-                <div class="dbDataBox">
-                  <div class="basicData">
-                    <h6>고객 기본정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>식별 ID</th>
-                          <td>1a52wd222</td>
-                          <th>이름</th>
-                          <td>홍길동</td>
-                          <th>나이</th>
-                          <td>38세</td>
-                        </tr>
-                        <tr>
-                          <th>성별</th>
-                          <td>여성</td>
-                          <th>전화번호</th>
-                          <td colspan="3">010-1234-5678</td>
-                        </tr>
-                        <tr>
-                          <th>기타1</th>
-                          <td>기타내용</td>
-                          <th>기타2</th>
-                          <td>기타내용</td>
-                          <th>기타3</th>
-                          <td>기타내용</td>
-                        </tr>
-                        <tr>
-                          <th>메모</th>
-                          <td colspan="5">메모를 기입할 수 있습니다.</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="payData">
-                    <h6>고객 추가정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>유입채널</th>
-                          <td>*****</td>
-                          <th>접수지역</th>
-                          <td>*****</td>
-                        </tr>
-                        <tr>
-                          <th>유입URL</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>2차전환 체크</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>접수기기</th>
-                          <td colspan="3">**{**}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr class="viewTr" @click="dbData(6)" v-bind:class="{dbSelect : 6 == dbSelectData}">
-							<th class="dailyNum">4</th>
-							<td class="dailyName">모아만 의원</td>
-							<td class="maketerCode">011125144</td>
-							<td class="inTime">2021-11-11 12:05:55</td>
-							<td class="inIP">221.545.1.111</td>
-							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
-							<td class="dbPrice">250,000원</td>
-							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"></i>
-              </td>
-						</tr>
-            <tr class="hidetr" v-bind:class="{dbSubSelect : 6 == dbSelectData}">
-              <td colspan="8" class="padNone">
-                <div class="dbDataBox">
-                  <div class="basicData">
-                    <h6>고객 기본정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>식별 ID</th>
-                          <td>1a52wd222</td>
-                          <th>이름</th>
-                          <td>홍길동</td>
-                          <th>나이</th>
-                          <td>38세</td>
-                        </tr>
-                        <tr>
-                          <th>성별</th>
-                          <td>여성</td>
-                          <th>전화번호</th>
-                          <td colspan="3">010-1234-5678</td>
-                        </tr>
-                        <tr>
-                          <th>기타1</th>
-                          <td>기타내용</td>
-                          <th>기타2</th>
-                          <td>기타내용</td>
-                          <th>기타3</th>
-                          <td>기타내용</td>
-                        </tr>
-                        <tr>
-                          <th>메모</th>
-                          <td colspan="5">메모를 기입할 수 있습니다.</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="payData">
-                    <h6>고객 추가정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>유입채널</th>
-                          <td>*****</td>
-                          <th>접수지역</th>
-                          <td>*****</td>
-                        </tr>
-                        <tr>
-                          <th>유입URL</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>2차전환 체크</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>접수기기</th>
-                          <td colspan="3">**{**}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr class="viewTr" @click="dbData(7)" v-bind:class="{dbSelect : 7 == dbSelectData}">
-							<th class="dailyNum">3</th>
-							<td class="dailyName">모아만 의원</td>
-							<td class="maketerCode">011125144</td>
-							<td class="inTime">2021-11-11 12:05:55</td>
-							<td class="inIP">221.545.1.111</td>
-							<td class="dbState"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
-							<td class="dbPrice">250,000원</td>
-							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"></i>
-              </td>
-						</tr>
-            <tr class="hidetr" v-bind:class="{dbSubSelect : 7 == dbSelectData}">
-              <td colspan="8" class="padNone">
-                <div class="dbDataBox">
-                  <div class="basicData">
-                    <h6>고객 기본정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>식별 ID</th>
-                          <td>1a52wd222</td>
-                          <th>이름</th>
-                          <td>홍길동</td>
-                          <th>나이</th>
-                          <td>38세</td>
-                        </tr>
-                        <tr>
-                          <th>성별</th>
-                          <td>여성</td>
-                          <th>전화번호</th>
-                          <td colspan="3">010-1234-5678</td>
-                        </tr>
-                        <tr>
-                          <th>기타1</th>
-                          <td>기타내용</td>
-                          <th>기타2</th>
-                          <td>기타내용</td>
-                          <th>기타3</th>
-                          <td>기타내용</td>
-                        </tr>
-                        <tr>
-                          <th>메모</th>
-                          <td colspan="5">메모를 기입할 수 있습니다.</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="payData">
-                    <h6>고객 추가정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>유입채널</th>
-                          <td>*****</td>
-                          <th>접수지역</th>
-                          <td>*****</td>
-                        </tr>
-                        <tr>
-                          <th>유입URL</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>2차전환 체크</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>접수기기</th>
-                          <td colspan="3">**{**}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr class="viewTr" @click="dbData(8)" v-bind:class="{dbSelect : 8 == dbSelectData}">
-							<th class="dailyNum">2</th>
-							<td class="dailyName">모아만 의원</td>
-							<td class="maketerCode">011125144</td>
-							<td class="inTime">2021-11-11 12:05:55</td>
-							<td class="inIP">221.545.1.111</td>
-							<td class="dbState"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
-							<td class="dbPrice">250,000원</td>
-							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"></i>
-              </td>
-						</tr>
-            <tr class="hidetr" v-bind:class="{dbSubSelect : 8 == dbSelectData}">
-              <td colspan="8" class="padNone">
-                <div class="dbDataBox">
-                  <div class="basicData">
-                    <h6>고객 기본정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>식별 ID</th>
-                          <td>1a52wd222</td>
-                          <th>이름</th>
-                          <td>홍길동</td>
-                          <th>나이</th>
-                          <td>38세</td>
-                        </tr>
-                        <tr>
-                          <th>성별</th>
-                          <td>여성</td>
-                          <th>전화번호</th>
-                          <td colspan="3">010-1234-5678</td>
-                        </tr>
-                        <tr>
-                          <th>기타1</th>
-                          <td>기타내용</td>
-                          <th>기타2</th>
-                          <td>기타내용</td>
-                          <th>기타3</th>
-                          <td>기타내용</td>
-                        </tr>
-                        <tr>
-                          <th>메모</th>
-                          <td colspan="5">메모를 기입할 수 있습니다.</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="payData">
-                    <h6>고객 추가정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>유입채널</th>
-                          <td>*****</td>
-                          <th>접수지역</th>
-                          <td>*****</td>
-                        </tr>
-                        <tr>
-                          <th>유입URL</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>2차전환 체크</th>
-                          <td colspan="3">*****</td>
-                        </tr>
-                        <tr>
-                          <th>접수기기</th>
-                          <td colspan="3">**{**}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr class="viewTr" @click="dbData(9)" v-bind:class="{dbSelect : 9 == dbSelectData}">
-							<th class="dailyNum">1</th>
-							<td class="dailyName">모아만 의원</td>
-							<td class="maketerCode">011125144</td>
-							<td class="inTime">2021-11-11 12:05:55</td>
-							<td class="inIP">221.545.1.111</td>
-							<td class="dbState"><img src="../../assets/images/menu0101/cancleIcon.png" alt="취소"></td>
-							<td class="dbPrice">250,000원</td>
-							<td class="inData">승인 대기중
-                <i class="fas fa-chevron-down"></i>
-              </td>
-						</tr>
-            <tr class="hidetr" v-bind:class="{dbSubSelect : 9 == dbSelectData}">
-              <td colspan="8" class="padNone">
-                <div class="dbDataBox">
-                  <div class="basicData">
-                    <h6>고객 기본정보</h6>
-                    <div>
-                      <table>
-                        <tr>
-                          <th>식별 ID</th>
-                          <td>1a52wd222</td>
-                          <th>이름</th>
-                          <td>홍길동</td>
-                          <th>나이</th>
-                          <td>38세</td>
-                        </tr>
-                        <tr>
-                          <th>성별</th>
-                          <td>여성</td>
-                          <th>전화번호</th>
-                          <td colspan="3">010-1234-5678</td>
-                        </tr>
-                        <tr>
-                          <th>기타1</th>
-                          <td>기타내용</td>
-                          <th>기타2</th>
-                          <td>기타내용</td>
-                          <th>기타3</th>
-                          <td>기타내용</td>
+                          <td></td>
                         </tr>
                         <tr>
                           <th>메모</th>
@@ -1001,37 +327,124 @@
 		</div>
 	</div>
 </template>
-<script>
 
-  export default {
-		// 
+<script>
+	import axios from "axios";
+
+	export default {
 		data() {
 			return {
-          serchDataDt: this.$DateAdd(0) 
-        , serchDataDt02: this.$DateAdd(0)
-        , divSelect: 0
-        , dbSelectData: null
+					serchDataFromDt: this.$DateAdd(0) 
+				, serchDataToDt: this.$DateAdd(0)
+				, selectRowCount: 10
+				, divSelect: 0
+				, dbSelectData: null
+				, campaignNameListObj: ''
+				, campaignFullDataObj: ''
+				, campSelect: 1000
 			}
 		},
 		methods: {
-      DbData(pos) {
-        if(this.dbSelectData == pos){
-          this.dbSelectData = null;
-          return;
-        }
+			DbData(pos) {
+				if(this.dbSelectData == pos){
+					this.dbSelectData = null;
+					return;
+				}
 
-        this.dbSelectData = pos;
-      }
+				this.dbSelectData = pos;
+			},
+			//******************************************************************************
+			// 수집항목 목록
+			//******************************************************************************
+			getCampaignNameLst() {
+				axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst", 
+				{
+					params: {
+							mbId: 20000
+						, adId: 2000
+					}
+				})
+				.then(response => {
+					this.campSelect = response.data[0].caId;
+					this.campaignNameListObj = response.data;
+					
+					console.log(response.data);
+				})
+				.catch(error => {
+					console.log(error);
+				})
+			},
+			//******************************************************************************
+			// 수집항목 목록
+			//******************************************************************************
+			getCampaignFullData() {
+				this.dbSelectData = null;
+				console.log(this.selectRowCount);
+				axios.get("http://api.adinfo.co.kr:30000/GetCpaDataForAll", 
+				{
+					params: {
+							mbId: 20000
+						, adId: 2000
+						, caId: this.campSelect
+						, ptId: 0
+						, srtDt: this.serchDataFromDt
+						, endDt: this.serchDataToDt
+						, curPosPage: 1
+						, rowCount: this.selectRowCount
+					}
+				})
+				.then(response => {
+					this.campaignFullDataObj = response.data;
+					console.log(response.data);
+				})
+				.catch(error => {
+					console.log(error);
+				})
+			},
+			campaignListChange(index) {
+				console.log(index);
+				this.campSelect = index;
+				this.getCampaignFullData();
+			},
+			ChangeDateRange(pos) {
+				if(pos == 0) {
+					this.serchDataFromDt = this.$DateAdd(-364);
+					this.serchDataToDt   = this.$DateAdd(0);
+				}
+				else if(pos == 1) {
+					this.serchDataFromDt = this.$DateAdd(0);
+					this.serchDataToDt   = this.$DateAdd(0);
+				}
+				else if(pos == 2) {
+					this.serchDataFromDt = this.$DateAdd(-1);
+					this.serchDataToDt   = this.$DateAdd(-1);
+				}
+				else if(pos == 3) {
+					this.serchDataFromDt = this.$DateAdd(-2);
+					this.serchDataToDt   = this.$DateAdd(0);
+				}
+				else if(pos == 4) {
+					this.serchDataFromDt = this.$DateAdd(-6);
+					this.serchDataToDt   = this.$DateAdd(0);
+				}
+				else {
+					return;
+				}
+
+				this.getCampaignFullData();
+			}
 		},
 		created() {
 			this.$store.state.headerTopTitle = "데이터 센터";
 			this.$store.state.headerMidTitle = "일자별 통계";
+
+			this.getCampaignNameLst();
+			this.getCampaignFullData();
 		}
 	}
 </script>
 
 <style>
-
   .campanignSearch {
     height: 35px;
     width: 100%;
@@ -1052,8 +465,9 @@
   }
 
   .campanignSearch input[type="radio"] + label {
+		cursor: pointer;
     display: inline-block;
-    width: 47px;
+    width: 50px;
     height: 100%;
     text-align: center;
     background: #fff;
@@ -1064,21 +478,37 @@
     font-weight: 700;
   }
 
-
   .campanignSearch input[type="radio"]:checked + label {
     color: #e25b45;
     border-color: #e25b45;
   }
 
-
   .campanignSearch input[type="date"] {
-    width: 210px;
+    width: 150px;
     height: 100%;
     border: 1px solid #e5e5e5;
     border-radius: 10px;
     padding: 10px 16px;
     margin: 0 5px;
   }
+
+  .campanignSearch #searchStartDate1 {
+    margin-left: 50px;
+  }
+
+  .campanignSearch #searchEndDate1 {
+    margin-right: 10px;
+  }
+
+  .campanignSearch .searchDateBtn {
+    width: 50px;
+    height: 30px;
+    border: 1px solid #e5e5e5;
+    background: #707070;
+    border-radius: 13px;
+    color: #fff;
+  }
+  
 
   .dailyDataBox {
     margin-top: 10px;
@@ -1122,6 +552,7 @@
     width: 100%;
     height: 100%;
     position: absolute;
+    display: none;
     left: 0;
     top: 0;
     background: #ddd;
@@ -1229,13 +660,21 @@
     width: 155px;
   }
 
+    .dailyDataSub .dailySub table .maketerCode {
+    width: 143px;
+  }
+
 
   .dailyDataSub .dailySub table .inTime {
     width: 197px;
   }
 
-  .dailyDataSub .dailySub table .inTime {
-    width: 197px;
+  .dailyDataSub .dailySub table .inIP {
+    width: 200px;
+  }
+
+  .dailyDataSub .dailySub table .dbState {
+    width: 150px;
   }
 
   .dailyDataSub .dailySub table .inData {
@@ -1293,9 +732,7 @@
   .dailyDataSub .dailySub .dbSelect i {
     transform: rotate(180deg);
     color: #e25b45;
-  }
-
-  
+  } 
 
   .dailyDataSub .dailySub .hidetr.dbSubSelect {
     display: table-row;
@@ -1410,8 +847,4 @@
     display: inline-block;
     margin: 0 10px;
   }
-
-
-  
-
 </style>

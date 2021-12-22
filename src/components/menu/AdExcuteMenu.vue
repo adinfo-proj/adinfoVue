@@ -16,7 +16,7 @@
               <rect id="DashBoardIcon" width="14" height="14" rx="7" fill="url(#pattern)"/>
             </svg>
 
-            DASHBOARD
+            DASHBOOARD
           </router-link>
         </li>
         <li v-bind:class="{on : 1 == menuSelect}">
@@ -170,8 +170,6 @@
           this.$router.push({ path : page })
 
         }
-
-
       }
       , SubMenu(pos) {
         this.subMenuSelect = pos;
