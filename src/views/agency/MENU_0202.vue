@@ -191,11 +191,10 @@
         <tr>
           <td class="tableHead">진행(선호) 채널<span class="necItem"> (필수)</span></td>
           <td colspan="3" class="chooseCheck">
-            <div class="checkingBox"
-              @click="BanExChannelAll()"
-            >
+            <div class="checkingBox">
               <input type="checkbox" id="prohibitAll"
               :checked="banExChannelAll"
+              @click="BanExChannelAll()"
               >
               <label for="prohibitAll">전체</label>
             </div>
@@ -645,20 +644,19 @@ export default {
     //******************************************************************************
     BanExChannelAll() { // 전체 선택 함수
       if(this.banExChannelAll == true) {
-        
         for( let i = 0 ; i < this.banExChannelObj.length ; i++) {
-          this.banExChannelObj[i].flag = false;
+        this.banExChannelObj[i].flag = false;
         }
-
+        
         this.banExChannelAll = false;
-
+        console.log("1")
       }
-      else {
+      else if(this.banExChannelAll == false){
         for( let i = 0 ; i < this.banExChannelObj.length ; i++) {
           this.banExChannelObj[i].flag = true;
           this.banChannelObj[i].flag = false;
         }
-
+        console.log("2")
         this.banExChannelAll = true;
       }
       console.log(this.banExChannelAll)
@@ -669,7 +667,7 @@ export default {
     BanExChannelOne(index) { // 개별 선택 시 전체선택 값에 대한 함수
       if(this.banExChannelObj[index].flag == true) {
         this.banExChannelObj[index].flag = false;
-        this.banExChannelAll = false;        
+        this.banExChannelAll = false;
       }
       else {
         let bFlag = true;
@@ -1345,7 +1343,7 @@ export default {
     float: left;
   }
 
-  /* .container .tableBox input[type="checkbox"],
+  .container .tableBox input[type="checkbox"],
   .container .tableBox input[type="radio"] {
     display: none;
   }
@@ -1386,9 +1384,6 @@ export default {
     top: 1px;
     color: #e25b45;
   }
-
-  */
-
 
   .container .lend {
     clear: both;
