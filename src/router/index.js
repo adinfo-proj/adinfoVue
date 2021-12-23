@@ -18,6 +18,12 @@ import MENU_0302 from "../views/agency/MENU_0302.vue";
 import MENU_0303 from "../views/agency/MENU_0303.vue";
 import MENU_0601 from "../views/agency/MENU_0601.vue";
 import MENU_0701 from "../views/agency/MENU_0701.vue";
+import MENU_0801 from "../views/agency/MENU_0801.vue";
+import MENU_0802 from "../views/agency/MENU_0802.vue";
+import MENU_0803 from "../views/agency/MENU_0803.vue";
+import MENU_0804 from "../views/agency/MENU_0804.vue";
+import MENU_0805 from "../views/agency/MENU_0805.vue";
+import MENU_0806 from "../views/agency/MENU_0806.vue";
 
 import TEST_etc from "../views/agency/TEST_etc.vue";
 
@@ -127,13 +133,50 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
       name: "MENU_0601",
       component: MENU_0601,
       meta: { requiresAuth: true }
-    },
+  },
   {// 캠페인 그룹관리
       path: "/MENU_0701",
       name: "MENU_0701",
       component: MENU_0701,
       meta: { requiresAuth: true }
-    },
+  },
+  {// 디비 마스터 소개
+    path: "/MENU_0801",
+    name: "MENU_0801",
+    component: MENU_0801,
+    meta: { requiresAuth: true }
+  },
+  {// 이용요금 안내
+    path: "/MENU_0802",
+    name: "MENU_0802",
+    component: MENU_0802,
+    meta: { requiresAuth: true }
+  },
+  {// 캠페인 목록
+    path: "/MENU_0803",
+    name: "MENU_0803",
+    component: MENU_0803,
+    meta: { requiresAuth: true }
+  },
+  {// 랜딩페이지 제작
+    path: "/MENU_0804",
+    name: "MENU_0804",
+    component: MENU_0804,
+    meta: { requiresAuth: true }
+  },
+  {// DB확인
+    path: "/MENU_0805",
+    name: "MENU_0805",
+    component: MENU_0805,
+    meta: { requiresAuth: true }
+  },
+  {// 고객센터
+    path: "/MENU_0806",
+    name: "MENU_0806",
+    component: MENU_0806,
+    meta: { requiresAuth: true }
+  },
+  
   {// POSTBACK 등록 현황
     path: "/TEST_etc",
     name: "TEST_etc",

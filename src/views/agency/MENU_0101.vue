@@ -444,7 +444,7 @@
 	}
 </script>
 
-<style>
+<style scope>
   .campanignSearch {
     height: 35px;
     width: 100%;
@@ -828,7 +828,7 @@
 
 
   .dailyDataSub .dailySub table tfoot td {
-    padding: 30px 0 74px 0;
+    padding: 20px 0 40px;
     text-align: center;
   }
 

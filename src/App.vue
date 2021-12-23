@@ -98,23 +98,6 @@
         localStorage.removeItem("grade");
         this.$router.push({ path : "Login" })
       },
-
-      //******************************************************************************
-      // 메뉴 슬라이드 함수
-      //******************************************************************************
-
-
-      MenuBar() {
-        console.log("1")
-
-        //$(this).stop.slideDown()
-        //$(this).addClass("on")
-        //$(".headerNav ul li").removeClass("on")
-      }
-
-
-
-
     }
   }
 </script>

@@ -150,6 +150,17 @@ export default {
         }
       }
 
+      //------------------------------------------------------------------------------
+      // 제외지역 중복선택 브레이크 걸기
+      //------------------------------------------------------------------------------
+
+      for(let i = 0 ; i < this.removeAreaListObj.length ; i++){
+        if(this.adAreaSubCityObj[index].subCode == this.removeAreaListObj[i].subCode){
+          alert("제외지역으로 선택된 지역입니다.")
+          return;
+        }
+      }
+
 
       
       addSubList.code = this.adAreaSubCityObj[index].code;

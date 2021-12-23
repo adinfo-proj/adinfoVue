@@ -5,10 +5,10 @@
 					<div class="room-deal-information-title">사진 등록</div>
 					<div class="room-picture-notice">
 							<ul class="room-write-wrapper">
-									<li>
-											사진은 가로로 찍은 사진을 권장합니다. (가로 사이즈 최소 800px)
-									</li>
-									<li>사진 용량은 사진 한 장당 10MB 까지 등록이 가능합니다.</li>
+								<li>
+										사진은 가로로 찍은 사진을 권장합니다. (가로 사이즈 최소 800px)
+								</li>
+								<li>사진 용량은 사진 한 장당 10MB 까지 등록이 가능합니다.</li>
 
 							</ul>
 					</div>
@@ -59,79 +59,79 @@
 <script>
 	export default {
 		// 
-                data() {
-                    return {
+		data() {
+			return {
+				files: [], //업로드용 파일
+				filesPreview: [],
+				uploadImageIndex: 0 // 이미지 업로드를 위한 변수
+			}
+		},
+		methods: {
+			imageUpload() {
+					console.log(this.$refs.files.files);
 
-                        files: [], //업로드용 파일
-                        filesPreview: [],
-                        uploadImageIndex: 0 // 이미지 업로드를 위한 변수
-                    }
-                },
-                methods: {
-                    imageUpload() {
-                        console.log(this.$refs.files.files);
+					// this.files = [...this.files, this.$refs.files.files];
+					//하나의 배열로 넣기
+					let num = -1;
+					for (let i = 0; i < this.$refs.files.files.length; i++) {
+							this.files = [
+									...this.files,
+									//이미지 업로드
+									{
+											//실제 파일
+											file: this.$refs.files.files[i],
+											//이미지 프리뷰
+											preview: URL.createObjectURL(this.$refs.files.files[i]),
+											//삭제및 관리를 위한 number
+											number: i
+									}
+							];
+							num = i;
+							//이미지 업로드용 프리뷰
+							// this.filesPreview = [
+							//   ...this.filesPreview,
+							//   { file: URL.createObjectURL(this.$refs.files.files[i]), number: i }
+							// ];
+					}
+					this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
+					console.log(this.files);
+					// console.log(this.filesPreview);
+			},
 
-                        // this.files = [...this.files, this.$refs.files.files];
-                        //하나의 배열로 넣기
-                        let num = -1;
-                        for (let i = 0; i < this.$refs.files.files.length; i++) {
-                            this.files = [
-                                ...this.files,
-                                //이미지 업로드
-                                {
-                                    //실제 파일
-                                    file: this.$refs.files.files[i],
-                                    //이미지 프리뷰
-                                    preview: URL.createObjectURL(this.$refs.files.files[i]),
-                                    //삭제및 관리를 위한 number
-                                    number: i
-                                }
-                            ];
-                            num = i;
-                            //이미지 업로드용 프리뷰
-                            // this.filesPreview = [
-                            //   ...this.filesPreview,
-                            //   { file: URL.createObjectURL(this.$refs.files.files[i]), number: i }
-                            // ];
-                        }
-                        this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
-                        console.log(this.files);
-                        // console.log(this.filesPreview);
-                    },
+			imageAddUpload() {
+					console.log(this.$refs.files.files);
 
-                    imageAddUpload() {
-                        console.log(this.$refs.files.files);
+					// this.files = [...this.files, this.$refs.files.files];
+					//하나의 배열로 넣기c
+					let num = -1;
+					for (let i = 0; i < this.$refs.files.files.length; i++) {
+							console.log(this.uploadImageIndex);
+							this.files = [
+									...this.files,
+									//이미지 업로드
+									{
+											//실제 파일
+											file: this.$refs.files.files[i],
+											//이미지 프리뷰
+											preview: URL.createObjectURL(this.$refs.files.files[i]),
+											//삭제및 관리를 위한 number
+											number: i + this.uploadImageIndex
+									}
+							];
+							num = i;
+					}
+					this.uploadImageIndex = this.uploadImageIndex + num + 1;
 
-                        // this.files = [...this.files, this.$refs.files.files];
-                        //하나의 배열로 넣기c
-                        let num = -1;
-                        for (let i = 0; i < this.$refs.files.files.length; i++) {
-                            console.log(this.uploadImageIndex);
-                            this.files = [
-                                ...this.files,
-                                //이미지 업로드
-                                {
-                                    //실제 파일
-                                    file: this.$refs.files.files[i],
-                                    //이미지 프리뷰
-                                    preview: URL.createObjectURL(this.$refs.files.files[i]),
-                                    //삭제및 관리를 위한 number
-                                    number: i + this.uploadImageIndex
-                                }
-                            ];
-                            num = i;
-                        }
-                        this.uploadImageIndex = this.uploadImageIndex + num + 1;
-
-                        console.log(this.files);
-                        // console.log(this.filesPreview);
-                    },
-                    fileDeleteButton(e) {
-                        const name = e.target.getAttribute('name');
-                        this.files = this.files.filter(data => data.number !== Number(name));
-                        // console.log(this.files);
-                    },
-                },
+					console.log(this.files);
+					// console.log(this.filesPreview);
+			},
+			// 닫기 버튼
+			fileDeleteButton(e) {
+					const name = e.target.getAttribute('name');
+					this.files = this.files.filter(data => data.number !== Number(name));
+					// console.log(this.files);
+			},
+		},
 		created() {
 			this.$store.state.headerTopTitle = "캠페인 그룹 관리";
 			this.$store.state.headerMidTitle = " 캠페인 그룹 관리";
