@@ -106,7 +106,7 @@
         </div>
       </div>
       <div class="chooseArea">
-        <p>광고지역 설정<span>(중복 선택 가능)</span></p>
+        <p>광고지역 설정<span>(최대 10개 선택 가능)</span></p>
         <span class="chooseAreaDeta"
           v-for="(adIndex, index) in this.$store.state.addAreaListObj"
           :key="index"
@@ -118,7 +118,7 @@
         </div>
       </div>
       <div class="chooseExcept">
-        <p>광고제외지역 설정</p>
+        <p>광고제외지역 설정<span>(최대 10개 선택 가능)</span></p>
         <span class="chooseAreaDeta"
           v-for="(adIndex, index) in this.$store.state.removeAreaListObj"
           :key="index"

@@ -385,7 +385,7 @@
 			// 
 			//******************************************************************************
 			getCampaignTopLst() {
-				axios.get("http://127.0.0.1:30000/DataCenter/TopSummary", 
+				axios.get("http://api.adinfo.co.kr:30000/DataCenter/TopSummary", 
 				{
 					params: {
 							mbId: 20000
@@ -414,10 +414,10 @@
 							mbId: 20000
 						, adId: 2000
 						, caId: this.campSelect
-						, ptId: 0
+						, mkId: 0
 						, srtDt: this.serchDataFromDt
 						, endDt: this.serchDataToDt
-						, curPosPage: 1
+						, curPage: 1
 						, rowCount: this.selectRowCount
 					}
 				})
