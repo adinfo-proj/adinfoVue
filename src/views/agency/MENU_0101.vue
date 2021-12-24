@@ -14,16 +14,17 @@
       <input type="radio" name="searchDay" id="searchSevenDay" class="searchSubDate" @click="ChangeDateRange(4)"> <label for="searchSevenDay">7일</label>
 			<input type="radio" name="searchDay" id="searchthirtyDay" @click="ChangeDateRange(5)" class="searchSubDate"> <label for="searchthirtyDay">30일</label>		
       <input type="radio" name="searchDay" id="searchYear" class="searchSubDate" @click="ChangeDateRange(0)"> <label for="searchYear">1년</label>
+			<!-- 수정할 것 -->
+      조회기간
+      <!-- 수정할 것 -->
       <input type="date" id="searchStartDate1"  v-model="serchDataFromDt"> ~ 
       <input type="date" id="searchEndDate1" v-model="serchDataToDt">
-      <button class="searchDateBtn">조회</button>
-
-      <button @click="DbData(1111111)"> + -</button>
+			<button class="searchDateBtn" @click="getCampaignFullData()">조회</button>
 		</div>
-		<div class="dailyDataBox"  v-bind:class="{dbSelect : 1111111 == dbSelectData}">
+		<div class="dailyDataBox">
 			<div class="dailyDataMiddle">
 				<h2 class="dataEm">
-          {{"00"}}
+          {{ topArrayListObj.maketerCount }}
 				</h2>
 				<p>
 					참여 마케터의 수
@@ -31,7 +32,7 @@
 			</div>
 			<div class="dailyDataMiddle">
 				<h2>
-					{{"50건 / 1000건"}}
+					{{topArrayListObj.todayDbCount}}건 / {{topArrayListObj.totalDbCount}}건
 				</h2>
 				<p>
 					당일 DB 접수
@@ -39,16 +40,15 @@
 			</div>
 			<div class="dailyDataMiddle">
 				<h2 class="dataEm">
-				{{"710건 (71%)"}}
+					{{topArrayListObj.validDbCount}}건 ({{topArrayListObj.validDbCount}})
 				</h2>
-        
 				<p>
 					유효 DB 건수 
 				</p>
 			</div>
 			<div class="dailyDataMiddle">
 				<h2>
-				{{"290건 (10%)"}}
+				{{topArrayListObj.invalidDbCount}}건 ({{topArrayListObj.invalidDbCount}})
 				</h2>
 				<p>
 					무효 DB 건수
@@ -56,7 +56,7 @@
 			</div>
       <div class="dailyDataMiddle">
 				<h2 class="dataEm">
-					{{"100건 (10%)"}}
+					{{topArrayListObj.allDupDBCount}}건 ({{topArrayListObj.allDupDBCount}})
 				</h2>
 				<p>
 					중복 DB 건수
@@ -64,7 +64,7 @@
 			</div>
 			<div class="dailyDataMiddle">
 				<h2>
-					{{"000"}}
+					{{topArrayListObj.clickPer}}
 				</h2>
 				<p>
 					광고 노출 량
@@ -76,24 +76,22 @@
 						</svg>
 					</p>
 					<p>
-						광고 노출 량     
+						광고 노출량     
 					</p>
 				</div>
 			</div>
 		</div>
-		<div class="dailyDataBox" v-bind:class="{dbSelect : 1111111 == dbSelectData}">
+		<div class="dailyDataBox">
       <div class="dailyDataMiddle">
 				<h2>
-					{{"000"}}
+					{{topArrayListObj.clickPer}}
 				</h2>
 				<p>
 					클릭율
 				</p>
 				<div class="dailyFake">
 					<p>
-						<svg xmlns="http://www.w3.org/2000/svg" width="46" height="5.999" viewBox="0 0 46 5.999">
-              <path id="Ellipse_4" data-name="Ellipse 4" d="M1492,235a3,3,0,1,1,3,3A3,3,0,0,1,1492,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1482,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1472,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1462,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1452,235Z" transform="translate(-1452 -232)" fill="#d0d0d0"/>
-						</svg>
+						{{topArrayListObj.clickPer}}%
 					</p>
 					<p>
 						클릭율
@@ -197,13 +195,13 @@
           <div class="dailyTabBtn" v-bind:class="{on : 0 == divSelect}">DB 유입 현황</div>
         </div>
         <div class="dailyEx">
-          <button>
+          <button @click="makeExcel">
             엑셀 다운로드
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="11" height="12" viewBox="0 0 11 12">
               <image id="icon" width="11" height="12" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAMCAYAAAC0qUeeAAAABHNCSVQICAgIfAhkiAAAAGxJREFUKFNj/P//PwM6eBzjBhJklF2yC0WKcSgrhnoK5CFGIAZ7EEozAD0KYjPAPQhUDOJjBg1EE0gDhmJ0DWCFGIpBAlDTYRrgJsI0MD6Kdv0PcxNMMchKZDbUoP8oitFMh1uPohgjvnEIAACmsll1nvDKAQAAAABJRU5ErkJggg=="/>
             </svg>
           </button>
-          <select name="" id="" v-model="selectRowCount">
+          <select name="" id="" v-model="selectRowCount" @click="getCampaignFullData()">
             <option value="10">10개</option>
             <option value="20">20개</option>
             <option value="30">30개</option>
@@ -230,7 +228,7 @@
 						:key="index" 
 						>
 						<tr class="viewTr" @click="DbData(index)" v-bind:class="{dbSelect : index == dbSelectData}">
-							<th class="dailyNum">10</th>
+							<th class="dailyNum">{{ campaignFullData.seqNo }}</th>
 							<td class="dailyName">{{ campaignFullData.caName }}</td>
 							<td class="maketerCode">{{ campaignFullData.mkId }}</td>
 							<td class="inTime">{{campaignFullData.insDt}} {{campaignFullData.insTm}}</td>
@@ -238,6 +236,8 @@
 							<td class="dbState" v-if="campaignFullData.confirmTp == 'N'"><img src="../../assets/images/menu0101/waitIcon.png" alt="대기"></td>
 							<td class="dbState" v-else-if="campaignFullData.confirmTp == 'C'"><img src="../../assets/images/menu0101/cancleIcon.png" alt="취소"></td>
 							<td class="dbState" v-else-if="campaignFullData.confirmTp == 'R'"><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
+							<td class="dbState" v-else><img src="../../assets/images/menu0101/takeIcon.png" alt="접수"></td>
+
 							<td class="dbPrice">{{ campaignFullData.mkPrice }} 원</td>
 							<td class="inData">승인 대기중
                 <i class="fas fa-chevron-down"></i>
@@ -330,12 +330,14 @@
 
 <script>
 	import axios from "axios";
+	import XLSX from 'xlsx';
 
 	export default {
 		data() {
 			return {
 					serchDataFromDt: this.$DateAdd(0) 
 				, serchDataToDt: this.$DateAdd(0)
+				, topArrayListObj: ''
 				, selectRowCount: 10
 				, divSelect: 0
 				, dbSelectData: null
@@ -375,6 +377,27 @@
 				})
 			},
 			//******************************************************************************
+			// 상단 합산 정보 조회
+			//******************************************************************************
+			getCampaignTopLst() {
+				axios.get("http://127.0.0.1:30000/DataCenter/TopSummary", 
+				{
+					params: {
+							mbId: 20000
+						, adId: 2000
+						, caId: this.campSelect
+						, endDt: this.serchDataToDt
+					}
+				})
+				.then(response => {
+					this.topArrayListObj = response.data;
+					console.log(response.data);
+				})
+				.catch(error => {
+					console.log(error);
+				})
+			},
+			//******************************************************************************
 			// 수집항목 목록
 			//******************************************************************************
 			getCampaignFullData() {
@@ -404,6 +427,7 @@
 			campaignListChange(index) {
 				console.log(index);
 				this.campSelect = index;
+				this.getCampaignTopLst();
 				this.getCampaignFullData();
 			},
 			ChangeDateRange(pos) {
@@ -432,6 +456,83 @@
 				}
 
 				this.getCampaignFullData();
+			},
+
+      //******************************************************************************
+      // 엑셀 다운로드 함수
+      //******************************************************************************
+
+			makeExcel() {
+				let d= new Date();
+        let curDate = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(0,10).replace(/-/g, "");
+				let curTime = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(11,19).replace(/:/g, "");
+				
+				console.log(curDate);
+				console.log(curTime);
+				
+				var myJSON = new Array();
+
+				for(let i = 0; i < this.campaignFullDataObj.length; i++) {
+					let seqNo, caName, mkId, insDt, insTm, regIp, confirmTp, mkPrice, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10;
+
+					if(this.campaignFullDataObj[i].seqNo     == null) seqNo     = '' ; else seqNo     = this.campaignFullDataObj[i].seqNo    ;
+					if(this.campaignFullDataObj[i].caName    == null) caName    = '' ; else caName    = this.campaignFullDataObj[i].caName   ;
+					if(this.campaignFullDataObj[i].mkId      == null) mkId      = '' ; else mkId      = this.campaignFullDataObj[i].mkId     ;
+					if(this.campaignFullDataObj[i].insDt     == null) insDt     = '' ; else insDt     = this.campaignFullDataObj[i].insDt    ;
+					if(this.campaignFullDataObj[i].insTm     == null) insTm     = '' ; else insTm     = this.campaignFullDataObj[i].insTm    ;
+					if(this.campaignFullDataObj[i].regIp     == null) regIp     = '' ; else regIp     = this.campaignFullDataObj[i].regIp    ;
+
+               if(this.campaignFullDataObj[i].confirmTp == 'Z') confirmTp = '미충전';
+					else if(this.campaignFullDataObj[i].confirmTp == 'N') confirmTp = '대기';
+					else if(this.campaignFullDataObj[i].confirmTp == 'Y') confirmTp = '접수';
+					else if(this.campaignFullDataObj[i].confirmTp == 'C') confirmTp = '취소';
+					else if(this.campaignFullDataObj[i].confirmTp == 'P') confirmTp = '기타';
+          else                                                  confirmTp = '미정';
+
+					if(this.campaignFullDataObj[i].mkPrice   == null) 
+						mkPrice = '0'; 
+					else 
+						mkPrice = this.campaignFullDataObj[i].mkPrice.replace(/,/g, "");
+
+					if(this.campaignFullDataObj[i].value1    == null) value1    = '' ; else value1    = this.campaignFullDataObj[i].value1   ;
+					if(this.campaignFullDataObj[i].value2    == null) value2    = '' ; else value2    = this.campaignFullDataObj[i].value2   ;
+					if(this.campaignFullDataObj[i].value3    == null) value3    = '' ; else value3    = this.campaignFullDataObj[i].value3   ;
+					if(this.campaignFullDataObj[i].value4    == null) value4    = '' ; else value4    = this.campaignFullDataObj[i].value4   ;
+					if(this.campaignFullDataObj[i].value5    == null) value5    = '' ; else value5    = this.campaignFullDataObj[i].value5   ;
+					if(this.campaignFullDataObj[i].value6    == null) value6    = '' ; else value6    = this.campaignFullDataObj[i].value6   ;
+					if(this.campaignFullDataObj[i].value7    == null) value7    = '' ; else value7    = this.campaignFullDataObj[i].value7   ;
+					if(this.campaignFullDataObj[i].value8    == null) value8    = '' ; else value8    = this.campaignFullDataObj[i].value8   ;
+					if(this.campaignFullDataObj[i].value9    == null) value9    = '' ; else value9    = this.campaignFullDataObj[i].value9   ;
+					if(this.campaignFullDataObj[i].value10   == null) value10   = '' ; else value10   = this.campaignFullDataObj[i].value10  ;
+
+					let myArr = {
+							'번호': seqNo
+						, '캠페인명': caName
+						, '마케터ID': mkId
+						, '유입일자': insDt
+						, '유입시간': insTm
+						, '접수IP': regIp
+						, 'DB상태': confirmTp
+						, '단가': Number(mkPrice)
+						, '입력1': value1
+						, '입력2': value2
+						, '입력3': value3
+						, '입력4': value4
+						, '입력5': value5
+						, '입력6': value6
+						, '입력7': value7
+						, '입력8': value8
+						, '입력9': value9
+						, '입력10': value10
+					};
+					myJSON.push(myArr);
+				}
+
+				const workBook = XLSX.utils.book_new();
+				const workSheet = XLSX.utils.json_to_sheet(myJSON);
+				XLSX.utils.book_append_sheet(workBook, workSheet, 'DB 집계 정보');
+				// 파일명은 DB_집계정보_날짜_시간.xlsx 로 처리한다.
+				XLSX.writeFile(workBook, 'DB집계정보_' + curDate + '_' + curTime + '.xlsx');
 			}
 		},
 		created() {
@@ -439,6 +540,7 @@
 			this.$store.state.headerMidTitle = "일자별 통계";
 
 			this.getCampaignNameLst();
+			this.getCampaignTopLst();
 			this.getCampaignFullData();
 		}
 	}
@@ -724,7 +826,7 @@
     width: 1357px;
     height: 272.5px;
     content: "";
-    border: 1px solid #8e8e8e;
+    border: 1px solid #b3b3b3;
     left: 0;
     top: -0.5px;
   }

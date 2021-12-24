@@ -27,16 +27,10 @@
           </a>
           <ul>
             <li @click="SubMenu('0101')"  v-bind:class="{subOn : '0101' == subMenuSelect}" >
-              <router-link  to="MENU_0101">일자별 집계</router-link>
+              <router-link  to="MENU_0101">DB 집계 정보</router-link>
             </li>
             <li  @click="SubMenu('0102')"  v-bind:class="{subOn : '0102' == subMenuSelect}" >
-              <router-link  to="MENU_0102">캠페인별 집계</router-link>
-            </li>
-            <li  @click="SubMenu('0103')"  v-bind:class="{subOn : '0103' == subMenuSelect}" >
-              <router-link  to="MENU_0103">그룹별 집계</router-link>
-            </li>
-            <li  @click="SubMenu('0104')"  v-bind:class="{subOn : '0104' == subMenuSelect}" >
-              <router-link  to="MENU_0104">마케터별 집계</router-link>
+              <router-link  to="MENU_0102">DB 통계 정보</router-link>
             </li>
           </ul>
         </li>

@@ -8,6 +8,8 @@
         <ad-excute-menu v-if="$store.state.adGradeCd == '02'">2</ad-excute-menu>
         <sponser-menu   v-if="$store.state.adGradeCd == '03'">3</sponser-menu>
         <marketer-menu  v-if="$store.state.adGradeCd == '04'">4</marketer-menu>
+        <dbMaster-menu  v-if="$store.state.adGradeCd == '05'">5</dbMaster-menu>
+
       </div>
       <div id="sectionHeader">
         <div class="menuPage">
@@ -69,6 +71,7 @@
   import AdExcuteMenu from './components/menu/AdExcuteMenu'
   import SponserMenu from './components/menu/SponserMenu'
   import MarketerMenu from './components/menu/MarketerMenu'
+  import DbMasterMenu from './components/menu/DbMasterMenu'
 
   export default {
     components: {
@@ -77,7 +80,7 @@
       , AdExcuteMenu
       , SponserMenu
       , MarketerMenu
-    
+      , DbMasterMenu
 
     },
     data() {

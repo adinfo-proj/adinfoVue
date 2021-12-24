@@ -24,6 +24,7 @@ import MENU_0803 from "../views/agency/MENU_0803.vue";
 import MENU_0804 from "../views/agency/MENU_0804.vue";
 import MENU_0805 from "../views/agency/MENU_0805.vue";
 import MENU_0806 from "../views/agency/MENU_0806.vue";
+import MENU_0807 from "../views/agency/MENU_0807.vue";
 
 import TEST_etc from "../views/agency/TEST_etc.vue";
 
@@ -174,6 +175,12 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     path: "/MENU_0806",
     name: "MENU_0806",
     component: MENU_0806,
+    meta: { requiresAuth: true }
+  },
+  {// 고객센터
+    path: "/MENU_0807",
+    name: "MENU_0807",
+    component: MENU_0807,
     meta: { requiresAuth: true }
   },
   

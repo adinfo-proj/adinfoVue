@@ -86,7 +86,11 @@ export default {
           localStorage.setItem("token", this.$store.state.jwtAuthToken);
           localStorage.setItem("grade", this.$store.state.adGradeCd);
 
-          this.$router.push({ path : "MENU_0000" })
+          if( this.$store.state.adGradeCd == '05' ){
+            this.$router.push({ path : "MENU_0801" })
+          }else{
+            this.$router.push({ path : "MENU_0000" })
+          }
         } else {
           alert(response.data.message)
         }
