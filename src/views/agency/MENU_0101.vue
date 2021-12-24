@@ -201,7 +201,7 @@
               <image id="icon" width="11" height="12" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAMCAYAAAC0qUeeAAAABHNCSVQICAgIfAhkiAAAAGxJREFUKFNj/P//PwM6eBzjBhJklF2yC0WKcSgrhnoK5CFGIAZ7EEozAD0KYjPAPQhUDOJjBg1EE0gDhmJ0DWCFGIpBAlDTYRrgJsI0MD6Kdv0PcxNMMchKZDbUoP8oitFMh1uPohgjvnEIAACmsll1nvDKAQAAAABJRU5ErkJggg=="/>
             </svg>
           </button>
-          <select name="" id="" v-model="selectRowCount" @click="getCampaignFullData()">
+          <select name="" id="" v-model="selectRowCount" @change="getCampaignFullData()">
             <option value="10">10개</option>
             <option value="20">20개</option>
             <option value="30">30개</option>
@@ -311,13 +311,15 @@
           <tfoot>
             <tr>
               <td class="dataBtn" colspan="8">
-                <a href="javascript:void(0)" class="pageleft"><i class="fas fa-angle-left"></i></a>
-                <a href="javascript:void(0)" class="pageBtn">1</a>
-                <a href="javascript:void(0)" class="pageBtn">2</a>
-                <a href="javascript:void(0)" class="pageBtn">3</a>
-                <a href="javascript:void(0)" class="pageBtn">4</a>
-                <a href="javascript:void(0)" class="pageBtn">5</a>
-                <a href="javascript:void(0)" class="pageright"><i class="fas fa-angle-right"></i></a>
+                <span class="pageleft"><i class="fas fa-angle-left"></i></span>
+                <div class="pageNum">
+                  <span class="pageBtn on">1</span>
+                  <span class="pageBtn">2</span>
+                  <span class="pageBtn">3</span>
+                  <span class="pageBtn">4</span>
+                  <span class="pageBtn">5</span>
+                </div>
+                <span class="pageright"><i class="fas fa-angle-right"></i></span>
               </td>
             </tr>
           </tfoot>
@@ -347,6 +349,9 @@
 			}
 		},
 		methods: {
+      //******************************************************************************
+			// 
+			//******************************************************************************
 			DbData(pos) {
 				if(this.dbSelectData == pos){
 					this.dbSelectData = null;
@@ -356,7 +361,7 @@
 				this.dbSelectData = pos;
 			},
 			//******************************************************************************
-			// 수집항목 목록
+			// 
 			//******************************************************************************
 			getCampaignNameLst() {
 				axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst", 
@@ -377,7 +382,7 @@
 				})
 			},
 			//******************************************************************************
-			// 상단 합산 정보 조회
+			// 
 			//******************************************************************************
 			getCampaignTopLst() {
 				axios.get("http://127.0.0.1:30000/DataCenter/TopSummary", 
@@ -398,7 +403,7 @@
 				})
 			},
 			//******************************************************************************
-			// 수집항목 목록
+			// 
 			//******************************************************************************
 			getCampaignFullData() {
 				this.dbSelectData = null;
@@ -424,12 +429,18 @@
 					console.log(error);
 				})
 			},
+      //******************************************************************************
+			// 
+			//******************************************************************************
 			campaignListChange(index) {
 				console.log(index);
 				this.campSelect = index;
 				this.getCampaignTopLst();
 				this.getCampaignFullData();
 			},
+      //******************************************************************************
+			// 조회기간박스 선택 후 기간별 조회하는 함수
+			//******************************************************************************
 			ChangeDateRange(pos) {
 				if(pos == 0) {
 					this.serchDataFromDt = this.$DateAdd(-364);
@@ -463,8 +474,9 @@
       //******************************************************************************
 
 			makeExcel() {
-				let d= new Date();
+				let d = new Date(); //날짜 가져오기 UTC 가져옴(미국 기준 시간),
         let curDate = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(0,10).replace(/-/g, "");
+        //                       └ 우리나라 시간 기준으로 바꾸코드             ┘ -> 글씨로 변환해라 ->
 				let curTime = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(11,19).replace(/:/g, "");
 				
 				console.log(curDate);
@@ -945,8 +957,31 @@
     transform: translateY(2px);
   }
 
-  .dailyDataSub .dailySub table tfoot td a {
+  .dailyDataSub .dailySub table tfoot td .pageNum {
+    display: inline-block;
+  }
+  .dailyDataSub .dailySub table tfoot td span {
     display: inline-block;
     margin: 0 10px;
+  }
+
+  .dailyDataSub .dailySub table tfoot td .pageBtn{
+    transform: translateY(-2px);
+  }
+
+  .dailyDataSub .dailySub table tfoot td span.on {
+    font-weight: 900;
+    position: relative;
+  }
+
+  .dailyDataSub .dailySub table tfoot td span.on:after {
+    clear: both;
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    content: "";
+    bottom: -1px;
+    left: 0;
+    background: #666;
   }
 </style>
