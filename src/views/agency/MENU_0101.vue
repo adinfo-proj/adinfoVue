@@ -12,181 +12,61 @@
       <input type="radio" name="searchDay" id="searchYesterday" class="searchSubDate" @click="ChangeDateRange(2)"> <label for="searchYesterday">어제</label>
       <input type="radio" name="searchDay" id="searchThreeDay" class="searchSubDate" @click="ChangeDateRange(3)"> <label for="searchThreeDay">3일</label>
       <input type="radio" name="searchDay" id="searchSevenDay" class="searchSubDate" @click="ChangeDateRange(4)"> <label for="searchSevenDay">7일</label>
-			<input type="radio" name="searchDay" id="searchthirtyDay" @click="ChangeDateRange(5)" class="searchSubDate"> <label for="searchthirtyDay">30일</label>		
+			<input type="radio" name="searchDay" id="searchthirtyDay" class="searchSubDate" @click="ChangeDateRange(5)"> <label for="searchthirtyDay">30일</label>		
       <input type="radio" name="searchDay" id="searchYear" class="searchSubDate" @click="ChangeDateRange(0)"> <label for="searchYear">1년</label>
-			<!-- 수정할 것 -->
-      조회기간
-      <!-- 수정할 것 -->
+			조회기간
       <input type="date" id="searchStartDate1"  v-model="serchDataFromDt"> ~ 
       <input type="date" id="searchEndDate1" v-model="serchDataToDt">
-			<button class="searchDateBtn" @click="getCampaignFullData()">조회</button>
+			<button class="searchDateBtn" @click="getCampaignFullData(1, true)">조회</button>
 		</div>
 		<div class="dailyDataBox">
 			<div class="dailyDataMiddle">
 				<h2 class="dataEm">
-          {{ topArrayListObj.maketerCount }}
+          {{ topArrayListObj.maketerCount }} 3
 				</h2>
 				<p>
-					참여 마케터의 수
+					랜딩페이지 수
 				</p>
 			</div>
 			<div class="dailyDataMiddle">
 				<h2>
-					{{topArrayListObj.todayDbCount}}건 / {{topArrayListObj.totalDbCount}}건
+					{{topArrayListObj.todayDbCount}} 122건
 				</h2>
 				<p>
-					당일 DB 접수
+					DB 접수 건수
 				</p>
 			</div>
 			<div class="dailyDataMiddle">
 				<h2 class="dataEm">
-					{{topArrayListObj.validDbCount}}건 ({{topArrayListObj.validDbCount}})
+					{{topArrayListObj.validDbCount}} 325건
 				</h2>
 				<p>
-					유효 DB 건수 
+					DB 노출 건수
 				</p>
 			</div>
 			<div class="dailyDataMiddle">
 				<h2>
-				{{topArrayListObj.invalidDbCount}}건 ({{topArrayListObj.invalidDbCount}})
+				{{topArrayListObj.invalidDbCount}} 135건
 				</h2>
 				<p>
-					무효 DB 건수
+					클릭 건수
 				</p>
 			</div>
       <div class="dailyDataMiddle">
 				<h2 class="dataEm">
-					{{topArrayListObj.allDupDBCount}}건 ({{topArrayListObj.allDupDBCount}})
+					{{topArrayListObj.allDupDBCount}} 35%
 				</h2>
 				<p>
-					중복 DB 건수
+					DB 접수율
 				</p>
 			</div>
 			<div class="dailyDataMiddle">
 				<h2>
-					{{topArrayListObj.clickPer}}
+					{{topArrayListObj.clickPer}} 15초
 				</h2>
 				<p>
-					광고 노출 량
+					랜딩페이지 체류시간(평균)
 				</p>
-				<div class="dailyFake">
-					<p>
-						<svg xmlns="http://www.w3.org/2000/svg" width="46" height="5.999" viewBox="0 0 46 5.999">
-              <path id="Ellipse_4" data-name="Ellipse 4" d="M1492,235a3,3,0,1,1,3,3A3,3,0,0,1,1492,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1482,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1472,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1462,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1452,235Z" transform="translate(-1452 -232)" fill="#d0d0d0"/>
-						</svg>
-					</p>
-					<p>
-						광고 노출량     
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="dailyDataBox">
-      <div class="dailyDataMiddle">
-				<h2>
-					{{topArrayListObj.clickPer}}
-				</h2>
-				<p>
-					클릭율
-				</p>
-				<div class="dailyFake">
-					<p>
-						{{topArrayListObj.clickPer}}%
-					</p>
-					<p>
-						클릭율
-					</p>
-				</div>
-			</div>
-			<div class="dailyDataMiddle">
-				<h2>
-					{{"000"}}
-				</h2>
-				<p>
-					접수율
-				</p>
-				<div class="dailyFake">
-					<p>
-						<svg xmlns="http://www.w3.org/2000/svg" width="46" height="5.999" viewBox="0 0 46 5.999">
-              <path id="Ellipse_4" data-name="Ellipse 4" d="M1492,235a3,3,0,1,1,3,3A3,3,0,0,1,1492,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1482,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1472,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1462,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1452,235Z" transform="translate(-1452 -232)" fill="#d0d0d0"/>
-						</svg>
-					</p>
-					<p>
-						접수율
-					</p>
-				</div>
-			</div>
-			<div class="dailyDataMiddle">
-				<h2>
-					{{"000"}}
-				</h2>
-				<p>
-					2차 전환율
-				</p>
-				<div class="dailyFake">
-					<p>
-						<svg xmlns="http://www.w3.org/2000/svg" width="46" height="5.999" viewBox="0 0 46 5.999">
-              <path id="Ellipse_4" data-name="Ellipse 4" d="M1492,235a3,3,0,1,1,3,3A3,3,0,0,1,1492,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1482,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1472,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1462,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1452,235Z" transform="translate(-1452 -232)" fill="#d0d0d0"/>
-						</svg>
-					</p>
-					<p>
-						2차 전환율
-					</p>
-				</div>
-			</div>
-			<div class="dailyDataMiddle">
-				<h2>
-					{{"000"}}
-				</h2>
-				<p>
-					캠페인전체
-				</p>
-				<div class="dailyFake">
-					<p>
-            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="5.999" viewBox="0 0 46 5.999">
-              <path id="Ellipse_4" data-name="Ellipse 4" d="M1492,235a3,3,0,1,1,3,3A3,3,0,0,1,1492,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1482,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1472,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1462,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1452,235Z" transform="translate(-1452 -232)" fill="#d0d0d0"/>
-						</svg>
-					</p>
-					<p>
-						캠페인전체
-					</p>
-				</div>
-			</div>
-			<div class="dailyDataMiddle">
-				<h2>
-					{{"000"}}
-				</h2>
-				<p>
-					해당 캠페인 중복여부
-				</p>
-				<div class="dailyFake">
-					<p>
-						<svg xmlns="http://www.w3.org/2000/svg" width="46" height="5.999" viewBox="0 0 46 5.999">
-              <path id="Ellipse_4" data-name="Ellipse 4" d="M1492,235a3,3,0,1,1,3,3A3,3,0,0,1,1492,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1482,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1472,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1462,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1452,235Z" transform="translate(-1452 -232)" fill="#d0d0d0"/>
-						</svg>
-					</p>
-					<p>
-						해당 캠페인 중복여부
-					</p>
-				</div>
-			</div>
-			<div class="dailyDataMiddle">
-				<h2>
-					{{"000"}}
-				</h2>
-				<p>
-					ROAS/ROI
-				</p>
-				<div class="dailyFake">
-					<p>
-						<svg xmlns="http://www.w3.org/2000/svg" width="46" height="5.999" viewBox="0 0 46 5.999">
-              <path id="Ellipse_4" data-name="Ellipse 4" d="M1492,235a3,3,0,1,1,3,3A3,3,0,0,1,1492,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1482,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1472,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1462,235Zm-10,0a3,3,0,1,1,3,3A3,3,0,0,1,1452,235Z" transform="translate(-1452 -232)" fill="#d0d0d0"/>
-						</svg>
-					</p>
-					<p>
-						ROAS/ROI
-					</p>
-				</div>
 			</div>
 		</div>
 		<div class="dailyDataSub">
@@ -201,7 +81,9 @@
               <image id="icon" width="11" height="12" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAMCAYAAAC0qUeeAAAABHNCSVQICAgIfAhkiAAAAGxJREFUKFNj/P//PwM6eBzjBhJklF2yC0WKcSgrhnoK5CFGIAZ7EEozAD0KYjPAPQhUDOJjBg1EE0gDhmJ0DWCFGIpBAlDTYRrgJsI0MD6Kdv0PcxNMMchKZDbUoP8oitFMh1uPohgjvnEIAACmsll1nvDKAQAAAABJRU5ErkJggg=="/>
             </svg>
           </button>
-          <select name="" id="" v-model="selectRowCount" @change="getCampaignFullData()">
+          <select name="" id="" v-model="selectRowCount" @change="getCampaignFullData(1, true)">
+						<option value="2">2개</option>
+						<option value="5">5개</option>
             <option value="10">10개</option>
             <option value="20">20개</option>
             <option value="30">30개</option>
@@ -311,19 +193,22 @@
           <tfoot>
             <tr>
               <td class="dataBtn" colspan="8">
-                <span class="pageleft"><i class="fas fa-angle-left"></i></span>
+                <span class="pageleft" @click="getCampaignFullData(curPage - 1, false)"><i class="fas fa-angle-left"></i></span>
                 <div class="pageNum">
-                  <span class="pageBtn on">1</span>
-                  <span class="pageBtn">2</span>
-                  <span class="pageBtn">3</span>
-                  <span class="pageBtn">4</span>
-                  <span class="pageBtn">5</span>
+                  <ul>
+                    <li class="pageBtn" 
+                      v-bind:class="{on : (indexPage) == curPage}" 
+                      v-for="(indexPage, index) in pageCount" :key="index" 
+                      @click="getCampaignFullData(pageCount[0] + index, false)"
+                    >
+                      {{indexPage}}
+                    </li>
+                  </ul>
                 </div>
-                <span class="pageright"><i class="fas fa-angle-right"></i></span>
+                <span class="pageright" @click="getCampaignFullData(curPage + 1, false)"><i class="fas fa-angle-right"></i></span>
               </td>
             </tr>
           </tfoot>
-
 				</table>
 			</div>
 		</div>
@@ -341,19 +226,23 @@
 				, serchDataToDt: this.$DateAdd(0)
 				, topArrayListObj: ''
 				, selectRowCount: 10
+				, pageCount: []
+				, curPage: 0
 				, divSelect: 0
 				, dbSelectData: null
 				, campaignNameListObj: ''
 				, campaignFullDataObj: ''
 				, campSelect: 1000
+        , roundCount: 0
+        , curRunTotalPages: 100000000
 			}
 		},
 		methods: {
-      //******************************************************************************
+			//******************************************************************************
 			// 
 			//******************************************************************************
 			DbData(pos) {
-				if(this.dbSelectData == pos){
+				if(this.dbSelectData == pos) {
 					this.dbSelectData = null;
 					return;
 				}
@@ -361,14 +250,14 @@
 				this.dbSelectData = pos;
 			},
 			//******************************************************************************
-			// 
+			// 수집항목 목록
 			//******************************************************************************
 			getCampaignNameLst() {
 				axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst", 
 				{
 					params: {
-							mbId: 20000
-						, adId: 2000
+							mbId: this.$store.state.mbId
+						, adId: this.$store.state.adId
 					}
 				})
 				.then(response => {
@@ -382,14 +271,16 @@
 				})
 			},
 			//******************************************************************************
-			// 
+			// 상단 합산 정보 조회
 			//******************************************************************************
 			getCampaignTopLst() {
-				axios.get("http://api.adinfo.co.kr:30000/DataCenter/TopSummary", 
+				console.log("getCampaignTopLst Start...");
+
+				axios.get("http://api.adinfo.co.kr:30000:30000/DataCenter/TopSummary", 
 				{
 					params: {
-							mbId: 20000
-						, adId: 2000
+							mbId: this.$store.state.mbId
+						, adId: this.$store.state.adId
 						, caId: this.campSelect
 						, endDt: this.serchDataToDt
 					}
@@ -403,44 +294,128 @@
 				})
 			},
 			//******************************************************************************
-			// 
+			// 수집항목 목록
 			//******************************************************************************
-			getCampaignFullData() {
+			getCampaignFullData(selectPage, firstSel) {
+        let lastPosition  = this.pageCount[this.pageCount.length-1];
+        let curSelectPage = 0;
+
+        if( firstSel == true) {
+          this.curRunTotalPages = 100000000;
+        }
+        curSelectPage = selectPage + (lastPosition-10);
+
+
+        //selectPage = curSelectPage;
+        //selectPage = curSelectPage;
+
+        
+        console.log("----------------------------------");
+        console.log("lastPosition                : [" + lastPosition + "]");
+        console.log("curSelectPage               : [" + curSelectPage + "]");
+        console.log("curRunTotalPages            : [" + this.curRunTotalPages + "]");
+        console.log("pageCount                   : [" + this.pageCount + "]");
+        console.log("selectPage                  : [" + selectPage + "]");
+
+        if( (selectPage > this.curRunTotalPages) || (selectPage <= 0) ) {
+          return false;
+        }
+
 				this.dbSelectData = null;
-				console.log(this.selectRowCount);
+				this.curPage = selectPage;        
+
 				axios.get("http://api.adinfo.co.kr:30000/GetCpaDataForAll", 
 				{
 					params: {
-							mbId: 20000
-						, adId: 2000
+							mbId: this.$store.state.mbId
+						, adId: this.$store.state.adId
 						, caId: this.campSelect
-						, mkId: 0
+						, ptId: 0
 						, srtDt: this.serchDataFromDt
 						, endDt: this.serchDataToDt
-						, curPage: 1
+						, curPage: selectPage
 						, rowCount: this.selectRowCount
 					}
 				})
 				.then(response => {
 					this.campaignFullDataObj = response.data;
-					console.log(response.data);
+
+					//------------------------------------------------------------------------------
+					// 페이지 정보 조회
+					//------------------------------------------------------------------------------
+					axios.get("http://api.adinfo.co.kr:30000/GetCpaDataForAllPageCount", 
+					{
+						params: {
+								mbId: this.$store.state.mbId
+							, adId: this.$store.state.adId
+							, caId: this.campSelect
+							, ptId: 0
+							, srtDt: this.serchDataFromDt
+							, endDt: this.serchDataToDt
+							, curPage: selectPage
+							, rowCount: this.selectRowCount
+						}
+					})
+					.then(response => {
+            let pageUpPage = 0;
+            this.curRunTotalPages = Math.ceil(response.data.rowTotalCount / this.selectRowCount);
+
+            //--------------------------------------------------------------------
+            // 10페이지 단위로 어디를 조회중인지 확인한다.
+            //   - 예) 12페이지면 10, 35페이지면 30이 된다.
+            //--------------------------------------------------------------------
+            let pageDump = Math.floor(selectPage / 11);
+            console.log("pageDump : " + pageDump);
+
+            //--------------------------------------------------------------------
+            // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
+            //--------------------------------------------------------------------
+            if( pageDump == 0) { // 1~10페이지
+              pageUpPage = 0;
+            }
+            else {
+              let selLen = selectPage + '';
+
+              let pageCut = Math.floor(lastPosition / 10) * 10;
+
+              console.log("selLen     : " + selLen)
+              console.log("selLen Len : " + selLen.length)
+              if(selLen[selLen.length-1] == '1')
+                if(selLen == 11) {
+                  pageUpPage = pageDump * 10;
+                }
+                else {
+                  pageUpPage = pageDump * pageCut;
+                }                
+              else
+                pageUpPage = pageDump * 10;
+            }
+
+            let nLoop = 0;
+            let arrGab = [];
+            for(let i = pageUpPage; i < Math.ceil(response.data.rowTotalCount / this.selectRowCount); i++) {
+              if( (nLoop+pageUpPage) >= 10 + pageUpPage)
+                break;
+
+              arrGab.push(i+1);
+              nLoop++;
+            }
+
+            this.pageCount = arrGab;
+					})
+					.catch(error => {
+						console.log(error);
+					})
 				})
 				.catch(error => {
 					console.log(error);
 				})
 			},
-      //******************************************************************************
-			// 
-			//******************************************************************************
 			campaignListChange(index) {
-				console.log(index);
 				this.campSelect = index;
 				this.getCampaignTopLst();
-				this.getCampaignFullData();
+				this.getCampaignFullData(1, true);
 			},
-      //******************************************************************************
-			// 조회기간박스 선택 후 기간별 조회하는 함수
-			//******************************************************************************
 			ChangeDateRange(pos) {
 				if(pos == 0) {
 					this.serchDataFromDt = this.$DateAdd(-364);
@@ -466,17 +441,11 @@
 					return;
 				}
 
-				this.getCampaignFullData();
+				this.getCampaignFullData(1, true);
 			},
-
-      //******************************************************************************
-      // 엑셀 다운로드 함수
-      //******************************************************************************
-
 			makeExcel() {
-				let d = new Date(); //날짜 가져오기 UTC 가져옴(미국 기준 시간),
+				let d= new Date();
         let curDate = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(0,10).replace(/-/g, "");
-        //                       └ 우리나라 시간 기준으로 바꾸코드             ┘ -> 글씨로 변환해라 ->
 				let curTime = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(11,19).replace(/:/g, "");
 				
 				console.log(curDate);
@@ -553,7 +522,7 @@
 
 			this.getCampaignNameLst();
 			this.getCampaignTopLst();
-			this.getCampaignFullData();
+			this.getCampaignFullData(1, true);
 		}
 	}
 </script>
@@ -563,7 +532,6 @@
     height: 35px;
     width: 100%;
   }
-
   .campanignSearch select {
     height: 100%;
     width: 256px;
@@ -573,11 +541,9 @@
     margin-right: 5px;
     font-weight: 700;
   }
-
   .campanignSearch input[type="radio"] {
     display: none;
   }
-
   .campanignSearch input[type="radio"] + label {
 		cursor: pointer;
     display: inline-block;
@@ -591,12 +557,10 @@
     padding: 10px;
     font-weight: 700;
   }
-
   .campanignSearch input[type="radio"]:checked + label {
     color: #e25b45;
     border-color: #e25b45;
   }
-
   .campanignSearch input[type="date"] {
     width: 150px;
     height: 100%;
@@ -605,15 +569,12 @@
     padding: 10px 16px;
     margin: 0 5px;
   }
-
   .campanignSearch #searchStartDate1 {
     margin-left: 50px;
   }
-
   .campanignSearch #searchEndDate1 {
     margin-right: 10px;
   }
-
   .campanignSearch .searchDateBtn {
     width: 50px;
     height: 30px;
@@ -623,7 +584,6 @@
     color: #fff;
   }
   
-
   .dailyDataBox {
     margin-top: 10px;
     width: 100%;
@@ -631,7 +591,6 @@
     display: flex;
     justify-content: space-between;
   }
-
   .dailyDataBox .dailyDataMiddle {
     width: 218px;
     height: 81px;
@@ -643,25 +602,20 @@
     text-align: center;
     overflow: hidden;
   }
-
   .dailyDataBox .dailyDataMiddle h2,
   .dailyDataBox .dailyDataMiddle p {
     color: #222;
   }
-
   .dailyDataBox .dailyDataMiddle h2 {
     font-size: 18px;
     margin-bottom: 5px;
   }
-
   .dailyDataBox .dailyDataMiddle h2.dataEm {
     color: #e25b45;
   }
-
   .dailyDataBox .dailyDataMiddle p {
     font-size: 14px;
   }
-
   .dailyDataBox .dailyDataMiddle .dailyFake {
     width: 100%;
     height: 100%;
@@ -672,12 +626,10 @@
     background: #ddd;
     padding: 17px;
   }
-
   .dailyDataBox .dailyDataMiddle .dailyFake p {
     margin-bottom: 13px;
     color: #929292;
   }
-
   .dailyDataSub .dailyDataTop {
     margin-top: 20px;
     height: 56px;
@@ -685,11 +637,9 @@
     justify-content: space-between;
     align-items: center;
   }
-
   .dailyDataSub .dailyTab {
     height: 100%;
   }
-
   .dailyDataSub .dailyTab .dailyTabBtn {
     float: left;
     height: 100%;
@@ -702,13 +652,11 @@
     font-size: 14px;
     cursor: pointer;
   }
-
   .dailyDataSub .dailyTab .dailyTabBtn.on {
     font-weight: 700;
     color: #e25b45;
     background: #fff;
   }
-
   .dailyDataSub .dailyEx button {
     width: 139px;
     height: 33px;
@@ -720,7 +668,6 @@
     margin-right: 5px;
     margin-top: 1px;
   }
-
   .dailyDataSub .dailyEx select {
     width: 76px;
     height: 35px;
@@ -729,76 +676,59 @@
     text-align: center;
     font-weight: 700;
   }
-
   .dailyDataSub .dailySub{
     border-radius: 10px;
     border-top-left-radius: 0px;
     background: #fff;
     overflow: hidden;
   }
-
   .dailyDataSub .dailySub .dailySubTable {
     width: 100%;
     text-align: center;
     border-collapse: collapse;
     display: none;
   }
-
   .dailyDataSub .dailySub .dailySubTable.on {
     display: table;
   }
-
   .dailyDataSub .dailySub table th,
   .dailyDataSub .dailySub table td {
     padding: 15px 18px;
   }
-
   .dailyDataSub .dailySub table tbody .dbState {
     padding: 9px 18px;
   }
-
   .dailyDataSub .dailySub table thead th {
     position: relative;
     border-bottom: 1px solid #5c5c5c;
   }
-
   .dailyDataSub .dailySub table tbody tr {
     border-bottom: 1px solid #ececec;
   }
-
   .dailyDataSub .dailySub table .dailyNum {
     width: 65px;
   }
-
   .dailyDataSub .dailySub table .dailyName {
     width: 155px;
   }
-
     .dailyDataSub .dailySub table .maketerCode {
     width: 143px;
   }
-
-
   .dailyDataSub .dailySub table .inTime {
     width: 197px;
   }
-
   .dailyDataSub .dailySub table .inIP {
     width: 200px;
   }
-
   .dailyDataSub .dailySub table .dbState {
     width: 150px;
   }
-
   .dailyDataSub .dailySub table .inData {
     width: 315px;
   }
-
   .dailyDataSub .dailySub table .inData i {
     float: right;
   }
-
   .dailyDataSub .dailySub table thead th:after {
     position: absolute;
     content: "";
@@ -809,30 +739,22 @@
     right: 0;
     transform: translateY(-50%);
   }
-
-
   .dailyDataSub .dailySub table thead th:last-child:after {
 		display: none;
 	}
-
-
   .dailyDataSub .dailySub .hidetr {
     display: none;
     width: 100%;
   }
-
   .dailyDataSub .dailySub .hidetr .padNone {
     padding: 0;
   }
-
   .dailyDataSub .dailySub .viewTr{
     cursor: pointer;
   }
-
   .dailyDataSub .dailySub .dbSelect{
     position: relative;
   }
-
   .dailyDataSub .dailySub .dbSelect::after{
     position: absolute;
     width: 1357px;
@@ -842,31 +764,25 @@
     left: 0;
     top: -0.5px;
   }
-
   .dailyDataSub .dailySub .dbSelect i {
     transform: rotate(180deg);
     color: #e25b45;
   } 
-
   .dailyDataSub .dailySub .hidetr.dbSubSelect {
     display: table-row;
   }
-
   .dailyDataSub .dailySub .hidetr .dbDataBox {
     display: flex;
     justify-content: space-between;
     background: #f6f6f6;
     padding: 19px 21px;
   }
-
   .dailyDataSub .dailySub .hidetr .dbDataBox .basicData div {
     width: 743px;
   }
-
   .dailyDataSub .dailySub .hidetr .dbDataBox .payData div {
     width: 555px;
   }
-
   .dailyDataSub .dailySub .hidetr .dbDataBox .basicData div,
   .dailyDataSub .dailySub .hidetr .dbDataBox .payData div {
     background: #fff;
@@ -875,41 +791,33 @@
     overflow: hidden;
     margin-top: 9px;
   }
-
   .dailyDataSub .dailySub .hidetr .dbDataBox .basicData table,
   .dailyDataSub .dailySub .hidetr .dbDataBox .payData table {
     border-collapse: collapse;
     border: solid 1px #e5e5e5;
     border-style: hidden;
   } 
-
-
   .dailyDataSub .dailySub .hidetr .dbDataBox h6,
   .dailyDataSub .dailySub .hidetr .dbDataBox th,
   .dailyDataSub .dailySub .hidetr .dbDataBox td {
     text-align: left;
   }
-
   .dailyDataSub .dailySub .hidetr .dbDataBox th,
   .dailyDataSub .dailySub .hidetr .dbDataBox td {
     border: 1px solid #e5e5e5;
   }
-
   .dailyDataSub .dailySub .hidetr .dbDataBox th {
     padding: 12px 0px 12px 16px;
   }
-
   .dailyDataSub .dailySub .hidetr .dbDataBox td {
     padding: 13px 11px;
   }
-
   .dailyDataSub .dailySub .hidetr .dbDataBox h6 {
     padding: 0 10px;
     position: relative;
     font-size: 14px;
     color: #444;
   }
-
   .dailyDataSub .dailySub .hidetr .dbDataBox h6:before{
     clear: both;
     width: 2px;
@@ -921,31 +829,22 @@
     transform: translateY(-50%);
     background: #444;
   }
-
-
   .dailyDataSub .dailySub .hidetr .basicData th {
     width: 72px;;
   }
-
   .dailyDataSub .dailySub .hidetr .basicData td {
     width: 175px;
   }
-
-
   .dailyDataSub .dailySub .hidetr .payData th {
     width: 92px;;
   }
-
   .dailyDataSub .dailySub .hidetr .payData td {
     width: 184.5px;
   }
-
-
   .dailyDataSub .dailySub table tfoot td {
     padding: 20px 0 40px;
     text-align: center;
   }
-
   .dailyDataSub .dailySub table tfoot td .fas {
     display: inline-block;
     width: 25px;
@@ -956,25 +855,23 @@
     padding: 2px 7px;
     transform: translateY(2px);
   }
-
   .dailyDataSub .dailySub table tfoot td .pageNum {
     display: inline-block;
   }
-  .dailyDataSub .dailySub table tfoot td span {
+  .dailyDataSub .dailySub table tfoot td li {
     display: inline-block;
     margin: 0 10px;
+    cursor: pointer;
   }
-
   .dailyDataSub .dailySub table tfoot td .pageBtn{
     transform: translateY(-2px);
+		cursor: pointer;
   }
-
-  .dailyDataSub .dailySub table tfoot td span.on {
+  .dailyDataSub .dailySub table tfoot td li.on {
     font-weight: 900;
     position: relative;
   }
-
-  .dailyDataSub .dailySub table tfoot td span.on:after {
+  .dailyDataSub .dailySub table tfoot td li.on:after {
     clear: both;
     position: absolute;
     height: 1px;

@@ -66,7 +66,7 @@
           </td>
           <th>이름/회사명</th>
           <td>
-            <input type="text" class="wMax">
+            <input type="text" class="wMax"  v-model="userName">
           </td>
         </tr>
         <tr>
@@ -144,7 +144,7 @@
         }
 
         if(this.policyYn == 'N' || this.policyYn == '') {
-          alert('동의해랏! 2')
+          alert('개인정보취급방침에 동의하세요')
           return;
         }
 
@@ -155,22 +155,22 @@
         }
 
         if(this.userName == null || this.userName == '') {
-          alert('동의해랏! 2')
+          alert('이름입력')
           return;
         }
 
         if(this.userPass == null || this.userPass == '') {
-          alert('동의해랏! 2')
+          alert('패스워드를 입력하세요')
           return;
         }
 
         if(this.clntSubsNo == null || this.clntSubsNo == '') {
-          alert('동의해랏! 2')
+          alert('전화번호를 입력하세요.')
           return;
         }
 
         if(this.userPass != this.userPassConf) {
-          alert('동의해랏! 2')
+          alert('패스워드가 동일하지 않습니다.')
           return;
         }
 

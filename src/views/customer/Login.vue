@@ -88,6 +88,7 @@ export default {
 
           if( this.$store.state.adGradeCd == '05' ){
             this.$router.push({ path : "MENU_0801" })
+            
           }else{
             this.$router.push({ path : "MENU_0000" })
           }
