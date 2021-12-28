@@ -132,11 +132,11 @@
     <div class="campaign tableBox">
       <table>
         <tr>
-          <th>캠페인 명<span class="necItem"> (필수)</span></th>
+          <th>캠페인 명<span class="necItem"> *</span></th>
           <td><input type="text" class="camName" v-model="adName" autofocus></td>
         </tr>
         <tr>
-          <th>캠페인 배너<span class="necItem"> (필수)</span></th>
+          <th>캠페인 배너<span class="necItem"> *</span></th>
           <td>
             <input class="upload_name" id="bannerName"  disabled="disabled" v-bind:placeholder="adBannerName">
             <label for="bannerUpload">이미지 등록하기 <i class="fas fa-plus"></i></label>
@@ -144,7 +144,7 @@
           </td>
         </tr>
         <tr class="notice">
-          <th>캠페인 내용<span class="necItem"> (필수)</span></th>
+          <th>캠페인 내용<span class="necItem"> *</span></th>
           <td>
             <ckeditor id="camContents" v-model="adComment" :config="editorConfig"></ckeditor>
           </td>
@@ -159,13 +159,13 @@
     <div class="promotion tableBox">
       <table>
         <tr>
-          <td class="tableHead">캠페인 단가<span class="necItem"> (필수)</span></td>
+          <td class="tableHead">캠페인 단가<span class="necItem"> *</span></td>
           <td><input type="text" name="" id="" v-model="adPrice"></td>
           <td class="tableHead">캠페인 프로모션 단가</td>
           <td><input type="text" name="" id="" v-model="adPromotionPrice"></td>
         </tr>
         <tr>
-          <td class="tableHead">DB 진행 수량<span class="necItem"> (필수)</span></td>
+          <td class="tableHead">DB 진행 수량<span class="necItem"> *</span></td>
           <td><input type="text" name="" id="" v-model="adMinQty" placeholder="최소 수량 100건 이상"></td>
           <td class="tableHead">승인률</td>
           <td><input type="text" name="" id="" v-model="approval" placeholder="최저 승인율 50%입니다"></td>
@@ -173,7 +173,7 @@
         <tr>
           <td class="tableHead">일별 DB 접수 제한</td>
           <td><input type="text" name="" id="" v-model="dayLimit"></td>
-          <td class="tableHead">연령 타겟<span class="necItem"> (필수)</span></td>
+          <td class="tableHead">연령 타겟<span class="necItem"> *</span></td>
           <td>
             <input type="radio" name="tagetAge" id="tagetAgeY" v-model="ageTarget" value="N">
             <label for="tagetAgeY">나이제한 없음</label>
@@ -189,7 +189,7 @@
           <td colspan="3"><input type="text" name="" id="" v-model="reqWordCond"></td>
         </tr>
         <tr>
-          <td class="tableHead">진행(선호) 채널<span class="necItem"> (필수)</span></td>
+          <td class="tableHead">진행(선호) 채널<span class="necItem"> *</span></td>
           <td colspan="3" class="chooseCheck">
             <div class="checkingBox">
               <input type="checkbox" id="prohibitAll"
@@ -211,7 +211,7 @@
           </td>
         </tr>
         <tr>
-          <td class="tableHead">금지 채널<span class="necItem"> (필수)</span></td>
+          <td class="tableHead">금지 채널<span class="necItem"> *</span></td>
           <td colspan="3" class="chooseCheck">
             <div class="checkingBox"
               v-for="(banChannel, index) in banChannelObj"
@@ -236,7 +236,7 @@
         </tr>
         <tr>
           <!-- 무효조건 관련-->
-          <td class="tableHead">무효 조건<span class="necItem"> (필수)</span></td>
+          <td class="tableHead">무효 조건<span class="necItem"> *</span></td>
           <td colspan="3">
             <div class="checkingBox nullify"
               v-for="(nullifyCond, index) in nullifyCondObj"
@@ -253,7 +253,7 @@
           </td>
         </tr>
         <tr>
-          <td class="tableHead">취소 조건<span class="necItem"> (필수)</span></td>
+          <td class="tableHead">취소 조건<span class="necItem"> *</span></td>
           <td colspan="3">
             <div class="checkingBox cancelBox"
               v-for="(cancelCond, index) in cancelCondObj"
@@ -1175,7 +1175,7 @@ export default {
   .container .tableBox .necItem {
     color: red;
     transform: translateY(-2px);
-    font-size: 10px;
+    font-size: 13px;
   }
 
   .container .tableBox input[type="text"] {

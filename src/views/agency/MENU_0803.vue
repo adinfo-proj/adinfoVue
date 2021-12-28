@@ -19,7 +19,7 @@
 		},
 		created() {
 			this.$store.state.headerTopTitle = "DBMASTER";
-			this.$store.state.headerMidTitle = "캠페인 목록";
+			this.$store.state.headerMidTitle = "DB확인";
 
 		}
 	}

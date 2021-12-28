@@ -138,10 +138,6 @@
     height: 100%;
   }
 
-
-
-
-
   /* 메뉴 nav CSS */
 
   #nav {
@@ -157,16 +153,24 @@
 
   .headerLogo {
     width: 100%;
-    height: 98px;
+    height: 120px;
     text-align: center;
-    padding: 28.2px;
+    position: relative;
     border-bottom: solid 1px #393939;
   }
 
   .headerLogo a {
-    font-size: 32.9px;
-    color: #fff;
+    display: block;
+    position: absolute;
+    width: 100px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
+
+    .headerLogo a img{
+      width: 100%;
+    }
 
   .headerNav > ul > li {
     border-bottom: solid 1px #393939;
