@@ -2,29 +2,15 @@
   <div class="container menu0804">
     <div class="landPrev">
 
-
-
-
-
-
-
+      <!-- 랜딩페이지 미리보기  -->
       <div v-for="(screenList, index) in screenObj" :key="index">
         <div v-if="screenObj[index].tp == '01'">
           <img :src="screenObj[index].fileNm" alt="">
         </div>
-        
+        <div v-if="screenList.tp == '02'">
+          <p v-html="screenList.descript"> </p>
+        </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -141,46 +127,39 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+      <!-- 랜딩페이지 추가되는 내용  -->
 
       <div class="landImg landBox">
           <h2>이미지 등록 <span>(가로사이즈 800px 필수, 용량 3MB 이하)</span><i class="icon-x1"></i></h2>
           <input class="upload_name" disabled="disabled" v-bind:placeholder="landImgNm01">
-          <input type="file" accept="image/*" id="landImg01" class="upload_hidden" ref="upImage01" @change="uploadImg(landImgNm01)">
-          <label for="landImg01">이미지 찾기 <i class="icon-plus1"></i></label> 
+          <input type="file" accept="image/*" id="landImg01" class="upload_hidden" ref="upImage01" @change="UploadImg()">
+          <label for="landImg01">이미지 찾기 <i class="icon-plus1"></i></label>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
       <div class="landText landBox">
         <h2>텍스트 등록 <i class="icon-x1"></i></h2>
-        <ckeditor :config="editorConfig"></ckeditor>
-        <button>입력하기</button>
+        <ckeditor v-model="tetetetet" ref="substance" :config="editorConfig" @keyup="ChangloadText()"></ckeditor>
+        <button id="testtest01" @click="UploadText()">입력하기</button>
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <div class="landForm landBox">
         <h2>폼 꾸미기<span>(최대10개항목)</span><i class="icon-x1"></i></h2>
@@ -432,15 +411,29 @@
             { name: 'styles' },
             { name: 'colors' }
           ]
+          , height: '150px'
+          , language: 'ko'
+          , resize_enabled: false
         }
         , scriptInput: false
         , landImg01: '' // 이미지 파일
         , landImgNm01: '' // 이미지 이름 
-        , screenObj: new Array      // 화면 전체 ...
-        , screenList : '' //
+        , screenObj: ['','','','','','','','','','']      // 화면 전체 ...
+        , screenList: '' //
+        , tetetetet: ''
+        , textBox: {
+            tp: ''
+          , fileNm: ''
+          , descript: ''
+          , formDesc: ''
+        }
+        , areaPosition: []
       }
     },
     methods: {
+      testesetsetews() {
+        console.log(this.screenObj)
+      },
 
       ScriptOn() {
         console.log(this.scriptInput)
@@ -463,16 +456,16 @@
 
       },
       //******************************************************************************
-      // 파일 업로드 시 text 박스의 값 보여지기
+      // 파일 업로드 시 text박스의 값 및 미리보기로 보여지기
       //******************************************************************************
-      uploadImg(){
+      UploadImg(){
 
-           let     testeeee = {
-                tp: ''
-              , fileNm: ''
-              , descript: ''
-              , formDesc: ''
-            }
+        let imgFiles = {
+            tp: ''
+          , fileNm: ''
+          , descript: ''
+          , formDesc: ''
+        }
 
 
         //---------------------------------------------------------------------------
@@ -484,23 +477,68 @@
         //---------------------------------------------------------------------------
         // 이미지 미리보기에 보여지기
         //---------------------------------------------------------------------------
-        let lastIndex = this.screenObj.length;
 
-        console.log("lastIndex : " + lastIndex)
-        console.log(this.screenObj)
+        imgFiles.tp = '01';
+        imgFiles.fileNm = URL.createObjectURL(this.$refs.upImage01.files[0]);
+        imgFiles.descript = '';
+        imgFiles.formDesc = '';
 
-        testeeee.tp = '01';
-        testeeee.fileNm = URL.createObjectURL(this.$refs.upImage01.files[0]);
-        testeeee.descript = '';
-        testeeee.formDesc = '';
-        this.screenObj.push(testeeee)
+        this.screenObj.push(imgFiles)
 
       },
 
+      //******************************************************************************
+      // 에디터에서 전송 시 미리보기창에 내용 추가되기
+      //******************************************************************************
+      
+
+
+      UploadText() {
+
+        //---------------------------------------------------------------------------
+        // 텍스트 미리보기창에 보여지기
+        //---------------------------------------------------------------------------
+        console.log(this.tetetetet)
+
+        console.log(this.$refs.substance)
+        
+
+
+
+        this.textBox.tp = '02';
+        this.textBox.fileNm = '';
+        this.textBox.descript = this.tetetetet
+        this.textBox.formDesc = '';
+
+        this.screenObj.push(this.textBox)
+
+        $("#testtest01").css({display:"none"})
+
+      },
+
+      ChangloadText(index) {
+
+
+
+        //---------------------------------------------------------------------------
+        // 텍스트 미리보기창에 보여지기
+        //---------------------------------------------------------------------------
+        console.log(this.tetetetet)
+
+
+
+        this.screenObj[index].descript = this.tetetetet
+
+      }
+
+
     },
     created() {
+
       this.$store.state.headerTopTitle = "DBMASTER";
       this.$store.state.headerMidTitle = "랜딩페이지 제작";
+
+      this.testesetsetews();
 
     }
   }
@@ -813,10 +851,11 @@
     text-align: left;
   }
 
-  .menu0804 .landChoice .landText .cke_editor1 {
+  /* .menu0804 .landChoice .landText .ck.cke_editor {
     width: 100%;
     height: 400px;
-  }
+    resize: none;
+  } */
 
   .menu0804 .landChoice .landText {
     text-align: center;
