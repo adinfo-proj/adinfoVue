@@ -4,16 +4,12 @@
 
       <!-- 랜딩페이지 미리보기  -->
       <div v-for="(screenList, index) in screenObj" :key="index">
-        <!-- <div v-if="screenObj[index].tp == '01'">
+        <div v-if="screenObj[index].tp == '01'">
           <img :src="screenObj[index].fileNm" alt="">
-        </div> -->
-        <iframe v-if="screenList.tp == '02'">
-          {{screenList.descript}}
-        </iframe>
+        </div>
+        <div v-if="screenList.tp == '02'" v-html="screenList.descript">
+        </div>
       </div>
-
-
-
 
 
 
@@ -126,8 +122,45 @@
 
 
 
-
       <!-- 랜딩페이지 추가되는 내용  -->
+      <!-- <div v-for="(lendchoose, index) in lendchooseObj" :key="index">
+        <div :v-html="lendchooseObj[index]">
+        </div>
+   
+      </div> -->
+
+      <component :is="choose-land-img">
+      </component>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <div class="landImg landBox">
           <h2>이미지 등록 <span>(가로사이즈 800px 필수, 용량 3MB 이하)</span><i class="icon-x1"></i></h2>
@@ -376,13 +409,13 @@
       </div>
       <div class="btnBox">
         <button class="saveBtn">미리보기</button>
-        <button class="imgBtn">이미지 추가</button>
+        <button class="imgBtn" @click="imgChooseBtn()">이미지 추가</button>
         <button class="textBtn">텍스트 추가</button>
         <button class="formBtn">폼 추가</button>
       </div>
       <!-- 수정 사항 -->
       *미리보기 클릭 시 새로운 창에서 보여집니다.
-    
+      
 
     </div>
   </div>
@@ -392,8 +425,7 @@
 
   // import axios from "axios";
   import $ from 'jquery';
-
-
+  
   export default {
     data() {
       return {
@@ -415,7 +447,9 @@
         , screenObj: ['','','','','','','','','','']      // 화면 전체 ...
         , screenList: '' //
         , viewText: ''
-        , areaPosition: []
+        , lendchooseObj: []
+        , lendchoose: ''
+        , landIndexNm: 0
       }
     },
     methods: {
@@ -445,6 +479,24 @@
         $(".landScr .landScrChecked").slideToggle(300);
         $(".landScr .icon-chevron-down1").toggleClass("on");
 
+      },
+
+      imgChooseBtn() {
+
+        if(this.lendchooseObj.length > 9) {
+          alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
+          return;
+        }
+
+        let imgChoose = `<ChooseLandImg>test</ChooseLandImg>`;
+
+
+
+        this.lendchooseObj.push(imgChoose)
+
+        this.landIndexNm++;
+
+        console.log(this.lendchooseObj)
       },
       //******************************************************************************
       // 파일 업로드 시 text박스의 값 및 미리보기로 보여지기
@@ -652,7 +704,7 @@
   .menu0804 .landChoice .landImg h2,
   .menu0804 .landChoice .landText h2,
   .menu0804 .landChoice .landForm h2 {
-    font-size: 14px;
+    font-size: 14px; 
     font-weight: bold;
     color: #222;
   }

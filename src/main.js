@@ -12,6 +12,11 @@ Vue.use(DateCalc)
 import CKEditor from 'ckeditor4-vue';
 Vue.use( CKEditor );
 
+//
+import ChooseLandImg from './components/dialog/ChooseLandImg.vue';
+Vue.use( ChooseLandImg );
+
+
 Vue.config.productionTip = false;
 
 new Vue({
