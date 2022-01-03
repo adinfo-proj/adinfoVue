@@ -4,12 +4,12 @@
 
       <!-- 랜딩페이지 미리보기  -->
       <div v-for="(screenList, index) in screenObj" :key="index">
-        <div v-if="screenObj[index].tp == '01'">
+        <!-- <div v-if="screenObj[index].tp == '01'">
           <img :src="screenObj[index].fileNm" alt="">
-        </div>
-        <div v-if="screenList.tp == '02'">
-          <p v-html="screenList.descript"> </p>
-        </div>
+        </div> -->
+        <iframe v-if="screenList.tp == '02'">
+          {{screenList.descript}}
+        </iframe>
       </div>
 
 
@@ -142,7 +142,7 @@
         <h2>텍스트 등록 <i class="icon-x1"></i></h2>
         <ckeditor v-model="viewText" ref="substance" :config="editorConfig"></ckeditor>
         <button id="upBtn1" @click="UploadText()">입력하기</button>
-        <button id="modifyBtn1" class="modifyBtn" @click="ChangloadText()">수정하기</button>
+        <button id="modifyBtn1" class="modifyBtn" @click="UploadText()">수정하기</button>
       </div>
 
 
@@ -179,7 +179,7 @@
                 </select>
                 <input type="text" disabled>
               </td>
-              <td class="formCh"><input type="checkbox" id="necessary01" checked disabled><label for="necessary01"></label></td>
+              <td class="formCh"><input type="checkbox" id="necessary01" checked><label for="necessary01"></label></td>
             </tr>
             <tr>
               <td class="formNum">02</td>
@@ -193,7 +193,7 @@
                 </select>
                 <input type="text" disabled>
               </td>
-              <td class="formCh"><input type="checkbox" id="necessary02" checked disabled><label for="necessary02"></label></td>
+              <td class="formCh"><input type="checkbox" id="necessary02" checked><label for="necessary02"></label></td>
             </tr>
             <tr class="disNone hiddenBox01">
               <td class="formNum">03</td>
@@ -205,9 +205,9 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text">
+                <input type="text" disabled>
               </td>
-              <td class="formCh"><input type="checkbox" id="necessary03"><label for="necessary03"></label></td>
+              <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
             <tr class="disNone hiddenBox02">
               <td class="formNum">04</td>
@@ -219,7 +219,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text">
+                <input type="text" disabled>
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -233,7 +233,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text">
+                <input type="text" disabled>
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -247,7 +247,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text">
+                <input type="text" disabled>
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -261,7 +261,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text">
+                <input type="text" disabled>
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -275,7 +275,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text">
+                <input type="text" disabled>
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -289,7 +289,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text">
+                <input type="text" disabled>
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -303,7 +303,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text">
+                <input type="text" disabled>
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -317,14 +317,14 @@
           </tfoot>
         </table>
         <div class="agreeBox">
-          <input type="checkbox" id="chAgree02" checked disabled>
+          <input type="checkbox" id="chAgree01">
+          <label for="chAgree01">이용약관 표시</label>
+        </div>
+        <div class="agreeBox">
+          <input type="checkbox" id="chAgree02" checked>
           <label for="chAgree02">개인 정보 수집 동의 표시
             <span>(개인정보 수집 동의는 필수입니다.)</span>
           </label>
-        </div>
-        <div class="agreeBox">
-          <input type="checkbox" id="chAgree01">
-          <label for="chAgree01">이용약관 표시</label>
         </div>
         <div class="agreeBox">
           <input type="checkbox" id="chAgree03">
@@ -340,7 +340,7 @@
         </div>
         <div class="btnDesignBox btnName">
           <h6 class="leftBox">신청 버튼 이름</h6>
-          <input type="text" name="sumBtn" id="sumBtn" v-model="btnName">
+          <input type="text" name="sumBtn" id="sumBtn">
         </div>
         <div class="btnDesignBox btnShape">
           <h6>신청버튼 모양 선택</h6>
@@ -415,24 +415,16 @@
         , screenObj: ['','','','','','','','','','']      // 화면 전체 ...
         , screenList: '' //
         , viewText: ''
-        , textBox: {
-            tp: ''
-          , fileNm: ''
-          , descript: ''
-          , formDesc: ''
-        }
         , areaPosition: []
       }
     },
     methods: {
-      testesetsetews() {
-        console.log(this.screenObj)
-      },
 
-      //
 
+      //******************************************************************************
+      // 스크립트 추가 시 텍스트박스 보이는 함수
+      //******************************************************************************
       ScriptOn() {
-        console.log(this.scriptInput)
         if(this.scriptInput == true) {
           $(".landScr .landScrChecked").slideDown(300);
           $(".landScr .icon-chevron-down1").removeClass("on");
@@ -442,6 +434,9 @@
         }
       },
 
+      //******************************************************************************
+      // 스크립트 접는 함수
+      //******************************************************************************
       ScriptUp() {
         if(this.scriptInput == false) {
           return;
@@ -457,10 +452,10 @@
       UploadImg(){
 
         let imgFiles = {
-            tp: ''
-          , fileNm: ''
-          , descript: ''
-          , formDesc: ''
+             tp: ''
+           , fileNm: ''
+           , descript: ''
+           , formDesc: ''
         }
 
 
@@ -479,10 +474,7 @@
         imgFiles.descript = '';
         imgFiles.formDesc = '';
 
-
-        // 숫자는 index로 바꿀 예정
         this.screenObj[1] = imgFiles;
-        console.log(this.screenObj)
 
       },
 
@@ -496,19 +488,20 @@
         //------------------------------------------------------------------------------
         console.log(this.viewText)
 
-        console.log(this.$refs.substance)
-        
+        let textBox =  {
+            tp: ''
+          , fileNm: ''
+          , descript: ''
+          , formDesc: ''
+        }
 
+        textBox.tp = '02';
+        textBox.fileNm = '';
+        textBox.descript = this.viewText;
+        textBox.formDesc = '';
 
-
-        this.textBox.tp = '02';
-        this.textBox.fileNm = '';
-        this.textBox.descript = this.viewText;
-        this.textBox.formDesc = '';
-
-        this.screenObj[0] = this.textBox;
+        this.$set(this.screenObj, 0, textBox);
         let n = 1
-        console.log(n)
 
         let viewBtn = `#modifyBtn${n}`;
         console.log(viewBtn);
@@ -516,24 +509,9 @@
 
         $("#upBtn1").css({display:"none"});
         $(viewBtn).css({display:"inline"});
-
         n++;
+
       },
-
-      ChangloadText() {
-
-
-
-        //---------------------------------------------------------------------------
-        // 텍스트 미리보기창에 보여지기
-        //---------------------------------------------------------------------------
-        console.log(this.viewText)
-
-
-
-        this.screenObj[0].descript = this.viewText
-
-      }
 
 
     },
@@ -541,8 +519,6 @@
 
       this.$store.state.headerTopTitle = "DBMASTER";
       this.$store.state.headerMidTitle = "랜딩페이지 제작";
-
-      this.testesetsetews();
 
     }
   }
@@ -980,7 +956,7 @@
   }
 
   .menu0804 .landChoice .landForm .disNone {
-    /* display: none; */
+    display: none;
   }
 
   .menu0804 .landChoice .landForm .agreeBox {
