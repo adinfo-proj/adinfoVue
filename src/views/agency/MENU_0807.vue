@@ -16,6 +16,15 @@
 			<div class="formBox" v-html="test">
 
 			</div>
+
+		</div>
+		<div class="testBox">
+			<div class="tettetete" v-html="test0303">
+
+			</div>
+			<button @click="tetetetet321321">
+				버어튼
+			</button>
 		</div>
 	</div>
 </template>
@@ -29,6 +38,7 @@
 					, filesPreview: []
 					, uploadImageFile: ''
 					, test: '' // 인풋 테스트용
+					, test0303: ['','','','','','','','','','']
 					}
 				},
 			methods: {		
@@ -55,6 +65,13 @@
 					
 					this.test = eeee;
 				},
+				tetetetet321321() {
+					console.log(this.test0303)
+					this.test0303[2] = {1: "눈누난나", 2: "ㄱㄱㄱ", 3: "43434", 4: false}
+					console.log(this.test0303)
+					console.log(this.test0303[2])
+					console.log(typeof(this.test0303[2]))
+				}
 				
 			},
 			created() {
@@ -90,6 +107,11 @@
 
 	.formBox {
 		margin: 20px;
+	}
+
+	.testBox{
+		clear: both;
+		width: 100%;
 	}
 
 </style>

@@ -140,16 +140,10 @@
 
       <div class="landText landBox">
         <h2>텍스트 등록 <i class="icon-x1"></i></h2>
-        <ckeditor v-model="tetetetet" ref="substance" :config="editorConfig" @keyup="ChangloadText()"></ckeditor>
-        <button id="testtest01" @click="UploadText()">입력하기</button>
+        <ckeditor v-model="viewText" ref="substance" :config="editorConfig"></ckeditor>
+        <button id="upBtn1" @click="UploadText()">입력하기</button>
+        <button id="modifyBtn1" class="modifyBtn" @click="ChangloadText()">수정하기</button>
       </div>
-
-
-
-
-
-
-
 
 
 
@@ -185,7 +179,7 @@
                 </select>
                 <input type="text" disabled>
               </td>
-              <td class="formCh"><input type="checkbox" id="necessary01" checked><label for="necessary01"></label></td>
+              <td class="formCh"><input type="checkbox" id="necessary01" checked disabled><label for="necessary01"></label></td>
             </tr>
             <tr>
               <td class="formNum">02</td>
@@ -199,7 +193,7 @@
                 </select>
                 <input type="text" disabled>
               </td>
-              <td class="formCh"><input type="checkbox" id="necessary02" checked><label for="necessary02"></label></td>
+              <td class="formCh"><input type="checkbox" id="necessary02" checked disabled><label for="necessary02"></label></td>
             </tr>
             <tr class="disNone hiddenBox01">
               <td class="formNum">03</td>
@@ -211,9 +205,9 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text" disabled>
+                <input type="text">
               </td>
-              <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
+              <td class="formCh"><input type="checkbox" id="necessary03"><label for="necessary03"></label></td>
             </tr>
             <tr class="disNone hiddenBox02">
               <td class="formNum">04</td>
@@ -225,7 +219,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text" disabled>
+                <input type="text">
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -239,7 +233,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text" disabled>
+                <input type="text">
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -253,7 +247,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text" disabled>
+                <input type="text">
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -267,7 +261,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text" disabled>
+                <input type="text">
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -281,7 +275,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text" disabled>
+                <input type="text">
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -295,7 +289,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text" disabled>
+                <input type="text">
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -309,7 +303,7 @@
                   <option value="checkForm">다중체크박스</option>
                   <option value="selForm">선택박스</option>
                 </select>
-                <input type="text" disabled>
+                <input type="text">
               </td>
               <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
             </tr>
@@ -323,14 +317,14 @@
           </tfoot>
         </table>
         <div class="agreeBox">
-          <input type="checkbox" id="chAgree01">
-          <label for="chAgree01">이용약관 표시</label>
-        </div>
-        <div class="agreeBox">
-          <input type="checkbox" id="chAgree02" checked>
+          <input type="checkbox" id="chAgree02" checked disabled>
           <label for="chAgree02">개인 정보 수집 동의 표시
             <span>(개인정보 수집 동의는 필수입니다.)</span>
           </label>
+        </div>
+        <div class="agreeBox">
+          <input type="checkbox" id="chAgree01">
+          <label for="chAgree01">이용약관 표시</label>
         </div>
         <div class="agreeBox">
           <input type="checkbox" id="chAgree03">
@@ -346,7 +340,7 @@
         </div>
         <div class="btnDesignBox btnName">
           <h6 class="leftBox">신청 버튼 이름</h6>
-          <input type="text" name="sumBtn" id="sumBtn">
+          <input type="text" name="sumBtn" id="sumBtn" v-model="btnName">
         </div>
         <div class="btnDesignBox btnShape">
           <h6>신청버튼 모양 선택</h6>
@@ -420,7 +414,7 @@
         , landImgNm01: '' // 이미지 이름 
         , screenObj: ['','','','','','','','','','']      // 화면 전체 ...
         , screenList: '' //
-        , tetetetet: ''
+        , viewText: ''
         , textBox: {
             tp: ''
           , fileNm: ''
@@ -434,6 +428,8 @@
       testesetsetews() {
         console.log(this.screenObj)
       },
+
+      //
 
       ScriptOn() {
         console.log(this.scriptInput)
@@ -468,37 +464,37 @@
         }
 
 
-        //---------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
         // 이미지 이름 불러오기
-        //---------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
         this.landImg01 = this.$refs.upImage01.files;
         this.landImgNm01 = this.landImg01[0].name;
 
-        //---------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
         // 이미지 미리보기에 보여지기
-        //---------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
 
         imgFiles.tp = '01';
         imgFiles.fileNm = URL.createObjectURL(this.$refs.upImage01.files[0]);
         imgFiles.descript = '';
         imgFiles.formDesc = '';
 
-        this.screenObj.push(imgFiles)
+
+        // 숫자는 index로 바꿀 예정
+        this.screenObj[1] = imgFiles;
+        console.log(this.screenObj)
 
       },
 
       //******************************************************************************
-      // 에디터에서 전송 시 미리보기창에 내용 추가되기
+      // 에디터에서 전송 시 미리보기창에 내용 추가 및 
       //******************************************************************************
-      
-
 
       UploadText() {
-
-        //---------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
         // 텍스트 미리보기창에 보여지기
-        //---------------------------------------------------------------------------
-        console.log(this.tetetetet)
+        //------------------------------------------------------------------------------
+        console.log(this.viewText)
 
         console.log(this.$refs.substance)
         
@@ -507,27 +503,35 @@
 
         this.textBox.tp = '02';
         this.textBox.fileNm = '';
-        this.textBox.descript = this.tetetetet
+        this.textBox.descript = this.viewText;
         this.textBox.formDesc = '';
 
-        this.screenObj.push(this.textBox)
+        this.screenObj[0] = this.textBox;
+        let n = 1
+        console.log(n)
 
-        $("#testtest01").css({display:"none"})
+        let viewBtn = `#modifyBtn${n}`;
+        console.log(viewBtn);
+        console.log(this.screenObj);
 
+        $("#upBtn1").css({display:"none"});
+        $(viewBtn).css({display:"inline"});
+
+        n++;
       },
 
-      ChangloadText(index) {
+      ChangloadText() {
 
 
 
         //---------------------------------------------------------------------------
         // 텍스트 미리보기창에 보여지기
         //---------------------------------------------------------------------------
-        console.log(this.tetetetet)
+        console.log(this.viewText)
 
 
 
-        this.screenObj[index].descript = this.tetetetet
+        this.screenObj[0].descript = this.viewText
 
       }
 
@@ -871,6 +875,9 @@
     border-radius: 10px;
     font-weight: 700;
   }
+  .menu0804 .landChoice .landText .modifyBtn{
+    display: none;
+  }
 
   .menu0804 .landChoice .landForm h2 {
     padding: 16px 26px 15px;
@@ -973,7 +980,7 @@
   }
 
   .menu0804 .landChoice .landForm .disNone {
-    display: none;
+    /* display: none; */
   }
 
   .menu0804 .landChoice .landForm .agreeBox {
