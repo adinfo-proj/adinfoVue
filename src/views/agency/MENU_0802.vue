@@ -3,16 +3,13 @@
     <div class="landPrev">
 
       <!-- 랜딩페이지 미리보기  -->
-      <div v-for="(screenList, index) in screenObj" :key="index">
-        <div v-if="screenObj[index].tp == '01'">
-          <img :src="screenObj[index].fileNm" alt="">
+      <div v-for="(screenList, index) in $store.state.screenObj" :key="index">
+        <div v-if="$store.state.screenObj[index].tp == '01'">
+          <img :src="$store.state.screenObj[index].fileNm" alt="">
         </div>
         <div v-if="screenList.tp == '02'" v-html="screenList.descript">
         </div>
       </div>
-
-
-
       <div class="formPrev">
         <form method="post">
           <input type="text" name="value01" placeholder="이름을 입력하세요.">
@@ -30,51 +27,7 @@
           </div>
         </form>
       </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+    </div>    
     <div class="landChoice">
       <div class="basicInfo landBox">
         <h2>랜딩페이지 기본정보</h2>
@@ -114,6 +67,29 @@
         </div>
       </div>
 
+      <!------------------------------------------------------------------------------------------------------------------
+       이곳부터 for 루프안에서 이미지/텍스트/폼의 경우를 위해 콤포넌트를 처리한다.
+      ------------------------------------------------------------------------------------------------------------------->
+      <div v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index">
+        <!-- 이미지 -->
+        <div v-if="$store.state.lendchooseObj[index].tp == '01'">
+          <ChooseLandImg></ChooseLandImg>
+        </div>
+        <!-- 텍스트 -->
+        <div v-if="$store.state.lendchooseObj[index].tp == '02'">
+          <ChooseLandText></ChooseLandText>
+        </div>
+        <div v-if="$store.state.lendchooseObj[index].tp == '03'">
+          <ChooseLandForm></ChooseLandForm>
+        </div>
+        <!-- 폼 -->
+        <!--
+        <div v-if="$store.state.lendchooseObj[index].tp == '03'">
+          <ChooseLandImg v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index" v-bind:is="lendchoose"></ChooseLandImg>
+        </div>
+        -->
+      </div>
+
 
 
 
@@ -129,8 +105,9 @@
    
       </div> -->
 
-      <component :is="choose-land-img">
-      </component>
+      
+      
+      
 
 
 
@@ -162,7 +139,8 @@
 
 
 
-      <div class="landImg landBox">
+
+      <!-- <div class="landImg landBox">
           <h2>이미지 등록 <span>(가로사이즈 800px 필수, 용량 3MB 이하)</span><i class="icon-x1"></i></h2>
           <input class="upload_name" disabled="disabled" v-bind:placeholder="landImgNm01">
           <input type="file" accept="image/*" id="landImg01" class="upload_hidden" ref="upImage01" @change="UploadImg()">
@@ -406,12 +384,12 @@
           <input type="radio" name="btnColor" id="btn_000000">
           <label for="btn_000000"></label>
         </div>			
-      </div>
+      </div> -->
       <div class="btnBox">
         <button class="saveBtn">미리보기</button>
-        <button class="imgBtn" @click="imgChooseBtn()">이미지 추가</button>
-        <button class="textBtn">텍스트 추가</button>
-        <button class="formBtn">폼 추가</button>
+        <button class="imgBtn" @click="ImgChooseBtn()">이미지 추가</button>
+        <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button>
+        <button class="formBtn" @click="FormChooseBtn()">폼 추가</button>
       </div>
       <!-- 수정 사항 -->
       *미리보기 클릭 시 새로운 창에서 보여집니다.
@@ -425,8 +403,16 @@
 
   // import axios from "axios";
   import $ from 'jquery';
-  
+  import ChooseLandImg from '../../components/dialog/ChooseLandImg.vue'
+  import ChooseLandText from '../../components/dialog/ChooseLandText.vue'
+  import ChooseLandForm from '../../components/dialog/ChooseLandForm.vue'
+    
   export default {
+    components: {
+        ChooseLandImg
+      , ChooseLandText
+      , ChooseLandForm
+    },
     data() {
       return {
         editorConfig: {        
@@ -442,14 +428,8 @@
           , resize_enabled: false
         }
         , scriptInput: false
-        , landImg01: '' // 이미지 파일
-        , landImgNm01: '' // 이미지 이름 
-        , screenObj: ['','','','','','','','','','']      // 화면 전체 ...
-        , screenList: '' //
-        , viewText: ''
-        , lendchooseObj: []
-        , lendchoose: ''
-        , landIndexNm: 0
+
+
       }
     },
     methods: {
@@ -480,91 +460,69 @@
         $(".landScr .icon-chevron-down1").toggleClass("on");
 
       },
+      //******************************************************************************
+      // 이미지 추가 함수
+      //******************************************************************************
+      ImgChooseBtn() {
 
-      imgChooseBtn() {
-
-        if(this.lendchooseObj.length > 9) {
+        if(this.$store.state.lendchooseObj.length > 9) {
           alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
           return;
         }
 
-        let imgChoose = `<ChooseLandImg>test</ChooseLandImg>`;
+        let plusObj={};
+
+        plusObj.tp = '01'
+        plusObj.Nm = ChooseLandImg
+        
+
+        this.$store.state.lendchooseObj.push(plusObj)
 
 
-
-        this.lendchooseObj.push(imgChoose)
-
-        this.landIndexNm++;
-
-        console.log(this.lendchooseObj)
+        console.log(this.$store.state.lendchooseObj)
       },
       //******************************************************************************
-      // 파일 업로드 시 text박스의 값 및 미리보기로 보여지기
+      // 텍스트 추가 함수
       //******************************************************************************
-      UploadImg(){
+      TextChooseBtn() {
 
-        let imgFiles = {
-             tp: ''
-           , fileNm: ''
-           , descript: ''
-           , formDesc: ''
+        if(this.$store.state.lendchooseObj.length > 9) {
+          alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
+          return;
         }
 
+        let plusObj={};
 
-        //------------------------------------------------------------------------------
-        // 이미지 이름 불러오기
-        //------------------------------------------------------------------------------
-        this.landImg01 = this.$refs.upImage01.files;
-        this.landImgNm01 = this.landImg01[0].name;
+        plusObj.tp = '02'
+        plusObj.Nm = ChooseLandText
+        
 
-        //------------------------------------------------------------------------------
-        // 이미지 미리보기에 보여지기
-        //------------------------------------------------------------------------------
+        this.$store.state.lendchooseObj.push(plusObj)
 
-        imgFiles.tp = '01';
-        imgFiles.fileNm = URL.createObjectURL(this.$refs.upImage01.files[0]);
-        imgFiles.descript = '';
-        imgFiles.formDesc = '';
 
-        this.screenObj[1] = imgFiles;
-
+        console.log(this.$store.state.lendchooseObj)
       },
-
       //******************************************************************************
-      // 에디터에서 전송 시 미리보기창에 내용 추가 및 
+      // 폼 추가 함수
       //******************************************************************************
+      FormChooseBtn() {
 
-      UploadText() {
-        //------------------------------------------------------------------------------
-        // 텍스트 미리보기창에 보여지기
-        //------------------------------------------------------------------------------
-        console.log(this.viewText)
-
-        let textBox =  {
-            tp: ''
-          , fileNm: ''
-          , descript: ''
-          , formDesc: ''
+        if(this.$store.state.lendchooseObj.length > 9) {
+          alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
+          return;
         }
 
-        textBox.tp = '02';
-        textBox.fileNm = '';
-        textBox.descript = this.viewText;
-        textBox.formDesc = '';
+        let plusObj={};
 
-        this.$set(this.screenObj, 0, textBox);
-        let n = 1
+        plusObj.tp = '03'
+        plusObj.Nm = ChooseLandForm
+        
 
-        let viewBtn = `#modifyBtn${n}`;
-        console.log(viewBtn);
-        console.log(this.screenObj);
+        this.$store.state.lendchooseObj.push(plusObj)
 
-        $("#upBtn1").css({display:"none"});
-        $(viewBtn).css({display:"inline"});
-        n++;
 
+        console.log(this.$store.state.lendchooseObj)
       },
-
 
     },
     created() {
@@ -699,11 +657,16 @@
     margin-bottom: 8px;
   }
 
+  .landChoice .landBox {
+    width: 100%;
+    border: 1px solid #e5e5e5;
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+
   .menu0804 .landChoice .basicInfo h2,
-  .menu0804 .landChoice .landScr p,
-  .menu0804 .landChoice .landImg h2,
-  .menu0804 .landChoice .landText h2,
-  .menu0804 .landChoice .landForm h2 {
+  .menu0804 .landChoice .landScr p {
     font-size: 14px; 
     font-weight: bold;
     color: #222;
@@ -741,10 +704,7 @@
     height: 100%;
   }
 
-
-  .menu0804 .landChoice .landScr,
-  .menu0804 .landChoice .landImg,
-  .menu0804 .landChoice .landText {
+  .menu0804 .landChoice .landScr {
     padding: 21px 18px;
   }
 
@@ -825,387 +785,6 @@
     padding: 10px;
     font-size: 16px;
     margin-top: 20px;
-  }
-
-  .menu0804 .landChoice .landImg h2 {
-    margin-bottom: 14px;
-  }
-
-  .menu0804 .landChoice .landImg h2 span {
-    letter-spacing: -0.3px;
-    color: #e25b45;
-  }
-
-  .menu0804 .landChoice .landImg h2 i ,
-  .menu0804 .landChoice .landText h2 i,
-  .menu0804 .landChoice .landForm h2 i {
-    float: right;
-    font-size: 13px;
-  }
-
-  .menu0804 .landChoice .landImg .upload_name {
-    width: 362px;
-    height: 30px;
-    margin-right: 10px;
-    padding-left: 10px;
-  }
-
-  .menu0804 .landChoice .landImg input[type="file"] {
-    display: none;
-  }
-
-  .menu0804 .landChoice .landImg input[type="file"] + label {
-    display: inline-block;
-    width: 110px;
-    height: 100%;
-    border-radius: 10px;
-    background-color: #f0f0f0;
-    color: #000;
-    padding: 8px 20px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-    cursor: pointer;
-    border: 1px solid #e5e5e5;
-    position: relative;
-  }
-
-  .menu0804 .landChoice .landImg input[type="file"] + label > i {
-    position: absolute;
-    font-size: 18px;
-    color: #e25b45;
-    font-weight: 700;
-    right: 10px;
-    top: 7px;
-  }
-
-  .menu0804 .landChoice .landText h2 {
-    margin-bottom: 14px;
-    text-align: left;
-  }
-
-  /* .menu0804 .landChoice .landText .ck.cke_editor {
-    width: 100%;
-    height: 400px;
-    resize: none;
-  } */
-
-  .menu0804 .landChoice .landText {
-    text-align: center;
-  }
-
-  .menu0804 .landChoice .landText button {
-    margin-top: 9px;
-    width: 100px;
-    height: 31px;
-    border: 1px solid #e5e5e5;
-    background: #393939;
-    color: #fff;
-    border-radius: 10px;
-    font-weight: 700;
-  }
-  .menu0804 .landChoice .landText .modifyBtn{
-    display: none;
-  }
-
-  .menu0804 .landChoice .landForm h2 {
-    padding: 16px 26px 15px;
-  }
-
-  .menu0804 .landChoice .landForm table {
-    width: 100%;
-    text-align: center;
-    border-collapse: collapse;
-  }
-
-  .menu0804 .landChoice .landForm td,
-  .menu0804 .landChoice .landForm th {
-    height: 41px;
-  }
-
-  .menu0804 .landChoice .landForm td {
-    padding: 6px 3px 0 3px;
-    
-  }
-
-  .menu0804 .landChoice .landForm .formNum,
-  .menu0804 .landChoice .landForm .formCh {
-    width: 50PX;
-  }
-
-  .menu0804 .landChoice .landForm .formNm {
-    width: 95px;		
-  }
-
-  .menu0804 .landChoice .landForm .formType { 
-    width: 335px;
-  }
-
-  .menu0804 .landChoice .landForm td.formType {
-    text-align: left;
-  }
-
-  .menu0804 .landChoice .landForm thead {
-    background: #fafafa;
-    border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #5c5c5c;
-  }
-
-  .menu0804 .landChoice .landForm thead th {
-    position: relative;  
-  }
-
-  .menu0804 .landChoice .landForm thead th:after {
-    clear: both;
-    position: absolute;
-    content: "";
-    width: 1px;
-    height: 14px;
-    background: #d2d2d2;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .menu0804 .landChoice .landForm thead th:last-child:after {
-    display: none;
-  }
-
-  .menu0804 .landChoice .landForm input,
-  .menu0804 .landChoice .landForm select {
-    padding: 7px 10px;
-    border: 1px solid #e5e5e5;
-  }
-
-  .menu0804 .landChoice .landForm .formType input {
-    width: 190px;
-  }
-
-
-  .menu0804 .landChoice .landForm .formNm input {
-    width: 100%;
-  }
-
-  .menu0804 .landChoice .landForm select {
-    width: 130px;
-    margin-right: 5px;
-  }
-
-  .menu0804 .landChoice .landForm button {
-    width: 100px;
-    height: 30px;
-    border: 1px solid #e5e5e5;
-    border-radius: 10px;
-    background: #f0f0f0;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-
-  .menu0804 .landChoice .landForm button i {
-    font-size: 14px;
-    color: #e25b45;
-    font-weight: 700;
-    margin-right: -7px;
-    vertical-align: middle;
-  }
-
-  .menu0804 .landChoice .landForm .disNone {
-    display: none;
-  }
-
-  .menu0804 .landChoice .landForm .agreeBox {
-    padding: 12px 21px;
-    color: #fff;
-    letter-spacing: -0.3px;
-  }
-
-  .menu0804 .landChoice .landForm .btnDesignBox {
-    padding: 8px 0 8px 21px;
-  }
-
-  .menu0804 .landChoice .landForm .btnName {
-    padding: 4px 21px;
-  }
-
-  .menu0804 .landChoice .landForm .agreeBox,
-  .menu0804 .landChoice .landForm .btnDesignBox {
-    border-top: 1px solid #e5e5e5;
-  }
-
-  .menu0804 .landChoice .landForm .agreeBox input[type="checkbox"] {
-    transform: translateY(3px);
-  }
-
-  .menu0804 .landChoice .landForm .agreeBox input[type="checkbox"] + label {
-    font-weight: 700;
-    color: #444;
-    padding-left: 23px;
-  }
-
-  .menu0804 .landChoice .landForm .agreeBox input[type="checkbox"] + label span {
-    color: #e25b45;
-  }
-
-  .menu0804 .landChoice .landForm .agreeBox input[type="checkbox"] + label span.colGray {	
-    color: #acacac;
-  }
-
-  .menu0804 .landChoice .landForm .btnDesignBox h6 {
-    font-size: 14px;
-    color: #222;
-  }
-
-  .menu0804 .landChoice .landForm .btnDesignBox .leftBox {
-    float: left;
-  }
-
-  .menu0804 .landChoice .landForm .btnName h6 {
-    padding: 7px 6px 0 0;
-  }
-
-  .menu0804 .landChoice .landForm .btnName input {
-    width: 388px;
-  }
-
-  .menu0804 .landChoice .landForm .btnShape div {
-    padding: 10px 0 0 0;
-    display: flex;
-    align-items: center;
-  }
-
-  .menu0804 .landChoice .landForm .btnShape div input[type="radio"] + label {
-    padding: 0 29px 0 25px;
-  }
-
-  .menu0804 .landChoice .landForm table input[type="checkbox"] + label{
-    display: inline-block;
-    transform: translate(-5px, -9px);
-  }
-
-
-  .menu0804 .landChoice .landForm table input[type="checkbox"],
-  .menu0804 .landChoice .landForm .agreeBox input[type="checkbox"],
-  .menu0804 .landChoice .landForm .btnShape input[type="radio"] {
-    display: none;
-  } 
-
-  .menu0804 .landChoice .landForm table input[type="checkbox"] + label,
-  .menu0804 .landChoice .landForm .agreeBox input[type="checkbox"] + label,
-  .menu0804 .landChoice .landForm .btnShape input[type="radio"] + label {
-    position: relative;
-  }
-
-  .menu0804 .landChoice .landForm table input[type="checkbox"] + label:before,
-  .menu0804 .landChoice .landForm .agreeBox input[type="checkbox"] + label:before,
-  .menu0804 .landChoice .landForm .btnShape input[type="radio"] + label:before {
-    clear: both;
-    position: absolute;
-    content: "";
-    width: 11px;
-    height: 11px;
-    background: #f6f6f6;
-    border: 1px solid #cbcbcb;
-    border-radius: 2px;
-    left: 0;
-    top: 0;
-  }
-
-  .menu0804 .landChoice .landForm table input[type="checkbox"]:checked + label:after,
-  .menu0804 .landChoice .landForm .agreeBox input[type="checkbox"]:checked + label:after,
-  .menu0804 .landChoice .landForm .btnShape input[type="radio"]:checked + label:after {
-    clear: both;
-    position: absolute;
-    content: "\f00c";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 13px;
-    color: #e25b45;
-    left: 0;
-    top: 0px;
-  }
-  .menu0804 .landChoice .landForm .btnShape input[type="radio"] + label:before,
-  .menu0804 .landChoice .landForm .btnShape input[type="radio"]:checked + label:after{
-    transform: translateY(50%);
-  }
-
-  .menu0804 .landChoice .landForm .btnColor h6 {
-    padding: 6px 7px 0 0 ;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor input {
-    display: none;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor input + label {
-    display: inline-block;
-    width: 27px;
-    height: 27px;
-    margin-right: 10px;
-    position: relative;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor #btn_e50000 + label{
-    background: #e50000;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor #btn_e56e00 + label{
-    background: #e56e00;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor #btn_0077e5 + label{
-    background: #0077e5;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor #btn_aa00e5 + label{
-    background: #aa00e5;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor #btn_350101 + label{
-    background: #350101;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor #btn_291d4b + label{
-    background: #291d4b;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor #btn_a37300 + label{
-    background: #a37300;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor #btn_2a4c05 + label{
-    background: #2a4c05;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor #btn_4e4e4e + label{
-    background: #4e4e4e;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor #btn_000000 + label{
-    background: #000000;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor input:checked + label{
-    border: 1px solid #000;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor input:checked + label:before {
-    clear: both;
-    content: "";
-    width: 23px;
-    height: 23px;
-    border: 1px solid #fff;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-
-  .menu0804 .landChoice .landForm .btnColor input:checked + label:after {
-    clear: both;
-    content: "";
-    width: 21px;
-    height: 21px;
-    border: 1px solid #000;
-    position: absolute;
-    left: 1px;
-    top: 1px;
   }
 
   .menu0804 .landChoice .btnBox {

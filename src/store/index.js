@@ -23,6 +23,18 @@ export default new Vuex.Store({
     , addAreaListObj: []
     , removeAreaListObj: []
 
+    //----------------------------------------------------------------------------------
+    // 랜딩페이지 제작(0802) - 이미지 추가 전역변수 
+    //----------------------------------------------------------------------------------
+    , screenObj: ['','','','','','','','','','']      // 화면 전체 ...
+    , screenList: '' //
+    , landImg01: '' // 이미지 파일
+    , landImgNm01: '' // 이미지 이름 
+    , lendchooseObj: []
+    , lendchoose: ''
+    , viewText: ''  //// 텍스트 내용 추가 시 태그 저장 변수
+
+
   },
   getters: {
     jwtAuthValid: function() {
