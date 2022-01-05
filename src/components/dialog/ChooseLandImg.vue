@@ -7,7 +7,7 @@
       <i class="icon-arrow" @click="ImgUpPage()"></i>
     </h2>
     <div class="upPage">
-      <input class="upload_name" disabled="disabled" v-bind:placeholder="$store.state.lendchooseObj[this.index].landImgNm">
+      <input class="upload_name" disabled="disabled" v-bind:placeholder="$store.state.lendchooseObj[this.$store.state.landObjIndex].landImgNm">
       <input type="file" accept="image/*" id="landImg" class="upload_hidden" ref="upImage01" @change="UploadImg()">
       <label for="landImg">이미지 찾기 <i class="icon-plus1"></i></label>
     </div>
@@ -21,32 +21,24 @@
 
   export default {
 
-
-    data() {
-      return{
-        // index: 0
-      }
-    },
     methods: {
       //******************************************************************************
       // 파일 업로드 시 text박스의 값 및 미리보기로 보여지기
       //******************************************************************************
       UploadImg(){
-
         let imgFiles = {
             tp: ''
           , fileNm: ''
           , descript: ''
           , formDesc: ''
         }
-        console.log(this.index)
 
 
 
         //------------------------------------------------------------------------------
         // 이미지 이름 불러오기
         //------------------------------------------------------------------------------
-        this.$store.state.lendchooseObj[this.index].landImgNm = this.$refs.upImage01.files[0].name;
+        this.$store.state.lendchooseObj[this.$store.state.landObjIndex].landImgNm = this.$refs.upImage01.files[0].name;
 
         //------------------------------------------------------------------------------
         // 이미지 미리보기에 보여지기
@@ -57,7 +49,7 @@
         imgFiles.descript = '';
         imgFiles.formDesc = '';
 
-        this.$set(this.$store.state.screenObj, this.index, imgFiles);
+        this.$set(this.$store.state.screenObj, this.$store.state.landObjIndex, imgFiles);
 
 
       },

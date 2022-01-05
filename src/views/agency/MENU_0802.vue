@@ -83,17 +83,17 @@
       <!------------------------------------------------------------------------------------------------------
        이곳부터 for 루프안에서 이미지/텍스트/폼의 경우를 위해 콤포넌트를 처리한다.
       ------------------------------------------------------------------------------------------------------->
-      <div v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index" @change="ObjIndexNm()">
+      <div v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index">
         <!-- 이미지 -->
-        <div v-if="lendchoose.tp == '01'">
+        <div v-if="lendchoose.tp == '01'" @click="ObjIndexNm(index)">
           <ChooseLandImg></ChooseLandImg>
         </div>
         <!-- 텍스트 -->
-        <div v-if="lendchoose.tp == '02'">
+        <div v-if="lendchoose.tp == '02'" @click="ObjIndexNm(index)">
           <ChooseLandText></ChooseLandText>
         </div>
         <!-- 폼 -->
-        <div v-if="lendchoose.tp == '03'">
+        <div v-if="lendchoose.tp == '03'" @click="ObjIndexNm(index)">
           <ChooseLandForm></ChooseLandForm>
         </div>
       </div>
@@ -214,7 +214,6 @@
 
         let plusObj={};
 
-        plusObj.index = this.$store.state.lendchooseObj.length;
         plusObj.tp = '01'
         plusObj.Nm = ChooseLandImg
         plusObj.landImgNm = ''
