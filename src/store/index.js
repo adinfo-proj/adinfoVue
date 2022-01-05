@@ -32,8 +32,6 @@ export default new Vuex.Store({
     , landImgNm: '' // 이미지 이름 
     , lendchooseObj: []
     , lendchoose: ''
-    , viewText: ''  //// 텍스트 내용 추가 시 태그 저장 변수
-    , landObjIndex: 0
 
 
   },

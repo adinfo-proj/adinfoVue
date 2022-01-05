@@ -2,12 +2,12 @@
   <div class="landText landBox">
     <h2>텍스트 등록
       <i class="icon-x_btn"></i>
-      <i class="icon-arrow" @click="TextUpPage()"></i>
+      <i class="icon-arrow on"></i>
     </h2>
     <div class="upPage">
       <ckeditor v-model="viewText" ref="substance" :config="editorConfig"></ckeditor>
-      <button id="upBtn1" @click="UploadText()">입력하기</button>
-      <button id="modifyBtn1" class="modifyBtn" @click="UploadText()">수정하기</button>
+      <button :id="this.indexNum" @click="UploadText()">입력하기</button>
+      <button :id="'modifyBtn'+this.indexNum" class="modifyBtn" @click="UploadText()">수정하기</button>
     </div>
   </div>
 </template>
@@ -30,8 +30,18 @@
           , height: '150px'
           , language: 'ko'
           , resize_enabled: false
+          , viewText : 'viewText' + this.indexNum
         }
       }
+    },
+    props: {
+      indexNum: Number
+    },
+    mounted() {
+      $(".landText .icon-arrow").click(function(){
+        $(this).toggleClass("on");
+        $(this).parent().parent().find(".upPage").stop().slideToggle(300);
+      })
     },
     methods: {
       //******************************************************************************
@@ -55,22 +65,17 @@
         textBox.descript = this.viewText;
         textBox.formDesc = '';
 
-        this.$set(this.$store.state.screenObj, 0, textBox);
-        let n = 1
+        this.$set(this.$store.state.screenObj, this.indexNum, textBox);
 
-        let viewBtn = `#modifyBtn${n}`;
-        console.log(viewBtn);
-        console.log(this.$store.state.screenObj);
+        let btn1 =  "#" + this.indexNum;
+        let btn2 =  "#modifyBtn" + this.indexNum;
 
-        $("#upBtn1").css({display:"none"});
-        $(viewBtn).css({display:"inline"});
-        n++;
+        $(btn1).css({display:"none"});
+        $(btn2).css({display:"inline"});
+        console.log
+
 
       },
-      TextUpPage() {
-        $(".landText .upPage").slideToggle(300);
-        $(".landText .icon-arrow").toggleClass("on");
-      }
     }
   }
 </script>

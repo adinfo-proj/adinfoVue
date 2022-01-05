@@ -4,12 +4,12 @@
       이미지 등록
       <span>(가로사이즈 800px 필수, 용량 3MB 이하)</span>
       <i class="icon-x_btn"></i>
-      <i class="icon-arrow" @click="ImgUpPage()"></i>
+      <i class="icon-arrow on"></i>
     </h2>
     <div class="upPage">
-      <input class="upload_name" disabled="disabled" v-bind:placeholder="$store.state.lendchooseObj[this.$store.state.landObjIndex].landImgNm">
-      <input type="file" accept="image/*" id="landImg" class="upload_hidden" ref="upImage01" @change="UploadImg()">
-      <label for="landImg">이미지 찾기 <i class="icon-plus1"></i></label>
+      <input class="upload_name" disabled="disabled" v-bind:placeholder="$store.state.lendchooseObj[this.indexNum].landImgNm">
+      <input type="file" accept="image/*" :id="this.indexNum" class="upload_hidden" ref="upImage01" @change="UploadImg()">
+      <label :for="this.indexNum">이미지 찾기 <i class="icon-plus1"></i></label>
     </div>
   </div>
 
@@ -20,12 +20,21 @@
   import $ from 'jquery';
 
   export default {
-
+    props: {
+      indexNum: Number
+    },
+    mounted(){
+      $(".landImg .icon-arrow").click(function(){
+        $(this).toggleClass("on");
+        $(this).parent().parent().find(".upPage").stop().slideToggle(300);
+      })
+    },
     methods: {
       //******************************************************************************
       // 파일 업로드 시 text박스의 값 및 미리보기로 보여지기
       //******************************************************************************
       UploadImg(){
+        console.log(this.indexNum);
         let imgFiles = {
             tp: ''
           , fileNm: ''
@@ -33,12 +42,10 @@
           , formDesc: ''
         }
 
-
-
         //------------------------------------------------------------------------------
         // 이미지 이름 불러오기
         //------------------------------------------------------------------------------
-        this.$store.state.lendchooseObj[this.$store.state.landObjIndex].landImgNm = this.$refs.upImage01.files[0].name;
+        this.$store.state.lendchooseObj[this.indexNum].landImgNm = this.$refs.upImage01.files[0].name;
 
         //------------------------------------------------------------------------------
         // 이미지 미리보기에 보여지기
@@ -49,14 +56,11 @@
         imgFiles.descript = '';
         imgFiles.formDesc = '';
 
-        this.$set(this.$store.state.screenObj, this.$store.state.landObjIndex, imgFiles);
+        this.$set(this.$store.state.screenObj, this.indexNum, imgFiles);
 
 
       },
-      ImgUpPage() {
-        $(".landImg .upPage").slideToggle(300);
-        $(".landImg .icon-arrow").toggleClass("on");
-      }
+
     }
 
     

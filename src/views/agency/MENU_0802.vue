@@ -17,29 +17,6 @@
 
 
 
-
-
-
-
-
-
-      <!-- <div class="formPrev">
-        <form method="post">
-          <input type="text" name="value01" placeholder="이름을 입력하세요.">
-          <input type="text" name="value03" placeholder="나이">				
-          <input type="text" name="value02" placeholder="연락처 '-'없이 입력해주세요.">
-          <div class="checkLine">
-            <input type="radio" name="value04" value="male" id="male"><label for="male">남자</label>
-            <input type="radio" name="value04" value="female" id="female"><label for="female">여자</label>
-          </div>
-          <textarea class="textBox" name="value05" placeholder="문의 내용을 입력해주세요."></textarea>
-          <input type="checkbox" name="agree01" id="agree01">
-          <label for="agree01">개인정보 수집 동의<a href="javascript:void(0)">[보러가기]</a></label>
-          <div class="centerBox">
-            <button>신청하기</button>
-          </div>
-        </form>
-      </div> -->
     </div>    
     <div class="landChoice">
       <div class="basicInfo landBox">
@@ -85,16 +62,16 @@
       ------------------------------------------------------------------------------------------------------->
       <div v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index">
         <!-- 이미지 -->
-        <div v-if="lendchoose.tp == '01'" @click="ObjIndexNm(index)">
-          <ChooseLandImg></ChooseLandImg>
+        <div v-if="lendchoose.tp == '01'">
+          <ChooseLandImg :indexNum="index"></ChooseLandImg>
         </div>
         <!-- 텍스트 -->
-        <div v-if="lendchoose.tp == '02'" @click="ObjIndexNm(index)">
-          <ChooseLandText></ChooseLandText>
+        <div v-if="lendchoose.tp == '02'">
+          <ChooseLandText :indexNum="index"></ChooseLandText>
         </div>
         <!-- 폼 -->
-        <div v-if="lendchoose.tp == '03'" @click="ObjIndexNm(index)">
-          <ChooseLandForm></ChooseLandForm>
+        <div v-if="lendchoose.tp == '03'">
+          <ChooseLandForm :indexNum="index"></ChooseLandForm>
         </div>
       </div>
 
@@ -134,8 +111,6 @@
         <button class="formBtn" @click="FormChooseBtn()">폼 추가</button>
       </div>
       <!-- 수정 사항 -->
-      *미리보기 클릭 시 새로운 창에서 보여집니다.
-      
 
     </div>
   </div>
@@ -170,13 +145,10 @@
           , resize_enabled: false
         }
         , scriptInput: false
-
-
+        , 
       }
     },
     methods: {
-
-
       //******************************************************************************
       // 스크립트 추가 시 텍스트박스 보이는 함수
       //******************************************************************************
@@ -206,23 +178,18 @@
       // 이미지 추가 함수
       //******************************************************************************
       ImgChooseBtn() {
-
         if(this.$store.state.lendchooseObj.length > 9) {
           alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
           return;
         }
 
-        let plusObj={};
+        let plusObj = {};
 
-        plusObj.tp = '01'
-        plusObj.Nm = ChooseLandImg
-        plusObj.landImgNm = ''
+        plusObj.tp        = '01';
+        plusObj.Nm        = ChooseLandImg;
+        plusObj.landImgNm = '';
 
-        
-        
-
-        this.$store.state.lendchooseObj.push(plusObj)
-
+        this.$store.state.lendchooseObj.push(plusObj);
 
         console.log(this.$store.state.lendchooseObj)
       },
