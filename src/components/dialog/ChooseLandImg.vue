@@ -1,34 +1,52 @@
 <template>
   <div class="landImg landBox">
-    <h2>이미지 등록 <span>(가로사이즈 800px 필수, 용량 3MB 이하)</span><i class="icon-x1"></i></h2>
-    <input class="upload_name" disabled="disabled" v-bind:placeholder="landImgNm01">
-    <input type="file" accept="image/*" id="landImg" class="upload_hidden" ref="upImage" @change="UploadImg()">
-    <label for="landImg">이미지 찾기 <i class="icon-plus1"></i></label>
+    <h2>
+      이미지 등록
+      <span>(가로사이즈 800px 필수, 용량 3MB 이하)</span>
+      <i class="icon-x_btn"></i>
+      <i class="icon-arrow" @click="ImgUpPage()"></i>
+    </h2>
+    <div class="upPage">
+      <input class="upload_name" disabled="disabled" v-bind:placeholder="$store.state.lendchooseObj[this.index].landImgNm">
+      <input type="file" accept="image/*" id="landImg" class="upload_hidden" ref="upImage01" @change="UploadImg()">
+      <label for="landImg">이미지 찾기 <i class="icon-plus1"></i></label>
+    </div>
   </div>
 
 </template>
 
 <script>
+  // import axios from "axios";
+  import $ from 'jquery';
+
   export default {
 
+
+    data() {
+      return{
+        // index: 0
+      }
+    },
     methods: {
       //******************************************************************************
       // 파일 업로드 시 text박스의 값 및 미리보기로 보여지기
       //******************************************************************************
       UploadImg(){
+
         let imgFiles = {
             tp: ''
           , fileNm: ''
           , descript: ''
           , formDesc: ''
         }
+        console.log(this.index)
+
 
 
         //------------------------------------------------------------------------------
         // 이미지 이름 불러오기
         //------------------------------------------------------------------------------
-        this.landImg01 = this.$refs.upImage01.files;
-        this.landImgNm01 = this.landImg01[0].name;
+        this.$store.state.lendchooseObj[this.index].landImgNm = this.$refs.upImage01.files[0].name;
 
         //------------------------------------------------------------------------------
         // 이미지 미리보기에 보여지기
@@ -39,9 +57,14 @@
         imgFiles.descript = '';
         imgFiles.formDesc = '';
 
-        this.$store.state.screenObj[1] = imgFiles;
+        this.$set(this.$store.state.screenObj, this.index, imgFiles);
+
 
       },
+      ImgUpPage() {
+        $(".landImg .upPage").slideToggle(300);
+        $(".landImg .icon-arrow").toggleClass("on");
+      }
     }
 
     
@@ -67,9 +90,22 @@
     color: #e25b45;
   }
 
-  .menu0804 .landChoice .landImg h2 i {
+  .landImg h2 .icon-x_btn {
+    font-size: 14px;
+    margin: 0 10px;
+    display: inline-block;
+    transform: translateY(2px);
+  }
+
+  .landImg h2 .icon-arrow {
+    font-size: 9px;
     float: right;
-    font-size: 13px;
+    transform: translateY(3px);
+    transition: 0.3s;
+  }
+
+  .landImg h2 .icon-arrow.on {
+    transform: rotate(180deg);
   }
 
   .landImg .upload_name {

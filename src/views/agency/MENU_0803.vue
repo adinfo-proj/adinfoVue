@@ -20,54 +20,12 @@
 			<button class="searchDateBtn" @click="getCampaignFullData(1, true)">조회</button>
 		</div>
 		<div class="dailyDataBox">
-			<div class="dailyDataMiddle">
-				<h2 class="dataEm">
-          {{ topArrayListObj.maketerCount }} 3
-				</h2>
-				<p>
-					랜딩페이지 수
-				</p>
-			</div>
-			<div class="dailyDataMiddle">
-				<h2>
-					{{topArrayListObj.todayDbCount}} 122건
-				</h2>
-				<p>
-					DB 접수 건수
-				</p>
-			</div>
-			<div class="dailyDataMiddle">
-				<h2 class="dataEm">
-					{{topArrayListObj.validDbCount}} 325건
-				</h2>
-				<p>
-					DB 노출 건수
-				</p>
-			</div>
-			<div class="dailyDataMiddle">
-				<h2>
-				{{topArrayListObj.invalidDbCount}} 135건
-				</h2>
-				<p>
-					클릭 건수
-				</p>
-			</div>
-      <div class="dailyDataMiddle">
-				<h2 class="dataEm">
-					{{topArrayListObj.allDupDBCount}} 35%
-				</h2>
-				<p>
-					DB 접수율
-				</p>
-			</div>
-			<div class="dailyDataMiddle">
-				<h2>
-					{{topArrayListObj.clickPer}} 15초
-				</h2>
-				<p>
-					랜딩페이지 체류시간(평균)
-				</p>
-			</div>
+			<div class="dailyDataMiddle"><h2 class="dataEm">{{ topArrayListObj.maketerCount }} 3    </h2><p>랜딩페이지 수</p></div>
+			<div class="dailyDataMiddle"><h2>               {{topArrayListObj.todayDbCount  }} 122건</h2><p>DB 접수 건수</p></div>
+			<div class="dailyDataMiddle"><h2 class="dataEm">{{topArrayListObj.validDbCount  }} 325건</h2><p>DB 노출 건수</p></div>
+			<div class="dailyDataMiddle"><h2               >{{topArrayListObj.invalidDbCount}} 135건</h2><p>클릭 건수</p></div>
+      <div class="dailyDataMiddle"><h2 class="dataEm">{{topArrayListObj.allDupDBCount }} 35%  </h2><p>광고주 단가 (합계)</p></div>
+			<div class="dailyDataMiddle"><h2               >{{topArrayListObj.clickPer      }} 15초 </h2><p>마케터 단가 (합계)</p></div>
 		</div>
 		<div class="dailyDataSub">
       <div class="dailyDataTop">
@@ -82,8 +40,6 @@
             </svg>
           </button>
           <select name="" id="" v-model="selectRowCount" @change="getCampaignFullData(1, true)">
-						<option value="2">2개</option>
-						<option value="5">5개</option>
             <option value="10">10개</option>
             <option value="20">20개</option>
             <option value="30">30개</option>
@@ -125,34 +81,38 @@
               <td colspan="8" class="padNone">
                 <div class="dbDataBox">
                   <div class="basicData">
-                    <h6>고객 기본정보</h6>
+                    <h6>입력 데이터</h6>
                     <div>
                       <table>
                         <tr>
-                          <th>식별 ID</th>
-                          <td>{{ campaignFullData.seqNo }}</td>
-                          <th>이름</th>
+                          <th>{{ askList[0] }}</th>
+                          <td>{{ campaignFullData.value01 }}</td>
+                          <th>{{ askList[1] }}</th>
                           <td>{{ campaignFullData.value02 }}</td>
-                          <th>나이</th>
-                          <td></td>
+                          <th>{{ askList[2] }} </th>
+                          <td colspan="3">{{ campaignFullData.value03 }}</td>
                         </tr>
                         <tr>
-                          <th>성별</th>
-                          <td></td>
-                          <th>전화번호</th>
-                          <td colspan="3">{{ campaignFullData.value01 }}</td>
+                          <th>{{ askList[3] }}</th>
+                          <td>{{ campaignFullData.value04 }}</td>
+                          <th>{{ askList[4] }}</th>
+                          <td>{{ campaignFullData.value05 }}</td>
+                          <th>{{ askList[5] }} </th>
+                          <td colspan="3">{{ campaignFullData.value06 }}</td>
                         </tr>
                         <tr>
-                          <th>기타1</th>
-                          <td></td>
-                          <th>기타2</th>
-                          <td></td>
-                          <th>기타3</th>
-                          <td></td>
+                          <th>{{ askList[6] }}</th>
+                          <td>{{ campaignFullData.value07 }}</td>
+                          <th>{{ askList[7] }}</th>
+                          <td>{{ campaignFullData.value08 }}</td>
+                          <th>{{ askList[8] }} </th>
+                          <td colspan="3">{{ campaignFullData.value09 }}</td>
                         </tr>
                         <tr>
-                          <th>메모</th>
-                          <td colspan="5">메모를 기입할 수 있습니다.</td>
+                          <th>{{ askList[9] }}</th>
+                          <td>{{ campaignFullData.value10 }}</td>
+                          <th>메모 </th>
+                          <td colspan="3">{{ campaignFullData.value07 }}</td>
                         </tr>
                       </table>
                     </div>
@@ -163,21 +123,21 @@
                       <table>
                         <tr>
                           <th>유입채널</th>
-                          <td>*****</td>
+                          <td>••••</td>
                           <th>접수지역</th>
-                          <td>*****</td>
+                          <td>••••</td>
                         </tr>
                         <tr>
                           <th>유입URL</th>
-                          <td colspan="3">*****</td>
+                          <td colspan="3">•••••</td>
                         </tr>
                         <tr>
                           <th>2차전환 체크</th>
-                          <td colspan="3">*****</td>
+                          <td colspan="3">•••••</td>
                         </tr>
                         <tr>
                           <th>접수기기</th>
-                          <td colspan="3">**{**}</td>
+                          <td colspan="3">••••{••••}</td>
                         </tr>
                       </table>
                     </div>
@@ -189,7 +149,7 @@
           <tfoot>
             <tr>
               <td class="dataBtn" colspan="8">
-                <span class="pageleft" @click="getCampaignFullData(curPage - 1, false)"><i class="icon-chevron-left"></i></span>
+                <span class="pageleft" @click="getCampaignFullData(curPage - 1, false)"><i class="fas fa-angle-left"></i></span>
                 <div class="pageNum">
                   <ul>
                     <li class="pageBtn" 
@@ -201,7 +161,7 @@
                     </li>
                   </ul>
                 </div>
-                <span class="pageright" @click="getCampaignFullData(curPage + 1, false)"><i class="icon-chevron-right"></i></span>
+                <span class="pageright" @click="getCampaignFullData(curPage + 1, false)"><i class="fas fa-angle-right"></i></span>
               </td>
             </tr>
           </tfoot>
@@ -231,6 +191,7 @@
 				, campSelect: 1000
         , roundCount: 0
         , curRunTotalPages: 100000000
+				, askList: ''
 			}
 		},
 		methods: {
@@ -268,7 +229,7 @@
 			// 상단 합산 정보 조회
 			//******************************************************************************
 			getCampaignTopLst() {
-				axios.get("http://api.adinfo.co.kr:30000:30000/DataCenter/TopSummary", 
+				axios.get("http://api.adinfo.co.kr:30000/DataCenter/TopSummary", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -301,7 +262,7 @@
 				this.dbSelectData = null;
 				this.curPage = selectPage;        
 
-				axios.get("http://api.adinfo.co.kr:30000/GetCpaDataForAll", 
+				axios.get("http://api.adinfo.co.kr:30000/GetCpaDataForAll",
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -315,7 +276,10 @@
 					}
 				})
 				.then(response => {
-					this.campaignFullDataObj = response.data;
+					this.askList = response.data[0][0].askList.split(',');
+					this.campaignFullDataObj = response.data[1];
+					
+					console.log(this.askList);
 
 					//------------------------------------------------------------------------------
 					// 페이지 정보 조회
@@ -410,7 +374,7 @@
 					this.serchDataFromDt = this.$DateAdd(-6);
 					this.serchDataToDt   = this.$DateAdd(0);
 				}
-        else if(pos == 5) {
+				else if(pos == 5) {
 					this.serchDataFromDt = this.$DateAdd(-30);
 					this.serchDataToDt   = this.$DateAdd(0);
 				}
@@ -819,20 +783,16 @@
     padding: 20px 0 40px;
     text-align: center;
   }
-  .dailyDataSub .dailySub table tfoot td .pageleft i,
-  .dailyDataSub .dailySub table tfoot td .pageright i {
+  .dailyDataSub .dailySub table tfoot td .fas {
     display: inline-block;
     width: 25px;
     height: 25px;
     border: 1px solid #e4e4e4;
     color: #c6c6c6;
-    font-size: 13px;
-    text-align: center;
-    padding: 5px 0;
-    margin: 0 8px;
-    transform: translateY(1px);
+    font-size: 20px;
+    padding: 2px 7px;
+    transform: translateY(2px);
   }
-  
   .dailyDataSub .dailySub table tfoot td .pageNum {
     display: inline-block;
   }

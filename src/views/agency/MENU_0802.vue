@@ -10,7 +10,20 @@
         <div v-if="screenList.tp == '02'" v-html="screenList.descript">
         </div>
       </div>
-      <div class="formPrev">
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- <div class="formPrev">
         <form method="post">
           <input type="text" name="value01" placeholder="이름을 입력하세요.">
           <input type="text" name="value03" placeholder="나이">				
@@ -26,7 +39,7 @@
             <button>신청하기</button>
           </div>
         </form>
-      </div>
+      </div> -->
     </div>    
     <div class="landChoice">
       <div class="basicInfo landBox">
@@ -60,100 +73,29 @@
           <input type="checkbox" name="landScr" id="landScr" v-model="scriptInput" @change="ScriptOn()"
           :checked="scriptInput">
           <label for="landScr"></label>
-          <i class="icon-chevron-down1 on" @click="ScriptUp()"></i>
+          <i class="icon-arrow on" @click="ScriptUp()"></i>
         </p>
         <div class="landScrChecked">
           <textarea class=""></textarea>
         </div>
       </div>
 
-      <!------------------------------------------------------------------------------------------------------------------
+      <!------------------------------------------------------------------------------------------------------
        이곳부터 for 루프안에서 이미지/텍스트/폼의 경우를 위해 콤포넌트를 처리한다.
-      ------------------------------------------------------------------------------------------------------------------->
-      <div v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index">
+      ------------------------------------------------------------------------------------------------------->
+      <div v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index" @change="ObjIndexNm()">
         <!-- 이미지 -->
-        <div v-if="$store.state.lendchooseObj[index].tp == '01'">
+        <div v-if="lendchoose.tp == '01'">
           <ChooseLandImg></ChooseLandImg>
         </div>
         <!-- 텍스트 -->
-        <div v-if="$store.state.lendchooseObj[index].tp == '02'">
+        <div v-if="lendchoose.tp == '02'">
           <ChooseLandText></ChooseLandText>
         </div>
-        <div v-if="$store.state.lendchooseObj[index].tp == '03'">
+        <!-- 폼 -->
+        <div v-if="lendchoose.tp == '03'">
           <ChooseLandForm></ChooseLandForm>
         </div>
-        <!-- 폼 -->
-        <!--
-        <div v-if="$store.state.lendchooseObj[index].tp == '03'">
-          <ChooseLandImg v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index" v-bind:is="lendchoose"></ChooseLandImg>
-        </div>
-        -->
-      </div>
-
-
-
-
-
-
-
-
-
-      <!-- 랜딩페이지 추가되는 내용  -->
-      <!-- <div v-for="(lendchoose, index) in lendchooseObj" :key="index">
-        <div :v-html="lendchooseObj[index]">
-        </div>
-   
-      </div> -->
-
-      
-      
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <!-- <div class="landImg landBox">
-          <h2>이미지 등록 <span>(가로사이즈 800px 필수, 용량 3MB 이하)</span><i class="icon-x1"></i></h2>
-          <input class="upload_name" disabled="disabled" v-bind:placeholder="landImgNm01">
-          <input type="file" accept="image/*" id="landImg01" class="upload_hidden" ref="upImage01" @change="UploadImg()">
-          <label for="landImg01">이미지 찾기 <i class="icon-plus1"></i></label>
-      </div>
-
-
-
-      <div class="landText landBox">
-        <h2>텍스트 등록 <i class="icon-x1"></i></h2>
-        <ckeditor v-model="viewText" ref="substance" :config="editorConfig"></ckeditor>
-        <button id="upBtn1" @click="UploadText()">입력하기</button>
-        <button id="modifyBtn1" class="modifyBtn" @click="UploadText()">수정하기</button>
       </div>
 
 
@@ -166,225 +108,25 @@
 
 
 
-      <div class="landForm landBox">
-        <h2>폼 꾸미기<span>(최대10개항목)</span><i class="icon-x1"></i></h2>
-        <table>
-          <thead>
-            <tr>
-              <th class="formNum">번호</th>
-              <th class="formNm">항목</th>
-              <th class="formType">유형</th>
-              <th class="formCh">필수</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="formNum">01</td>
-              <td class="formNm"><input type="text" value="이름" disabled></td>
-              <td class="formType">
-                <select name="formTypeSel" disabled>
-                  <option value="textForm" selected>입력박스</option>
-                  <option value="radioForm">체크박스</option>
-                  <option value="checkForm">다중체크박스</option>
-                  <option value="selForm">선택박스</option>
-                </select>
-                <input type="text" disabled>
-              </td>
-              <td class="formCh"><input type="checkbox" id="necessary01" checked><label for="necessary01"></label></td>
-            </tr>
-            <tr>
-              <td class="formNum">02</td>
-              <td class="formNm"><input type="text" value="연락처" disabled></td>
-              <td class="formType">
-                <select name="formTypeSel" disabled>
-                  <option value="textForm" selected>입력박스</option>
-                  <option value="radioForm">체크박스</option>
-                  <option value="checkForm">다중체크박스</option>
-                  <option value="selForm">선택박스</option>
-                </select>
-                <input type="text" disabled>
-              </td>
-              <td class="formCh"><input type="checkbox" id="necessary02" checked><label for="necessary02"></label></td>
-            </tr>
-            <tr class="disNone hiddenBox01">
-              <td class="formNum">03</td>
-              <td class="formNm"><input type="text"></td>
-              <td class="formType">
-                <select name="formTypeSel">
-                  <option value="textForm">입력박스</option>
-                  <option value="radioForm">체크박스</option>
-                  <option value="checkForm">다중체크박스</option>
-                  <option value="selForm">선택박스</option>
-                </select>
-                <input type="text" disabled>
-              </td>
-              <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
-            </tr>
-            <tr class="disNone hiddenBox02">
-              <td class="formNum">04</td>
-              <td class="formNm"><input type="text"></td>
-              <td class="formType">
-                <select name="formTypeSel">
-                  <option value="textForm">입력박스</option>
-                  <option value="radioForm">체크박스</option>
-                  <option value="checkForm">다중체크박스</option>
-                  <option value="selForm">선택박스</option>
-                </select>
-                <input type="text" disabled>
-              </td>
-              <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
-            </tr>
-            <tr class="disNone hiddenBox03">
-              <td class="formNum">05</td>
-              <td class="formNm"><input type="text"></td>
-              <td class="formType">
-                <select name="formTypeSel">
-                  <option value="textForm">입력박스</option>
-                  <option value="radioForm">체크박스</option>
-                  <option value="checkForm">다중체크박스</option>
-                  <option value="selForm">선택박스</option>
-                </select>
-                <input type="text" disabled>
-              </td>
-              <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
-            </tr>
-            <tr class="disNone hiddenBox04">
-              <td class="formNum">06</td>
-              <td class="formNm"><input type="text"></td>
-              <td class="formType">
-                <select name="formTypeSel">
-                  <option value="textForm">입력박스</option>
-                  <option value="radioForm">체크박스</option>
-                  <option value="checkForm">다중체크박스</option>
-                  <option value="selForm">선택박스</option>
-                </select>
-                <input type="text" disabled>
-              </td>
-              <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
-            </tr>
-            <tr class="disNone hiddenBox05">
-              <td class="formNum">07</td>
-              <td class="formNm"><input type="text"></td>
-              <td class="formType">
-                <select name="formTypeSel">
-                  <option value="textForm">입력박스</option>
-                  <option value="radioForm">체크박스</option>
-                  <option value="checkForm">다중체크박스</option>
-                  <option value="selForm">선택박스</option>
-                </select>
-                <input type="text" disabled>
-              </td>
-              <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
-            </tr>
-            <tr class="disNone hiddenBox06">
-              <td class="formNum">08</td>
-              <td class="formNm"><input type="text"></td>
-              <td class="formType">
-                <select name="formTypeSel">
-                  <option value="textForm">입력박스</option>
-                  <option value="radioForm">체크박스</option>
-                  <option value="checkForm">다중체크박스</option>
-                  <option value="selForm">선택박스</option>
-                </select>
-                <input type="text" disabled>
-              </td>
-              <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
-            </tr>
-            <tr class="disNone hiddenBox07">
-              <td class="formNum">09</td>
-              <td class="formNm"><input type="text"></td>
-              <td class="formType">
-                <select name="formTypeSel">
-                  <option value="textForm">입력박스</option>
-                  <option value="radioForm">체크박스</option>
-                  <option value="checkForm">다중체크박스</option>
-                  <option value="selForm">선택박스</option>
-                </select>
-                <input type="text" disabled>
-              </td>
-              <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
-            </tr>
-            <tr class="disNone hiddenBox08">
-              <td class="formNum">10</td>
-              <td class="formNm"><input type="text"></td>
-              <td class="formType">
-                <select name="formTypeSel">
-                  <option value="textForm">입력박스</option>
-                  <option value="radioForm">체크박스</option>
-                  <option value="checkForm">다중체크박스</option>
-                  <option value="selForm">선택박스</option>
-                </select>
-                <input type="text" disabled>
-              </td>
-              <td class="formCh"><input type="checkbox" id="necessary02"><label for="necessary02"></label></td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="4">
-                <button>입력항목 <i class="icon-plus1"></i></button>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-        <div class="agreeBox">
-          <input type="checkbox" id="chAgree01">
-          <label for="chAgree01">이용약관 표시</label>
-        </div>
-        <div class="agreeBox">
-          <input type="checkbox" id="chAgree02" checked>
-          <label for="chAgree02">개인 정보 수집 동의 표시
-            <span>(개인정보 수집 동의는 필수입니다.)</span>
-          </label>
-        </div>
-        <div class="agreeBox">
-          <input type="checkbox" id="chAgree03">
-          <label for="chAgree03">광고성 정보 수신동의 표시</label>
-        </div>
-        <div class="agreeBox">
-          <input type="checkbox" id="chAgree04">
-          <label for="chAgree04">개인 정보 제3자 제공 동의 표시</label>
-        </div>
-        <div class="agreeBox">
-          <input type="checkbox" id="chAgree05">
-          <label for="chAgree05">‘전체동의’자동 표시 <span class="colGray">(2개 이상의 동의 표시인 경우)</span> </label>
-        </div>
-        <div class="btnDesignBox btnName">
-          <h6 class="leftBox">신청 버튼 이름</h6>
-          <input type="text" name="sumBtn" id="sumBtn">
-        </div>
-        <div class="btnDesignBox btnShape">
-          <h6>신청버튼 모양 선택</h6>
-          <div>
-            <input type="radio" name="btnShape" id="btn01"><label for="btn01"><img src="../../assets/images/menu0802/btnShape01.png"></label>
-            <input type="radio" name="btnShape" id="btn02"><label for="btn02"><img src="../../assets/images/menu0802/btnShape02.png"></label>
-            <input type="radio" name="btnShape" id="btn03"><label for="btn03"><img src="../../assets/images/menu0802/btnShape03.png"></label>
-          </div>
-        </div>
-        <div class="btnDesignBox btnColor">
-          <h6 class="leftBox">신청버튼 모양 선택</h6>
-          <input type="radio" name="btnColor" id="btn_e50000">
-          <label for="btn_e50000"></label>
-          <input type="radio" name="btnColor" id="btn_e56e00">
-          <label for="btn_e56e00"></label>
-          <input type="radio" name="btnColor" id="btn_0077e5">
-          <label for="btn_0077e5"></label>
-          <input type="radio" name="btnColor" id="btn_aa00e5">
-          <label for="btn_aa00e5"></label>
-          <input type="radio" name="btnColor" id="btn_350101">
-          <label for="btn_350101"></label>
-          <input type="radio" name="btnColor" id="btn_291d4b">
-          <label for="btn_291d4b"></label>
-          <input type="radio" name="btnColor" id="btn_a37300">
-          <label for="btn_a37300"></label>
-          <input type="radio" name="btnColor" id="btn_2a4c05">
-          <label for="btn_2a4c05"></label>
-          <input type="radio" name="btnColor" id="btn_4e4e4e">
-          <label for="btn_4e4e4e"></label>
-          <input type="radio" name="btnColor" id="btn_000000">
-          <label for="btn_000000"></label>
-        </div>			
-      </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
       <div class="btnBox">
         <button class="saveBtn">미리보기</button>
         <button class="imgBtn" @click="ImgChooseBtn()">이미지 추가</button>
@@ -441,10 +183,10 @@
       ScriptOn() {
         if(this.scriptInput == true) {
           $(".landScr .landScrChecked").slideDown(300);
-          $(".landScr .icon-chevron-down1").removeClass("on");
+          $(".landScr .icon-arrow").removeClass("on");
         }else{
           $(".landScr .landScrChecked").slideUp(300);
-          $(".landScr .icon-chevron-down1").addClass("on");
+          $(".landScr .icon-arrow").addClass("on");
         }
       },
 
@@ -457,7 +199,7 @@
         }
 
         $(".landScr .landScrChecked").slideToggle(300);
-        $(".landScr .icon-chevron-down1").toggleClass("on");
+        $(".landScr .icon-arrow").toggleClass("on");
 
       },
       //******************************************************************************
@@ -472,8 +214,12 @@
 
         let plusObj={};
 
+        plusObj.index = this.$store.state.lendchooseObj.length;
         plusObj.tp = '01'
         plusObj.Nm = ChooseLandImg
+        plusObj.landImgNm = ''
+
+        
         
 
         this.$store.state.lendchooseObj.push(plusObj)
@@ -523,6 +269,14 @@
 
         console.log(this.$store.state.lendchooseObj)
       },
+      //******************************************************************************
+      // 인덱스 값 불러오기
+      //******************************************************************************
+      ObjIndexNm(index) {
+        console.log(index);
+        this.$store.state.landObjIndex = index
+        console.log("test")
+      }
 
     },
     created() {
@@ -708,13 +462,14 @@
     padding: 21px 18px;
   }
 
-  .menu0804 .landChoice .landScr p i {
+  .menu0804 .landChoice .landScr p .icon-arrow {
     float: right;
-    font-size: 18px;
+    font-size: 9px;
     transition: 0.3s;
+    transform: translateY(3px);
   }
 
-  .menu0804 .landChoice .landScr p i.on {
+  .menu0804 .landChoice .landScr p .icon-arrow.on {
     transform: rotate(180deg);
   }
 

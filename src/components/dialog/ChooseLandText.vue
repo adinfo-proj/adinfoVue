@@ -1,9 +1,14 @@
 <template>
   <div class="landText landBox">
-    <h2>텍스트 등록 <i class="icon-x1"></i></h2>
-    <ckeditor v-model="viewText" ref="substance" :config="editorConfig"></ckeditor>
-    <button id="upBtn1" @click="UploadText()">입력하기</button>
-    <button id="modifyBtn1" class="modifyBtn" @click="UploadText()">수정하기</button>
+    <h2>텍스트 등록
+      <i class="icon-x_btn"></i>
+      <i class="icon-arrow" @click="TextUpPage()"></i>
+    </h2>
+    <div class="upPage">
+      <ckeditor v-model="viewText" ref="substance" :config="editorConfig"></ckeditor>
+      <button id="upBtn1" @click="UploadText()">입력하기</button>
+      <button id="modifyBtn1" class="modifyBtn" @click="UploadText()">수정하기</button>
+    </div>
   </div>
 </template>
 
@@ -62,6 +67,10 @@
         n++;
 
       },
+      TextUpPage() {
+        $(".landText .upPage").slideToggle(300);
+        $(".landText .icon-arrow").toggleClass("on");
+      }
     }
   }
 </script>
@@ -80,9 +89,23 @@
     text-align: left;
   }
 
-  .landText h2 i {
+  .landText h2 .icon-arrow {
+    font-size: 9px;
     float: right;
-    font-size: 13px;
+    transform: translateY(3px);
+    transition: 0.3s;
+  }
+
+  .landText h2 .icon-arrow.on {
+    transform: rotate(180deg);
+  }
+
+
+  .landText h2 .icon-x_btn {
+    font-size: 14px;
+    margin: 0 10px;
+    display: inline-block;
+    transform: translateY(2px);
   }
 
 

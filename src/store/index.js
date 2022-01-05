@@ -28,11 +28,12 @@ export default new Vuex.Store({
     //----------------------------------------------------------------------------------
     , screenObj: ['','','','','','','','','','']      // 화면 전체 ...
     , screenList: '' //
-    , landImg01: '' // 이미지 파일
-    , landImgNm01: '' // 이미지 이름 
+    , landImg: '' // 이미지 파일
+    , landImgNm: '' // 이미지 이름 
     , lendchooseObj: []
     , lendchoose: ''
     , viewText: ''  //// 텍스트 내용 추가 시 태그 저장 변수
+    , landObjIndex: 0
 
 
   },
