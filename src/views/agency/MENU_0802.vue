@@ -3,11 +3,11 @@
     <div class="landPrev">
 
       <!-- 랜딩페이지 미리보기  -->
-      <div v-for="(screenList, index) in $store.state.screenObj" :key="index">
-        <div v-if="$store.state.screenObj[index].tp == '01'">
-          <img :src="$store.state.screenObj[index].fileNm" alt="">
+      <div v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index">
+        <div v-if="$store.state.lendchooseObj[index].tp == '01'">
+          <img :src="$store.state.lendchooseObj[index].fileNm" alt="">
         </div>
-        <div v-if="screenList.tp == '02'" v-html="screenList.descript">
+        <div v-if="lendchoose.tp == '02'" v-html="$store.state.lendchooseObj[index].descript">
         </div>
       </div>
 
@@ -27,12 +27,12 @@
               캠페인 명
             </th>
             <td>
-              <select name="campDis" id="campDis">
-                <option value="none">분류를 선택해 주세요.</option>
-                <option value="value1">test1</option>
-                <option value="value2">test2</option>
-                <option value="value3">test3</option>
-                <option value="value4">test4</option>
+              <select class="campDis" id="campDis" v-model="campaignSelect">
+                <option v-for="(adIndex, index) in campaignList"
+                  :key="index" 
+                  :value="adIndex.adId"
+                  >{{ adIndex.name }}
+                </option>
               </select>
             </td>
             <th>
@@ -118,11 +118,11 @@
 
 <script>
 
-  // import axios from "axios";
-  import $ from 'jquery';
-  import ChooseLandImg from '../../components/dialog/ChooseLandImg.vue'
-  import ChooseLandText from '../../components/dialog/ChooseLandText.vue'
-  import ChooseLandForm from '../../components/dialog/ChooseLandForm.vue'
+  import $              from 'jquery';
+  import axios          from "axios";
+  import ChooseLandImg  from '../../components/dialog/ChooseLandImg.vue';
+  import ChooseLandText from '../../components/dialog/ChooseLandText.vue';
+  import ChooseLandForm from '../../components/dialog/ChooseLandForm.vue';
     
   export default {
     components: {
@@ -145,10 +145,25 @@
           , resize_enabled: false
         }
         , scriptInput: false
-        , 
+        , campaignSelect: ''
+        , campaignList: ''
       }
     },
     methods: {
+      //******************************************************************************
+      // 캠페인 분류(대분류)
+      //******************************************************************************
+      getCampaignAllList() { // 캠페인 분류(대분류)
+        axios.get("http://api.adinfo.co.kr:30000/CampaignAllList")
+        .then(response => {
+          console.log(response);
+          this.campaignSelect = response.data[0].adId;
+          this.campaignList   = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      },
       //******************************************************************************
       // 스크립트 추가 시 텍스트박스 보이는 함수
       //******************************************************************************
@@ -234,21 +249,21 @@
 
 
         console.log(this.$store.state.lendchooseObj)
+        
       },
-      //******************************************************************************
-      // 인덱스 값 불러오기
-      //******************************************************************************
-      ObjIndexNm(index) {
-        console.log(index);
-        this.$store.state.landObjIndex = index
-        console.log("test")
-      }
+
+
+
 
     },
+
+
     created() {
 
       this.$store.state.headerTopTitle = "DBMASTER";
       this.$store.state.headerMidTitle = "랜딩페이지 제작";
+
+      this.getCampaignAllList();
 
     }
   }

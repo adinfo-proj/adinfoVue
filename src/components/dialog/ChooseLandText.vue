@@ -1,7 +1,7 @@
 <template>
   <div class="landText landBox">
     <h2>텍스트 등록
-      <i class="icon-x_btn"></i>
+      <i class="icon-x_btn" @click="DelLandText()"></i>
       <i class="icon-arrow on"></i>
     </h2>
     <div class="upPage">
@@ -58,14 +58,16 @@
           , fileNm: ''
           , descript: ''
           , formDesc: ''
+          , landImgNm: ''
         }
 
         textBox.tp = '02';
         textBox.fileNm = '';
         textBox.descript = this.viewText;
         textBox.formDesc = '';
+        textBox.landImgNm = '';
 
-        this.$set(this.$store.state.screenObj, this.indexNum, textBox);
+        this.$set(this.$store.state.lendchooseObj, this.indexNum, textBox);
 
         let btn1 =  "#" + this.indexNum;
         let btn2 =  "#modifyBtn" + this.indexNum;
@@ -74,7 +76,9 @@
         $(btn2).css({display:"inline"});
         console.log
 
-
+      },
+      DelLandText(){
+        this.$store.state.lendchooseObj.splice(this.indexNum, 1);
       },
     }
   }

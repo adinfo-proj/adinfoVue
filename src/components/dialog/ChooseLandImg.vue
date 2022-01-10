@@ -3,7 +3,7 @@
     <h2>
       이미지 등록
       <span>(가로사이즈 800px 필수, 용량 3MB 이하)</span>
-      <i class="icon-x_btn"></i>
+      <i class="icon-x_btn" @click="DelLandImg()"></i>
       <i class="icon-arrow on"></i>
     </h2>
     <div class="upPage">
@@ -40,25 +40,28 @@
           , fileNm: ''
           , descript: ''
           , formDesc: ''
+          , landImgNm: ''
         }
 
-        //------------------------------------------------------------------------------
-        // 이미지 이름 불러오기
-        //------------------------------------------------------------------------------
-        this.$store.state.lendchooseObj[this.indexNum].landImgNm = this.$refs.upImage01.files[0].name;
-
+        imgFiles.tp = '01';
         //------------------------------------------------------------------------------
         // 이미지 미리보기에 보여지기
         //------------------------------------------------------------------------------
-
-        imgFiles.tp = '01';
         imgFiles.fileNm = URL.createObjectURL(this.$refs.upImage01.files[0]);
         imgFiles.descript = '';
         imgFiles.formDesc = '';
+        //------------------------------------------------------------------------------
+        // 이미지 이름 불러오기
+        //------------------------------------------------------------------------------
+        imgFiles.landImgNm = this.$refs.upImage01.files[0].name;
 
-        this.$set(this.$store.state.screenObj, this.indexNum, imgFiles);
+
+        this.$set(this.$store.state.lendchooseObj, this.indexNum, imgFiles);
 
 
+      },
+      DelLandImg(){
+        this.$store.state.lendchooseObj.splice(this.indexNum, 1);
       },
 
     }

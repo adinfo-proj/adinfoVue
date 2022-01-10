@@ -8,19 +8,19 @@
 					>{{ campaignNameList.name }}
 				</option>
 			</select>
-      <input type="radio" name="searchDay" id="searchToday" class="searchSubDate" @click="ChangeDateRange(1)" checked> <label for="searchToday">오늘</label>
+      <input type="radio" name="searchDay" id="searchToday"     class="searchSubDate" @click="ChangeDateRange(1)" checked> <label for="searchToday">오늘</label>
       <input type="radio" name="searchDay" id="searchYesterday" class="searchSubDate" @click="ChangeDateRange(2)"> <label for="searchYesterday">어제</label>
-      <input type="radio" name="searchDay" id="searchThreeDay" class="searchSubDate" @click="ChangeDateRange(3)"> <label for="searchThreeDay">3일</label>
-      <input type="radio" name="searchDay" id="searchSevenDay" class="searchSubDate" @click="ChangeDateRange(4)"> <label for="searchSevenDay">7일</label>
+      <input type="radio" name="searchDay" id="searchThreeDay"  class="searchSubDate" @click="ChangeDateRange(3)"> <label for="searchThreeDay">3일</label>
+      <input type="radio" name="searchDay" id="searchSevenDay"  class="searchSubDate" @click="ChangeDateRange(4)"> <label for="searchSevenDay">7일</label>
 			<input type="radio" name="searchDay" id="searchthirtyDay" class="searchSubDate" @click="ChangeDateRange(5)"> <label for="searchthirtyDay">30일</label>
-      <input type="radio" name="searchDay" id="searchYear" class="searchSubDate" @click="ChangeDateRange(0)"> <label for="searchYear">1년</label>
+      <input type="radio" name="searchDay" id="searchYear"      class="searchSubDate" @click="ChangeDateRange(0)"> <label for="searchYear">1년</label>
 			조회기간
-      <input type="date" id="searchStartDate1"  v-model="serchDataFromDt"> ~ 
-      <input type="date" id="searchEndDate1" v-model="serchDataToDt">
+      <input type="date" id="searchStartDate1" v-model="serchDataFromDt"> ~ 
+      <input type="date" id="searchEndDate1"   v-model="serchDataToDt">
 			<button class="searchDateBtn" @click="getCampaignFullData(1, true)">조회</button>
 		</div>
 		<div class="dailyDataBox">
-			<div class="dailyDataMiddle"><h2 class="dataEm">{{ topArrayListObj.maketerCount }} 3    </h2><p>랜딩페이지 수</p></div>
+			<div class="dailyDataMiddle"><h2 class="dataEm">{{topArrayListObj.maketerCount  }} 3    </h2><p>랜딩페이지 수</p></div>
 			<div class="dailyDataMiddle"><h2>               {{topArrayListObj.todayDbCount  }} 122건</h2><p>DB 접수 건수</p></div>
 			<div class="dailyDataMiddle"><h2 class="dataEm">{{topArrayListObj.validDbCount  }} 325건</h2><p>DB 노출 건수</p></div>
 			<div class="dailyDataMiddle"><h2               >{{topArrayListObj.invalidDbCount}} 135건</h2><p>클릭 건수</p></div>
@@ -40,10 +40,10 @@
             </svg>
           </button>
           <select name="" id="" v-model="selectRowCount" @change="getCampaignFullData(1, true)">
-            <option value="10">10개</option>
-            <option value="20">20개</option>
-            <option value="30">30개</option>
-            <option value="50">50개</option>
+            <option value="10" >10개</option>
+            <option value="20" >20개</option>
+            <option value="30" >30개</option>
+            <option value="50" >50개</option>
             <option value="100">100개</option>
           </select>
         </div>
@@ -52,19 +52,19 @@
 				<table class="dailySubTable" v-bind:class="{on : 0 == divSelect}">
 					<thead>
 						<tr>
-							<th class="dailyNum">번호</th>
-							<th class="dailyName">캠페인명</th>
+							<th class="dailyNum"   >번호</th>
+							<th class="dailyName"  >캠페인명</th>
 							<th class="maketerCode">랜딩페이지명</th>
-							<th class="inTime">유입 시간</th>
-							<th class="inIP">접수 IP</th>
-							<th class="dbState">광고주단가</th>
-							<th class="dbPrice">마케터단가</th>
-							<th class="inData">메모</th>
+							<th class="inTime"     >유입 시간</th>
+							<th class="inIP"       >접수 IP</th>
+							<th class="dbState"    >광고주단가</th>
+							<th class="dbPrice"    >마케터단가</th>
+							<th class="inData"     >메모</th>
 						</tr>
 					</thead>
 					<tbody v-for="(campaignFullData, index) in campaignFullDataObj"
 						:key="index"
-						>
+          >
 						<tr class="viewTr" @click="DbData(index)" v-bind:class="{dbSelect : index == dbSelectData}">
 							<th class="dailyNum"   >{{ campaignFullData.seqNo   }}</th>
 							<td class="dailyName"  >{{ campaignFullData.caName  }}</td>
@@ -149,7 +149,7 @@
           <tfoot>
             <tr>
               <td class="dataBtn" colspan="8">
-                <span class="pageleft" @click="getCampaignFullData(curPage - 1, false)"><i class="fas fa-angle-left"></i></span>
+                <span class="pageleft" v-if="pageCount > 0" @click="getCampaignFullData(curPage - 1, false)"><i class="fas fa-angle-left"></i></span>
                 <div class="pageNum">
                   <ul>
                     <li class="pageBtn" 
@@ -161,7 +161,7 @@
                     </li>
                   </ul>
                 </div>
-                <span class="pageright" @click="getCampaignFullData(curPage + 1, false)"><i class="fas fa-angle-right"></i></span>
+                <span class="pageright" v-if="pageCount > 0" @click="getCampaignFullData(curPage + 1, false)"><i class="fas fa-angle-right"></i></span>
               </td>
             </tr>
           </tfoot>
@@ -173,7 +173,7 @@
 
 <script>
 	import axios from "axios";
-	import XLSX from 'xlsx';
+	import XLSX  from 'xlsx';
 
 	export default {
 		data() {
@@ -229,28 +229,26 @@
 			// 상단 합산 정보 조회
 			//******************************************************************************
 			getCampaignTopLst() {
-				axios.get("http://api.adinfo.co.kr:30000/DataCenter/TopSummary", 
-				{
-					params: {
-							mbId: this.$store.state.mbId
-						, adId: this.$store.state.adId
-						, caId: this.campSelect
-						, endDt: this.serchDataToDt
-					}
-				})
-				.then(response => {
-					this.topArrayListObj = response.data;
-				})
-				.catch(error => {
-					console.log(error);
-				})
+        // axios.get("http://api.adinfo.co.kr:30000/DataCenter/TopSummary", 
+        // {
+        //   params: {
+        //       mbId: this.$store.state.mbId
+        //     , adId: this.$store.state.adId
+        //     , caId: this.campSelect
+        //     , endDt: this.serchDataToDt
+        //   }
+        // })
+        // .then(response => {
+        //   this.topArrayListObj = response.data;
+        // })
+        // .catch(error => {
+        //   console.log(error);
+        // })
 			},
 			//******************************************************************************
 			// 수집항목 목록
 			//******************************************************************************
 			getCampaignFullData(selectPage, firstSel) {
-        let lastPosition  = this.pageCount[this.pageCount.length-1];
-
         if( firstSel == true) {
           this.curRunTotalPages = 100000000;
         }
@@ -260,7 +258,7 @@
         }
 
 				this.dbSelectData = null;
-				this.curPage = selectPage;        
+				this.curPage = selectPage;
 
 				axios.get("http://api.adinfo.co.kr:30000/GetCpaDataForAll",
 				{
@@ -268,7 +266,7 @@
 							mbId: this.$store.state.mbId
 						, adId: this.$store.state.adId
 						, caId: this.campSelect
-						, ptId: 0
+						, mkId: 0
 						, srtDt: this.serchDataFromDt
 						, endDt: this.serchDataToDt
 						, curPage: selectPage
@@ -278,8 +276,6 @@
 				.then(response => {
 					this.askList = response.data[0][0].askList.split(',');
 					this.campaignFullDataObj = response.data[1];
-					
-					console.log(this.askList);
 
 					//------------------------------------------------------------------------------
 					// 페이지 정보 조회
@@ -290,7 +286,7 @@
 								mbId: this.$store.state.mbId
 							, adId: this.$store.state.adId
 							, caId: this.campSelect
-							, ptId: 0
+							, mkId: 0
 							, srtDt: this.serchDataFromDt
 							, endDt: this.serchDataToDt
 							, curPage: selectPage
@@ -298,42 +294,34 @@
 						}
 					})
 					.then(response => {
+            let arrGab = [];
             let pageUpPage = 0;
+
+            // 전체 페이지의 수를 확인한다.
             this.curRunTotalPages = Math.ceil(response.data.rowTotalCount / this.selectRowCount);
 
-            //--------------------------------------------------------------------
-            // 10페이지 단위로 어디를 조회중인지 확인한다.
-            //   - 예) 12페이지면 10, 35페이지면 30이 된다.
-            //--------------------------------------------------------------------
-            let pageDump = Math.floor(selectPage / 11);
+            // 페이지가 10개 이하이면...
+            if( this.curRunTotalPages < 10) {
+              for(let i = 0; i < this.curRunTotalPages; i++) {
+                arrGab.push(i+1);
+              }
+              this.pageCount = arrGab;
+              return;
+            }
 
             //--------------------------------------------------------------------
             // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
             //--------------------------------------------------------------------
-            if( pageDump == 0) { // 1~10페이지
-              pageUpPage = 0;
-            }
-            else {
-              let selLen = selectPage + '';
-              let pageCut = Math.floor(lastPosition / 10) * 10;
+            let pageCut = Math.floor((selectPage) / 10) * 10;
 
-              if(selLen[selLen.length-1] == '1')
-                if(selLen == 11) {
-                  pageUpPage = pageDump * 10;
-                }
-                else {
-                  pageUpPage = pageDump * pageCut;
-                }
-              else
-                pageUpPage = pageDump * 10;
+            if( (selectPage % 10) == 0 ) {
+              return;
             }
 
             let nLoop = 0;
-            let arrGab = [];
-            for(let i = pageUpPage; i < Math.ceil(response.data.rowTotalCount / this.selectRowCount); i++) {
+            for(let i = pageCut; i < this.curRunTotalPages; i++) {
               if( (nLoop+pageUpPage) >= 10 + pageUpPage)
                 break;
-
               arrGab.push(i+1);
               nLoop++;
             }
@@ -447,7 +435,7 @@
 					myJSON.push(myArr);
 				}
 
-				const workBook = XLSX.utils.book_new();
+				const workBook  = XLSX.utils.book_new();
 				const workSheet = XLSX.utils.json_to_sheet(myJSON);
 				XLSX.utils.book_append_sheet(workBook, workSheet, 'DB 집계 정보');
 				// 파일명은 DB_집계정보_날짜_시간.xlsx 로 처리한다.
@@ -459,7 +447,7 @@
 			this.$store.state.headerMidTitle = "일자별 통계";
 
 			this.getCampaignNameLst();
-			this.getCampaignTopLst();
+//			this.getCampaignTopLst();
 			this.getCampaignFullData(1, true);
 		}
 	}

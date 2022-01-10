@@ -3,7 +3,7 @@
     <h2>
       폼 꾸미기<span>(최대10개항목) </span>
       <span> ({{'상단 폼과 동일합니다. 변경불가.'}})</span>
-      <i class="icon-x_btn"></i>
+      <i class="icon-x_btn" @click="DelLandForm()"></i>
       <i class="icon-arrow" @click="FormUpPage()"></i>
     </h2>
     <div class="upPage">
@@ -275,7 +275,10 @@
       FormUpPage() {
         $(".landForm .upPage").slideToggle(300);
         $(".landForm .icon-arrow").toggleClass("on");
-      }
+      },
+      DelLandForm(){
+        this.$store.state.lendchooseObj.splice(this.indexNum, 1);
+      },
     }
   }
 </script>
