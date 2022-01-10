@@ -9,7 +9,75 @@
         </div>
         <div v-if="lendchoose.tp == '02'" v-html="$store.state.lendchooseObj[index].descript">
         </div>
+
+        <div class="formPrev" v-if="lendchoose.tp == '03'" v-bind="$store.state.lendchooseObj[index].formDesc">
+              <input type="text" name="value01" placeholder="이름을 입력하세요.">
+              <input type="text" name="value02" placeholder="연락처 '-'없이 입력해주세요.">
+              <div v-for="(inObj, index) in $store.state.inputObj" :key="index">
+                <input v-if="inObj.value == 'textForm'" type="text" :placeholder="inObj.name">
+                <input v-if="inObj.value == 'radioForm'" type="radio" >
+                <input v-if="inObj.value == 'checkForm'" type="chechbox" >
+                <select v-if="inObj.value == 'selForm'"></select>
+              </div>
+
+
+
+
+              
+
+
+              <!-- <input type="checkbox" name="agree01" id="agree01"> -->
+
+
+              <!-- <label for="agree01">개인정보 수집 동의<a href="javascript:void(0)">[보러가기]</a></label> -->
+
+
+              <div class="centerBox">
+                <button>신청하기</button>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -124,6 +192,8 @@
   import ChooseLandText from '../../components/dialog/ChooseLandText.vue';
   import ChooseLandForm from '../../components/dialog/ChooseLandForm.vue';
     
+
+
   export default {
     components: {
         ChooseLandImg
@@ -198,11 +268,17 @@
           return;
         }
 
-        let plusObj = {};
+        let plusObj = {
+            tp: ''
+          , Nm: ''
+          , fileNm: ''
+          , descript: ''
+          , formDesc: ''
+          , landImgNm: ''
+        };
 
         plusObj.tp        = '01';
         plusObj.Nm        = ChooseLandImg;
-        plusObj.landImgNm = '';
 
         this.$store.state.lendchooseObj.push(plusObj);
 
@@ -218,7 +294,14 @@
           return;
         }
 
-        let plusObj={};
+        let plusObj = {
+            tp: ''
+          , Nm: ''
+          , fileNm: ''
+          , descript: ''
+          , formDesc: ''
+          , landImgNm: ''
+        };
 
         plusObj.tp = '02'
         plusObj.Nm = ChooseLandText
@@ -238,15 +321,19 @@
           alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
           return;
         }
-
-        let plusObj={};
+        let plusObj = {
+            tp: ''
+          , Nm: ''
+          , fileNm: ''
+          , descript: ''
+          , formDesc: ''
+          , landImgNm: ''
+        };
 
         plusObj.tp = '03'
-        plusObj.Nm = ChooseLandForm
-        
+        plusObj.Nm = ChooseLandForm        
 
         this.$store.state.lendchooseObj.push(plusObj)
-
 
         console.log(this.$store.state.lendchooseObj)
         
@@ -256,8 +343,13 @@
 
 
     },
-
-
+    mounted: function() {
+      this.$watch('this.$store.state.inputObj', function(newVal, oldVal) {
+        console.log("this?");
+        console.log(newVal);
+        console.log(oldVal);
+      })
+    },
     created() {
 
       this.$store.state.headerTopTitle = "DBMASTER";

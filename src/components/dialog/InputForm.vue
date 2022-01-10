@@ -1,17 +1,159 @@
 <template>
-  <tr class="disNone hiddenBox01">
-    <td class="formNum">03</td>
-    <td class="formNm"><input type="text"></td>
-    <td class="formType">
-      <select name="formTypeSel">
+  <tr class="disTable">
+    <td class="formNum">{{this.formConNm+3}}</td>
+    <td class="formNm"><input type="text" v-model="formName" @change="inputTypeVal()"></td>
+    <td class="formType"> 
+      <select v-model="selectVal" @change="inputTypeVal()">
         <option value="textForm">입력박스</option>
         <option value="radioForm">라디오박스</option>
         <option value="checkForm">체크박스</option>
         <option value="selForm">셀렉트박스</option>
       </select>
-      <input type="text" disabled>
+      <input type="text" :disabled="disableForm">
     </td>
-    <td class="formCh"><input type="checkbox" id="necessary03"><label for="necessary03"></label></td>
-    <td  class="formDel"><i class="icon-x1"></i></td>
+    <td class="formCh"><input type="checkbox" :id="'necessary'+this.formConNm"><label :for="'necessary'+this.formConNm"></label></td>
+    <td  class="formDel"><i class="icon-x1" @click="delInput()"></i></td>
   </tr>
 </template>
+<script>
+
+
+  // import $ from 'jquery';
+
+  export default {
+    data() {
+      return{
+          selectVal: ''
+        , disableForm: false
+        , formObj: {}
+        , formName: '' 
+      }
+    },
+    props: {
+      formConNm: Number
+    },
+    methods: {
+      //******************************************************************************
+      // 폼 입력항목 추가 함수
+      //******************************************************************************
+      inputTypeVal() {
+       
+        if(this.selectVal == 'textForm'){
+          this.disableForm = true;
+        }else{
+          this.disableForm = false;
+        }
+
+        //let formObj ={};
+
+        this.formObj.name  = this.formName
+        this.formObj.value = this.selectVal
+
+
+
+
+
+        this.$set(this.$store.state.inputObj, this.formConNm, this.formObj);
+
+
+
+      },
+      //******************************************************************************
+      // 폼 입력항목 제거 함수
+      //******************************************************************************
+      delInput() {
+        this.$store.state.inputObj.splice(this.formConNm, 1);
+      }
+    },
+  }
+</script>
+
+<style>
+  .disTable td,
+  .disTable th {
+    height: 41px;
+  }
+
+  .disTable td {
+    padding: 6px 3px 0 3px;
+    
+  }
+
+  .disTable .formNum,
+  .disTable .formCh,
+  .disTable .formDel {
+    width: 7.65%;
+  }
+
+  .disTable .formNm {
+    width: 20.05%;		
+  }
+
+  .disTable .formType { 
+    width: 52%;
+  }
+
+  .disTable td.formType {
+    text-align: left;
+  }
+
+  .disTable input,
+  .disTable select {
+    padding: 7px 10px;
+    border: 1px solid #e5e5e5;
+  }
+
+  .disTable .formNm input {
+    width: 100%;
+  }
+
+  .disTable .formType input {
+    width: 61.215%;
+  }
+
+  .disTable select {
+    width: 37%;
+    margin-right: 1.785%;
+  }
+
+  .disTable .formDel i {
+    font-size: 15px;
+  }
+
+  .disTable input[type="checkbox"] {
+    display: none;
+  } 
+
+  .disTable input[type="checkbox"] + label{
+    display: inline-block;
+    transform: translate(-5px, -9px);
+    position: relative;
+  }
+
+  .disTable input[type="checkbox"] + label:before {
+    clear: both;
+    position: absolute;
+    content: "";
+    width: 11px;
+    height: 11px;
+    background: #f6f6f6;
+    border: 1px solid #cbcbcb;
+    border-radius: 2px;
+    transform: translateY(-2px);
+    left: 0;
+    top: 0;
+  }
+
+  .disTable input[type="checkbox"]:checked + label:after {
+    clear: both;
+    position: absolute;
+    content: "\f00c";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 13px;
+    color: #e25b45;
+    transform: translateY(-2px);
+    left: 0;
+    top: 0px;
+  }
+</style>

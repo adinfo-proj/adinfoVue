@@ -5,7 +5,7 @@
       <i class="icon-arrow on"></i>
     </h2>
     <div class="upPage">
-      <ckeditor v-model="viewText" ref="substance" :config="editorConfig"></ckeditor>
+      <ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
       <button :id="this.indexNum" @click="UploadText()">입력하기</button>
       <button :id="'modifyBtn'+this.indexNum" class="modifyBtn" @click="UploadText()">수정하기</button>
     </div>
@@ -20,7 +20,8 @@
     data() {
       return {
         editorConfig: {        
-          toolbarGroups: [
+          editorData : '<p>ddd</p>'
+          , toolbarGroups: [
             { name: 'forms' },
             { name: 'basicstyles', groups: [ 'basicstyles'] },
             { name: 'links' },
@@ -30,7 +31,7 @@
           , height: '150px'
           , language: 'ko'
           , resize_enabled: false
-          , viewText : 'viewText' + this.indexNum
+          
         }
       }
     },
@@ -51,7 +52,6 @@
         //------------------------------------------------------------------------------
         // 텍스트 미리보기창에 보여지기
         //------------------------------------------------------------------------------
-        console.log(this.viewText)
 
         let textBox =  {
             tp: ''
@@ -63,7 +63,7 @@
 
         textBox.tp = '02';
         textBox.fileNm = '';
-        textBox.descript = this.viewText;
+        textBox.descript = this.editorData;
         textBox.formDesc = '';
         textBox.landImgNm = '';
 

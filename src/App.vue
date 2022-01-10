@@ -148,7 +148,7 @@
     height: 100%;
     border-right: solid 1px #e5e5e5;
     background: #262626;
-    z-index: 99;
+    z-index: 9999;
   }
 
   .headerLogo {

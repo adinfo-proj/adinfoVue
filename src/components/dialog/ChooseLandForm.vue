@@ -18,8 +18,30 @@
           </tr>
         </thead>
         <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
           <tr>
-            <td class="formNum">01</td>
+            <td class="formNum">1</td>
             <td class="formNm"><input type="text" value="이름" disabled></td>
             <td class="formType">
               <select name="formTypeSel" disabled>
@@ -31,10 +53,10 @@
               <input type="text" disabled>
             </td>
             <td class="formCh"><input type="checkbox" id="necessary01" checked><label for="necessary01"></label></td>
-            <td  class="formDel"><i class="icon-x1"></i></td>
+            <td  class="formDel"></td>
           </tr>
           <tr>
-            <td class="formNum">02</td>
+            <td class="formNum">2</td>
             <td class="formNm"><input type="text" value="연락처" disabled></td>
             <td class="formType">
               <select name="formTypeSel" disabled>
@@ -46,14 +68,43 @@
               <input type="text" disabled>
             </td>
             <td class="formCh"><input type="checkbox" id="necessary02" checked><label for="necessary02"></label></td>
-            <td  class="formDel"><i class="icon-x1"></i></td>
+            <td  class="formDel"></td>
           </tr>
-          <div>
-            dtdtd
-            
-          </div>
 
         </tbody>
+        <tbody  v-for="(inputForm, index) in $store.state.inputObj" :key="index">
+          <InputForm :formConNm="index"></InputForm>
+
+        </tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <tfoot>
           <tr>
             <td colspan="4">
@@ -87,7 +138,7 @@
       </div>
       <div class="btnDesignBox btnName">
         <h6 class="leftBox">신청 버튼 이름</h6>
-        <input type="text" name="sumBtn" id="sumBtn">
+        <input type="text" v-model="sumBtn" id="sumBtn">
       </div>
       <div class="btnDesignBox btnShape">
         <h6>신청버튼 모양 선택</h6>
@@ -99,36 +150,43 @@
       </div>
       <div class="btnDesignBox btnColor">
         <h6 class="leftBox">신청버튼 색상 선택</h6>
-        <input type="radio" name="btnColor" class="btn_e50000" v-model="btnColor01">
+        <input type="radio" name="btnColor" id="btn_e50000" v-model="btnColor01">
         <label for="btn_e50000"></label>
-        <input type="radio" name="btnColor" class="btn_e56e00" v-model="btnColor02">
+        <input type="radio" name="btnColor" id="btn_e56e00" v-model="btnColor02">
         <label for="btn_e56e00"></label>
-        <input type="radio" name="btnColor" class="btn_0077e5" v-model="btnColor03">
+        <input type="radio" name="btnColor" id="btn_0077e5" v-model="btnColor03">
         <label for="btn_0077e5"></label>
-        <input type="radio" name="btnColor" class="btn_aa00e5" v-model="btnColor04">
+        <input type="radio" name="btnColor" id="btn_aa00e5" v-model="btnColor04">
         <label for="btn_aa00e5"></label>
-        <input type="radio" name="btnColor" class="btn_350101" v-model="btnColor05">
+        <input type="radio" name="btnColor" id="btn_350101" v-model="btnColor05">
         <label for="btn_350101"></label>
-        <input type="radio" name="btnColor" class="btn_291d4b" v-model="btnColor06">
+        <input type="radio" name="btnColor" id="btn_291d4b" v-model="btnColor06">
         <label for="btn_291d4b"></label>
-        <input type="radio" name="btnColor" class="btn_a37300" v-model="btnColor07">
+        <input type="radio" name="btnColor" id="btn_a37300" v-model="btnColor07">
         <label for="btn_a37300"></label>
-        <input type="radio" name="btnColor" class="btn_2a4c05" v-model="btnColor08">
+        <input type="radio" name="btnColor" id="btn_2a4c05" v-model="btnColor08">
         <label for="btn_2a4c05"></label>
-        <input type="radio" name="btnColor" class="btn_4e4e4e" v-model="btnColor09">
+        <input type="radio" name="btnColor" id="btn_4e4e4e" v-model="btnColor09">
         <label for="btn_4e4e4e"></label>
-        <input type="radio" name="btnColor" class="btn_000000" v-model="btnColor10">
+        <input type="radio" name="btnColor" id="btn_000000" v-model="btnColor10">
         <label for="btn_000000"></label>
+      </div>
+      <div>
+        <button>폼 등록</button>
       </div>			
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
   // import axios from "axios";
   import $ from 'jquery';
+  import InputForm from '../../components/dialog/InputForm.vue';
 
   export default {
+    components:{
+      InputForm
+    },
     data() {
       return{
           btnColor01: '#e50000'
@@ -141,7 +199,8 @@
         , btnColor08: '#2a4c05'
         , btnColor09: '#4e4e4e'
         , btnColor10: '#000000'
-        , formConNm: 1
+        , inputForm: ''         //
+        , sumBtn: '' // 버튼내용
       }
     },
     methods: {
@@ -149,15 +208,13 @@
       // 폼 입력항목 추가 함수
       //******************************************************************************
       FormContents() {
-        if(this.formConNm > 8 ){
+        if(this.$store.state.inputObj.length > 7 ){
           alert('입력항목은 총 10개까지 가능합니다.')
           return
         }
-
-        $(`.hiddenBox0${this.formConNm}`).css({display:"table-row"});
-        
-        this.formConNm++;
+        this.$store.state.inputObj.push(InputForm)
       },
+
       FormUpPage() {
         $(".landForm .upPage").slideToggle(300);
         $(".landForm .icon-arrow").toggleClass("on");
@@ -300,9 +357,6 @@
     vertical-align: middle;
   }
 
-  .landForm .disNone {
-    display: none;
-  }
 
   .landForm .agreeBox {
     padding: 12px 21px;
@@ -416,6 +470,7 @@
     left: 0;
     top: 0px;
   }
+
   .landForm .btnShape input[type="radio"] + label:before,
   .landForm .btnShape input[type="radio"]:checked + label:after{
     transform: translateY(50%);
@@ -437,43 +492,43 @@
     position: relative;
   }
 
-  .landForm .btnColor .btn_e50000 + label{
+  .landForm .btnColor #btn_e50000 + label{
     background: #e50000;
   }
 
-  .landForm .btnColor .btn_e56e00 + label{
+  .landForm .btnColor #btn_e56e00 + label{
     background: #e56e00;
   }
 
-  .landForm .btnColor .btn_0077e5 + label{
+  .landForm .btnColor #btn_0077e5 + label{
     background: #0077e5;
   }
 
-  .landForm .btnColor .btn_aa00e5 + label{
+  .landForm .btnColor #btn_aa00e5 + label{
     background: #aa00e5;
   }
 
-  .landForm .btnColor .btn_350101 + label{
+  .landForm .btnColor #btn_350101 + label{
     background: #350101;
   }
 
-  .landForm .btnColor .btn_291d4b + label{
+  .landForm .btnColor #btn_291d4b + label{
     background: #291d4b;
   }
 
-  .landForm .btnColor .btn_a37300 + label{
+  .landForm .btnColor #btn_a37300 + label{
     background: #a37300;
   }
 
-  .landForm .btnColor .btn_2a4c05 + label{
+  .landForm .btnColor #btn_2a4c05 + label{
     background: #2a4c05;
   }
 
-  .landForm .btnColor .btn_4e4e4e + label{
+  .landForm .btnColor #btn_4e4e4e + label{
     background: #4e4e4e;
   }
 
-  .landForm .btnColor .btn_000000 + label{
+  .landForm .btnColor #btn_000000 + label{
     background: #000000;
   }
 
