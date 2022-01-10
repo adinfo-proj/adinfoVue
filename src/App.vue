@@ -261,7 +261,11 @@
     height: 50px;
     display: flex;
     justify-content: space-between;
-    align-items: center            ;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 999;
   }
 
 

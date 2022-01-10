@@ -36,27 +36,27 @@
       UploadImg(){
         console.log(this.indexNum);
         let imgFiles = {
-            tp: ''
+            tp: '01'
+          , Nm: this.$store.state.lendchooseObj[this.indexNum].Nm
           , fileNm: ''
           , descript: ''
           , formDesc: ''
           , landImgNm: ''
         }
-
-        imgFiles.tp = '01';
         //------------------------------------------------------------------------------
         // 이미지 미리보기에 보여지기
         //------------------------------------------------------------------------------
         imgFiles.fileNm = URL.createObjectURL(this.$refs.upImage01.files[0]);
-        imgFiles.descript = '';
-        imgFiles.formDesc = '';
         //------------------------------------------------------------------------------
         // 이미지 이름 불러오기
         //------------------------------------------------------------------------------
         imgFiles.landImgNm = this.$refs.upImage01.files[0].name;
-
+        console.log("2")
+        console.log(imgFiles)
 
         this.$set(this.$store.state.lendchooseObj, this.indexNum, imgFiles);
+        console.log("3")
+        console.log(this.$store.state.lendchooseObj[this.indexNum])
 
 
       },

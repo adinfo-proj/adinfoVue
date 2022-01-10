@@ -24,9 +24,9 @@
             <td class="formType">
               <select name="formTypeSel" disabled>
                 <option value="textForm" selected>입력박스</option>
-                <option value="radioForm">체크박스</option>
-                <option value="checkForm">다중체크박스</option>
-                <option value="selForm">선택박스</option>
+                <option value="radioForm">라디오박스</option>
+                <option value="checkForm">체크박스</option>
+                <option value="selForm">셀렉트박스</option>
               </select>
               <input type="text" disabled>
             </td>
@@ -39,135 +39,20 @@
             <td class="formType">
               <select name="formTypeSel" disabled>
                 <option value="textForm" selected>입력박스</option>
-                <option value="radioForm">체크박스</option>
-                <option value="checkForm">다중체크박스</option>
-                <option value="selForm">선택박스</option>
+                <option value="radioForm">라디오박스</option>
+                <option value="checkForm">체크박스</option>
+                <option value="selForm">셀렉트박스</option>
               </select>
               <input type="text" disabled>
             </td>
             <td class="formCh"><input type="checkbox" id="necessary02" checked><label for="necessary02"></label></td>
             <td  class="formDel"><i class="icon-x1"></i></td>
           </tr>
-          <tr class="disNone hiddenBox01">
-            <td class="formNum">03</td>
-            <td class="formNm"><input type="text"></td>
-            <td class="formType">
-              <select name="formTypeSel">
-                <option value="textForm">입력박스</option>
-                <option value="radioForm">체크박스</option>
-                <option value="checkForm">다중체크박스</option>
-                <option value="selForm">선택박스</option>
-              </select>
-              <input type="text" disabled>
-            </td>
-            <td class="formCh"><input type="checkbox" id="necessary03"><label for="necessary03"></label></td>
-            <td  class="formDel"><i class="icon-x1"></i></td>
-          </tr>
-          <tr class="disNone hiddenBox02">
-            <td class="formNum">04</td>
-            <td class="formNm"><input type="text"></td>
-            <td class="formType">
-              <select name="formTypeSel">
-                <option value="textForm">입력박스</option>
-                <option value="radioForm">체크박스</option>
-                <option value="checkForm">다중체크박스</option>
-                <option value="selForm">선택박스</option>
-              </select>
-              <input type="text" disabled>
-            </td>
-            <td class="formCh"><input type="checkbox" id="necessary04"><label for="necessary04"></label></td>
-            <td  class="formDel"><i class="icon-x1"></i></td>
-          </tr>
-          <tr class="disNone hiddenBox03">
-            <td class="formNum">05</td>
-            <td class="formNm"><input type="text"></td>
-            <td class="formType">
-              <select name="formTypeSel">
-                <option value="textForm">입력박스</option>
-                <option value="radioForm">체크박스</option>
-                <option value="checkForm">다중체크박스</option>
-                <option value="selForm">선택박스</option>
-              </select>
-              <input type="text" disabled>
-            </td>
-            <td class="formCh"><input type="checkbox" id="necessary05"><label for="necessary05"></label></td>
-            <td  class="formDel"><i class="icon-x1"></i></td>
-          </tr>
-          <tr class="disNone hiddenBox04">
-            <td class="formNum">06</td>
-            <td class="formNm"><input type="text"></td>
-            <td class="formType">
-              <select name="formTypeSel">
-                <option value="textForm">입력박스</option>
-                <option value="radioForm">체크박스</option>
-                <option value="checkForm">다중체크박스</option>
-                <option value="selForm">선택박스</option>
-              </select>
-              <input type="text" disabled>
-            </td>
-            <td class="formCh"><input type="checkbox" id="necessary06"><label for="necessary06"></label></td>
-            <td  class="formDel"><i class="icon-x1"></i></td>
-          </tr>
-          <tr class="disNone hiddenBox05">
-            <td class="formNum">07</td>
-            <td class="formNm"><input type="text"></td>
-            <td class="formType">
-              <select name="formTypeSel">
-                <option value="textForm">입력박스</option>
-                <option value="radioForm">체크박스</option>
-                <option value="checkForm">다중체크박스</option>
-                <option value="selForm">선택박스</option>
-              </select>
-              <input type="text" disabled>
-            </td>
-            <td class="formCh"><input type="checkbox" id="necessary07"><label for="necessary07"></label></td>
-            <td  class="formDel"><i class="icon-x1"></i></td>
-          </tr>
-          <tr class="disNone hiddenBox06">
-            <td class="formNum">08</td>
-            <td class="formNm"><input type="text"></td>
-            <td class="formType">
-              <select name="formTypeSel">
-                <option value="textForm">입력박스</option>
-                <option value="radioForm">체크박스</option>
-                <option value="checkForm">다중체크박스</option>
-                <option value="selForm">선택박스</option>
-              </select>
-              <input type="text" disabled>
-            </td>
-            <td class="formCh"><input type="checkbox" id="necessary08"><label for="necessary08"></label></td>
-            <td  class="formDel"><i class="icon-x1"></i></td>
-          </tr>
-          <tr class="disNone hiddenBox07">
-            <td class="formNum">09</td>
-            <td class="formNm"><input type="text"></td>
-            <td class="formType">
-              <select name="formTypeSel">
-                <option value="textForm">입력박스</option>
-                <option value="radioForm">체크박스</option>
-                <option value="checkForm">다중체크박스</option>
-                <option value="selForm">선택박스</option>
-              </select>
-              <input type="text" disabled>
-            </td>
-            <td class="formCh"><input type="checkbox" id="necessary09"><label for="necessary09"></label></td>
-            <td  class="formDel"><i class="icon-x1"></i></td>
-          </tr>
-          <tr class="disNone hiddenBox08">
-            <td class="formNum">10</td>
-            <td class="formNm"><input type="text"></td>
-            <td class="formType">
-              <select name="formTypeSel">
-                <option value="textForm">입력박스</option>
-                <option value="radioForm">체크박스</option>
-                <option value="checkForm">다중체크박스</option>
-                <option value="selForm">선택박스</option>
-              </select>
-              <input type="text" disabled>
-            </td>
-            <td class="formCh"><input type="checkbox" id="necessary10"><label for="necessary10"></label></td>
-            <td  class="formDel"><i class="icon-x1"></i></td>
-          </tr>
+          <div>
+            dtdtd
+            
+          </div>
+
         </tbody>
         <tfoot>
           <tr>
@@ -177,15 +62,16 @@
           </tr>
         </tfoot>
       </table>
-      <div class="agreeBox">
-        <input type="checkbox" id="chAgree01">
-        <label for="chAgree01">이용약관 표시</label>
-      </div>
+
       <div class="agreeBox">
         <input type="checkbox" id="chAgree02" checked>
         <label for="chAgree02">개인 정보 수집 동의 표시
           <span>(개인정보 수집 동의는 필수입니다.)</span>
         </label>
+      </div>
+      <div class="agreeBox">
+        <input type="checkbox" id="chAgree01">
+        <label for="chAgree01">이용약관 표시</label>
       </div>
       <div class="agreeBox">
         <input type="checkbox" id="chAgree03">
