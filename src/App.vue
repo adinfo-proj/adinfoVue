@@ -30,7 +30,7 @@
           </span>
         </div>
         <div class="userNamePage">
-          <span>환영합니다. 홍길동 광고주님</span>
+          <span>{{ this.$store.state.clntNm }} ({{ this.$store.state.nickNm }}) 님 </span>
           <svg xmlns="http://www.w3.org/2000/svg" width="31.44" height="31" viewBox="0 0 31.44 31">
             <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="15.72" cy="15.5" rx="15.72" ry="15.5" fill="#eaebec"/>
             <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-346.159 -154.88)" opacity="0.8">
@@ -75,7 +75,6 @@
 
   export default {
     components: {
-      
         AdminMenu
       , AdExcuteMenu
       , SponserMenu
@@ -85,9 +84,7 @@
     },
     data() {
       return {
-          emailId: ''                         // 로그인 아이디
-        , emailPw: ''                         // 로그인 패스워드
-        , todayDt: this.$DateAdd(0),
+        todayDt: this.$DateAdd(0)
       }
     },
     methods: {
@@ -95,12 +92,21 @@
       // 로그아웃 함수
       //******************************************************************************
       LogOut() {
-        // 토큰값을 LocalStorage에 지운다.
-        localStorage.removeItem("email");
-        localStorage.removeItem("token");
-        localStorage.removeItem("grade");
-        this.$router.push({ path : "Login" })
+                // LocalStorage 전체를 지운다.
+        localStorage.clear();
+        this.$router.push({ path : "Login" });
       },
+    },
+    created() {
+      this.$store.state.clntId       = localStorage.getItem("clntId");
+      this.$store.state.clntNm       = localStorage.getItem("clntNm");
+      this.$store.state.nickNm       = localStorage.getItem("nickNm");
+      this.$store.state.jwtAuthToken = localStorage.getItem("token");
+      this.$store.state.adGradeCd    = localStorage.getItem("grade");
+      this.$store.state.mbId         = localStorage.getItem("mbId");
+      this.$store.state.adId         = localStorage.getItem("adId");
+      this.$store.state.mkId         = localStorage.getItem("mkId");
+      this.$store.state.mkCd         = localStorage.getItem("mkCd");
     }
   }
 </script>
@@ -184,10 +190,12 @@
     padding: 15px 20px;
     position: relative;
   }
-
+  /* 나중에 지울 거 */
   .headerNav > ul > li > a > svg {
     transform: translateY(2.5px);
   }
+
+  /* 나중에 지울 거 */
 
   .headerNav > ul > li > ul {
     padding: 10px 0 10px 50px ;
@@ -202,7 +210,13 @@
     color: #999;
     letter-spacing: -0.3px;
     font-weight: 700;
-   
+  }
+
+  .headerNav > ul > li > a > i{
+    font-size: 14px;
+    display: inline-block;
+    transform: translateY(2px);
+    margin-right: 2px;
   }
 
 
@@ -215,10 +229,17 @@
     color: #fff;
   }
 
+  .headerNav > ul > li.on > a > i {
+    color: #fff;
+  }
+
   .headerNav > ul > li:hover > a {
     background: #e25b45;
     color: #fff;
-    /* transition: 0.5s; */
+  }
+
+  .headerNav > ul > li:hover > a > i {
+    color: #fff;
   }
 
   .headerNav > ul > li.on > a:after {

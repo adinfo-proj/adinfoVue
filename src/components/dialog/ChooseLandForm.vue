@@ -171,9 +171,7 @@
         <input type="radio" name="btnColor" id="btn_000000" v-model="btnColor10">
         <label for="btn_000000"></label>
       </div>
-      <div>
-        <button>폼 등록</button>
-      </div>			
+	
     </div>
   </div>
 </template>
@@ -231,10 +229,11 @@
     font-size: 14px; 
     font-weight: bold;
     color: #222;
+    position: relative;
   }
 
   .landForm h2 {
-    padding: 16px 18px 15px 26px;
+    padding: 21px 18px 15px 18px;
   }
 
   .landForm h2 .icon-arrow {
@@ -248,12 +247,16 @@
     transform: rotate(180deg);
   }
 
-
   .landForm h2 .icon-x_btn {
-    font-size: 14px;
+    font-size: 18px;
     margin: 0 10px;
     display: inline-block;
-    transform: translateY(2px);
+    position: absolute;
+    left: -20px;
+    top:  0;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
   }
 
   .landForm table {

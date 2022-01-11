@@ -6,9 +6,9 @@
       <div class="inputBox">
         <div class="leftInput">
             <input type="text" placeholder="이메일을 입력하세요."
-            v-model="emailId">
+            v-model="clntId">
             <input type="password" placeholder="비밀번호를 입력하세요"
-            v-model="emailPw">
+            v-model="clntPw">
         </div>
         <div class="loginBtn">
             <button
@@ -58,8 +58,8 @@ export default {
   },
   data() {
     return {
-        emailId: ''
-      , emailPw: ''
+        clntId: ''
+      , clntPw: ''
     }
   },
   methods: {
@@ -68,28 +68,40 @@ export default {
     //******************************************************************************    
     LogIn() {
       axios.post("http://api.adinfo.co.kr:30000/login", {
-        emailId: this.emailId,
-        emailPw: this.emailPw
+        clntId: this.clntId,
+        clntPw: this.clntPw,
+        siteCode: '01'
       })
       .then(response => {
         console.log(response);
-        // let logStatus = response.data.status
-
         if( response.data.status == "0" ) {
-          this.loginView = false;
-          this.$store.state.emailId = response.data.emailId
+          this.$store.state.clntId       = response.data.clntId
+          this.$store.state.clntNm       = response.data.clntNm
+          this.$store.state.nickNm       = response.data.nickNm
+
           this.$store.state.jwtAuthToken = response.data.authToken
-          this.$store.state.adGradeCd = response.data.gradeCd
+          this.$store.state.adGradeCd    = response.data.gradeCd
+
+          this.$store.state.mbId = response.data.mbId
+          this.$store.state.adId = response.data.adId
+          this.$store.state.mkId = response.data.mkId
+          this.$store.state.mkCd = response.data.mkCd
 
           // 토큰값을 LocalStorage에 저장한다.
-          localStorage.setItem("email", this.$store.state.emailId);
-          localStorage.setItem("token", this.$store.state.jwtAuthToken);
-          localStorage.setItem("grade", this.$store.state.adGradeCd);
+          localStorage.setItem("clntId", this.$store.state.clntId);
+          localStorage.setItem("clntNm", this.$store.state.clntNm);
+          localStorage.setItem("nickNm", this.$store.state.nickNm);
+          localStorage.setItem("token" , this.$store.state.jwtAuthToken);
+          localStorage.setItem("grade" , this.$store.state.adGradeCd);
+
+          localStorage.setItem("mbId"  , this.$store.state.mbId);
+          localStorage.setItem("adId"  , this.$store.state.adId);
+          localStorage.setItem("mkId"  , this.$store.state.mkId);
+          localStorage.setItem("mkCd"  , this.$store.state.mkCd);
 
           if( this.$store.state.adGradeCd == '05' ){
             this.$router.push({ path : "MENU_0801" })
-            
-          }else{
+          } else {
             this.$router.push({ path : "MENU_0000" })
           }
         } else {
@@ -114,7 +126,6 @@ export default {
       $("#searchModar").css({display: "block"})
     }
   }
-
 }
 </script>
 

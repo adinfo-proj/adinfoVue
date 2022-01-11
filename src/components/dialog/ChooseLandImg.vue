@@ -74,6 +74,7 @@
 
   .landImg {
     padding: 21px 18px;
+    position: relative;
   }
 
   .landImg h2 {
@@ -90,10 +91,15 @@
   }
 
   .landImg h2 .icon-x_btn {
-    font-size: 14px;
+    font-size: 18px;
     margin: 0 10px;
     display: inline-block;
-    transform: translateY(2px);
+    position: absolute;
+    left: -20px;
+    top:  0;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
   }
 
   .landImg h2 .icon-arrow {

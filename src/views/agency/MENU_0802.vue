@@ -15,12 +15,45 @@
               <input type="text" name="value02" placeholder="연락처 '-'없이 입력해주세요.">
               <div v-for="(inObj, index) in $store.state.inputObj" :key="index">
                 <input v-if="inObj.value == 'textForm'" type="text" :placeholder="inObj.name">
-                <input v-if="inObj.value == 'radioForm'" type="radio" >
-                <input v-if="inObj.value == 'checkForm'" type="chechbox" >
-                <select v-if="inObj.value == 'selForm'"></select>
+
+                <!-- 라디오 버튼 -->
+                <div v-if="inObj.value == 'radioForm'" class="formInput">
+                  <span class="fornInputName">{{inObj.name}}</span>
+                  <span v-for="index in inObj.lab" :key="index">
+                    <input :id="index" :name="inObj.name" type="radio" >
+                    <label :for="index">{{index}}</label>
+                  </span>  
+                </div>
+                <!-- 체크박스 -->
+                <div v-if="inObj.value == 'checkForm'" class="formInput">
+                  <span class="fornInputName">{{inObj.name}}</span>
+                  <span v-for="index in inObj.lab" :key="index">
+                    <input :id="index" type="checkbox" >
+                    <label :for="index">{{index}}</label>
+                  </span>
+                </div>
+                <!-- 셀렉트박스 -->
+                <div v-if="inObj.value == 'selForm'" class="formInput">
+                  <span class="fornInputName">{{inObj.name}}</span>
+                  <select>
+                    <option v-for="index in inObj.lab" :key="index" :value="index">
+                      {{index}}
+                    </option>
+                  </select>  
+                </div>
+
+
+                <!-- <div v-if="inObj.value == 'checkForm'" class="formInput">
+                  <span class="fornInputName">{{inObj.name}}</span>
+                  <span v-for="index in inObj.lab" :key="index">
+                    <label :for="index">{{index}}</label>
+                    <input :id="index" type="checkbox" >
+                  </span>  
+                </div> -->
+
+                <!-- <input v-if="inObj.value == 'checkForm'" type="chechbox" > -->
+                <!-- <select v-if="inObj.value == 'selForm'"></select> -->
               </div>
-
-
 
 
               
@@ -389,37 +422,72 @@
     padding: 12px 16px;
   }
 
-  .menu0804 .landPrev .formPrev	.checkLine input[type="radio"],
+  .menu0804 .landPrev .formPrev  .formInput {
+    margin-bottom: 25px;
+  }
+
+  .menu0804 .landPrev .formPrev .fornInputName {
+    display: block;
+    font-size: 18px;
+    color: #333;
+    font-weight: 700;
+    width: 20%;
+    height: 100%;
+    margin-top: 10px;
+    padding-left: 10px;
+    position: relative;
+  }
+
+  .menu0804 .landPrev .formPrev .fornInputName:before {
+    clear: both;
+    width: 2px;
+    height: 70%;
+    position: absolute;
+    content: "";
+    background: #c5c5c5;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+
+
+
+  .menu0804 .landPrev .formPrev select{
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .menu0804 .landPrev .formPrev input[type="radio"],
   .menu0804 .landPrev .formPrev	input[type="checkbox"] {
     display: none;
   }
 
-  .menu0804 .landPrev .formPrev	.checkLine label {
+  .menu0804 .landPrev .formPrev label {
     font-size: 16px;
     display: inline-block;
-    width: 76px;
-    margin: 15px 15px 25px 0px ;
+    margin: 10px 10px 0px 0px ;
     position: relative;
     text-align: right;
-    padding-right: 10px;
-    font-weight: 700;
+    padding: 0 10px 0 35px;
   }
 
-  .menu0804 .landPrev .formPrev	input[type="checkbox"] + label {
+  /* .menu0804 .landPrev .formPrev	input[type="checkbox"] + label {
     font-size: 16px;
     display: inline-block;
     margin-bottom: 38px;
-    font-weight: 700;
     position: relative;
     padding-left: 35px;
-  }
+  } */
 
   .menu0804 .landPrev .formPrev	input[type="checkbox"] + label a {
     font-size: 16px;
     margin-left: 5px;
   }
 
-  .menu0804 .landPrev .formPrev	.checkLine input[type="radio"] + label:before,
+  .menu0804 .landPrev .formPrev input[type="radio"] + label:before,
   .menu0804 .landPrev .formPrev	input[type="checkbox"] + label:before {
     clear: both;
     position: absolute;
@@ -434,8 +502,13 @@
     border-radius: 2px;
   }
 
-  .menu0804 .landPrev .formPrev	.checkLine input[type="radio"]:checked + label:after,
-  .menu0804 .landPrev .formPrev	input[type="checkbox"]:checked + label:after {
+  .menu0804 .landPrev .formPrev input[type="radio"] + label:before {
+    border-radius: 50%;
+  }
+
+
+  .menu0804 .landPrev .formPrev	input[type="checkbox"]:checked + label:after,
+  .menu0804 .landPrev .formPrev input[type="radio"]:checked + label:after {
     clear: both;
     position: absolute;
     display: block;
@@ -443,10 +516,23 @@
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     font-size: 15px;
-    left: 7px;
+    left: 6.5px;
     top: 2px;
-    color: #e25b45;
+    color: #4b4b4b;
   }
+
+  /* .menu0804 .landPrev .formPrev input[type="radio"]:checked + label:after {
+    clear: both;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    content: "";
+    border-radius: 50%;
+    display: block;
+    left: 7.49px;
+    top: 4px;
+    background: #858585;
+  } */
 
   .menu0804 .landPrev .formPrev	.textBox {
     width: 100%;

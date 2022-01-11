@@ -149,7 +149,7 @@
           <tfoot>
             <tr>
               <td class="dataBtn" colspan="8">
-                <span class="pageleft" v-if="pageCount > 0" @click="getCampaignFullData(curPage - 1, false)"><i class="fas fa-angle-left"></i></span>
+                <span class="pageleft" v-if="pageCount.length > 0" @click="getCampaignFullData(curPage - 1, false)"><i class="fas fa-angle-left"></i></span>
                 <div class="pageNum">
                   <ul>
                     <li class="pageBtn" 
@@ -161,7 +161,7 @@
                     </li>
                   </ul>
                 </div>
-                <span class="pageright" v-if="pageCount > 0" @click="getCampaignFullData(curPage + 1, false)"><i class="fas fa-angle-right"></i></span>
+                <span class="pageright" v-if="pageCount.length > 0" @click="getCampaignFullData(curPage + 1, false)"><i class="fas fa-angle-right"></i></span>
               </td>
             </tr>
           </tfoot>
@@ -274,6 +274,7 @@
 					}
 				})
 				.then(response => {
+          // 참고해야 할 곳!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					this.askList = response.data[0][0].askList.split(',');
 					this.campaignFullDataObj = response.data[1];
 

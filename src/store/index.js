@@ -8,11 +8,16 @@ export default new Vuex.Store({
     //----------------------------------------------------------------------------------
     // 접속자 정보
     //----------------------------------------------------------------------------------
-      mbId: 20000
-    , adId: 2000
+    clntId: ''                               // 로그인 아이디
+    , clntNm: ''
+    , nickNm: ''
+    , mbId: 0
+    , adId: 0
+    , mkId: 0
+    , mkCd: ''
+
     , adGradeCd: localStorage.getItem("grade")  // 회원 레벨
-    , jwtAuthToken: ''                          // 접속자가 로그인 후 수신받은 TOKEN, (로그인 유효시간)
-    , emailId: ''                               // 로그인 아이디
+    , jwtAuthToken: ''                          // 접속자가 로그인 후 수신받은 TOKEN, (로그인 유효시간)    
 
     , headerTopTitle: "데이터 센터"
     , headerMidTitle: "신규 캠페인 등록"

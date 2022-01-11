@@ -9,7 +9,7 @@
         <option value="checkForm">체크박스</option>
         <option value="selForm">셀렉트박스</option>
       </select>
-      <input type="text" :disabled="disableForm">
+      <input type="text" :disabled="disableForm" v-model="formLabel" @change="inputTypeVal()">
     </td>
     <td class="formCh"><input type="checkbox" :id="'necessary'+this.formConNm"><label :for="'necessary'+this.formConNm"></label></td>
     <td  class="formDel"><i class="icon-x1" @click="delInput()"></i></td>
@@ -27,6 +27,7 @@
         , disableForm: false
         , formObj: {}
         , formName: '' 
+        , formLabel: ''
       }
     },
     props: {
@@ -42,19 +43,22 @@
           this.disableForm = true;
         }else{
           this.disableForm = false;
+          this.formLabel = this.formLabel.split(',');
         }
 
-        //let formObj ={};
-
-        this.formObj.name  = this.formName
-        this.formObj.value = this.selectVal
+        
 
 
 
+
+
+        this.formObj.name  = this.formName ;
+        this.formObj.value = this.selectVal ;
+        this.formObj.lab = this.formLabel
 
 
         this.$set(this.$store.state.inputObj, this.formConNm, this.formObj);
-
+        console.log(this.$store.state.inputObj)
 
 
       },
