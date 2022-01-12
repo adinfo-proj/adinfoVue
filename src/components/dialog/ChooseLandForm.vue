@@ -1,5 +1,5 @@
 <template>
-  <div class="landForm landBox" @change="TTTTTTTTTTTTTTTTT()">
+  <div class="landForm landBox" >
     <h2>
       폼 꾸미기<span>(최대10개항목) </span>
       <span> ({{'상단 폼과 동일합니다. 변경불가.'}})</span>
@@ -126,9 +126,9 @@
         <input type="radio" v-model="subColor" id="btn_000000" value="#000000">
         <label for="btn_000000"></label>
       </div>
-      <!-- <div class="formSub">
-        <button>폼 적용하기</button>
-      </div>	 -->
+      <div class="formSub">
+        <button @click="TTTTTTTTTTTTTTTTT()">폼 적용하기</button>
+      </div>	
     </div>
   </div>
 </template>
@@ -192,7 +192,6 @@
             tp: '03'
           , fileNm: ''
           , descript: ''
-//          , formDesc: '' // 폼에대한 내용
           , landImgNm: ''
           , formDesc: {
               inputBox: this.$store.state.inputObj
@@ -203,12 +202,7 @@
             , btnColor: this.subColor
           }
         }
-
-        console.log("indexNum : " + this.indexNum);
         this.$set(this.$store.state.lendchooseObj, this.indexNum, formObj);
-        console.log(this.$store.state.lendchooseObj)
-        
-
       }
     }
   }

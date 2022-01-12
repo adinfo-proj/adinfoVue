@@ -9,7 +9,7 @@
         <option value="checkForm">체크박스</option>
         <option value="selForm">셀렉트박스</option>
       </select>
-      <input type="text" :disabled="disableForm" v-model="formLabel" @change="inputTypeVal()">
+      <input type="text" :disabled="disableForm" :placeholder="splText" v-model="formLabel" @change="inputTypeVal()">
     </td>
     <td class="formCh"><input type="checkbox" :id="'necessary'+this.formConNm"><label :for="'necessary'+this.formConNm"></label></td>
     <td  class="formDel"><i class="icon-x1" @click="delInput()"></i></td>
@@ -28,6 +28,7 @@
         , formObj: {}
         , formName: '' 
         , formLabel: ''
+        , splText : ''
       }
     },
     props: {
@@ -41,8 +42,10 @@
        
         if(this.selectVal == 'textForm'){
           this.disableForm = true;
+          this.splText = ""
         }else{
           this.disableForm = false;
+          this.splText = "구분은 ','로만 가능합니다."
           this.formLabel = this.formLabel.split(',');
         }
 
@@ -69,6 +72,15 @@
         this.$store.state.inputObj.splice(this.formConNm, 1);
       }
     },
+    watch: {
+      //******************************************************************************
+      // 입력 값에 정규표현식 문자 및 "," 표시
+      //******************************************************************************
+      formLabel : function() { 
+        return this.formLabel = this.formLabel.replace(/[^a-z0-9ㄱ-ㅎ가-힣,]/gi, '');
+      },
+
+    }, 
   }
 </script>
 
