@@ -1,5 +1,5 @@
 <template>
-  <div class="landForm landBox">
+  <div class="landForm landBox" @change="TTTTTTTTTTTTTTTTT()">
     <h2>
       폼 꾸미기<span>(최대10개항목) </span>
       <span> ({{'상단 폼과 동일합니다. 변경불가.'}})</span>
@@ -18,28 +18,6 @@
           </tr>
         </thead>
         <tbody>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          
           <tr>
             <td class="formNum">1</td>
             <td class="formNm"><input type="text" value="이름" disabled></td>
@@ -74,37 +52,7 @@
         </tbody>
         <tbody  v-for="(inputForm, index) in $store.state.inputObj" :key="index">
           <InputForm :formConNm="index"></InputForm>
-
         </tbody>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <tfoot>
           <tr>
             <td colspan="4">
@@ -115,12 +63,19 @@
       </table>
 
       <div class="agreeBox">
-        <input type="checkbox" id="chAgree02" checked>
+        <!-- <input type="checkbox" id="chAgree02" checked>
         <label for="chAgree02">개인 정보 수집 동의 표시
           <span>(개인정보 수집 동의는 필수입니다.)</span>
-        </label>
+        </label> -->
+        <h6>동의 항목 설정</h6>
+        <!-- <label>제목</label> -->
+        <input type="text" id="agreeName" v-model="agreeTitle">
+        <div>
+          <textarea name="" id="" cols="30" rows="10" v-model="agreeCon" placeholder="내용을 입력하세요"></textarea>
+          <button @click="PrivacyText()">개인 정보 제공 동의 불러오기</button>
+        </div>
       </div>
-      <div class="agreeBox">
+      <!-- <div class="agreeBox">
         <input type="checkbox" id="chAgree01">
         <label for="chAgree01">이용약관 표시</label>
       </div>
@@ -134,8 +89,8 @@
       </div>
       <div class="agreeBox">
         <input type="checkbox" id="chAgree05">
-        <label for="chAgree05">‘전체동의’자동 표시 <span class="colGray">(2개 이상의 동의 표시인 경우)</span> </label>
-      </div>
+        <label for="chAgree05">‘전체동의’자동 표시 <span class="colGray">(2개 이상인 경우 )</span> </label>
+      </div> -->
       <div class="btnDesignBox btnName">
         <h6 class="leftBox">신청 버튼 이름</h6>
         <input type="text" v-model="sumBtn" id="sumBtn">
@@ -143,35 +98,37 @@
       <div class="btnDesignBox btnShape">
         <h6>신청버튼 모양 선택</h6>
         <div>
-          <input type="radio" name="btnShape" id="btn01"><label for="btn01"><img src="../../assets/images/menu0802/btnShape01.png"></label>
-          <input type="radio" name="btnShape" id="btn02"><label for="btn02"><img src="../../assets/images/menu0802/btnShape02.png"></label>
-          <input type="radio" name="btnShape" id="btn03"><label for="btn03"><img src="../../assets/images/menu0802/btnShape03.png"></label>
+          <input type="radio" v-model="subShape" id="btn01" value="0"><label for="btn01"><img src="../../assets/images/menu0802/btnShape01.png"></label>
+          <input type="radio" v-model="subShape" id="btn02" value="10px"><label for="btn02"><img src="../../assets/images/menu0802/btnShape02.png"></label>
+          <input type="radio" v-model="subShape" id="btn03" value="50px"><label for="btn03"><img src="../../assets/images/menu0802/btnShape03.png"></label>
         </div>
       </div>
       <div class="btnDesignBox btnColor">
         <h6 class="leftBox">신청버튼 색상 선택</h6>
-        <input type="radio" name="btnColor" id="btn_e50000" v-model="btnColor01">
+        <input type="radio" v-model="subColor" id="btn_e50000" value="#e50000">
         <label for="btn_e50000"></label>
-        <input type="radio" name="btnColor" id="btn_e56e00" v-model="btnColor02">
+        <input type="radio" v-model="subColor" id="btn_e56e00" value="#e56e00">
         <label for="btn_e56e00"></label>
-        <input type="radio" name="btnColor" id="btn_0077e5" v-model="btnColor03">
+        <input type="radio" v-model="subColor" id="btn_0077e5" value="#0077e5">
         <label for="btn_0077e5"></label>
-        <input type="radio" name="btnColor" id="btn_aa00e5" v-model="btnColor04">
+        <input type="radio" v-model="subColor" id="btn_aa00e5" value="#aa00e5">
         <label for="btn_aa00e5"></label>
-        <input type="radio" name="btnColor" id="btn_350101" v-model="btnColor05">
+        <input type="radio" v-model="subColor" id="btn_350101" value="#350101">
         <label for="btn_350101"></label>
-        <input type="radio" name="btnColor" id="btn_291d4b" v-model="btnColor06">
+        <input type="radio" v-model="subColor" id="btn_291d4b" value="#291d4b">
         <label for="btn_291d4b"></label>
-        <input type="radio" name="btnColor" id="btn_a37300" v-model="btnColor07">
+        <input type="radio" v-model="subColor" id="btn_a37300" value="#a37300">
         <label for="btn_a37300"></label>
-        <input type="radio" name="btnColor" id="btn_2a4c05" v-model="btnColor08">
+        <input type="radio" v-model="subColor" id="btn_2a4c05" value="#2a4c05">
         <label for="btn_2a4c05"></label>
-        <input type="radio" name="btnColor" id="btn_4e4e4e" v-model="btnColor09">
+        <input type="radio" v-model="subColor" id="btn_4e4e4e" value="#4e4e4e">
         <label for="btn_4e4e4e"></label>
-        <input type="radio" name="btnColor" id="btn_000000" v-model="btnColor10">
+        <input type="radio" v-model="subColor" id="btn_000000" value="#000000">
         <label for="btn_000000"></label>
       </div>
-	
+      <!-- <div class="formSub">
+        <button>폼 적용하기</button>
+      </div>	 -->
     </div>
   </div>
 </template>
@@ -182,28 +139,26 @@
   import InputForm from '../../components/dialog/InputForm.vue';
 
   export default {
+    props: {
+      indexNum: Number
+    },
     components:{
       InputForm
     },
     data() {
       return{
-          btnColor01: '#e50000'
-        , btnColor02: '#e56e00'
-        , btnColor03: '#0077e5'
-        , btnColor04: '#aa00e5'
-        , btnColor05: '#350101'
-        , btnColor06: '#291d4b'
-        , btnColor07: '#a37300'
-        , btnColor08: '#2a4c05'
-        , btnColor09: '#4e4e4e'
-        , btnColor10: '#000000'
-        , inputForm: ''         //
-        , sumBtn: '' // 버튼내용
+          inputForm: ''         //
+        , sumBtn: '신청하기' // 버튼내용
+        , agreeTitle : '개인 정보 제공 동의' 
+        , agreeCon: ''
+        , subShape: ''
+        , subColor: ''
+
       }
     },
     methods: {
       //******************************************************************************
-      // 폼 입력항목 추가 함수
+      // 폼 입력항목(input) 추가 함수
       //******************************************************************************
       FormContents() {
         if(this.$store.state.inputObj.length > 7 ){
@@ -212,14 +167,49 @@
         }
         this.$store.state.inputObj.push(InputForm)
       },
-
+      //******************************************************************************
+      // 폼 접는 함수
+      //******************************************************************************
       FormUpPage() {
         $(".landForm .upPage").slideToggle(300);
         $(".landForm .icon-arrow").toggleClass("on");
       },
+      //******************************************************************************
+      // 폼 삭제 함수
+      //******************************************************************************
       DelLandForm(){
         this.$store.state.lendchooseObj.splice(this.indexNum, 1);
       },
+
+      PrivacyText() {
+
+      },
+      TTTTTTTTTTTTTTTTT() {
+
+        console.log("wwww")
+
+        let formObj = {
+            tp: '03'
+          , fileNm: ''
+          , descript: ''
+//          , formDesc: '' // 폼에대한 내용
+          , landImgNm: ''
+          , formDesc: {
+              inputBox: this.$store.state.inputObj
+            , priNm : this.agreeTitle
+            , priCon : this.agreeCon
+            , btnNm: this.sumBtn
+            , btmShape: this.subShape
+            , btnColor: this.subColor
+          }
+        }
+
+        console.log("indexNum : " + this.indexNum);
+        this.$set(this.$store.state.lendchooseObj, this.indexNum, formObj);
+        console.log(this.$store.state.lendchooseObj)
+        
+
+      }
     }
   }
 </script>
@@ -362,9 +352,8 @@
 
 
   .landForm .agreeBox {
-    padding: 12px 21px;
+    padding: 4px 21px;
     color: #fff;
-    letter-spacing: -0.3px;
   }
 
   .landForm .btnDesignBox {
@@ -380,7 +369,7 @@
     border-top: 1px solid #e5e5e5;
   }
 
-  .landForm .agreeBox input[type="checkbox"] {
+  /* .landForm .agreeBox input[type="checkbox"] {
     transform: translateY(3px);
   }
 
@@ -396,8 +385,8 @@
 
   .landForm .agreeBox input[type="checkbox"] + label span.colGray {	
     color: #acacac;
-  }
-
+  } */
+  .landForm .agreeBox h6,
   .landForm .btnDesignBox h6 {
     font-size: 14px;
     color: #222;
@@ -407,12 +396,48 @@
     float: left;
   }
 
+  .landForm .agreeBox h6{
+    margin-bottom: 10px;
+  }
+/* 
+
+  .landForm .agreeBox h6, */
   .landForm .btnName h6 {
     padding: 7px 6px 0 0;
   }
 
+  .landForm .agreeBox label {
+    font-size: 14px;
+  }
+
+  .landForm .agreeBox input[type="text"] {
+    width: 100%;
+    /* margin-left: 10px; */
+  }
+
   .landForm .btnName input {
     width: 388px;
+  }
+
+  .landForm .agreeBox div{
+    clear: both;
+    width: 100%;
+    padding-top: 5px;
+    text-align: center;
+  }
+  .landForm .agreeBox div button{
+    width: auto;
+    padding: 5px 10px;
+    margin-top: 5px;
+    
+  }
+
+  .landForm .agreeBox div textarea {
+    margin-top: 10px;
+    width: 100%;
+    height: 130px;
+    resize: none;
+    padding: 10px;
   }
 
   .landForm .btnShape div {
@@ -431,20 +456,20 @@
   }
 
 
+  /* .landForm .agreeBox input[type="checkbox"], */
   .landForm table input[type="checkbox"],
-  .landForm .agreeBox input[type="checkbox"],
   .landForm .btnShape input[type="radio"] {
     display: none;
   } 
 
+  /* .landForm .agreeBox input[type="checkbox"] + label, */
   .landForm table input[type="checkbox"] + label,
-  .landForm .agreeBox input[type="checkbox"] + label,
   .landForm .btnShape input[type="radio"] + label {
     position: relative;
   }
 
+  /* .landForm .agreeBox input[type="checkbox"] + label:before, */
   .landForm table input[type="checkbox"] + label:before,
-  .landForm .agreeBox input[type="checkbox"] + label:before,
   .landForm .btnShape input[type="radio"] + label:before {
     clear: both;
     position: absolute;
@@ -459,8 +484,8 @@
     top: 0;
   }
 
+  /* .landForm .agreeBox input[type="checkbox"]:checked + label:after, */
   .landForm table input[type="checkbox"]:checked + label:after,
-  .landForm .agreeBox input[type="checkbox"]:checked + label:after,
   .landForm .btnShape input[type="radio"]:checked + label:after {
     clear: both;
     position: absolute;
@@ -493,6 +518,7 @@
     height: 27px;
     margin-right: 10px;
     position: relative;
+    transition: 0.3s;
   }
 
   .landForm .btnColor #btn_e50000 + label{
@@ -560,5 +586,10 @@
     left: 1px;
     top: 1px;
   }
+
+    .landForm .formSub {
+      text-align: center;
+      padding: 20px;
+    }
 
 </style>

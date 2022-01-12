@@ -10,6 +10,31 @@
         <div v-if="lendchoose.tp == '02'" v-html="$store.state.lendchooseObj[index].descript">
         </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="formPrev" v-if="lendchoose.tp == '03'" v-bind="$store.state.lendchooseObj[index].formDesc">
               <input type="text" name="value01" placeholder="이름을 입력하세요.">
               <input type="text" name="value02" placeholder="연락처 '-'없이 입력해주세요.">
@@ -59,14 +84,30 @@
               
 
 
-              <!-- <input type="checkbox" name="agree01" id="agree01"> -->
-
-
-              <!-- <label for="agree01">개인정보 수집 동의<a href="javascript:void(0)">[보러가기]</a></label> -->
+              <input type="checkbox" name="agree01" id="agree01">
+              <label for="agree01">{{lendchoose.formDesc.priNm}}<span @click="PriModal()">[보러가기]</span></label>
 
 
               <div class="centerBox">
-                <button>신청하기</button>
+                <button v-bind:style="{borderRadius:lendchoose.formDesc.btmShape, background:lendchoose.formDesc.btnColor}">{{lendchoose.formDesc.btnNm}}</button>
+              </div>
+
+              <div class="priBox">
+                <span @click="PriCancle()">X</span>
+                <div>
+                  <!-- 나중에 넣을 것????
+                  v-html="lendchoose.formDesc.priCon" -->
+                  <b>[개인정보 수집 및 이용안내]</b><br>
+                  개인정보 수집주체 : (주)피앤비마케팅<br>
+                  개인정보 수집항목 : 성명, 휴대폰, 이메일, IP등을 포함한 고객이 입력한 정보<br>
+                  개인정보 수집 이용목적 : 전화, SMS를 통한 상품안내 및 상담<br>
+                  개인정보보유/이용기간 : 수집일로부터 1년(고객동의 철회시 지체없이 파기)<br>
+                  <br>
+                  <b>[개인정보의 취급 위탁]</b><br>
+                  당사는 서비스 이행 및 향상을 위해 개인정보 취급업무를 전문업체에 위탁 운영하고 있습니다. 또한 개인정보를 안전하게 처리하기 위하여 필요한 사항등을 명확히 규정하고 있으며, 당해 계약 내용을 서면 또는 전자적으로 보관하고 있습니다.<br>
+                  위탁업체 및 위탁업무내용<br>
+                  {{company}} : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>
+                </div>
               </div>
 
 
@@ -140,7 +181,7 @@
               회사명
             </th>
             <td>
-              <input type="text" class="" name="company">
+              <input type="text" class="" v-model="company">
             </td>
           </tr>
         </table>
@@ -250,6 +291,7 @@
         , scriptInput: false
         , campaignSelect: ''
         , campaignList: ''
+        , company : ''// 회사명
       }
     },
     methods: {
@@ -371,7 +413,15 @@
         console.log(this.$store.state.lendchooseObj)
         
       },
-
+      //******************************************************************************
+      // 폼 안에 개인정보 모달 박스 팝업
+      //******************************************************************************
+      PriModal() {
+        $(".menu0804 .landPrev .formPrev .priBox").css({display:'block'})
+      },
+      PriCancle() {
+        $(".menu0804 .landPrev .formPrev .priBox").css({display:'none'})
+      }
 
 
 
@@ -413,6 +463,7 @@
     width: 100%;
     border: 30px solid #3e3e3e;
     padding: 50px;
+    position: relative;
   }
 
   .menu0804 .landPrev .formPrev input[type="text"] {
@@ -556,7 +607,36 @@
     font-size: 28px;
     border-radius: 100px;
     font-weight: 700;
+    margin-top: 15px;
   }
+
+  /* 개인정보 수집 동의 항목 */
+
+  .menu0804 .landPrev .formPrev .priBox {
+    position: absolute;
+    width: 50%;
+    height: 200px;
+    background: #fff;
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%);
+    display: none;
+  }
+
+  .menu0804 .landPrev .formPrev .priBox div {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .menu0804 .landPrev .formPrev .priBox span {
+    position: absolute;
+    right: 25px;
+    top: 5px;
+  }
+
+  /* 개인정보 수집 동의 항목 */
 
   .menu0804 .landChoice {
     width: 525px;

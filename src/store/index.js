@@ -42,6 +42,7 @@ export default new Vuex.Store({
     , inputObj: []  //
 
 
+
   },
   getters: {
     jwtAuthValid: function() {

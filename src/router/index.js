@@ -1,5 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import axios from 'axios';
+
 import LOGIN from "../views/customer/Login";
 
 import MENU_0000 from "../views/agency/MENU_0000.vue";
@@ -25,7 +27,6 @@ import MENU_0804 from "../views/agency/MENU_0804.vue";
 import MENU_0807 from "../views/agency/MENU_0807.vue";
 
 import TEST_etc from "../views/agency/TEST_etc.vue";
-
 
 Vue.use(VueRouter);
 
@@ -169,7 +170,6 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     component: MENU_0807,
     meta: { requiresAuth: true }
   },
-  
   {// POSTBACK 등록 현황
     path: "/TEST_etc",
     name: "TEST_etc",
@@ -184,18 +184,35 @@ const router = new VueRouter({
     routes,
 });
 
-router.beforeEach((to, from, next) => {
-  
+router.beforeEach((to, from, next) => {  
   if (to.matched.some(record => record.meta.requiresAuth)) {
-
-    
-    
     // 이 라우트는 인증이 필요하며 로그인 한 경우 확인하십시오.
     // 그렇지 않은 경우 로그인 페이지로 리디렉션하십시오.
     if (localStorage.getItem("token") == null || localStorage.getItem("token") == '') {
       next('/login')
     } else {
-      next()
+      // api call 후 유효시간 확인
+      axios.get("http://api.adinfo.co.kr:30000/vaildauth",
+      {
+        params: {
+          token: localStorage.getItem("token")
+        }
+      })
+      .then(response => {
+        console.log(response);
+        if(response.data.status == false) {
+          localStorage.clear();
+          next('/login');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+
+        localStorage.clear();
+        next('/login');
+      })
+
+      next();
     }
   } else {
     next() // 반드시 next()를 호출하십시오!
