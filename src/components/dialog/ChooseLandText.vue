@@ -1,5 +1,5 @@
 <template>
-  <div class="landText landBox">
+  <div class="landText landBox" @change="ddddddddddddd(indexNum)">
     <h2>텍스트 등록
       <i class="icon-x_btn" @click="DelLandText()"></i>
       <i class="icon-arrow on"></i>
@@ -19,9 +19,10 @@
   export default {
     data() {
       return {
-        editorConfig: {        
-          editorData : '<p>ddd</p>'
-          , toolbarGroups: [
+
+        
+          editorConfig: {        
+          toolbarGroups: [
             { name: 'forms' },
             { name: 'basicstyles', groups: [ 'basicstyles'] },
             { name: 'links' },
@@ -33,6 +34,8 @@
           , resize_enabled: false
           
         }
+        , editorData : this.$store.state.lendchooseObj[this.indexNum].descript
+          
       }
     },
     props: {
@@ -80,6 +83,12 @@
       DelLandText(){
         this.$store.state.lendchooseObj.splice(this.indexNum, 1);
       },
+
+      
+    },
+    created() {
+
+
     }
   }
 </script>

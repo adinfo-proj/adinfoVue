@@ -1,15 +1,15 @@
 <template>
-  <tr class="disTable">
+  <tr class="disTable" @change="inputTypeVal()">
     <td class="formNum">{{this.formConNm+3}}</td>
-    <td class="formNm"><input type="text" v-model="formName" @change="inputTypeVal()"></td>
+    <td class="formNm"><input type="text" v-model="formName"></td>
     <td class="formType"> 
-      <select v-model="selectVal" @change="inputTypeVal()">
+      <select v-model="selectVal">
         <option value="textForm">입력박스</option>
         <option value="radioForm">라디오박스</option>
         <option value="checkForm">체크박스</option>
         <option value="selForm">셀렉트박스</option>
       </select>
-      <input type="text" :disabled="disableForm" :placeholder="splText" v-model="formLabel" @change="inputTypeVal()">
+      <input type="text" :disabled="disableForm" :placeholder="splText" v-model="formLabel">
     </td>
     <td class="formCh"><input type="checkbox" :id="'necessary'+this.formConNm"><label :for="'necessary'+this.formConNm"></label></td>
     <td  class="formDel"><i class="icon-x1" @click="delInput()"></i></td>
@@ -23,12 +23,12 @@
   export default {
     data() {
       return{
-          selectVal: ''
-        , disableForm: false
-        , formObj: {}
-        , formName: '' 
-        , formLabel: ''
-        , splText : ''
+          formObj: {}
+        , formName: this.$store.state.inputObj[this.formConNm].names
+        , selectVal: this.$store.state.inputObj[this.formConNm].values
+        , formLabel: this.$store.state.inputObj[this.formConNm].lab
+        , disableForm: false // input type="text" 활성화 여부
+        , splText : '' //input type="text" 활성화 시 들어갈 내용
       }
     },
     props: {
@@ -36,7 +36,7 @@
     },
     methods: {
       //******************************************************************************
-      // 폼 입력항목 추가 함수
+      // 폼 변경 시 적용되는
       //******************************************************************************
       inputTypeVal() {
        
@@ -46,22 +46,15 @@
         }else{
           this.disableForm = false;
           this.splText = "구분은 ','로만 가능합니다."
-          this.formLabel = this.formLabel.split(',');
+          //this.formLabel = this.formLabel.split(',');
+          // this.formLabel = this.formLabel;
         }
 
-        
-
-
-
-
-
-        this.formObj.name  = this.formName ;
-        this.formObj.value = this.selectVal ;
+        this.formObj.names  = this.formName ;
+        this.formObj.values = this.selectVal ;
         this.formObj.lab = this.formLabel
 
-
-        this.$set(this.$store.state.inputObj, this.formConNm, this.formObj);
-        console.log(this.$store.state.inputObj)
+        this.$store.state.inputObj[this.formConNm] = this.formObj
 
 
       },

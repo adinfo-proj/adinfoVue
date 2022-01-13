@@ -7,72 +7,74 @@
       <i class="icon-arrow" @click="FormUpPage()"></i>
     </h2>
     <div class="upPage">
-      <table>
-        <thead>
-          <tr>
-            <th class="formNum">번호</th>
-            <th class="formNm">항목</th>
-            <th class="formType">유형</th>
-            <th class="formCh">필수</th>
-            <th class="formDel">삭제</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="formNum">1</td>
-            <td class="formNm"><input type="text" value="이름" disabled></td>
-            <td class="formType">
-              <select name="formTypeSel" disabled>
-                <option value="textForm" selected>입력박스</option>
-                <option value="radioForm">라디오박스</option>
-                <option value="checkForm">체크박스</option>
-                <option value="selForm">셀렉트박스</option>
-              </select>
-              <input type="text" disabled>
-            </td>
-            <td class="formCh"><input type="checkbox" id="necessary01" checked><label for="necessary01"></label></td>
-            <td  class="formDel"></td>
-          </tr>
-          <tr>
-            <td class="formNum">2</td>
-            <td class="formNm"><input type="text" value="연락처" disabled></td>
-            <td class="formType">
-              <select name="formTypeSel" disabled>
-                <option value="textForm" selected>입력박스</option>
-                <option value="radioForm">라디오박스</option>
-                <option value="checkForm">체크박스</option>
-                <option value="selForm">셀렉트박스</option>
-              </select>
-              <input type="text" disabled>
-            </td>
-            <td class="formCh"><input type="checkbox" id="necessary02" checked><label for="necessary02"></label></td>
-            <td  class="formDel"></td>
-          </tr>
+      <div v-bind:class="{secondeForm: this.indexNum == this.$store.state.secForm}">
+        <table>
+          <thead>
+            <tr>
+              <th class="formNum">번호</th>
+              <th class="formNm">항목</th>
+              <th class="formType">유형</th>
+              <th class="formCh">필수</th>
+              <th class="formDel">삭제</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="formNum">1</td>
+              <td class="formNm"><input type="text" value="이름" disabled></td>
+              <td class="formType">
+                <select name="formTypeSel" disabled>
+                  <option value="textForm" selected>입력박스</option>
+                  <option value="radioForm">라디오박스</option>
+                  <option value="checkForm">체크박스</option>
+                  <option value="selForm">셀렉트박스</option>
+                </select>
+                <input type="text" disabled>
+              </td>
+              <td class="formCh"><input type="checkbox" id="necessary01" checked><label for="necessary01"></label></td>
+              <td  class="formDel"></td>
+            </tr>
+            <tr>
+              <td class="formNum">2</td>
+              <td class="formNm"><input type="text" value="연락처" disabled></td>
+              <td class="formType">
+                <select name="formTypeSel" disabled>
+                  <option value="textForm" selected>입력박스</option>
+                  <option value="radioForm">라디오박스</option>
+                  <option value="checkForm">체크박스</option>
+                  <option value="selForm">셀렉트박스</option>
+                </select>
+                <input type="text" disabled>
+              </td>
+              <td class="formCh"><input type="checkbox" id="necessary02" checked><label for="necessary02"></label></td>
+              <td  class="formDel"></td>
+            </tr>
 
-        </tbody>
-        <tbody  v-for="(inputForm, index) in $store.state.inputObj" :key="index">
-          <InputForm :formConNm="index"></InputForm>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="4">
-              <button @click="FormContents()">입력항목 <i class="icon-plus1"></i></button>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+          </tbody>
+          <tbody  v-for="(inputForm, index) in $store.state.inputObj" :key="index">
+            <InputForm :formConNm="index"></InputForm>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">
+                <button @click="FormContents()">입력항목 <i class="icon-plus1"></i></button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
 
-      <div class="agreeBox">
-        <!-- <input type="checkbox" id="chAgree02" checked>
-        <label for="chAgree02">개인 정보 수집 동의 표시
-          <span>(개인정보 수집 동의는 필수입니다.)</span>
-        </label> -->
-        <h6>동의 항목 설정</h6>
-        <!-- <label>제목</label> -->
-        <input type="text" id="agreeName" v-model="agreeTitle">
-        <div>
-          <textarea name="" id="" cols="30" rows="10" v-model="agreeCon" placeholder="내용을 입력하세요"></textarea>
-          <button @click="PrivacyText()">개인 정보 제공 동의 불러오기</button>
+        <div class="agreeBox">
+          <!-- <input type="checkbox" id="chAgree02" checked>
+          <label for="chAgree02">개인 정보 수집 동의 표시
+            <span>(개인정보 수집 동의는 필수입니다.)</span>
+          </label> -->
+          <h6>동의 항목 설정</h6>
+          <!-- <label>제목</label> -->
+          <input type="text" id="agreeName" v-model="agreeTitle" placeholder="동의 항목 제목을 입력해주세요">
+          <div>
+            <textarea name="" id="" cols="30" rows="10" v-model="agreeCon" placeholder="내용을 입력하세요"></textarea>
+            <button @click="PrivacyText()">개인 정보 제공 동의 불러오기</button>
+          </div>
         </div>
       </div>
       <!-- <div class="agreeBox">
@@ -98,36 +100,36 @@
       <div class="btnDesignBox btnShape">
         <h6>신청버튼 모양 선택</h6>
         <div>
-          <input type="radio" v-model="subShape" id="btn01" value="0"><label for="btn01"><img src="../../assets/images/menu0802/btnShape01.png"></label>
-          <input type="radio" v-model="subShape" id="btn02" value="10px"><label for="btn02"><img src="../../assets/images/menu0802/btnShape02.png"></label>
-          <input type="radio" v-model="subShape" id="btn03" value="50px"><label for="btn03"><img src="../../assets/images/menu0802/btnShape03.png"></label>
+          <input type="radio" v-model="subShape" :id="'btn01_'+this.indexNum" value="0"><label :for="'btn01_'+this.indexNum"><img src="../../assets/images/menu0802/btnShape01.png"></label>
+          <input type="radio" v-model="subShape" :id="'btn02_'+this.indexNum" value="10px"><label :for="'btn02_'+this.indexNum"><img src="../../assets/images/menu0802/btnShape02.png"></label>
+          <input type="radio" v-model="subShape" :id="'btn03_'+this.indexNum" value="50px"><label :for="'btn03_'+this.indexNum"><img src="../../assets/images/menu0802/btnShape03.png"></label>
         </div>
       </div>
       <div class="btnDesignBox btnColor">
         <h6 class="leftBox">신청버튼 색상 선택</h6>
-        <input type="radio" v-model="subColor" id="btn_e50000" value="#e50000">
-        <label for="btn_e50000"></label>
-        <input type="radio" v-model="subColor" id="btn_e56e00" value="#e56e00">
-        <label for="btn_e56e00"></label>
-        <input type="radio" v-model="subColor" id="btn_0077e5" value="#0077e5">
-        <label for="btn_0077e5"></label>
-        <input type="radio" v-model="subColor" id="btn_aa00e5" value="#aa00e5">
-        <label for="btn_aa00e5"></label>
-        <input type="radio" v-model="subColor" id="btn_350101" value="#350101">
-        <label for="btn_350101"></label>
-        <input type="radio" v-model="subColor" id="btn_291d4b" value="#291d4b">
-        <label for="btn_291d4b"></label>
-        <input type="radio" v-model="subColor" id="btn_a37300" value="#a37300">
-        <label for="btn_a37300"></label>
-        <input type="radio" v-model="subColor" id="btn_2a4c05" value="#2a4c05">
-        <label for="btn_2a4c05"></label>
-        <input type="radio" v-model="subColor" id="btn_4e4e4e" value="#4e4e4e">
-        <label for="btn_4e4e4e"></label>
-        <input type="radio" v-model="subColor" id="btn_000000" value="#000000">
-        <label for="btn_000000"></label>
+        <input type="radio" v-model="subColor" :id="'btn_e50000_'+this.indexNum" class="btn_e50000" value="#e50000">
+        <label :for="'btn_e50000_'+this.indexNum"></label>
+        <input type="radio" v-model="subColor" :id="'btn_e56e00_'+this.indexNum" class="btn_e56e00" value="#e56e00">
+        <label :for="'btn_e56e00_'+this.indexNum"></label>
+        <input type="radio" v-model="subColor" :id="'btn_0077e5_'+this.indexNum" class="btn_0077e5" value="#0077e5">
+        <label :for="'btn_0077e5_'+this.indexNum"></label>
+        <input type="radio" v-model="subColor" :id="'btn_aa00e5_'+this.indexNum" class="btn_aa00e5" value="#aa00e5">
+        <label :for="'btn_aa00e5_'+this.indexNum"></label>
+        <input type="radio" v-model="subColor" :id="'btn_350101_'+this.indexNum" class="btn_350101" value="#350101">
+        <label :for="'btn_350101_'+this.indexNum"></label>
+        <input type="radio" v-model="subColor" :id="'btn_291d4b_'+this.indexNum" class="btn_291d4b" value="#291d4b">
+        <label :for="'btn_291d4b_'+this.indexNum"></label>
+        <input type="radio" v-model="subColor" :id="'btn_a37300_'+this.indexNum" class="btn_a37300" value="#a37300">
+        <label :for="'btn_a37300_'+this.indexNum"></label>
+        <input type="radio" v-model="subColor" :id="'btn_2a4c05_'+this.indexNum" class="btn_2a4c05" value="#2a4c05">
+        <label :for="'btn_2a4c05_'+this.indexNum"></label>
+        <input type="radio" v-model="subColor" :id="'btn_4e4e4e_'+this.indexNum" class="btn_4e4e4e" value="#4e4e4e">
+        <label :for="'btn_4e4e4e_'+this.indexNum"></label>
+        <input type="radio" v-model="subColor" :id="'btn_000000_'+this.indexNum" class="btn_000000" value="#000000">
+        <label :for="'btn_000000_'+this.indexNum"></label>
       </div>
       <div class="formSub">
-        <button @click="TTTTTTTTTTTTTTTTT()">폼 적용하기</button>
+        <button @click="FormApp()">폼 적용하기</button>
       </div>	
     </div>
   </div>
@@ -149,8 +151,8 @@
       return{
           inputForm: ''         //
         , sumBtn: '신청하기' // 버튼내용
-        , agreeTitle : '개인 정보 제공 동의' 
-        , agreeCon: ''
+        , agreeTitle : this.$store.state.lendchooseObj[this.indexNum].formDesc.priNm
+        , agreeCon: this.$store.state.lendchooseObj[this.indexNum].formDesc.priCon
         , subShape: ''
         , subColor: ''
 
@@ -182,13 +184,16 @@
       },
 
       PrivacyText() {
+        this.agreeCon = `<b>[개인정보 수집 및 이용안내]</b><br>개인정보 수집주체 : ${this.$store.state.company}<br>개인정보 수집항목 : 성명, 휴대폰, 이메일, IP등을 포함한 고객이 입력한 정보<br>개인정보 수집 이용목적 : 전화, SMS를 통한 상품안내 및 상담<br>개인정보보유/이용기간 : 수집일로부터 1년(고객동의 철회시 지체없이 파기)<br><br><b>[개인정보의 취급 위탁]</b><br>당사는 서비스 이행 및 향상을 위해 개인정보 취급업무를 전문업체에 위탁 운영하고 있습니다. 또한 개인정보를 안전하게 처리하기 위하여 필요한 사항등을 명확히 규정하고 있으며, 당해 계약 내용을 서면 또는 전자적으로 보관하고 있습니다.<br>위탁업체 및 위탁업무내용<br>${this.$store.state.company} : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>`
+        $(".agreeBox div").slideUp(0);
 
       },
-      TTTTTTTTTTTTTTTTT() {
+      //******************************************************************************
+      // 폼 적용되는 함수
+      //******************************************************************************
+      FormApp() {
 
-        console.log("wwww")
-
-        let formObj = {
+        let formviewObj = {
             tp: '03'
           , fileNm: ''
           , descript: ''
@@ -202,13 +207,20 @@
             , btnColor: this.subColor
           }
         }
-        this.$set(this.$store.state.lendchooseObj, this.indexNum, formObj);
+        this.$set(this.$store.state.lendchooseObj, this.indexNum, formviewObj);
       }
     }
   }
 </script>
 
 <style scoped>
+  .landForm .secondeForm {
+    visibility: hidden;
+    height: 0px;
+    padding: 0;
+    margin: 0;
+  }
+
   .landForm h2 {
     font-size: 14px; 
     font-weight: bold;
@@ -515,43 +527,43 @@
     transition: 0.3s;
   }
 
-  .landForm .btnColor #btn_e50000 + label{
+  .landForm .btnColor .btn_e50000 + label{
     background: #e50000;
   }
 
-  .landForm .btnColor #btn_e56e00 + label{
+  .landForm .btnColor .btn_e56e00 + label{
     background: #e56e00;
   }
 
-  .landForm .btnColor #btn_0077e5 + label{
+  .landForm .btnColor .btn_0077e5 + label{
     background: #0077e5;
   }
 
-  .landForm .btnColor #btn_aa00e5 + label{
+  .landForm .btnColor .btn_aa00e5 + label{
     background: #aa00e5;
   }
 
-  .landForm .btnColor #btn_350101 + label{
+  .landForm .btnColor .btn_350101 + label{
     background: #350101;
   }
 
-  .landForm .btnColor #btn_291d4b + label{
+  .landForm .btnColor .btn_291d4b + label{
     background: #291d4b;
   }
 
-  .landForm .btnColor #btn_a37300 + label{
+  .landForm .btnColor .btn_a37300 + label{
     background: #a37300;
   }
 
-  .landForm .btnColor #btn_2a4c05 + label{
+  .landForm .btnColor .btn_2a4c05 + label{
     background: #2a4c05;
   }
 
-  .landForm .btnColor #btn_4e4e4e + label{
+  .landForm .btnColor .btn_4e4e4e + label{
     background: #4e4e4e;
   }
 
-  .landForm .btnColor #btn_000000 + label{
+  .landForm .btnColor .btn_000000 + label{
     background: #000000;
   }
 

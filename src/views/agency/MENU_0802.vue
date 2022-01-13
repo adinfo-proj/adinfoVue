@@ -1,12 +1,17 @@
 <template>
   <div class="container menu0804">
     <div class="landPrev">
+      <div v-if="$store.state.lendchooseObj.length == '0'" class="noLength">
+        <img src="../../assets/images/menu0802/NolendData.png" alt="">
+      </div>
 
       <!-- 랜딩페이지 미리보기  -->
       <div v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index">
+        <!-- 이미지 -->
         <div v-if="$store.state.lendchooseObj[index].tp == '01'">
           <img :src="$store.state.lendchooseObj[index].fileNm" alt="">
         </div>
+        <!-- 텍스트 -->
         <div v-if="lendchoose.tp == '02'" v-html="$store.state.lendchooseObj[index].descript">
         </div>
 
@@ -30,15 +35,12 @@
 
 
 
-
-
-
-
-
+        <!-- 폼 -->
         <div class="formPrev" v-if="lendchoose.tp == '03'" v-bind="$store.state.lendchooseObj[index].formDesc">
           <input type="text" name="value01" placeholder="이름을 입력하세요.">
           <input type="text" name="value02" placeholder="연락처 '-'없이 입력해주세요.">
-          <div v-for="(inObj, index) in $store.state.inputObj" :key="index">
+          <!-- <div v-for="(inObj, index) in $store.state.inputObj" :key="index"> -->
+          <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
             <input v-if="inObj.value == 'textForm'" type="text" :placeholder="inObj.name">
 
             <!-- 라디오 버튼 -->
@@ -66,39 +68,16 @@
                 </option>
               </select>  
             </div>
-
-
-            <!-- <div v-if="inObj.value == 'checkForm'" class="formInput">
-              <span class="fornInputName">{{inObj.name}}</span>
-              <span v-for="index in inObj.lab" :key="index">
-                <label :for="index">{{index}}</label>
-                <input :id="index" type="checkbox" >
-              </span>  
-            </div> -->
-
-            <!-- <input v-if="inObj.value == 'checkForm'" type="chechbox" > -->
-            <!-- <select v-if="inObj.value == 'selForm'"></select> -->
           </div>
-
-
-          
-
-
           <input type="checkbox" name="agree01" id="agree01">
           <label for="agree01">{{lendchoose.formDesc.priNm}}<span @click="PriModal()">[보러가기]</span></label>
-
-
           <div class="centerBox">
             <button v-bind:style="{borderRadius:lendchoose.formDesc.btmShape, background:lendchoose.formDesc.btnColor}">{{lendchoose.formDesc.btnNm}}</button>
           </div>
-
           <!-- 개인정보 동의 모달 팝업 내용 -->
           <div class="priBox">
             <h6>개인정보 취급방침</h6>
-            <div v-html="lendchoose.formDesc.priCon">
-              <!-- 나중에 넣을 것????--></div>
-<!-- 
-                            <b>[개인정보 수집 및 이용안내]</b><br>개인정보 수집주체 : {{company}}<br>개인정보 수집항목 : 성명, 휴대폰, 이메일, IP등을 포함한 고객이 입력한 정보<br>개인정보 수집 이용목적 : 전화, SMS를 통한 상품안내 및 상담<br>개인정보보유/이용기간 : 수집일로부터 1년(고객동의 철회시 지체없이 파기)<br><br><b>[개인정보의 취급 위탁]</b><br>당사는 서비스 이행 및 향상을 위해 개인정보 취급업무를 전문업체에 위탁 운영하고 있습니다. 또한 개인정보를 안전하게 처리하기 위하여 필요한 사항등을 명확히 규정하고 있으며, 당해 계약 내용을 서면 또는 전자적으로 보관하고 있습니다.<br>위탁업체 및 위탁업무내용<br>{{company}} : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br> -->
+            <div v-html="lendchoose.formDesc.priCon"></div>
             <button @click="PriCancle()">확인</button>
           </div>
 
@@ -110,14 +89,43 @@
 
 
 
-
-
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+      <div class="bgColor">
       </div>
 
-
-      <div class="bgColor">
-
+      <div class="subBox">
+        <button class="saveBtn">랜딩페이지 저장하기</button>
       </div>
 
 
@@ -241,7 +249,7 @@
 
       
       <div class="btnBox">
-        <button class="saveBtn">미리보기</button>
+        
         <button class="imgBtn" @click="ImgChooseBtn()">이미지 추가</button>
         <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button>
         <button class="formBtn" @click="FormChooseBtn()">폼 추가</button>
@@ -390,6 +398,8 @@
           alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
           return;
         }
+
+
         let plusObj = {
             tp: ''
           , Nm: ''
@@ -400,11 +410,39 @@
         };
 
         plusObj.tp = '03'
-        plusObj.Nm = ChooseLandForm        
+        plusObj.Nm = ChooseLandForm
+        
+        let tpLength = this.$store.state.lendchooseObj.filter(tpValue => tpValue.tp == '03').length
+        if(tpLength == 1){
+          if(confirm('상단 폼의 입력항목 및 동의항목을 정확히 입력하셨습니까? 추후 입력항목 및 동의항목은 수정이 불가하오니 정확히 입력해주시기 바랍니다.') == false) {
+            return;
+          }
+        }
 
         this.$store.state.lendchooseObj.push(plusObj)
+        //------------------------------------------------------------------------------
+        // tp가 03인 것이 2개 이상일 때 폼 항목이 보여지지 않게 하는 함수
+        //------------------------------------------------------------------------------
+        tpLength = this.$store.state.lendchooseObj.filter(tpValue => tpValue.tp == '03').length
 
-        console.log(this.$store.state.lendchooseObj)
+        for( let i = 0 ; i < this.$store.state.lendchooseObj.length ; i++) {
+            //------------------------------------------------------------------------------
+          // tp가 03인 것이 1개일때 
+          //------------------------------------------------------------------------------
+          if(this.$store.state.lendchooseObj[i].tp == '03') {
+            if(tpLength == 1) {
+              return;
+            }
+
+            let n = this.$store.state.lendchooseObj.length - 1
+
+            this.$store.state.secForm = n;
+
+
+            this.$store.state.lendchooseObj[n].formDesc = this.$store.state.lendchooseObj[i].formDesc
+          }
+        }
+        
         
       },
       //******************************************************************************
@@ -454,6 +492,17 @@
 
   .menu0804 .landPrev img {
     width: 100%;
+  }
+  .menu0804 .landPrev .noLength {
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+  }
+
+  .menu0804 .landPrev .noLength img {
+    width: auto;
   }
 
   .menu0804 .landPrev .formPrev {
@@ -671,6 +720,24 @@
 
   /* 개인정보 수집 동의 항목 */
 
+  /* 랜딩페이지 저장 버튼 */
+
+  .menu0804 .landPrev .subBox {
+    text-align: center;
+    margin-top: 10px;
+  }
+  .menu0804 .landPrev .saveBtn {
+    padding: 13px 33px;
+    font-size: 16px;
+    border-radius: 40px;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    background: #e25b45;
+  }
+  /* 랜딩페이지 저장 버튼 */
+
+
   .menu0804 .landChoice {
     width: 525px;
   }
@@ -817,7 +884,7 @@
   .menu0804 .landChoice .btnBox {
     display: flex;
     justify-content: space-between;
-    padding-top: 10px;
+    padding: 10px 66px 0 66px;
   }
 
   .menu0804 .landChoice .btnBox button {
@@ -827,10 +894,6 @@
     border: none;
     color: #fff;
     font-weight: 700;
-  }
-
-  .menu0804 .landChoice .btnBox .saveBtn {
-    background: #e25b45;
   }
 
   .menu0804 .landChoice .btnBox .imgBtn {
