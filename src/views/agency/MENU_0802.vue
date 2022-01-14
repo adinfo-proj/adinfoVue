@@ -41,27 +41,27 @@
           <input type="text" name="value02" placeholder="연락처 '-'없이 입력해주세요.">
           <!-- <div v-for="(inObj, index) in $store.state.inputObj" :key="index"> -->
           <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
-            <input v-if="inObj.value == 'textForm'" type="text" :placeholder="inObj.name">
+            <input v-if="inObj.values == 'textForm'" type="text" :placeholder="inObj.names">
 
             <!-- 라디오 버튼 -->
-            <div v-if="inObj.value == 'radioForm'" class="formInput">
-              <span class="fornInputName">{{inObj.name}}</span>
+            <div v-if="inObj.values == 'radioForm'" class="formInput">
+              <span class="fornInputName">{{inObj.names}}</span>
               <span v-for="index in inObj.lab" :key="index">
-                <input :id="index" :name="inObj.name" type="radio" >
+                <input :id="index" :name="inObj.names" type="radio" >
                 <label :for="index">{{index}}</label>
               </span>  
             </div>
             <!-- 체크박스 -->
-            <div v-if="inObj.value == 'checkForm'" class="formInput">
-              <span class="fornInputName">{{inObj.name}}</span>
+            <div v-if="inObj.values == 'checkForm'" class="formInput">
+              <span class="fornInputName">{{inObj.names}}</span>
               <span v-for="index in inObj.lab" :key="index">
                 <input :id="index" type="checkbox" >
                 <label :for="index">{{index}}</label>
               </span>
             </div>
             <!-- 셀렉트박스 -->
-            <div v-if="inObj.value == 'selForm'" class="formInput">
-              <span class="fornInputName">{{inObj.name}}</span>
+            <div v-if="inObj.values == 'selForm'" class="formInput">
+              <span class="fornInputName">{{inObj.names}}</span>
               <select>
                 <option v-for="index in inObj.lab" :key="index" :value="index">
                   {{index}}
@@ -119,7 +119,7 @@
 
 
 
-        
+
       </div>
       <div class="bgColor">
       </div>
@@ -183,7 +183,15 @@
               회사명
             </th>
             <td>
-              <input type="text" class="" v-model="company">
+              <input type="text" class="" v-model="$store.state.company">
+            </td>
+          </tr>
+          <tr>
+            <th>
+             페이지 명
+            </th>
+            <td colspan="3">
+              <input type="text" class="" v-model="lendName">
             </td>
           </tr>
         </table>
@@ -293,7 +301,7 @@
         , scriptInput: false
         , campaignSelect: ''
         , campaignList: ''
-        , company : ''// 회사명
+        , lendName: ''
       }
     },
     methods: {

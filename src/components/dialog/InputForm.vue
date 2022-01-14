@@ -127,6 +127,7 @@
 
   .disTable .formDel i {
     font-size: 15px;
+    cursor: pointer;
   }
 
   .disTable input[type="checkbox"] {
