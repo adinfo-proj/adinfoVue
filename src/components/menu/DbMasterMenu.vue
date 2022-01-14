@@ -1,35 +1,113 @@
 <template>
   <div>
     <div class="headerLogo">
-      <router-link to="MENU_0801"><img src="../../assets/images/header_logo_2.png" alt=""></router-link>
+      <router-link to="MENU_08101"><img src="../../assets/images/header_logo_2.png" alt=""></router-link>
     </div>
     <div class="headerNav">
       <ul>
-        <li @click="MenuBar(0)" v-bind:class="{on : 0 == menuSelect}">
-          <router-link to="MENU_0801">
+        <li v-bind:class="{on : 1 == menuSelect}">
+          <a href="javascript:void(0)" @click="DBMenuBar(1)" >
             <i class="icon-layers"></i>
             캠페인 목록
-          </router-link>
+          </a>
+          <ul>
+            <li @click="DbSubMenu('101')"  v-bind:class="{subOn : '101' == subMenuSelect}">
+              <router-link to="MENU_08101">
+                캠페인 목록
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('102')"  v-bind:class="{subOn : '102' == subMenuSelect}">
+              <router-link to="MENU_08102">
+                캠페인 등록
+              </router-link>
+            </li>
+          </ul>
         </li>
-        <li @click="MenuBar(1)" v-bind:class="{on : 1 == menuSelect}">
-          <router-link to="MENU_0802">
-            <i class="icon-layers"></i>
-            랜딩페이지 제작
-          </router-link>
-        </li>
-        <li @click="MenuBar(2)" v-bind:class="{on : 2 == menuSelect}">
-          <router-link to="MENU_0803">
+        <li @click="DBMenuBar(2)" v-bind:class="{on : 2 == menuSelect}">
+          <router-link to="MENU_08201">
             <i class="icon-layers"></i>
             DB확인
           </router-link>
         </li>
-        <li @click="MenuBar(3)" v-bind:class="{on : 3 == menuSelect}">
-          <router-link to="MENU_0804">
+        <li v-bind:class="{on : 3 == menuSelect}">
+          <a  href="javascript:void(0)" @click="DBMenuBar(3)">
             <i class="icon-layers"></i>
-            고객센터
+            랜딩페이지
+          </a>
+          <ul>
+            <li @click="DbSubMenu('301')"  v-bind:class="{subOn : '301' == subMenuSelect}">
+              <router-link to="MENU_08301">
+                 랜딩페이지 목록
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('302')"  v-bind:class="{subOn : '302' == subMenuSelect}">
+              <router-link to="MENU_08302">
+                랜딩페이지 제작
+              </router-link>
+            </li>
+          </ul>
+        </li>
+
+        <li v-bind:class="{on : 4 == menuSelect}">
+          <a  href="javascript:void(0)" @click="DBMenuBar(4)">
+            <i class="icon-layers"></i>
+            포스트백
+          </a>
+          <ul>
+            <li @click="DbSubMenu('401')"  v-bind:class="{subOn : '401' == subMenuSelect}">
+              <router-link to="MENU_08401">
+                 포스트백 목록
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('402')"  v-bind:class="{subOn : '402' == subMenuSelect}">
+              <router-link to="MENU_08402">
+                포스트백 등록
+              </router-link>
+            </li>
+          </ul>
+        </li>
+        <li @click="DBMenuBar(5)" v-bind:class="{on : 5 == menuSelect}">
+          <router-link to="MENU_08501">
+            <i class="icon-layers"></i>
+            랜딩 샘플 보기
           </router-link>
         </li>
-        <li @click="MenuBar(6)" v-bind:class="{on : 6 == menuSelect}">
+        <li @click="DBMenuBar(6)" v-bind:class="{on : 6 == menuSelect}">
+          <router-link to="MENU_08501">
+            <i class="icon-layers"></i>
+            랜딩 제작 의뢰
+          </router-link>
+        </li>
+        <li v-bind:class="{on : 7 == menuSelect}">
+          <a  href="javascript:void(0)" @click="DBMenuBar(7)">
+            <i class="icon-layers"></i>
+            고객센터
+          </a>
+          <ul>
+            <li @click="DbSubMenu('701')"  v-bind:class="{subOn : '701' == subMenuSelect}">
+              <router-link to="MENU_08701">
+                공지사항
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('702')"  v-bind:class="{subOn : '702' == subMenuSelect}">
+              <router-link to="MENU_08702">
+                문의하기
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('703')"  v-bind:class="{subOn : '703' == subMenuSelect}">
+              <router-link to="MENU_08703">
+                기능 개선 요청하기
+              </router-link>
+            </li>
+          </ul>
+        </li>
+        <li @click="DBMenuBar(9)" v-bind:class="{on : 9 == menuSelect}">
+          <router-link to="MENU_08901">
+            <i class="icon-layers"></i>
+            내정보
+          </router-link>
+        </li>
+        <li @click="DBMenuBar(9999)" v-bind:class="{on : 9999 == menuSelect}">
           <router-link to="MENU_0807">
             <i class="icon-layers"></i>
             TEST page
@@ -44,13 +122,29 @@
   export default {
     data() {
       return {
-          menuSelect : 0
+            menuSelect : 1
+          , subMenuSelect  : ''
       }
     },
     methods:{
-        MenuBar(pos) {
+        DBMenuBar(pos) {
         this.menuSelect = pos;
+        if(this.menuSelect == '2' || this.menuSelect == '5' || this.menuSelect == '6' || this.menuSelect == '9' || this.menuSelect == '9999') {
+          this.subMenuSelect = ''
+          // let page = "MENU_08"+ this.menuSelect + '01'
+        }
+        else{
+          this.subMenuSelect = `${pos}01`
+          let page = "MENU_08"+ this.subMenuSelect
+          this.$router.push({ path : page })
+
+        }
       }
+      , DbSubMenu(pos) {
+        this.subMenuSelect = pos;
+        
+      }
+      
 
     }
   }

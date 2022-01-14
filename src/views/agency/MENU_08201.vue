@@ -1,7 +1,14 @@
 <template>
 	<div class="container">
 		<div class="campanignSearch">
-			<select name="camName" id="camName" v-model="campSelect" @change="campaignListChange(campSelect)">
+			<select v-model="campSelect" @change="campaignListChange(campSelect)">
+				<option v-for="(campaignNameList, index) in campaignNameListObj"
+					:key="index" 
+					:value="campaignNameList.caId"
+					>{{ campaignNameList.name }}
+				</option>
+			</select>
+      <select v-model="campSelect" @change="campaignListChange(campSelect)">
 				<option v-for="(campaignNameList, index) in campaignNameListObj"
 					:key="index" 
 					:value="campaignNameList.caId"
@@ -14,18 +21,54 @@
       <input type="radio" name="searchDay" id="searchSevenDay"  class="searchSubDate" @click="ChangeDateRange(4)"> <label for="searchSevenDay">7일</label>
 			<input type="radio" name="searchDay" id="searchthirtyDay" class="searchSubDate" @click="ChangeDateRange(5)"> <label for="searchthirtyDay">30일</label>
       <input type="radio" name="searchDay" id="searchYear"      class="searchSubDate" @click="ChangeDateRange(0)"> <label for="searchYear">1년</label>
-			조회기간
+			<span>조회기간</span> 
       <input type="date" id="searchStartDate1" v-model="serchDataFromDt"> ~ 
       <input type="date" id="searchEndDate1"   v-model="serchDataToDt">
 			<button class="searchDateBtn" @click="getCampaignFullData(1, true)">조회</button>
 		</div>
 		<div class="dailyDataBox">
-			<div class="dailyDataMiddle"><h2 class="dataEm">{{topArrayListObj.maketerCount  }} 3    </h2><p>랜딩페이지 수</p></div>
-			<div class="dailyDataMiddle"><h2>               {{topArrayListObj.todayDbCount  }} 122건</h2><p>DB 접수 건수</p></div>
-			<div class="dailyDataMiddle"><h2 class="dataEm">{{topArrayListObj.validDbCount  }} 325건</h2><p>DB 노출 건수</p></div>
-			<div class="dailyDataMiddle"><h2               >{{topArrayListObj.invalidDbCount}} 135건</h2><p>클릭 건수</p></div>
-      <div class="dailyDataMiddle"><h2 class="dataEm">{{topArrayListObj.allDupDBCount }} 35%  </h2><p>광고주 단가 (합계)</p></div>
-			<div class="dailyDataMiddle"><h2               >{{topArrayListObj.clickPer      }} 15초 </h2><p>마케터 단가 (합계)</p></div>
+			<div class="dailyDataMiddle">
+        <span><i class="icon-users"></i></span>
+        <h2 class="dataEm">
+          <span>랜딩페이지 수</span><br>
+          {{topArrayListObj.maketerCount  }}3    
+        </h2>
+      </div>
+			<div class="dailyDataMiddle">
+        <span><i class="icon-laptop-phone"></i></span>
+        <h2  class="dataEm">
+          <span>DB 접수 건수</span><br>
+          {{topArrayListObj.todayDbCount  }} 122건
+        </h2>
+      </div>
+			<div class="dailyDataMiddle">
+        <span><i class="icon-pie-chart"></i></span>
+        <h2 class="dataEm">
+          <span>DB 노출 건수</span><br>
+          {{topArrayListObj.validDbCount  }} 325건
+        </h2>
+      </div>
+			<div class="dailyDataMiddle">
+        <span><i class="icon-pie-chart"></i></span>
+        <h2 class="dataEm">
+          <span>클릭 건수</span><br>
+          {{topArrayListObj.invalidDbCount}} 135건
+        </h2>
+        </div>
+      <div class="dailyDataMiddle">
+        <span><i class="icon-chart-bars"></i></span>
+        <h2 class="dataEm">
+          <span>광고주 단가 (합계)</span><br>
+          {{topArrayListObj.allDupDBCount }} 35%  
+        </h2>
+        </div>
+			<div class="dailyDataMiddle">
+        <span><i class="icon-eye"></i></span>
+        <h2 class="dataEm">
+          <span>마케터 단가 (합계)</span><br>
+          {{topArrayListObj.clickPer      }} 15초 
+        </h2>
+        </div>
 		</div>
 		<div class="dailyDataSub">
       <div class="dailyDataTop">
@@ -62,6 +105,14 @@
 							<th class="inData"     >메모</th>
 						</tr>
 					</thead>
+          <tbody v-if="campaignFullDataObj.length == '0'" class="noLength">
+            <tr>
+              <td colspan="8">
+                <img src="../../assets/images/menu08201/data_icon.png" alt="">
+                dd
+              </td>
+            </tr>
+          </tbody>
 					<tbody v-for="(campaignFullData, index) in campaignFullDataObj"
 						:key="index"
           >
@@ -454,14 +505,14 @@
 	}
 </script>
 
-<style scope>
+<style>
   .campanignSearch {
     height: 35px;
     width: 100%;
   }
   .campanignSearch select {
     height: 100%;
-    width: 256px;
+    width: 200px;
     border-radius: 10px;
     border: 1px solid #e5e5e5;
     padding: 9px 18px;
@@ -496,17 +547,25 @@
     padding: 10px 16px;
     margin: 0 5px;
   }
-  .campanignSearch #searchStartDate1 {
-    margin-left: 50px;
+
+  .campanignSearch > span {
+    padding: 0 11px 0 20px ;
+    font-weight: 700 ;
+    font-size: 14px;
+    color: #262626;
   }
+  /* .campanignSearch #searchStartDate1 {
+     margin-left: 50px; 
+  } */
   .campanignSearch #searchEndDate1 {
     margin-right: 10px;
   }
   .campanignSearch .searchDateBtn {
     width: 50px;
-    height: 30px;
+    height: 35px;
+    border-radius: 10px;
     border: 1px solid #e5e5e5;
-    background: #707070;
+    background: #393939;
     border-radius: 13px;
     color: #fff;
   }
@@ -603,11 +662,17 @@
     text-align: center;
     font-weight: 700;
   }
-  .dailyDataSub .dailySub{
+  .dailyDataSub .dailySub {
     border-radius: 10px;
     border-top-left-radius: 0px;
     background: #fff;
     overflow: hidden;
+  }
+  .dailyDataSub .dailySub .noLength {
+    height: 600px;
+  }
+  .dailyDataSub .dailySub .noLength tr {
+    border-bottom: none;
   }
   .dailyDataSub .dailySub .dailySubTable {
     width: 100%;

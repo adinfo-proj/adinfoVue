@@ -2,7 +2,7 @@
   <div class="container menu0804">
     <div class="landPrev">
       <div v-if="$store.state.lendchooseObj.length == '0'" class="noLength">
-        <img src="../../assets/images/menu0802/NolendData.png" alt="">
+        <img src="../../assets/images/menu08302/NolendData.png" alt="">
       </div>
 
       <!-- 랜딩페이지 미리보기  -->
@@ -14,27 +14,6 @@
         <!-- 텍스트 -->
         <div v-if="lendchoose.tp == '02'" v-html="$store.state.lendchooseObj[index].descript">
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <!-- 폼 -->
         <div class="formPrev" v-if="lendchoose.tp == '03'" v-bind="$store.state.lendchooseObj[index].formDesc">
           <input type="text" name="value01" placeholder="이름을 입력하세요.">
@@ -80,87 +59,13 @@
             <div v-html="lendchoose.formDesc.priCon"></div>
             <button @click="PriCancle()">확인</button>
           </div>
-
-
-
-
-
-
-
-
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       </div>
       <div class="bgColor">
       </div>
-
       <div class="subBox">
         <button class="saveBtn">랜딩페이지 저장하기</button>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>    
     <div class="landChoice">
       <div class="basicInfo landBox">
@@ -226,44 +131,11 @@
           <ChooseLandForm :indexNum="index"></ChooseLandForm>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
       <div class="btnBox">
-        
         <button class="imgBtn" @click="ImgChooseBtn()">이미지 추가</button>
         <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button>
         <button class="formBtn" @click="FormChooseBtn()">폼 추가</button>
       </div>
-      <!-- 수정 사항 -->
-
     </div>
   </div>
 </template>
@@ -460,6 +332,9 @@
         $(".menu0804 .landPrev .formPrev .priBox").css({display:'block'})
         $(".menu0804 .landPrev .bgColor").css({display:'block'})
       },
+      //******************************************************************************
+      // 폼 안에 개인정보 모달 박스 닫기
+      //******************************************************************************
       PriCancle() {
         $(".menu0804 .landPrev .formPrev .priBox").css({display:'none'})
         $(".menu0804 .landPrev .bgColor").css({display:'none'})
@@ -477,7 +352,7 @@
     },
     created() {
 
-      this.$store.state.headerTopTitle = "DBMASTER";
+      this.$store.state.headerTopTitle = "랜딩페이지";
       this.$store.state.headerMidTitle = "랜딩페이지 제작";
 
       this.getCampaignAllList();

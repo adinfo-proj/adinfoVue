@@ -958,7 +958,7 @@ export default {
 </script>
 
 
-<style>
+<style s>
 	.topBox {
 		display: flex;
 		justify-content: space-between;

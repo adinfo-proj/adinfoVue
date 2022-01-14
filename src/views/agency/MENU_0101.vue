@@ -527,7 +527,7 @@
 	}
 </script>
 
-<style scope>
+<style scoped>
   .campanignSearch {
     height: 35px;
     width: 100%;

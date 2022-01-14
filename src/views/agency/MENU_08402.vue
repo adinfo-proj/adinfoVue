@@ -18,13 +18,14 @@
 
 		},
 		created() {
-			this.$store.state.headerTopTitle = "DBMASTER";
-			this.$store.state.headerMidTitle = "고객센터";
+			this.$store.state.headerTopTitle = "포스트백";
+			this.$store.state.headerMidTitle = "포스트백 등록";
 
 		}
 	}
 </script>
 
 <style>
+
 
 </style>

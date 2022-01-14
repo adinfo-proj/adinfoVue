@@ -1090,7 +1090,6 @@ export default {
     padding: 9px 15px ;
     border: solid 1px #e5e5e5;
     border-radius: 10px;
-    margin-top: 7px;
   }
 
   .chooseDate input[type="date"] {
@@ -1107,10 +1106,6 @@ export default {
     margin-right: 2%;
   }
 
-  .chooseDate select option {
-    padding: 5px 10px;
-    border-radius: 10px;
-  }
 
   .camBox select {
     width: 100%;

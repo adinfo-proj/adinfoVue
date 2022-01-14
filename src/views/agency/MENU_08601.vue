@@ -18,13 +18,14 @@
 
 		},
 		created() {
-			this.$store.state.headerTopTitle = "DBMASTER";
-			this.$store.state.headerMidTitle = "캠페인 목록";
+			this.$store.state.headerTopTitle = "랜딩페이지";
+			this.$store.state.headerMidTitle = "랜딩페이지 제작요청";
 
 		}
 	}
 </script>
 
 <style>
+
 
 </style>

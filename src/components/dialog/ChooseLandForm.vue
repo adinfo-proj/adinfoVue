@@ -100,9 +100,9 @@
       <div class="btnDesignBox btnShape">
         <h6>신청버튼 모양 선택</h6>
         <div>
-          <input type="radio" v-model="subShape" :id="'btn01_'+this.indexNum" value="0"><label :for="'btn01_'+this.indexNum"><img src="../../assets/images/menu0802/btnShape01.png"></label>
-          <input type="radio" v-model="subShape" :id="'btn02_'+this.indexNum" value="10px"><label :for="'btn02_'+this.indexNum"><img src="../../assets/images/menu0802/btnShape02.png"></label>
-          <input type="radio" v-model="subShape" :id="'btn03_'+this.indexNum" value="50px"><label :for="'btn03_'+this.indexNum"><img src="../../assets/images/menu0802/btnShape03.png"></label>
+          <input type="radio" v-model="subShape" :id="'btn01_'+this.indexNum" value="0"><label :for="'btn01_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape01.png"></label>
+          <input type="radio" v-model="subShape" :id="'btn02_'+this.indexNum" value="10px"><label :for="'btn02_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape02.png"></label>
+          <input type="radio" v-model="subShape" :id="'btn03_'+this.indexNum" value="50px"><label :for="'btn03_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape03.png"></label>
         </div>
       </div>
       <div class="btnDesignBox btnColor">

@@ -1,8 +1,8 @@
 <template>
   <div id="logIn">
     <div class="logInBox">
-      <h1><span>HELLO</span> AD.INFO</h1>
-      <p>통합 광고 시스템, 애드인포</p>
+      <h1><span>HELLO</span> DB.Master</h1>
+      <p>마케터의 성공파트너, 디비마스터</p>
       <div class="inputBox">
         <div class="leftInput">
             <input type="text" placeholder="이메일을 입력하세요."
@@ -100,7 +100,7 @@ export default {
           localStorage.setItem("mkCd"  , this.$store.state.mkCd);
 
           if( this.$store.state.adGradeCd == '05' ){
-            this.$router.push({ path : "MENU_0801" })
+            this.$router.push({ path : "MENU_08101" })
           } else {
             this.$router.push({ path : "MENU_0000" })
           }
