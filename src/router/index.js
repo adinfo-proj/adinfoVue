@@ -22,6 +22,7 @@ import MENU_0601 from "../views/agency/MENU_0601.vue";
 import MENU_0701 from "../views/agency/MENU_0701.vue";
 import MENU_08101 from "../views/agency/MENU_08101.vue";
 import MENU_08102 from "../views/agency/MENU_08102.vue";
+import MENU_08103 from "../views/agency/MENU_08103.vue";
 import MENU_08201 from "../views/agency/MENU_08201.vue";
 import MENU_08301 from "../views/agency/MENU_08301.vue";
 import MENU_08302 from "../views/agency/MENU_08302.vue";
@@ -50,6 +51,7 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     name: "HOME",
     component: MENU_0000,
     meta: { requiresAuth: true }
+    
   },
   {// 메인페이지
     path: "/MENU_0000",
@@ -153,12 +155,20 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     path: "/MENU_08101",
     name: "MENU_08101",
     component: MENU_08101,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    // 
+    props: true
   },
-  {// 캠페인 목록
+  {// 캠페인 등록
     path: "/MENU_08102",
     name: "MENU_08102",
     component: MENU_08102,
+    meta: { requiresAuth: true }
+  },
+  {// 캠페인 수정
+    path: "/MENU_08103",
+    name: "MENU_08103",
+    component: MENU_08103,
     meta: { requiresAuth: true }
   },
   {// DB확인

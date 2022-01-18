@@ -28,42 +28,42 @@
 		</div>
 		<div class="dailyDataBox">
 			<div class="dailyDataMiddle">
-        <span><i class="icon-users"></i></span>
+        <i class="icon-users"></i>
         <h2 class="dataEm">
           <span>랜딩페이지 수</span><br>
           {{topArrayListObj.maketerCount  }}3    
         </h2>
       </div>
 			<div class="dailyDataMiddle">
-        <span><i class="icon-laptop-phone"></i></span>
+        <i class="icon-laptop-phone bgo"></i>
         <h2  class="dataEm">
           <span>DB 접수 건수</span><br>
           {{topArrayListObj.todayDbCount  }} 122건
         </h2>
       </div>
 			<div class="dailyDataMiddle">
-        <span><i class="icon-pie-chart"></i></span>
+        <i class="icon-pie-chart"></i>
         <h2 class="dataEm">
           <span>DB 노출 건수</span><br>
           {{topArrayListObj.validDbCount  }} 325건
         </h2>
       </div>
 			<div class="dailyDataMiddle">
-        <span><i class="icon-pie-chart"></i></span>
+        <i class="icon-pie-chart bgo"></i>
         <h2 class="dataEm">
           <span>클릭 건수</span><br>
           {{topArrayListObj.invalidDbCount}} 135건
         </h2>
         </div>
       <div class="dailyDataMiddle">
-        <span><i class="icon-chart-bars"></i></span>
+        <i class="icon-chart-bars"></i>
         <h2 class="dataEm">
           <span>광고주 단가 (합계)</span><br>
           {{topArrayListObj.allDupDBCount }} 35%  
         </h2>
         </div>
 			<div class="dailyDataMiddle">
-        <span><i class="icon-eye"></i></span>
+        <i class="icon-eye bgo"></i>
         <h2 class="dataEm">
           <span>마케터 단가 (합계)</span><br>
           {{topArrayListObj.clickPer      }} 15초 
@@ -125,7 +125,7 @@
 							<td class="dbPrice"    >{{ campaignFullData.price   }} 원</td>
 							<td class="dbPrice"    >{{ campaignFullData.mkPrice }} 원</td>
 							<td class="inData"     >승인 대기중
-                <i class="fas fa-chevron-down"></i>
+                <i class="icon-arrow2"></i>
               </td>
 						</tr>
             <tr class="hidetr" v-bind:class="{dbSubSelect : index == dbSelectData}">
@@ -200,7 +200,7 @@
           <tfoot>
             <tr>
               <td class="dataBtn" colspan="8">
-                <span class="pageleft" v-if="pageCount.length > 0" @click="getCampaignFullData(curPage - 1, false)"><i class="fas fa-angle-left"></i></span>
+                <span class="pageleft" v-if="pageCount.length > 0" @click="getCampaignFullData(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
                 <div class="pageNum">
                   <ul>
                     <li class="pageBtn" 
@@ -212,7 +212,7 @@
                     </li>
                   </ul>
                 </div>
-                <span class="pageright" v-if="pageCount.length > 0" @click="getCampaignFullData(curPage + 1, false)"><i class="fas fa-angle-right"></i></span>
+                <span class="pageright" v-if="pageCount.length > 0" @click="getCampaignFullData(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
               </td>
             </tr>
           </tfoot>
@@ -580,15 +580,45 @@
   .dailyDataBox .dailyDataMiddle {
     width: 218px;
     height: 81px;
-    position: relative;
+    display: flex;
     background: #fff;
     border: 1px solid #e5e5e5;
     border-radius: 10px;
     padding: 17px;
-    text-align: center;
-    overflow: hidden;
+    align-items: center;
   }
-  .dailyDataBox .dailyDataMiddle h2,
+  
+  .dailyDataBox .dailyDataMiddle i {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    background: #666;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .dailyDataBox .dailyDataMiddle .bgo {
+    background: #e25b45;
+  }
+
+  .dailyDataBox .dailyDataMiddle h2 {
+    margin-left: 15px;
+    font-size: 18px;
+    color: #e25b45;
+  }
+
+  .dailyDataBox .dailyDataMiddle h2 span{
+    font-size: 14px;
+    font-weight: 400;
+    padding-bottom: 5px;
+    color: #242424;
+    display: inline-block;
+  }
+
+  /* .dailyDataBox .dailyDataMiddle h2,
   .dailyDataBox .dailyDataMiddle p {
     color: #222;
   }
@@ -615,7 +645,7 @@
   .dailyDataBox .dailyDataMiddle .dailyFake p {
     margin-bottom: 13px;
     color: #929292;
-  }
+  } */
   .dailyDataSub .dailyDataTop {
     margin-top: 20px;
     height: 56px;
@@ -720,6 +750,7 @@
   }
   .dailyDataSub .dailySub table .inData i {
     float: right;
+    font-size: 13px;
   }
   .dailyDataSub .dailySub table thead th:after {
     position: absolute;
@@ -837,15 +868,15 @@
     padding: 20px 0 40px;
     text-align: center;
   }
-  .dailyDataSub .dailySub table tfoot td .fas {
+  .dailyDataSub .dailySub table tfoot td i {
     display: inline-block;
     width: 25px;
     height: 25px;
     border: 1px solid #e4e4e4;
     color: #c6c6c6;
-    font-size: 20px;
-    padding: 2px 7px;
-    transform: translateY(2px);
+    font-size: 13px;
+    padding: 5px 5px;
+    text-align: left;
   }
   .dailyDataSub .dailySub table tfoot td .pageNum {
     display: inline-block;

@@ -1,6 +1,6 @@
 <template>
   <div class="container"> 
-    <div class="campaign tableBox">
+    <div class="tableBox">
       <table>
 				<tr>
 					<th>
@@ -37,7 +37,13 @@
 				</tr>
         <tr>
           <th>캠페인 명<span class="necItem"> *</span></th>
-          <td colspan="3"><input type="text" class="camName" v-model="adName" autofocus></td>
+          <td><input type="text" class="camName" v-model="adName" autofocus></td>
+          <th>캠페인 상태</th>
+          <td>
+            <div>
+              <input type="radio" id="dd"> <label for="dd">dd</label>
+            </div>
+          </td>
         </tr>
         <tr class="notice">
           <th>캠페인 내용<span class="necItem"> *</span></th>
@@ -64,7 +70,7 @@
       </table>
     </div>
     <div class="submitBtn">
-      <button @click="createCampaign()"> 등록하기 </button>
+      <button @click="createCampaign()"> 수정하기 </button>
     </div>
   </div>
 </template>
@@ -74,7 +80,9 @@ import axios from "axios";
 // import $ from 'jquery';
 
 export default {
-
+  props: {
+    caId: String
+  },
   data() {
     return {
 			editorConfig: {
@@ -94,7 +102,7 @@ export default {
 
       , smsYn: 'N'             // DB 접수 시 SMS 수신 여부 Y
       , smsNo: ''              // DB 접수 시 SMS 수신 여부
-      , adPrice: '0'            // 광고주 단가
+      , adPrice: ''            // 광고주 단가
 			, adMaketerPrice: '0'    // 마케터 단가 단가
     }
   },
@@ -195,7 +203,7 @@ export default {
       //------------------------------------------------------------------------------
       // 정보 보내기
       //------------------------------------------------------------------------------
-      let data = {
+      var data = {
           gradeCd           : this.$store.state.adGradeCd
         , mbId              : this.$store.state.mbId
         , adId              : this.$store.state.adId
@@ -211,7 +219,6 @@ export default {
         , adMaketerPrice    : this.adMaketerPrice
         , smsYn             : this.smsYn
         , smsNo             : this.smsNo
-        , status            : '02'
       };
 
       const frm = new FormData();
@@ -245,6 +252,8 @@ export default {
     }
   },
   created() {
+    //alert(this.caId);
+    alert(this.$route.params.caId);
     this.$store.state.headerTopTitle = "캠페인";
     this.$store.state.headerMidTitle = "캠페인 등록";
 
