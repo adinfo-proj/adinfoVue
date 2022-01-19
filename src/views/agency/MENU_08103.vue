@@ -40,8 +40,19 @@
           <td><input type="text" class="camName" v-model="adName" autofocus></td>
           <th>캠페인 상태</th>
           <td>
-            <div>
-              <input type="radio" id="dd"> <label for="dd">dd</label>
+            <div
+              v-for="(statusCode, index) in statusCodeObj"
+              :key="index"
+            > 
+            <div v-if=" statusCode.code == '00' ">
+              <input type="hidden">
+            </div>
+            <div class="leftBox" v-else>
+              <input type="radio"
+                :name="statusCode.tpNm"
+                :id="statusCode.code">
+              <label :for="statusCode.code">{{statusCode.codeNm}}</label>
+            </div>
             </div>
           </td>
         </tr>
@@ -97,6 +108,9 @@ export default {
       , adTopKindObj: ''       // 캠페인 1차 분류 객체
       , adMiddleKindObj: ''    // 캠페인 2차 분류 객체
 
+      , statusCode: ''         // 캠페인 상태
+      , statusCodeObj : ''     // 캠페인 상태 객체
+
       , adName: ''             // 캠페인 명
       , adComment: ''          // 캠페인 내용
 
@@ -104,9 +118,19 @@ export default {
       , smsNo: ''              // DB 접수 시 SMS 수신 여부
       , adPrice: ''            // 광고주 단가
 			, adMaketerPrice: '0'    // 마케터 단가 단가
+      // , caId: this.$route.params.caId // 캠페인 아이디 불러오기
     }
   },
   methods: {
+    //******************************************************************************
+    // 선택된 데이터 불러오기
+    //******************************************************************************
+    // getCommonByCampData() {
+    //   axios.get("http://api.adinfo.co.kr:30000/".{
+
+    //   })
+    //   then()
+    // },
     //******************************************************************************
     // 캠페인 목적
     //******************************************************************************
@@ -139,7 +163,6 @@ export default {
       })
       .then(response => {
         if(response.data.length > 0) {
-          console.log("0005");
           this.adTopKind = response.data[0].code;
           this.adTopKindObj = response.data;
           this.firstComboChg(this.adTopKind);
@@ -167,6 +190,26 @@ export default {
         }
       })
       .catch(error => {
+        console.log(error);
+      })
+    },
+    //******************************************************************************
+    // 캠페인 상태
+    //******************************************************************************
+    getCommonByTp0009() {
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      {
+        params: {
+          tp: '0009'
+        }
+      })
+      .then(response => {
+        if(response.data.length > 0) {
+          this.statusCode = response.data[0].code;
+          this.statusCodeObj = response.data;
+        }
+      })
+      .catch(error => { 
         console.log(error);
       })
     },
@@ -219,6 +262,7 @@ export default {
         , adMaketerPrice    : this.adMaketerPrice
         , smsYn             : this.smsYn
         , smsNo             : this.smsNo
+        , status            : '02'
       };
 
       const frm = new FormData();
@@ -252,13 +296,14 @@ export default {
     }
   },
   created() {
-    //alert(this.caId);
     alert(this.$route.params.caId);
     this.$store.state.headerTopTitle = "캠페인";
     this.$store.state.headerMidTitle = "캠페인 등록";
 
     this.getCommonByTp("0000");
     this.getCommonByTp0005();
+    this.getCommonByTp0009();
+    // this.getCommonByCampData();
   }
 }
 </script>
@@ -318,6 +363,10 @@ export default {
     transform: translateY(-2px);
     font-size: 13px;
   }
+
+   .container .tableBox .leftBox {
+     float: left;
+   }
 
   .container .tableBox input[type="text"] {
     width: 100%;
