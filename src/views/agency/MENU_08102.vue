@@ -131,7 +131,6 @@ export default {
       })
       .then(response => {
         if(response.data.length > 0) {
-          console.log("0005");
           this.adTopKind = response.data[0].code;
           this.adTopKindObj = response.data;
           this.firstComboChg(this.adTopKind);

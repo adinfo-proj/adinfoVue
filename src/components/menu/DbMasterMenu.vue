@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="headerLogo">
-      <router-link to="MENU_08101"><img src="../../assets/images/header_logo_2.png" alt=""></router-link>
+    <div class="headerLogo" @click="DBMenuBar(1)">
+      <router-link to="MENU_08101" ><img src="../../assets/images/header_logo_2.png" alt=""></router-link>
     </div>
     <div class="headerNav">
       <ul>

@@ -19,7 +19,7 @@
 						캠페인 분류
 					</th>
 					<td>
-						<select class="camParcel01" v-model="adTopKind" @change="firstComboChg(adTopKind);">
+						<select class="camParcel01" v-model="adTopKind" @change="firstComboChg(adTopKind, false);">
 							<option v-for="(adIndex, index) in adTopKindObj"
 								:key="index" 
 								:value="adIndex.code"
@@ -44,23 +44,26 @@
               v-for="(statusCode, index) in statusCodeObj"
               :key="index"
             > 
-            <div v-if=" statusCode.code == '00' ">
-              <input type="hidden">
-            </div>
-            <div class="leftBox" v-else>
-              <input 
-                v-if="statusCode.code == campaignFullDataObj.status" 
-                type="radio"
-                :name="statusCode.tpNm"
-                :id="statusCode.code"
-                checked>
-              <input 
-                v-else  
-                type="radio"
-                :name="statusCode.tpNm"
-                :id="statusCode.code">
-              <label :for="statusCode.code">{{statusCode.codeNm}}</label>
-            </div>
+              <div v-if=" statusCode.code == '00' ">
+                <input type="hidden">
+              </div>
+              <div class="leftBox" v-else @click="StatusValue(index)">
+                <input 
+                  v-if="statusCode.code == campaignFullDataObj.status" 
+                  type="radio"
+                  :name="statusCode.tpNm"
+                  :id="statusCode.code"
+                  :value="statusCode.code"
+                  checked
+                  >
+                <input 
+                  v-else  
+                  type="radio"
+                  :name="statusCode.tpNm"
+                  :id="statusCode.code"
+                  :value="statusCode.code">
+                <label :for="statusCode.code">{{statusCode.codeNm}}</label>
+              </div>
             </div>
           </td>
 
@@ -74,9 +77,9 @@
         </tr>
         <tr>
           <th>광고주 단가<span class="necItem"> *</span></th>
-          <td><input type="text" v-model="campaignFullDataObj.price"></td>
+          <td><input type="text" v-model="adPrice"></td>
           <th>마케터 단가</th>
-          <td><input type="text" v-model="campaignFullDataObj.marketerPrice"></td>
+          <td><input type="text" v-model="adMaketerPrice"></td>
         </tr>
         <tr>
           <th>SMS 수신 여부</th>
@@ -119,6 +122,7 @@ export default {
 
       , statusCode: ''          // 캠페인 상태
       , statusCodeObj : ''      // 캠페인 상태 객체
+      , statusCodeValue : ''    // 캠페인 상태 값
 
       , adName: ''              // 캠페인 명
       , adComment: ''           // 캠페인 내용
@@ -126,7 +130,7 @@ export default {
       , smsYn: ''              // DB 접수 시 SMS 수신 여부 Y
       , smsNo: ''               // DB 접수 시 SMS 수신 여부
       , adPrice: ''             // 광고주 단가
-			, adMaketerPrice: '0'     // 마케터 단가 단가
+			, adMaketerPrice: ''    // 마케터 단가 단가
 
       , campaignFullDataObj: '' //
     }
@@ -146,16 +150,18 @@ export default {
       })
       .then(response => {
         this.campaignFullDataObj = response.data;
-        console.log(this.campaignFullDataObj.name)
+        // console.log(this.campaignFullDataObj.name)
         this.adPurpose = this.campaignFullDataObj.campaignKind;
         this.adTopKind = this.campaignFullDataObj.topKind ;
-        this.firstComboChg(this.adTopKind);
-        this.adMiddleKind = this.campaignFullDataObj.middleKind ;
+        this.firstComboChg(this.adTopKind, true);
 
         this.smsYn = this.campaignFullDataObj.smsYn ;
+        this.statusCodeValue = this.campaignFullDataObj.status;
 
+        this.adPrice = this.campaignFullDataObj.price.toString();
+        this.adMaketerPrice = this.campaignFullDataObj.marketerPrice.toString();
 
-        console.log(this.campaignFullDataObj);
+        // console.log(this.campaignFullDataObj);
       })
       .catch(error => {
         console.log(error);
@@ -205,7 +211,7 @@ export default {
     //******************************************************************************
     // 캠페인 분류(중분류)
     //******************************************************************************
-    firstComboChg(code) { // 캼패인 분류(소분류)
+    firstComboChg(code, status) { // 캼패인 분류(소분류)
       axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
       {
         params: {
@@ -215,9 +221,14 @@ export default {
       })
       .then(response => {
         if(response.data.length > 0) {
-          this.adMiddleKind = response.data[0].subCode;
-          this.adMiddleKind = this.campaignFullDataObj.middleKind;          
           this.adMiddleKindObj = response.data;
+
+          if( status == false) {
+            this.adMiddleKind = response.data[0].subCode;
+          }
+          else {
+            this.adMiddleKind = this.campaignFullDataObj.middleKind;
+          }
         }
       })
       .catch(error => {
@@ -244,76 +255,85 @@ export default {
         console.log(error);
       })
     },
-    //******************************************************************************
-    // 캠페인 상태 수정하기
-    //******************************************************************************
-     createCampaign() {
-    //   //------------------------------------------------------------------------------
-    //   // input validation check
-    //   //------------------------------------------------------------------------------
-    //   if(this.adName == null || this.adName == '') {
-    //     alert("캠페인명을 입력해주세요.");
-    //     this.$refs.adName.focus(); ///$refs
-    //     return;
-    //   }
+    StatusValue(index) {
+     this.statusCodeValue = this.statusCodeObj[index].code 
 
-    //   if(this.adComment == null || this.adComment == '') {
-    //     alert("캠페인 내용을 입력해주세요.");
-    //     this.$refs.adComment.focus();
-    //     return;
-    //   }
-
-    //   if(this.adPrice == null || this.adPrice == '') {
-    //     alert("광고주 단가를 입력해주세요.");
-    //     this.$refs.adComment.focus();
-    //     return;
-    //   }
-
-		// 	if(this.adMaketerPrice == null || this.adMaketerPrice == '') {
-    //     alert("마케터 단가를 입력해주세요.");
-    //     this.$refs.adMaketerPrice.focus();
-    //     return;
-    //   }
-    //   //------------------------------------------------------------------------------
-    //   // 정보 보내기
-    //   //------------------------------------------------------------------------------
-    //   var data = {
-    //       gradeCd           : this.$store.state.adGradeCd
-    //     , mbId              : this.$store.state.mbId
-    //     , adId              : this.$store.state.adId
-    //     , clntId            : this.$store.state.clntId
-    //     , adPurpose         : this.adPurpose
-    //     , adTopKind         : this.adTopKind
-    //     , adMiddleKind      : this.adMiddleKind
-    //     , adSrtDt           : this.$DateAdd(0)
-    //     , adSrtTm           : '235959'
-    //     , adName            : this.adName
-    //     , adComment         : this.adComment
-    //     , adPrice           : this.adPrice
-    //     , adMaketerPrice    : this.adMaketerPrice
-    //     , smsYn             : this.smsYn
-    //     , smsNo             : this.smsNo
-    //     , status            : '02'
-    //   };
-
-    console.log(this.campaignFullDataObj)
-
-      axios.get("http://api.adinfo.co.kr:30000/upcampaign",
-      {
-        params: {
-            dataObj: this.campaignFullDataObj
-        }
-      })
-      .then(response => {
-        alert(response.data.resultMessage);
-        if( response.data.result == 'success') {
-          this.$router.push({ path : "MENU_08101" })
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      })
     },
+    // //******************************************************************************
+    // // 캠페인 상태 수정하기
+    // //******************************************************************************
+    //  createCampaign() {
+
+    //   this.campaignFullDataObj.campaignKind = this.adPurpose;
+    //   this.campaignFullDataObj.topKind      = this.adTopKind;
+    //   this.campaignFullDataObj.middleKind   = this.adMiddleKind;
+    //   this.campaignFullDataObj.smsYn        = this.smsYn;
+    //   this.campaignFullDataObj.caId         = this.statusCode;
+
+
+
+    //   console.log(this.campaignFullDataObj)
+
+    //   // axios.get("http://api.adinfo.co.kr:30000/upcampaign",
+    //   // {
+    //   //   params: {
+    //   //       dataObj: this.campaignFullDataObj
+    //   //   }
+    //   // })
+    //   // .then(response => {
+    //   //   alert(response.data.resultMessage);
+    //   //   if( response.data.result == 'success') {
+    //   //     this.$router.push({ path : "MENU_08101" })
+    //   //   }
+    //   // })
+    //   // .catch(error => {
+    //   //   console.log(error);
+    //   // })
+    // 
+    //****************************************************************************** 
+    // 캠페인 상태 수정하기 
+    //****************************************************************************** 
+     createCampaign() { 
+      console.log(this.campaignFullDataObj); 
+
+
+//      this.campaignFullDataObj.price         = this.campaignFullDataObj.price.replace(/,/gi,"", (match) => {return '' + match + '';}); 
+//      this.campaignFullDataObj.marketerPrice = this.campaignFullDataObj.marketerPrice.replace(/,/gi,"", (match) => {return '' + match + '';}); .
+
+
+      this.campaignFullDataObj.campaignKind = this.adPurpose;
+      this.campaignFullDataObj.topKind      = this.adTopKind;
+      this.campaignFullDataObj.middleKind   = this.adMiddleKind;
+      this.campaignFullDataObj.smsYn        = this.smsYn;
+      this.campaignFullDataObj.status       = this.statusCodeValue;
+      // console.log ("caId")
+
+      // console.log (this.statusCodeValue )
+
+
+
+      // console.log(this.campaignFullDataObj.price); 
+      // console.log(this.campaignFullDataObj.marketerPrice); 
+
+
+      let data = this.campaignFullDataObj; 
+      const frm = new FormData(); 
+      frm.append("dataObj", new Blob([JSON.stringify(data)], {type: "application/json"})); 
+
+
+      axios.post("http://192.168.0.109:30000/upcampaign", frm, { 
+        headers: {'Content-Type': 'multipart/form-data'}     
+      }) 
+      .then(response => { 
+        alert(response.data.resultMessage); 
+        if( response.data.result == 'success') { 
+          this.$router.push({ path : "MENU_08101" }) 
+        } 
+      }) 
+      .catch(error => { 
+        console.log(error); 
+      }) 
+    }, 
   },
   watch: {
     //******************************************************************************
@@ -323,13 +343,12 @@ export default {
     adPrice : function() {
       return this.adPrice = this.adPrice.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
-    // 캠페인 프로모션 단가
+          // 캠페인 프로모션 단가
     adMaketerPrice : function() {
       return this.adMaketerPrice = this.adMaketerPrice.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    }
+    },
   },
   created() {
-    alert(this.$route.params.caId);
     this.$store.state.headerTopTitle = "캠페인";
     this.$store.state.headerMidTitle = "캠페인 등록";
 
