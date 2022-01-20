@@ -381,6 +381,17 @@
 		width: 7%;
 	}
 
+
+/* 
+	#menu08101 .campDataBox td.campName {
+		text-align: left;
+	} */
+
+	#menu08101 .campDataBox td.campPay,
+	#menu08101 .campDataBox td.marketer {
+		text-align: right;
+	}
+
 	#menu08101 .campDataBox .modifyBtn button {
 		width: 40px;
     height: 20px;

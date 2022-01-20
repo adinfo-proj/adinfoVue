@@ -37,8 +37,8 @@
         console.log(this.indexNum);
         let imgFiles = {
             tp: '01'
-          , Nm: this.$store.state.lendchooseObj[this.indexNum].Nm
           , fileNm: ''
+          , fileNmOrg: ''
           , descript: ''
           , formDesc: ''
           , landImgNm: ''
@@ -47,6 +47,7 @@
         // 이미지 미리보기에 보여지기
         //------------------------------------------------------------------------------
         imgFiles.fileNm = URL.createObjectURL(this.$refs.upImage01.files[0]);
+        imgFiles.fileNmOrg = this.$refs.upImage01.files[0]
         //------------------------------------------------------------------------------
         // 이미지 이름 불러오기
         //------------------------------------------------------------------------------

@@ -456,13 +456,6 @@ export default {
       etcImeageName: '',      //  참고이미지
       landCollection:'',      // 수집항목
       landCollectionObj:'',   // 수집항목 객체
-
-
-
-
-      apdText1: String,
-      apdText2: String,
-      apdText3: String,
     }
   },
   methods: {
@@ -897,7 +890,7 @@ export default {
     adPromotionPrice : function() {
       return this.adPromotionPrice = this.adPromotionPrice.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
-          // DB 진행 수량
+          // DB 진행 수량1
     adMinQty : function() {
       return this.adMinQty = this.adMinQty.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
