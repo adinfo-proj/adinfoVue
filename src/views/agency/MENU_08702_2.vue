@@ -1,14 +1,14 @@
 <template>
 	<div class="container">
-		<div id="menu08701_2">
-			<div class="tableBox noticeTop">
-				<h1>공지사항</h1>
-				<p>안내, 정책변경, 업데이트등 디비마스터의 다양한 소식을 확인하실 수 있습니다.</p>
+		<div id="menu08702_2">
+			<div class="tableBox boardTop">
+				<h1>문의사항</h1>
+				<p>궁금하신 사항이 있으시다면 언제든지 문의해주시기 바랍니다. 신속하고 친절하게 답변드리겠습니다.</p>
 			</div>
-			<div class="tableBox noticeView">
-				<h3>[ 업데이트 ] 디비마스터 2022-01-20 목요일 업데이트 안내입니다. 
+			<div class="tableBox boardView">
+				<h3>랜딩페이지가 안됩니다.
 					<p>
-						<span>관리자</span>
+						<span>홍길동</span>
 						<span>2022-01-20</span>
 					</p>
 				</h3>
@@ -40,24 +40,11 @@
 				</p>
 
 			</div>
-			<div class="tableBox prevBox">
-				<p>
-					<span class="prev">이전글</span>
-					[ 업데이트 ] 디비마스터 2022-01-20 목요일 업데이트 안내입니다.
-					<span class="prevDate">2022-01-20</span>
-				</p>
-				<p>
-					<span class="prev">다음글</span>
-					[ 업데이트 ] 디비마스터 2022-01-20 목요일 업데이트 안내입니다.
-					<span class="prevDate">2022-01-20</span>
-				</p>
-			</div>
 			<div class="btnBox">
-				<button @click="GoNoticeList()">목록으로</button>
+				<button @click="GoBoardList()">목록으로</button>
 			</div>
 
 		</div>
-
 	</div>
 </template>
 
@@ -67,6 +54,7 @@
 	export default {
 		data() {
 			return {
+				preface: '01'
 
 			}
 		},
@@ -74,13 +62,13 @@
 			//******************************************************************************
 			// 공지사항 리스트로 돌아가기
 			//******************************************************************************
-			GoNoticeList() {
-				this.$router.push({ name : 'MENU_08701' })
+			GoBoardList() {
+				this.$router.push({ name : 'MENU_08702' })
 			}
 		},
 		created() {
 			this.$store.state.headerTopTitle = "고객센터";
-			this.$store.state.headerMidTitle = "공지사항";
+			this.$store.state.headerMidTitle = "문의하기";
 
 		}
 	}
@@ -88,20 +76,15 @@
 
 <style scoped>
 
-	#menu08701_2 .tableBox {
+	#menu08702_2 .tableBox {
 		background: #fff;
 	}
 
-	#menu08701_2 .noticeTop {
+	#menu08702_2 .boardTop {
 		padding: 21px;
 	}
 
-	#menu08701_2 .noticeTop p,
-	#menu08701_2 .prevBox p {
-		color: #444;
-	}
-
-	#menu08701_2 .noticeTop h1{
+	#menu08702_2 .boardTop h1{
 		font-size: 14px;
 		margin-bottom: 7px;
 		color: #222;
@@ -109,7 +92,7 @@
 		position: relative;
 	}
 
-	#menu08701_2 .noticeTop h1::before {
+	#menu08702_2 .boardTop h1::before {
 		clear: both;
 		content: "";
 		width: 2px;
@@ -120,24 +103,24 @@
 		background: #e25b45;
 	}
 
-	#menu08701_2 .noticeView h3 {
+	#menu08702_2 .boardView h3 {
 		padding: 16px 0 16px 20px;
 		border-bottom: 1px solid #939393;
 		color: #222;
 	}
 
-	#menu08701_2 .noticeView h3 p{
+	#menu08702_2 .boardView h3 p{
 		/* display: inline-block; */
 		float: right;
 	}
 
-	#menu08701_2 .noticeView h3 p span {
+	#menu08702_2 .boardView h3 p span {
 		display: inline-block;
 		position: relative;
 		padding: 0 20px;
 	}
 
-	#menu08701_2 .noticeView h3 p span:before {
+	#menu08702_2 .boardView h3 p span:before {
 		clear: both;
 		content: "";
 		position: absolute;
@@ -149,60 +132,26 @@
 		background: #d2d2d2;
 	}
 
-	#menu08701_2 > .noticeView > p {
+	#menu08702_2 > .boardView > p {
 		padding: 17px 19px;
 		line-height: 20px;
 		color: #444;
 	}
 
-	#menu08701_2 .prevBox p {
-		padding: 11px;
-	}
-
-	#menu08701_2 .prevBox p:first-child {
-		border-bottom: 1px solid #e5e5e5;
-	}
-
-	#menu08701_2 .prevBox .prev {
-		display: inline-block;
-		padding: 6.13px 13px 7.3px 13px;
-		background: #f0f0f0;
-		border: 1px solid #e5e5e5;
-		border-radius: 10px;
-		margin-right: 18px;
-	}
-
-	#menu08701_2 .prevBox .prevDate {
-		padding-left: 20px;
-		float: right;
-		padding: 6.13px 9px 7.3px 20px;
-		position: relative;
-	}
-
-	#menu08701_2 .prevBox .prevDate:before {
-		clear: both;
-		content: "";
-		position: absolute;
-		width: 1px;
-		height: 13px;
-		left: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		background: #d2d2d2;
-	}
-
-	#menu08701_2 .btnBox {
+	#menu08702_2 .btnBox{
+		padding: 20px 0;
 		text-align: center;
-		margin-bottom: 20px;
 	}
 
-	#menu08701_2 .btnBox button {
+	#menu08702_2 .btnBox button {
 		padding: 13px 31px;
 		border: none;
-		border-radius: 50px;
+		border-radius: 30px;
 		background: #e25b45;
-		font-size: 16px;
 		color: #fff;
+		font-size: 16px;
 		font-weight: 700;
 	}
+
+
 </style>

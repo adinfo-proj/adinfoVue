@@ -20,12 +20,12 @@
 					<tbody>
 						<tr>
 							<th class="noticeNum">3</th>
-							<td class="noticeNm"> <span>[ 업데이트 ]</span>222222222222222222222222222222</td>
+							<td class="noticeNm" @click="GoNoticeCont()"> <span>[ 업데이트 ]</span>222222222222222222222222222222</td>
 							<td class="noticeWriter">운영자</td>
 							<td class="noticeDate">3333-33-33</td>
 							<td class="noticeOpen">123</td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<th class="noticeNum">2</th>
 							<td class="noticeNm"> <span>[ 공지사항 ]</span>222222222222222222222222222222</td>
 							<td class="noticeWriter">운영자</td>
@@ -38,7 +38,7 @@
 							<td class="noticeWriter">운영자</td>
 							<td class="noticeDate">3333-33-33</td>
 							<td class="noticeOpen">789</td>
-						</tr>
+						</tr> -->
 					</tbody>
 					<tfoot>
 						<tr>
@@ -71,7 +71,13 @@
 			}
 		},
 		methods: {
-
+			GoNoticeCont() { 
+				console.log();
+				this.$router.push({ 
+					name : 'MENU_08701_2', 
+					// params: { index: index } 
+				})
+			}
 		},
 		created() {
 			this.$store.state.headerTopTitle = "고객센터";
@@ -88,9 +94,29 @@
 		padding: 21px;
 	}
 
+	#menu08701 .noticeTop p,
+	#menu08701 .prevBox p {
+		color: #444;
+	}
+
+
 	#menu08701 .noticeTop h1{
 		font-size: 14px;
 		margin-bottom: 7px;
+		color: #222;
+		padding-left: 12px;
+		position: relative;
+	}
+
+	#menu08701 .noticeTop h1::before {
+		clear: both;
+		content: "";
+		width: 2px;
+		height: 13px;
+		position: absolute;
+		top: 1.5px;
+		left: 0;
+		background: #e25b45;
 	}
 
 	#menu08701 th,
@@ -100,6 +126,7 @@
 		border: none;
 		position: relative;
 	}
+
 
 
 	#menu08701 .noticeNum {
