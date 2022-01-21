@@ -4,6 +4,9 @@
 			<div class="tableBox noticeTop">
 				<h1>공지사항</h1>
 				<p>안내, 정책변경, 업데이트등 디비마스터의 다양한 소식을 확인하실 수 있습니다.</p>
+				<div class="btnBox">
+					<button @click="WriteNotice()">공지사항 작성하기</button>
+				</div>
 			</div>
 			<div class="tableBox">
 				<table>
@@ -15,7 +18,6 @@
 							<th class="noticeDate">작성일</th>
 							<th class="noticeOpen">조회수</th>
 						</tr>
-
 					</thead>
 					<tbody>
 						<tr>
@@ -71,10 +73,15 @@
 			}
 		},
 		methods: {
-			GoNoticeCont() { 
-				console.log();
+			GoNoticeCont() {
 				this.$router.push({ 
 					name : 'MENU_08701_2', 
+					// params: { index: index } 
+				})
+			},
+			WriteNotice(){
+				this.$router.push({ 
+					name : 'MENU_08701_3', 
 					// params: { index: index } 
 				})
 			}
@@ -117,6 +124,19 @@
 		top: 1.5px;
 		left: 0;
 		background: #e25b45;
+	}
+
+	#menu08701 .btnBox {
+		text-align: right;
+	}
+
+	#menu08701 .btnBox button{
+		padding: 10px 15px;
+		border-radius: 10px;
+		border: none;
+		font-weight: 700;
+		color: #fff;
+		background: #999;
 	}
 
 	#menu08701 th,

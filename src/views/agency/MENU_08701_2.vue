@@ -8,6 +8,8 @@
 			<div class="tableBox noticeView">
 				<h3>[ 업데이트 ] 디비마스터 2022-01-20 목요일 업데이트 안내입니다. 
 					<p>
+						<span><a href="javascript:void(0)">수정</a></span>
+						<span><a href="javascript:void(0)">삭제</a></span>
 						<span>관리자</span>
 						<span>2022-01-20</span>
 					</p>
@@ -76,6 +78,12 @@
 			//******************************************************************************
 			GoNoticeList() {
 				this.$router.push({ name : 'MENU_08701' })
+			},
+			ModifyNotice() {
+				this.$router.push({ 
+					name : 'MENU_08701_3', 
+					// params: { index: index } 
+				})
 			}
 		},
 		created() {
