@@ -1,74 +1,138 @@
-<template>
+<!-- <template>
 	<div class="container">
-		<div id="menu08702">
-			<div class="tableBox boardTop">
-				<h1>문의사항</h1>
-				<p>궁금하신 사항이 있으시다면 언제든지 문의해주시기 바랍니다. 신속하고 친절하게 답변드리겠습니다.</p>
+		<div id="menu08701_3">
+			<div class="tableBox noticeTop">
+				<h1>공지사항</h1>
+				<p>안내, 정책변경, 업데이트등 디비마스터의 다양한 소식을 확인하실 수 있습니다.</p>
 			</div>
 			<div class="tableBox">
-				<table>
-					<thead>
-						<tr>
-							<th class="boardNum">No.</th>
-							<th class="boardNm">제목</th>
-							<th class="boardWriter">작성자</th>
-							<th class="boardDate">작성일</th>
-							<th class="boardOpen">조회수</th>
-						</tr>
-
-					</thead>
-					<tbody>
-						<tr>
-							<th class="boardNum">1</th>
-							<td class="boardNm">제목</td>
-							<td class="boardWriter">작성자</td>
-							<td class="boardDate">작성일</td>
-							<td class="boardOpen">조회수</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="5">
-								<button @click="WriteBoard()">문의하기</button>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="5">
-							<span><i class="icon-chevron-left1"></i></span>
-								<ul>
-									<li class="pageBtn">1</li>
-									<li class="pageBtn">2</li>
-									<li class="pageBtn">3</li>
-								</ul>
-                <span class="pageright"><i class="icon-chevron-right1"></i></span>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
+				<h2>
+					제목
+					<select v-model="preface">
+            <option value="01">공지사항</option>
+						<option value="02">업데이트</option>
+						<option value="03">이벤트  </option>
+            <option value="04">기타    </option>
+					</select>
+					<input type="text" v-model="title">
+				</h2>
+				<div class="textBox">
+				<div class="editeBox">
+					<textarea name="ir1" id="ir1" rows="25" style="width:100%"></textarea>
+	
+				</div>
+				</div>
+			</div>
+			<div class="btnBox">
+        <button                @click="CreateNotify    ()">등록하기</button>
+        <button class="canBtn" @click="CancleNoticeList()">취소하기</button>
 			</div>
 		</div>
-
 	</div>
 </template>
+-->
+
+<!--
+<script>
+	// import $     from 'jquery';
+	import axios from "axios";
+	import '../../plugins/smarteditor/js/HuskyEZCreator.js'
+
+	// $(function() {
+	// 	$('.editeBox script').innerHTML(
+	// 		nhn.husky.EZCreator.createInIFrame({
+	// 			oAppRef: oEditors
+	// 			, elPlaceHolder: "ir1"
+	// 			, sSkinURI: "../../plugins/smarteditor/SmartEditor2Skin.html"
+	// 			, htParams : {
+	// 					bUseToolbar : true,						// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	// 					bUseVerticalResizer : false,	// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	// 					bUseModeChanger : true,				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	// 					//aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
+	// 					fOnBeforeUnload : function() {
+	// 						alert("완료!");
+	// 					}
+	// 				}
+	// 		});
+	// 	)
+	// });
 
 
+
+	export default {
+    components: {
+    },
+		data() {
+			return {
+          title: ''
+				, preface: '01'
+        , editorData : ''
+			}
+		},
+		methods: {
+			//******************************************************************************
+			// 공지사항 등록
+			//******************************************************************************
+			CreateNotify() {
+        axios.get("http://api.adinfo.co.kr:30000/notify/create",
+        {
+          params: {
+              clntId: this.$store.state.clntId
+            , useTp: '0'
+            , head: this.preface
+            , title: this.title
+            , contents: this.editorData
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+          if(response.data > 0) {
+            alert("정상적으로 공지사항이 등록되었습니다.");
+            this.$router.push({ 
+              name : 'MENU_08701_2', 
+              params: { index: response.data }
+            })
+            return;
+          }
+          else {
+            alert("공지사항이 등록되지 않았습니다.\n\n관리자에게 문의 바랍니다.");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      },
+			//******************************************************************************
+			// 공지사항 리스트로 돌아가기
+			//******************************************************************************
+			CancleNoticeList() {
+				this.$router.push({ name : 'MENU_08701' })
+			}
+		},
+		created() {
+			this.$store.state.headerTopTitle = "고객센터";
+			this.$store.state.headerMidTitle = "공지사항  >  공지사항 작성";
+		}
+	}
+</script>
+
+-->
 
 <style scoped>
-
-	#menu08702 .boardTop {
+	#menu08701_3 .tableBox {
 		background: #fff;
+	}
+	#menu08701_3 .noticeTop {
 		padding: 21px;
 	}
-
-	#menu08702 .boardTop h1{
+	#menu08701_3 .noticeTop h1{
 		font-size: 14px;
 		margin-bottom: 7px;
 		color: #222;
 		padding-left: 12px;
 		position: relative;
 	}
-
-	#menu08702 .boardTop h1::before {
+	#menu08701_3 .noticeTop h1::before {
 		clear: both;
 		content: "";
 		width: 2px;
@@ -78,118 +142,47 @@
 		left: 0;
 		background: #e25b45;
 	}
-
-	#menu08702 th,
-	#menu08702 td {
-		padding: 15px 18px;
-		text-align: center;
-		border: none;
-		position: relative;
+	#menu08701_3 .tableBox h2 {
+		padding: 8px 11px 9px 21px;
+		border-bottom: 1px solid #e5e5e5;
 	}
-
-
-	#menu08702 .boardNum {
-		width: 7%;
-	}
-
-	#menu08702 .boardNm {
-		width: 63%;
-	}
-
-	#menu08702 td.boardNm {
-		text-align: left;
-		padding-left: 30px;
-		cursor: pointer;
-	}
-
-	#menu08702 .boardWriter,
-	#menu08702 .boardDate,
-	#menu08702 .boardOpen  {
-		width: 10%;
-	}
-
-	#menu08702 thead {
-		border-bottom: 1px solid #5c5c5c;
-	}
-
-	#menu08702 thead tr th:after{
-		position: absolute;
-    content: "";
-    width: 1px;
-    height: 14px;
-    background: #d2d2d2;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-	}
-
-	#menu08702 thead tr th:last-child:after{
-		display: none;
-	}
-
-	#menu08702 tbody tr{
-		border-bottom: 1px solid #ececec;
-	}
-
-	#menu08702 tbody span{
-		display: inline-block;
-		width: 80px;
-	}
-
-	#menu08702 tfoot tr:first-child td{
-		text-align: right;
-	}
-
-	#menu08702 tfoot tr:first-child td button {
-		padding: 12px 24px;
-		font-size: 14px;
-		font-weight: 700;
-		color: #fff;
+	#menu08701_3 .tableBox h2 select {
+		padding: 5px;
 		border: 1px solid #e5e5e5;
-		border-radius: 10px;
-		background: #393939;
+		margin-left: 21px;
+		width: 155px;
 	}
-
-
-	#menu08702 tfoot ul,
-	#menu08702 tfoot ul li {
-		display: inline-block;
+	#menu08701_3 .tableBox h2 input {
+		margin-left: 5px;
+		width: 1117px;
+		border-radius: 0;
 	}
-
-	#menu08702 tfoot span {
-		display: inline-block;
-    width: 25px;
-    height: 25px;
-    border: 1px solid #e4e4e4;
-    color: #c6c6c6;
-    font-size: 13px;
-    padding: 5px 5px;
-    text-align: left;
-		cursor: pointer;
+	#menu08701_3 .tableBox .textBox {
+		padding: 8px 11px;
 	}
-
-	#menu08702 tfoot ul li {
-    margin: 0 10px;
-		cursor: pointer;
+	#menu08701_3 .tableBox .textBox textarea {
+		width: 100%;
+		height: 487px;
+		resize: none;
+		border: 1px solid #e5e5e5;
+		color: #666;
+		padding: 10px;
 	}
-
-	#menu08702 tfoot ul li.on {
-    font-weight: 900;
-    position: relative;
+	#menu08701_3 .btnBox{
+		padding: 20px 0;
+		text-align: center;
 	}
-
-	#menu08702 tfoot ul li.on:after {
-    clear: both;
-    position: absolute;
-    height: 1px;
-    width: 100%;
-    content: "";
-    bottom: -1px;
-    left: 0;
-    background: #666;
+	#menu08701_3 .btnBox button {
+		padding: 13px 31px;
+		border: none;
+		border-radius: 30px;
+		background: #e25b45;
+		color: #fff;
+		font-size: 16px;
+		font-weight: 700;
 	}
-
-
-
-
+	#menu08701_3 .btnBox button.canBtn {
+		margin-left: 20px;
+		background: #868686;
+	}
 </style>

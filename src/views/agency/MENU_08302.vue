@@ -116,7 +116,7 @@
               </select>
             </td>
             <th>
-              회사명
+              광고주 명
             </th>
             <td>
               <input type="text" class="" v-model="$store.state.company">
