@@ -4,7 +4,8 @@
 			<div class="tableBox noticeTop">
 				<h1>공지사항</h1>
 				<p>안내, 정책변경, 업데이트등 디비마스터의 다양한 소식을 확인하실 수 있습니다.</p>
-				<div class="btnBox">
+				<!-- 나중에 != =>  == 으로 바꿔야함 -->
+				<div class="btnBox" v-if="$store.state.adGradeCd != '01'">
 					<button @click="WriteNotice()">공지사항 작성하기</button>
 				</div>
 			</div>
@@ -12,48 +13,42 @@
 				<table>
 					<thead>
 						<tr>
-							<th class="noticeNum">No.</th>
-							<th class="noticeNm">제목</th>
+							<th class="noticeNum"   >번호</th>
+							<th class="noticeNm"    >제목</th>
 							<th class="noticeWriter">작성자</th>
-							<th class="noticeDate">작성일</th>
-							<th class="noticeOpen">조회수</th>
+							<th class="noticeDate"  >작성일</th>
+							<th class="noticeOpen"  >조회수</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th class="noticeNum">3</th>
-							<td class="noticeNm" @click="GoNoticeCont()"> <span>[ 업데이트 ]</span>222222222222222222222222222222</td>
-							<td class="noticeWriter">운영자</td>
-							<td class="noticeDate">3333-33-33</td>
-							<td class="noticeOpen">123</td>
+						<tr v-for="(contentsList, index) in contentsListObj" :key="index">
+							<th class="noticeNum">{{contentsList.seqNo}}</th>
+							<td class="noticeNm" @click="GoNoticeCont(contentsList.seqNo)">
+								<span v-if="contentsList.head == '01'">[ 공지사항 ]</span>
+								<span v-if="contentsList.head == '02'">[ 업데이트 ]</span>
+								<span v-if="contentsList.head == '03'">[ 이벤트 ]</span>
+								<span v-if="contentsList.head == '04'">[ 기타 ]</span>
+								{{contentsList.title}}</td>
+							<td class="noticeWriter">{{contentsList.clntId}}</td>
+							<td class="noticeDate">{{contentsList.createDt}}</td>
+							<td class="noticeOpen">{{contentsList.readCount}}</td>
 						</tr>
-						<!-- <tr>
-							<th class="noticeNum">2</th>
-							<td class="noticeNm"> <span>[ 공지사항 ]</span>222222222222222222222222222222</td>
-							<td class="noticeWriter">운영자</td>
-							<td class="noticeDate">3333-33-33</td>
-							<td class="noticeOpen">456</td>
-						</tr>
-						<tr>
-							<th class="noticeNum">1</th>
-							<td class="noticeNm"> <span>[ 이벤트 ]</span>222222222222222222222222222222</td>
-							<td class="noticeWriter">운영자</td>
-							<td class="noticeDate">3333-33-33</td>
-							<td class="noticeOpen">789</td>
-						</tr> -->
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="5">
-								<span class="pageleft"><i class="icon-chevron-left1"></i></span>
+              <td class="dataBtn" colspan="8">
+                <span class="pageleft" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
 								<ul>
-									<li class="pageBtn on">1</li>
-									<li class="pageBtn">2</li>
-									<li class="pageBtn">3</li>
-									<li class="pageBtn">4</li>
+									<li class="pageBtn" 
+										v-bind:class="{on : (indexPage) == curPage}" 
+										v-for="(indexPage, index) in pageCount" :key="index" 
+										@click="getNotifyTitleList(pageCount[0] + index, false)"
+									>
+										{{indexPage}}
+									</li>
 								</ul>
-								<span class="pageright"><i class="icon-chevron-right1"></i></span>
-							</td>
+                <span class="pageright" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
+              </td>
 						</tr>
 					</tfoot>
 				</table>
@@ -64,19 +59,109 @@
 </template>
 
 <script>
-
+	import axios          from "axios";
 
 	export default {
 		data() {
 			return {
-
+					contentsListObj: ''
+				, selectRowCount: 10
+				, curRunTotalPages: 0
+				, pageCount: []
+				, selectPage: 0
 			}
 		},
 		methods: {
-			GoNoticeCont() {
+			//******************************************************************************
+			// 공지사항 목록조회하기.
+			//******************************************************************************
+      getNotifyTitleList(selectPage, firstSel) {
+				console.log("selectPage : " + selectPage);
+				console.log("firstSel   : " + firstSel);
+
+        if( firstSel == true) {
+          this.curRunTotalPages = 100000000;
+        }
+
+        if( (selectPage > this.curRunTotalPages) || (selectPage <= 0) ) {
+          return false;
+        }
+
+				this.dbSelectData = null;
+				this.curPage = selectPage;
+
+        axios.get("http://api.adinfo.co.kr:30000/notify/titlelist",
+        {
+          params: {
+              seqNo: 9999999999
+						, curPage   : selectPage
+						, rowCount  : this.selectRowCount
+          }
+        })
+        .then(response => 
+				{
+          this.contentsListObj = response.data;
+
+          //------------------------------------------------------------------------------
+          // 페이지 정보 조회
+          //------------------------------------------------------------------------------
+          axios.get("http://api.adinfo.co.kr:30000/GetNotifyForAllPageCount",
+          {
+            params: {
+              useTp : '0'
+            }
+          })
+          .then(response => 
+					{
+            let arrGab = [];
+            let pageUpPage = 0;
+
+            // 전체 페이지의 수를 확인한다.
+            this.curRunTotalPages = Math.ceil(response.data.rowTotalCount / this.selectRowCount);
+
+            // 페이지가 10개 이하이면...
+            if( this.curRunTotalPages < 10) 
+						{
+              for(let i = 0; i < this.curRunTotalPages; i++) 
+							{
+                arrGab.push(i+1);
+              }
+              this.pageCount = arrGab;
+              return;
+            }
+
+            //--------------------------------------------------------------------
+            // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
+            //--------------------------------------------------------------------
+            let pageCut = Math.floor((selectPage) / 10) * 10;
+
+            if( (selectPage % 10) == 0 ) 
+						{
+              return;
+            }
+
+            let nLoop = 0;
+            for(let i = pageCut; i < this.curRunTotalPages; i++) 
+						{
+              if( (nLoop+pageUpPage) >= 10 + pageUpPage)
+                break;
+              arrGab.push(i+1);
+              nLoop++;
+            }
+
+            this.pageCount = arrGab;
+					})
+					.catch(error => 
+					{
+						console.log(error);
+					})
+				})
+			},
+
+			GoNoticeCont(index) {
 				this.$router.push({ 
 					name : 'MENU_08701_2', 
-					// params: { index: index } 
+					params: { index: index }
 				})
 			},
 			WriteNotice(){
@@ -90,23 +175,20 @@
 			this.$store.state.headerTopTitle = "고객센터";
 			this.$store.state.headerMidTitle = "공지사항";
 
+			this.getNotifyTitleList(1, true);
 		}
 	}
 </script>
 
 <style scoped>
-
 	#menu08701 .noticeTop {
 		background: #fff;
 		padding: 21px;
 	}
-
 	#menu08701 .noticeTop p,
 	#menu08701 .prevBox p {
 		color: #444;
 	}
-
-
 	#menu08701 .noticeTop h1{
 		font-size: 14px;
 		margin-bottom: 7px;
@@ -114,7 +196,6 @@
 		padding-left: 12px;
 		position: relative;
 	}
-
 	#menu08701 .noticeTop h1::before {
 		clear: both;
 		content: "";
@@ -125,11 +206,9 @@
 		left: 0;
 		background: #e25b45;
 	}
-
 	#menu08701 .btnBox {
 		text-align: right;
 	}
-
 	#menu08701 .btnBox button{
 		padding: 10px 15px;
 		border-radius: 10px;
@@ -138,7 +217,6 @@
 		color: #fff;
 		background: #999;
 	}
-
 	#menu08701 th,
 	#menu08701 td {
 		padding: 15px 18px;
@@ -146,33 +224,25 @@
 		border: none;
 		position: relative;
 	}
-
-
-
 	#menu08701 .noticeNum {
 		width: 7%;
 	}
-
 	#menu08701 .noticeNm {
 		width: 63%;
 	}
-
 	#menu08701 td.noticeNm {
 		text-align: left;
 		padding-left: 30px;
 		cursor: pointer;
 	}
-
 	#menu08701 .noticeWriter,
 	#menu08701 .noticeDate,
 	#menu08701 .noticeOpen  {
 		width: 10%;
 	}
-
 	#menu08701 thead {
 		border-bottom: 1px solid #5c5c5c;
 	}
-
 	#menu08701 thead tr th:after{
 		position: absolute;
     content: "";
@@ -183,26 +253,20 @@
     right: 0;
     transform: translateY(-50%);
 	}
-
 	#menu08701 thead tr th:last-child:after{
 		display: none;
 	}
-
 	#menu08701 tbody tr{
 		border-bottom: 1px solid #ececec;
 	}
-
 	#menu08701 tbody span{
 		display: inline-block;
 		width: 80px;
 	}
-
-
 	#menu08701 tfoot ul,
 	#menu08701 tfoot ul li {
 		display: inline-block;
 	}
-
 	#menu08701 tfoot span {
 		display: inline-block;
     width: 25px;
@@ -214,17 +278,14 @@
     text-align: left;
 		cursor: pointer;
 	}
-
 	#menu08701 tfoot ul li {
     margin: 0 10px;
 		cursor: pointer;
 	}
-
 	#menu08701 tfoot ul li.on {
     font-weight: 900;
     position: relative;
 	}
-
 	#menu08701 tfoot ul li.on:after {
     clear: both;
     position: absolute;
@@ -235,8 +296,4 @@
     left: 0;
     background: #666;
 	}
-
-
-
-
 </style>

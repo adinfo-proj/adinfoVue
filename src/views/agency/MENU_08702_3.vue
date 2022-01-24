@@ -8,14 +8,14 @@
 			<div class="tableBox">
 				<h2>
 					제목
-					<input type="text">
+					<input type="text" v-model="title">
 				</h2>
 				<div class="textBox">
-					<textarea></textarea>
+					<ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
 				</div>
 			</div>
 			<div class="btnBox">
-				<button>등록하기</button>
+				<button @click="CreateBoard()">등록하기</button>
 				<button class="canBtn" @click="CancleBoardList()">취소하기</button>
 			</div>
 		</div>
@@ -24,15 +24,64 @@
 </template>
 
 <script>
+	import axios          from "axios";
 
 
 	export default {
 		data() {
 			return {
-
+					title: ''
+        , editorConfig: {
+            toolbarGroups: [
+              { name: 'forms' },
+              { name: 'basicstyles', groups: [ 'basicstyles'] },
+              { name: 'links' },
+              { name: 'styles' },
+              { name: 'colors' }
+            ]
+            , height: '150px'
+            , language: 'ko'
+            , resize_enabled: false
+          }
+        , editorData : ''
 			}
 		},
 		methods: {
+			//******************************************************************************
+			// 문의사항 등록
+			//******************************************************************************
+			CreateBoard() {
+        axios.get("http://api.adinfo.co.kr:30000/ask/create",
+        {
+          params: {
+              clntId: this.$store.state.clntId
+						// , clntNm: this.$store.state.clntNm	
+            , useTp: '0'
+            , title: this.title
+            , contents: this.editorData
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+          if(response.data > 0) {
+            alert("문의글이 정상적으로 등록되었습니다. \n\n 빠른시간내로 답변 드리겠습니다.");
+            this.$router.push({ 
+              name : 'MENU_08702', 
+              // params: { index: response.data }
+            })
+            return;
+          }
+          else {
+            alert("문의사항이 등록되지 않았습니다.\n\n관리자에게 문의 바랍니다.");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      },
+			//******************************************************************************
+			// 문의사항 리스트로 돌아가기
+			//******************************************************************************
 			CancleBoardList() { 
 				console.log();
 				this.$router.push({ name : 'MENU_08702' })

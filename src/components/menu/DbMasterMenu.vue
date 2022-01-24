@@ -7,7 +7,7 @@
       <ul>
         <li v-bind:class="{on : 1 == menuSelect}">
           <a href="javascript:void(0)" @click="DBMenuBar(1)" >
-            <i class="icon-layers"></i>
+            <i class="icon-file-text"></i>
             캠페인 목록
           </a>
           <ul>
@@ -31,7 +31,7 @@
         </li>
         <li v-bind:class="{on : 3 == menuSelect}">
           <a  href="javascript:void(0)" @click="DBMenuBar(3)">
-            <i class="icon-layers"></i>
+            <i class="icon-free-transform"></i>
             랜딩페이지
           </a>
           <ul>
@@ -50,7 +50,7 @@
 
         <li v-bind:class="{on : 4 == menuSelect}">
           <a  href="javascript:void(0)" @click="DBMenuBar(4)">
-            <i class="icon-layers"></i>
+            <i class="icon-stats"></i>
             포스트백
           </a>
           <ul>
@@ -68,19 +68,19 @@
         </li>
         <li @click="DBMenuBar(5)" v-bind:class="{on : 5 == menuSelect}">
           <router-link to="MENU_08501">
-            <i class="icon-layers"></i>
+            <i class="icon-picture1"></i>
             랜딩 샘플 보기
           </router-link>
         </li>
         <li @click="DBMenuBar(6)" v-bind:class="{on : 6 == menuSelect}">
           <router-link to="MENU_08501">
-            <i class="icon-layers"></i>
+            <i class="icon-brush"></i>
             랜딩 제작 의뢰
           </router-link>
         </li>
         <li v-bind:class="{on : 7 == menuSelect}">
           <a  href="javascript:void(0)" @click="DBMenuBar(7)">
-            <i class="icon-layers"></i>
+            <i class="icon-bubble-text"></i>
             고객센터
           </a>
           <ul>
@@ -103,7 +103,7 @@
         </li>
         <li @click="DBMenuBar(9)" v-bind:class="{on : 9 == menuSelect}">
           <router-link to="MENU_08901">
-            <i class="icon-layers"></i>
+            <i class="icon-user"></i>
             내정보
           </router-link>
         </li>

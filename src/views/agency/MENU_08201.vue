@@ -109,7 +109,6 @@
             <tr>
               <td colspan="8">
                 <img src="../../assets/images/menu08201/data_icon.png" alt="">
-                dd
               </td>
             </tr>
           </tbody>

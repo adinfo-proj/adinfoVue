@@ -9,36 +9,22 @@
 				<table>
 					<thead>
 						<tr>
-							<th class="boardNum">No.</th>
-							<th class="boardNm">제목</th>
+							<th class="boardNum"   >번호</th>
+							<th class="boardNm"    >제목</th>
 							<th class="boardWriter">작성자</th>
-							<th class="boardDate">작성일</th>
-							<th class="boardOpen">조회수</th>
+							<th class="boardDate"  >작성일</th>
+							<th class="boardOpen"  >조회수</th>
 						</tr>
-
 					</thead>
 					<tbody>
-						<tr>
-							<th class="boardNum">3</th>
-							<td class="boardNm" @click="GoBoardCont()" >222222222222222222222222222222</td>
-							<td class="boardWriter">운영자</td>
-							<td class="boardDate">3333-33-33</td>
-							<td class="boardOpen">123</td>
+						<tr v-for="(boardList, index) in boardListObj" :key="index">
+							<th class="boardNum">{{boardList.seqNo}}</th>
+							<td class="boardNm" @click="GoBoardCont(boardList.seqNo)">
+								{{boardList.title}}</td>
+							<td class="boardWriter">{{boardList.clntId}}</td>
+							<td class="boardDate">{{boardList.createDt}}</td>
+							<td class="boardOpen">{{boardList.readCount}}</td>
 						</tr>
-						<!-- <tr>
-							<th class="boardNum">2</th>
-							<td class="boardNm" @click="GoBoardCont()">222222222222222222222222222222</td>
-							<td class="boardWriter">운영자</td>
-							<td class="boardDate">3333-33-33</td>
-							<td class="boardOpen">456</td>
-						</tr>
-						<tr>
-							<th class="boardNum">1</th>
-							<td class="boardNm" @click="GoBoardCont()">222222222222222222222222222222</td>
-							<td class="boardWriter">운영자</td>
-							<td class="boardDate">3333-33-33</td>
-							<td class="boardOpen">789</td>
-						</tr> -->
 					</tbody>
 					<tfoot>
 						<tr>
@@ -47,16 +33,19 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="5">
-								<span class="pageleft"><i class="icon-chevron-left1"></i></span>
+              <td class="dataBtn" colspan="5">
+                <span class="pageleft" v-if="pageCount.length > 0" @click="getBoardTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
 								<ul>
-									<li class="pageBtn on">1</li>
-									<li class="pageBtn">2</li>
-									<li class="pageBtn">3</li>
-									<li class="pageBtn">4</li>
+									<li class="pageBtn" 
+										v-bind:class="{on : (indexPage) == curPage}" 
+										v-for="(indexPage, index) in pageCount" :key="index" 
+										@click="getBoardTitleList(pageCount[0] + index, false)"
+									>
+										{{indexPage}}
+									</li>
 								</ul>
-								<span class="pageright"><i class="icon-chevron-right1"></i></span>
-							</td>
+                <span class="pageright" v-if="pageCount.length > 0" @click="getBoardTitleList(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
+              </td>
 						</tr>
 					</tfoot>
 				</table>
@@ -67,23 +56,114 @@
 </template>
 
 <script>
-
+	import axios          from "axios";
 
 	export default {
 		data() {
 			return {
-
+					boardListObj: ''
+				, selectRowCount: 10
+				, curRunTotalPages: 0
+				, pageCount: []
+				, selectPage: 0
 			}
 		},
 		methods: {
-			GoBoardCont() { 
-				this.$router.push({ 
-					name : 'MENU_08702_2' 
+			//******************************************************************************
+			// 공지사항 목록조회하기.
+			//******************************************************************************
+      getBoardTitleList(selectPage, firstSel) {
+				console.log("selectPage : " + selectPage);
+				console.log("firstSel   : " + firstSel);
+
+        if( firstSel == true) {
+          this.curRunTotalPages = 100000000;
+        }
+
+        if( (selectPage > this.curRunTotalPages) || (selectPage <= 0) ) {
+          return false;
+        }
+
+				this.dbSelectData = null;
+				this.curPage = selectPage;
+
+        axios.get("http://api.adinfo.co.kr:30000/ask/titlelist",
+        {
+          params: {
+              seqNo: 9999999999
+						, curPage   : selectPage
+						, rowCount  : this.selectRowCount
+          }
+        })
+        .then(response => 
+				{
+          this.boardListObj = response.data;
+
+          //------------------------------------------------------------------------------
+          // 페이지 정보 조회
+          //------------------------------------------------------------------------------
+          axios.get("http://api.adinfo.co.kr:30000/GetAskForAllPageCount",
+          {
+            params: {
+              useTp : '0'
+            }
+          })
+          .then(response => 
+					{
+            let arrGab = [];
+            let pageUpPage = 0;
+
+            // 전체 페이지의 수를 확인한다.
+            this.curRunTotalPages = Math.ceil(response.data.rowTotalCount / this.selectRowCount);
+
+            // 페이지가 10개 이하이면...
+            if( this.curRunTotalPages < 10) 
+						{
+              for(let i = 0; i < this.curRunTotalPages; i++) 
+							{
+                arrGab.push(i+1);
+              }
+              this.pageCount = arrGab;
+              return;
+            }
+
+            //--------------------------------------------------------------------
+            // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
+            //--------------------------------------------------------------------
+            let pageCut = Math.floor((selectPage) / 10) * 10;
+
+            if( (selectPage % 10) == 0 ) 
+						{
+              return;
+            }
+
+            let nLoop = 0;
+            for(let i = pageCut; i < this.curRunTotalPages; i++) 
+						{
+              if( (nLoop+pageUpPage) >= 10 + pageUpPage)
+                break;
+              arrGab.push(i+1);
+              nLoop++;
+            }
+
+            this.pageCount = arrGab;
+					})
+					.catch(error => 
+					{
+						console.log(error);
+					})
 				})
 			},
-			WriteBoard() {
+
+			GoBoardCont(index) {
 				this.$router.push({ 
-					name : 'MENU_08702_3' 
+					name : 'MENU_08702_2', 
+					params: { index: index }
+				})
+			},
+			WriteBoard(){
+				this.$router.push({ 
+					name : 'MENU_08702_3', 
 				})
 			}
 		},
@@ -91,9 +171,13 @@
 			this.$store.state.headerTopTitle = "고객센터";
 			this.$store.state.headerMidTitle = "문의하기";
 
+			this.getBoardTitleList(1, true);
 		}
 	}
 </script>
+
+
+
 
 <style scoped>
 

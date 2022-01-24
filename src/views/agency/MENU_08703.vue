@@ -9,54 +9,43 @@
 				<table>
 					<thead>
 						<tr>
-							<th class="techNum">No.</th>
-							<th class="techNm">제목</th>
+							<th class="techNum"   >번호</th>
+							<th class="techNm"    >제목</th>
 							<th class="techWriter">작성자</th>
-							<th class="techDate">작성일</th>
-							<th class="techOpen">조회수</th>
+							<th class="techDate"  >작성일</th>
+							<th class="techOpen"  >조회수</th>
 						</tr>
-
 					</thead>
 					<tbody>
-						<tr>
-							<th class="techNum">3</th>
-							<td class="techNm" @click="GoTechCont()">222222222222222222222222222222</td>
-							<td class="techWriter">운영자</td>
-							<td class="techDate">3333-33-33</td>
-							<td class="techOpen">123</td>
+						<tr v-for="(techList, index) in techListObj" :key="index">
+							<th class="techNum">{{techList.seqNo}}</th>
+							<td class="techNm" @click="GoTechCont(techList.seqNo)">
+								{{techList.title}}</td>
+							<td class="techWriter">{{techList.clntId}}</td>
+							<td class="techDate">{{techList.createDt}}</td>
+							<td class="techOpen">{{techList.readCount}}</td>
 						</tr>
-						<!-- <tr>
-							<th class="techNum">2</th>
-							<td class="techNm" @click="GoRequestCont()">222222222222222222222222222222</td>
-							<td class="techWriter">운영자</td>
-							<td class="techDate">3333-33-33</td>
-							<td class="techOpen">456</td>
-						</tr>
-						<tr>
-							<th class="techNum">1</th>
-							<td class="techNm" @click="GoRequestCont()">222222222222222222222222222222</td>
-							<td class="techWriter">운영자</td>
-							<td class="techDate">3333-33-33</td>
-							<td class="techOpen">789</td>
-						</tr> -->
 					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="5">
-								<button @click="WriteTech()">기능 요청하기</button>
+								<button @click="WriteTech()">기능 개선 요청</button>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="5">
-								<span class="pageleft"><i class="icon-chevron-left1"></i></span>
+              <td class="dataBtn" colspan="5">
+                <span class="pageleft" v-if="pageCount.length > 0" @click="getTechTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
 								<ul>
-									<li class="pageBtn on">1</li>
-									<li class="pageBtn">2</li>
-									<li class="pageBtn">3</li>
-									<li class="pageBtn">4</li>
+									<li class="pageBtn" 
+										v-bind:class="{on : (indexPage) == curPage}" 
+										v-for="(indexPage, index) in pageCount" :key="index" 
+										@click="getTechTitleList(pageCount[0] + index, false)"
+									>
+										{{indexPage}}
+									</li>
 								</ul>
-								<span class="pageright"><i class="icon-chevron-right1"></i></span>
-							</td>
+                <span class="pageright" v-if="pageCount.length > 0" @click="getTechTitleList(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
+              </td>
 						</tr>
 					</tfoot>
 				</table>
@@ -67,32 +56,122 @@
 </template>
 
 <script>
-
+	import axios          from "axios";
 
 	export default {
 		data() {
 			return {
-
+					techListObj: ''
+				, selectRowCount: 10
+				, curRunTotalPages: 0
+				, pageCount: []
+				, selectPage: 0
 			}
 		},
 		methods: {
-			GoTechCont() { 
-				console.log();
-				this.$router.push({ 
-					name : 'MENU_08703_2', 
-					// params: { index: index } 
+			//******************************************************************************
+			// 공지사항 목록조회하기.
+			//******************************************************************************
+      getTechTitleList(selectPage, firstSel) {
+				console.log("selectPage : " + selectPage);
+				console.log("firstSel   : " + firstSel);
+
+        if( firstSel == true) {
+          this.curRunTotalPages = 100000000;
+        }
+
+        if( (selectPage > this.curRunTotalPages) || (selectPage <= 0) ) {
+          return false;
+        }
+
+				this.dbSelectData = null;
+				this.curPage = selectPage;
+
+        axios.get("http://api.adinfo.co.kr:30000/inprove/titlelist",
+        {
+          params: {
+              seqNo: 9999999999
+						, curPage   : selectPage
+						, rowCount  : this.selectRowCount
+          }
+        })
+        .then(response => 
+				{
+          this.techListObj = response.data;
+
+          //------------------------------------------------------------------------------
+          // 페이지 정보 조회
+          //------------------------------------------------------------------------------
+          axios.get("http://api.adinfo.co.kr:30000/GetInproveForAllPageCount",
+          {
+            params: {
+              useTp : '0'
+            }
+          })
+          .then(response => 
+					{
+            let arrGab = [];
+            let pageUpPage = 0;
+
+            // 전체 페이지의 수를 확인한다.
+            this.curRunTotalPages = Math.ceil(response.data.rowTotalCount / this.selectRowCount);
+
+            // 페이지가 10개 이하이면...
+            if( this.curRunTotalPages < 10) 
+						{
+              for(let i = 0; i < this.curRunTotalPages; i++) 
+							{
+                arrGab.push(i+1);
+              }
+              this.pageCount = arrGab;
+              return;
+            }
+
+            //--------------------------------------------------------------------
+            // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
+            //--------------------------------------------------------------------
+            let pageCut = Math.floor((selectPage) / 10) * 10;
+
+            if( (selectPage % 10) == 0 ) 
+						{
+              return;
+            }
+
+            let nLoop = 0;
+            for(let i = pageCut; i < this.curRunTotalPages; i++) 
+						{
+              if( (nLoop+pageUpPage) >= 10 + pageUpPage)
+                break;
+              arrGab.push(i+1);
+              nLoop++;
+            }
+
+            this.pageCount = arrGab;
+					})
+					.catch(error => 
+					{
+						console.log(error);
+					})
 				})
 			},
-			WriteTech () {
+
+			GoTechCont(index) {
 				this.$router.push({ 
-					name : 'MENU_08703_3' 
+					name : 'MENU_08703_2', 
+					params: { index: index }
+				})
+			},
+			WriteTech(){
+				this.$router.push({ 
+					name : 'MENU_08703_3', 
 				})
 			}
 		},
 		created() {
 			this.$store.state.headerTopTitle = "고객센터";
-			this.$store.state.headerMidTitle = "기능 개선 요청";
+			this.$store.state.headerMidTitle = "기능 개선 요청하기";
 
+			this.getTechTitleList(1, true);
 		}
 	}
 </script>
