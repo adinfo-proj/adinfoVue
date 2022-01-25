@@ -29,7 +29,7 @@
 								<span v-if="contentsList.head == '03'">[ 이벤트 ]</span>
 								<span v-if="contentsList.head == '04'">[ 기타 ]</span>
 								{{contentsList.title}}</td>
-							<td class="noticeWriter">{{contentsList.clntId}}</td>
+							<td class="noticeWriter">{{contentsList.clntNm}}</td>
 							<td class="noticeDate">{{contentsList.createDt}}</td>
 							<td class="noticeOpen">{{contentsList.readCount}}</td>
 						</tr>

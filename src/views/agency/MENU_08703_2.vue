@@ -11,7 +11,7 @@
 					<p>
 						<span class="noticeCursor" v-if="$store.state.clntId == techData.clntId " @click="ModifyTech()">수정</span>
 						<span class="noticeCursor" v-if="$store.state.clntId == techData.clntId" @click="DeleteTech(techData.seqNo)" >삭제</span>
-						<span>{{techData.clntId}}</span>
+						<span>{{techData.clntNm}}</span>
 						<span>{{techData.createDt}}</span>
 					</p>
 				</h3>

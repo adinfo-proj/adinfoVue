@@ -16,7 +16,7 @@
 						<!-- 나중에 != 를 == 로 바꿔야함 -->
 						<span class="noticeCursor" v-if="$store.state.adGradeCd != '01'" @click="ModifyNotice()">수정</span>
 						<span class="noticeCursor" v-if="$store.state.adGradeCd != '01'" @click="DeleteNotice(contentsData.seqNo)" >삭제</span>
-						<span>관리자</span>
+						<span>{{contentsData.clntNm}}</span>
 						<span>{{contentsData.createDt}}</span>
 					</p>
 				</h3>

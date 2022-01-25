@@ -21,7 +21,7 @@
 							<th class="techNum">{{techList.seqNo}}</th>
 							<td class="techNm" @click="GoTechCont(techList.seqNo)">
 								{{techList.title}}</td>
-							<td class="techWriter">{{techList.clntId}}</td>
+							<td class="techWriter">{{techList.clntNm}}</td>
 							<td class="techDate">{{techList.createDt}}</td>
 							<td class="techOpen">{{techList.readCount}}</td>
 						</tr>

@@ -51,18 +51,6 @@
         .then(response => {
           this.boardData     = response.data[0][0];
 
-          if(response.data[1].length > 0) {
-            this.contentsBefore = response.data[1][0];
-          }
-          else {
-            this.contentsBefore = '';
-          }
-          if(response.data[2].length > 0) {
-            this.contentsAfter  = response.data[2][0];
-          }
-          else {
-            this.contentsAfter = '';
-          }
         })
         .catch(error => {
           console.log(error);

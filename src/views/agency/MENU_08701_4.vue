@@ -89,33 +89,35 @@
 				let data = this.contentsData; 
 
 				console.log(data)
-        // axios.get("http://api.adinfo.co.kr:30000/notify/create",
-        // {
-        //   params: {
-        //       clntId: this.$store.state.clntId
-        //     , useTp: '0'
-        //     , head: this.preface
-        //     , title: this.title
-        //     , contents: this.editorData
-        //   }
-        // })
-        // .then(response => {
-        //   console.log(response.data);
-        //   if(response.data > 0) {
-        //     alert("정상적으로 공지사항이 등록되었습니다.");
-        //     this.$router.push({ 
-        //       name : 'MENU_08701_2', 
-        //       params: { index: response.data }
-        //     })
-        //     return;
-        //   }
-        //   else {
-        //     alert("공지사항이 등록되지 않았습니다.\n\n관리자에게 문의 바랍니다.");
-        //   }
-        // })
-        // .catch(error => {
-        //   console.log(error);
-        // })
+
+        axios.get("http://api.adinfo.co.kr:30000/notify/update",
+        {
+          params: {
+              clntId: this.$store.state.clntId
+            , useTp: '0'
+						, seqNo: this.contentsData.seqNo
+            , head: this.contentsData.head
+            , title: this.contentsData.title
+            , contents: this.contentsData.contents
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+          if(response.data > 0) {
+            alert("정상적으로 공지사항이 등록되었습니다.");
+            this.$router.push({ 
+              name : 'MENU_08701_2', 
+              params: { index: response.data }
+            })
+            return;
+          }
+          else {
+            alert("공지사항이 등록되지 않았습니다.\n\n관리자에게 문의 바랍니다.");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
       },
 			//******************************************************************************
 			// 공지사항 리스트로 돌아가기
