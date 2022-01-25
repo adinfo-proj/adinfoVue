@@ -110,9 +110,10 @@
 			//******************************************************************************
 			ModifyNotice() {
 				this.$router.push({ 
-					name : 'MENU_08701_3', 
-					// params: { index: index } 
+					name : 'MENU_08701_4', 
+					params: { seqNo: this.contentsData.seqNo  } 
 				})
+				console.log(this.contentsData.seqNo)
 			},
 			//******************************************************************************
 			// 공지사항 현재글 삭제

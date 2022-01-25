@@ -9,7 +9,7 @@ import DateCalc from "./plugins/DateCalc"
 Vue.use(DateCalc)
 
 // ckeditor
-import CKEditor from 'ckeditor4-vue';
+import CKEditor from 'ckeditor4full-vue';
 Vue.use( CKEditor );
 
 //

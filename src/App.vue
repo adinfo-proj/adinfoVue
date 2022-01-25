@@ -98,6 +98,7 @@
       },
     },
     created() {
+      document.title = "디비마스터";
       this.$store.state.clntId       = localStorage.getItem("clntId");
       this.$store.state.clntNm       = localStorage.getItem("clntNm");
       this.$store.state.nickNm       = localStorage.getItem("nickNm");

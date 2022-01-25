@@ -21,7 +21,7 @@
 							<th class="boardNum">{{boardList.seqNo}}</th>
 							<td class="boardNm" @click="GoBoardCont(boardList.seqNo)">
 								{{boardList.title}}</td>
-							<td class="boardWriter">{{boardList.clntId}}</td>
+							<td class="boardWriter">{{boardList.clntNm}}</td>
 							<td class="boardDate">{{boardList.createDt}}</td>
 							<td class="boardOpen">{{boardList.readCount}}</td>
 						</tr>

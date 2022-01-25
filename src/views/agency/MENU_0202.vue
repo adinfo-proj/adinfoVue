@@ -1364,11 +1364,11 @@ export default {
     clear: both;
     position: absolute;
     display: block;
-    content: "\f00c";
-    font-family: "Font Awesome 5 Free";
+    content: "\e91c";
+    font-family: "icomoon";
     font-weight: 900;
-    font-size: 7px;
-    left: 7px;
+    font-size: 13px;
+    left: 6px;
     top: 1px;
     color: #e25b45;
   }

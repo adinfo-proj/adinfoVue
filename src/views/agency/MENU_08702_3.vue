@@ -31,18 +31,29 @@
 		data() {
 			return {
 					title: ''
-        , editorConfig: {
-            toolbarGroups: [
-              { name: 'forms' },
-              { name: 'basicstyles', groups: [ 'basicstyles'] },
-              { name: 'links' },
-              { name: 'styles' },
-              { name: 'colors' }
-            ]
-            , height: '150px'
-            , language: 'ko'
-            , resize_enabled: false
-          }
+				, editorConfig: { 
+           toolbarGroups: [ 
+            { name: 'styles', groups: [ 'styles' ] }, 
+            { name: 'colors', groups: [ 'colors' ] }, 
+            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] }, 
+            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] }, 
+            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] }, 
+            { name: 'forms', groups: [ 'forms' ] }, 
+            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }, 
+            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] }, 
+            { name: 'links', groups: [ 'links' ] }, 
+            { name: 'insert', groups: [ 'insert' ] }, 
+            { name: 'others', groups: [ 'others' ] }, 
+            { name: 'about', groups: [ 'about' ] }, 
+            { name: 'tools', groups: [ 'tools' ] } 
+            ] 
+          , height: '590px' 
+          , language: 'ko' 
+          , resize_enabled: false 
+          , autoParagraph: false 
+          , allowedContent: true 
+          , removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format' 
+        } 
         , editorData : ''
 			}
 		},
@@ -55,7 +66,6 @@
         {
           params: {
               clntId: this.$store.state.clntId
-						// , clntNm: this.$store.state.clntNm	
             , useTp: '0'
             , title: this.title
             , contents: this.editorData

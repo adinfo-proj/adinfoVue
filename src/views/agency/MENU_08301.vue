@@ -22,6 +22,7 @@
 							<th class="landDbNum">총 DB 접수건수</th>
 							<th class="landAdv">광고주명</th>
 							<th class="landColl">수집항목</th>
+							<th class="landBtn">수정</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -32,16 +33,20 @@
 							<td class="landDbNum">200건</td>
 							<td class="landAdv">가나다</td>
 							<td class="landColl">이름, 연락처, 성별, 기타</td>
+							<td class="landBtn">
+								<button>수정</button>
+								<button>삭제</button>
+							</td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<th class="landNo">2</th>
 							<td class="landCamp">캠페인 2</td>
 							<td class="landNm">아자차카타파하</td>
 							<td class="landDbNum">100건</td>
 							<td class="landAdv">마바사</td>
 							<td class="landColl">이름, 연락처, 나이, 기타</td>
-						</tr>
-						<tr>
+						</tr> -->
+						<!-- <tr>
 							<th class="landNo">3</th>
 							<td class="landCamp">캠페인 3</td>
 							<td class="landNm">가나다라마바사 랜딩페이지 2</td>
@@ -51,12 +56,12 @@
 						</tr>
 						<tr>
 							<th class="landNo">4</th>
-							<td class="landCamp">캠페인 4</td>
+							<td class="landCamp">캠페인ㅁㄴㅇ 4</td>
 							<td class="landNm">아자차카타파하 랜딩페이지 2</td>
 							<td class="landDbNum">30건</td>
 							<td class="landAdv">가나다</td>
 							<td class="landColl">이름, 연락처, 기타</td>
-						</tr>
+						</tr> -->
 					</tbody>
 					<tfoot>
 						<tr>
@@ -101,6 +106,28 @@
 			}
 		},
 		methods: {
+			// //******************************************************************************
+			// // 캠페인 목록 불러오기
+			// //******************************************************************************
+			// getCampaignNameLst() {
+			// 	axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst", 
+			// 	{
+			// 		params: {
+			// 				mbId: this.$store.state.mbId
+			// 			, adId: this.$store.state.adId
+			// 		}
+			// 	})
+			// 	.then(response => {
+			// 		// this.campSelect = response.data[0].caId;
+			// 		this.campaignNameListObj = response.data;
+			// 	})
+			// 	.catch(error => {
+			// 		console.log(error);
+			// 	})
+			// },
+				//******************************************************************************
+			// 캠페인 목록 불러오기
+			//******************************************************************************
 			getCampaignNameLst() {
 				axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst", 
 				{
@@ -160,14 +187,21 @@
 		position: relative;
 	}
 
-	#menu08301 .tableBox .landNo{
+	#menu08301 .tableBox td.landNm,
+	#menu08301 .tableBox td.landColl {
+		text-align: left;
+	}
+
+	#menu08301 .tableBox .landNo {
 		width: 5%;
 	}
 
-	#menu08301 .tableBox .landCamp,
+	#menu08301 .tableBox .landCamp {
+		width: 20%;
+	}
 	#menu08301 .tableBox .landNm,
 	#menu08301 .tableBox .landColl {
-		width: 25%;
+		width: 22.5%;
 	}
 
 	#menu08301 .tableBox .landDbNum{
@@ -176,6 +210,10 @@
 
 	#menu08301 .tableBox .landAdv{
 		width: 11%;
+	}
+
+	#menu08301 .tableBox .landBtn{
+		width: 10%;
 	}
 
 	#menu08301 thead {
@@ -199,6 +237,20 @@
 
 	#menu08301 tbody tr{
 		border-bottom: 1px solid #ececec;
+	}
+
+	#menu08301 tbody .landBtn button,
+	.landDelBtn button {
+    width: 40px;
+    height: 20px;
+    border-radius: 20px;
+    border: none;
+    background: #838383;
+    color: #fff;
+	}
+
+	#menu08301 tbody button:first-child {
+		margin-right: 5px;
 	}
 
 	#menu08301 tfoot ul,

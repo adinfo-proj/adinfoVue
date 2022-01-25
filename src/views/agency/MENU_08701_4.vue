@@ -8,20 +8,20 @@
 			<div class="tableBox">
 				<h2>
 					제목
-					<select v-model="preface">
+					<select v-model="contentsData.head">
             <option value="01">공지사항</option>
 						<option value="02">업데이트</option>
 						<option value="03">이벤트  </option>
             <option value="04">기타    </option>
 					</select>
-					<input type="text" v-model="title">
+					<input type="text" v-model="contentsData.title">
 				</h2>
 				<div class="textBox">
-					<ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
+					<ckeditor v-model="contentsData.contents" :config="editorConfig"></ckeditor>
 				</div>
 			</div>
 			<div class="btnBox">
-        <button @click="CreateNotify();">등록하기</button>
+        <button @click="UpDateNotify();">등록하기</button>
         <button class="canBtn" @click="CancleNoticeList()">취소하기</button>
 			</div>
 		</div>
@@ -60,40 +60,62 @@
           , removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format' 
         } 
         , editorData : ''
+				, contentsData : ''
 			}
 		},
 		methods: {
 			//******************************************************************************
-			// 공지사항 등록
+			// 선택된 데이터 불러오기
 			//******************************************************************************
-			CreateNotify() {
-        axios.get("http://api.adinfo.co.kr:30000/notify/create",
-        {
-          params: {
-              clntId: this.$store.state.clntId
-            , useTp: '0'
-            , head: this.preface
-            , title: this.title
-            , contents: this.editorData
-          }
-        })
+			getModifyContents(seqNo) {
+				axios.get("http://api.adinfo.co.kr:30000/notify/contents",
+				{
+					params: {
+							seqNo: seqNo
+					}
+				})
         .then(response => {
-          console.log(response.data);
-          if(response.data > 0) {
-            alert("정상적으로 공지사항이 등록되었습니다.");
-            this.$router.push({ 
-              name : 'MENU_08701_2', 
-              params: { index: response.data }
-            })
-            return;
-          }
-          else {
-            alert("공지사항이 등록되지 않았습니다.\n\n관리자에게 문의 바랍니다.");
-          }
+          this.contentsData     = response.data[0][0];
         })
         .catch(error => {
           console.log(error);
         })
+			},
+			//******************************************************************************
+			// 공지사항 등록
+			//******************************************************************************
+			UpDateNotify() {
+
+				let data = this.contentsData; 
+
+				console.log(data)
+        // axios.get("http://api.adinfo.co.kr:30000/notify/create",
+        // {
+        //   params: {
+        //       clntId: this.$store.state.clntId
+        //     , useTp: '0'
+        //     , head: this.preface
+        //     , title: this.title
+        //     , contents: this.editorData
+        //   }
+        // })
+        // .then(response => {
+        //   console.log(response.data);
+        //   if(response.data > 0) {
+        //     alert("정상적으로 공지사항이 등록되었습니다.");
+        //     this.$router.push({ 
+        //       name : 'MENU_08701_2', 
+        //       params: { index: response.data }
+        //     })
+        //     return;
+        //   }
+        //   else {
+        //     alert("공지사항이 등록되지 않았습니다.\n\n관리자에게 문의 바랍니다.");
+        //   }
+        // })
+        // .catch(error => {
+        //   console.log(error);
+        // })
       },
 			//******************************************************************************
 			// 공지사항 리스트로 돌아가기
@@ -105,6 +127,8 @@
 		created() {
 			this.$store.state.headerTopTitle = "고객센터";
 			this.$store.state.headerMidTitle = "공지사항  >  공지사항 작성";
+
+			this.getModifyContents(this.$route.params.seqNo)
 		}
 	}
 </script>

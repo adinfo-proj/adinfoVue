@@ -33,6 +33,7 @@ import MENU_08601 from "../views/agency/MENU_08601.vue";
 import MENU_08701 from "../views/agency/MENU_08701.vue";
 import MENU_08701_2 from "../views/agency/MENU_08701_2.vue";
 import MENU_08701_3 from "../views/agency/MENU_08701_3.vue";
+import MENU_08701_4 from "../views/agency/MENU_08701_4.vue";
 import MENU_08702 from "../views/agency/MENU_08702.vue";
 import MENU_08702_2 from "../views/agency/MENU_08702_2.vue";
 import MENU_08702_3 from "../views/agency/MENU_08702_3.vue";
@@ -235,6 +236,12 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     path: "/MENU_08701_3",
     name: "MENU_08701_3",
     component: MENU_08701_3,
+    meta: { requiresAuth: true }
+  },
+  {// 공지사항 수정하기
+    path: "/MENU_08701_4",
+    name: "MENU_08701_4",
+    component: MENU_08701_4,
     meta: { requiresAuth: true }
   },
   {// 문의하기
