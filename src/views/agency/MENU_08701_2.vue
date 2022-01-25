@@ -113,7 +113,6 @@
 					name : 'MENU_08701_4', 
 					params: { seqNo: this.contentsData.seqNo  } 
 				})
-				console.log(this.contentsData.seqNo)
 			},
 			//******************************************************************************
 			// 공지사항 현재글 삭제

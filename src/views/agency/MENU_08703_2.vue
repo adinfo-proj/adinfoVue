@@ -9,8 +9,8 @@
 				<h3>
           {{techData.title}}
 					<p>
-						<span class="noticeCursor" v-if="$store.state.clntId == techData.clntId " @click="ModifyTech()">수정</span>
-						<span class="noticeCursor" v-if="$store.state.clntId == techData.clntId" @click="DeleteTech(techData.seqNo)" >삭제</span>
+						<span class="techCursor" v-if="$store.state.clntId == techData.clntId " @click="ModifyTech()">수정</span>
+						<span class="techCursor" v-if="$store.state.clntId == techData.clntId" @click="DeleteTech(techData.seqNo)" >삭제</span>
 						<span>{{techData.clntNm}}</span>
 						<span>{{techData.createDt}}</span>
 					</p>
@@ -82,8 +82,8 @@
 			//******************************************************************************
 			ModifyTech() {
 				this.$router.push({ 
-					name : 'MENU_08703_3', 
-					// params: { index: index } 
+					name : 'MENU_08703_4', 
+					params: { seqNo: this.techData.seqNo } 
 				})
 			},
 			//******************************************************************************
@@ -162,6 +162,10 @@
 	#menu08703_2 .techView h3 p{
 		/* display: inline-block; */
 		float: right;
+	}
+
+	#menu08703_2 .techView .techCursor {
+		cursor: pointer;
 	}
 
 	#menu08703_2 .techView h3 p span {

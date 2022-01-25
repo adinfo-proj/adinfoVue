@@ -9,8 +9,8 @@
 				<h3>
           {{boardData.title}}
 					<p>
-						<span class="noticeCursor" v-if="$store.state.clntId == boardData.clntId " @click="ModifyBoard()">수정</span>
-						<span class="noticeCursor" v-if="$store.state.clntId == boardData.clntId" @click="DeleteNotice(boardData.seqNo)" >삭제</span>
+						<span class="boardCursor" v-if="$store.state.clntId == boardData.clntId " @click="ModifyBoard()">수정</span>
+						<span class="boardCursor" v-if="$store.state.clntId == boardData.clntId" @click="DeleteNotice(boardData.seqNo)" >삭제</span>
 						<span>{{boardData.clntNm}}</span>
 						<span>{{boardData.createDt}}</span>
 					</p>
@@ -68,7 +68,7 @@
 			ModifyBoard() {
 				this.$router.push({ 
 					name : 'MENU_08702_4', 
-					params: { seqNo: this.contentsData.seqNo  } 
+					params: { seqNo: this.boardData.seqNo  } 
 				})
 			},
 			//******************************************************************************
@@ -153,7 +153,7 @@
 		padding: 0 20px;
 	}
 
-	#menu08702_2 .boardView .noticeCursor {
+	#menu08702_2 .boardView .boardCursor {
 		cursor: pointer;
 	}
 
