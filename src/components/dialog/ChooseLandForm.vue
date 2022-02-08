@@ -4,18 +4,18 @@
       폼 꾸미기<span>(최대10개항목) </span>
       <span> ({{'상단 폼과 동일합니다. 변경불가.'}})</span>
       <i class="icon-x_btn" @click="DelLandForm()"></i>
-      <i class="icon-arrow" @click="FormUpPage()"></i>
+      <i class="icon-arrow" @click="FormUpPage()" ></i>
     </h2>
     <div class="upPage">
       <div v-bind:class="{secondeForm: this.indexNum == this.$store.state.secForm}">
         <table>
           <thead>
             <tr>
-              <th class="formNum">번호</th>
-              <th class="formNm">항목</th>
+              <th class="formNum" >번호</th>
+              <th class="formNm"  >항목</th>
               <th class="formType">유형</th>
-              <th class="formCh">필수</th>
-              <th class="formDel">삭제</th>
+              <th class="formCh"  >필수</th>
+              <th class="formDel" >삭제</th>
             </tr>
           </thead>
           <tbody>
@@ -26,8 +26,8 @@
                 <select name="formTypeSel" disabled>
                   <option value="textForm" selected>입력박스</option>
                   <option value="radioForm">라디오박스</option>
-                  <option value="checkForm">체크박스</option>
-                  <option value="selForm">셀렉트박스</option>
+                  <option value="checkForm">체크박스  </option>
+                  <option value="selForm"  >셀렉트박스</option>
                 </select>
                 <input type="text" disabled>
               </td>
@@ -41,8 +41,8 @@
                 <select name="formTypeSel" disabled>
                   <option value="textForm" selected>입력박스</option>
                   <option value="radioForm">라디오박스</option>
-                  <option value="checkForm">체크박스</option>
-                  <option value="selForm">셀렉트박스</option>
+                  <option value="checkForm">체크박스  </option>
+                  <option value="selForm"  >셀렉트박스</option>
                 </select>
                 <input type="text" disabled>
               </td>
@@ -100,7 +100,7 @@
       <div class="btnDesignBox btnShape">
         <h6>신청버튼 모양 선택</h6>
         <div>
-          <input type="radio" v-model="subShape" :id="'btn01_'+this.indexNum" value="0"><label :for="'btn01_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape01.png"></label>
+          <input type="radio" v-model="subShape" :id="'btn01_'+this.indexNum" value="0"   ><label :for="'btn01_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape01.png"></label>
           <input type="radio" v-model="subShape" :id="'btn02_'+this.indexNum" value="10px"><label :for="'btn02_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape02.png"></label>
           <input type="radio" v-model="subShape" :id="'btn03_'+this.indexNum" value="50px"><label :for="'btn03_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape03.png"></label>
         </div>
@@ -149,13 +149,12 @@
     },
     data() {
       return{
-          inputForm: ''         //
-        , sumBtn: '신청하기' // 버튼내용
+          inputForm  : ''
+        , sumBtn     : '신청하기' // 버튼내용
         , agreeTitle : this.$store.state.lendchooseObj[this.indexNum].formDesc.priNm
-        , agreeCon: this.$store.state.lendchooseObj[this.indexNum].formDesc.priCon
-        , subShape: ''
-        , subColor: ''
-
+        , agreeCon   : this.$store.state.lendchooseObj[this.indexNum].formDesc.priCon
+        , subShape   : ''
+        , subColor   : ''
       }
     },
     methods: {
@@ -184,29 +183,42 @@
       },
 
       PrivacyText() {
-        this.agreeCon = `<b>[개인정보 수집 및 이용안내]</b><br>개인정보 수집주체 : ${this.$store.state.company}<br>개인정보 수집항목 : 성명, 휴대폰, 이메일, IP등을 포함한 고객이 입력한 정보<br>개인정보 수집 이용목적 : 전화, SMS를 통한 상품안내 및 상담<br>개인정보보유/이용기간 : 수집일로부터 1년(고객동의 철회시 지체없이 파기)<br><br><b>[개인정보의 취급 위탁]</b><br>당사는 서비스 이행 및 향상을 위해 개인정보 취급업무를 전문업체에 위탁 운영하고 있습니다. 또한 개인정보를 안전하게 처리하기 위하여 필요한 사항등을 명확히 규정하고 있으며, 당해 계약 내용을 서면 또는 전자적으로 보관하고 있습니다.<br>위탁업체 및 위탁업무내용<br>${this.$store.state.company} : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>`
-        $(".agreeBox div").slideUp(0);
-
+        this.agreeCon = "<b>[개인정보 수집 및 이용안내]</b><br>"
+        this.agreeCon += " 개인정보 수집주체 : " 
+        this.agreeCon += this.store.state.company 
+        this.agreeCon += "<br>"
+        this.agreeCon += " 개인정보 수집항목 : 성명, 휴대폰, 이메일, IP등을 포함한 고객이 입력한 정보<br>"
+        this.agreeCon += " 개인정보 수집 이용목적 : 전화, SMS를 통한 상품안내 및 상담<br>"
+        this.agreeCon += " 개인정보보유/이용기간 : 수집일로부터 1년(고객동의 철회시 지체없이 파기)<br><br>"
+        this.agreeCon += "<b>[개인정보의 취급 위탁]</b><br>"
+        this.agreeCon += " 당사는 서비스 이행 및 향상을 위해 개인정보 취급업무를 전문업체에 위탁 운영하고 있습니다."
+        this.agreeCon += " 또한 개인정보를 안전하게 처리하기 위하여 필요한 사항등을 명확히 규정하고 있으며,"
+        this.agreeCon += " 당해 계약 내용을 서면 또는 전자적으로 보관하고 있습니다.<br>"
+        this.agreeCon += " 위탁업체 및 위탁업무내용<br>"
+        this.agreeCon += " " 
+        this.agreeCon += this.$store.state.company 
+        this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>`"
+        this.agreeCon += " $('.agreeBox div').slideUp(0);"
       },
       //******************************************************************************
       // 폼 적용되는 함수
       //******************************************************************************
       FormApp() {
-
         let formviewObj = {
-            tp: '03'
-          , fileNm: ''
-          , descript: ''
-          , landImgNm: ''
+            tp        : '03'
+          , fileNm    : ''
+          , descript  : ''
+          , landImgNm : ''
           , formDesc: {
               inputBox: this.$store.state.inputObj
-            , priNm : this.agreeTitle
-            , priCon : this.agreeCon
-            , btnNm: this.sumBtn
+            , priNm   : this.agreeTitle
+            , priCon  : this.agreeCon
+            , btnNm   : this.sumBtn
             , btmShape: this.subShape
             , btnColor: this.subColor
           }
         }
+
         this.$set(this.$store.state.lendchooseObj, this.indexNum, formviewObj);
       }
     }
@@ -268,7 +280,6 @@
 
   .landForm td {
     padding: 6px 3px 0 3px;
-    
   }
 
   .landForm .formNum,
@@ -310,6 +321,7 @@
     top: 50%;
     transform: translateY(-50%);
   }
+
   .landForm thead th:last-child:after {
     display: none;
   }
@@ -319,7 +331,6 @@
     padding: 7px 10px;
     border: 1px solid #e5e5e5;
   }
-
 
   .landForm .formNm input {
     width: 100%;
@@ -356,7 +367,6 @@
     vertical-align: middle;
   }
 
-
   .landForm .agreeBox {
     padding: 4px 21px;
     color: #fff;
@@ -375,23 +385,6 @@
     border-top: 1px solid #e5e5e5;
   }
 
-  /* .landForm .agreeBox input[type="checkbox"] {
-    transform: translateY(3px);
-  }
-
-  .landForm .agreeBox input[type="checkbox"] + label {
-    font-weight: 700;
-    color: #444;
-    padding-left: 23px;
-  }
-
-  .landForm .agreeBox input[type="checkbox"] + label span {
-    color: #e25b45;
-  }
-
-  .landForm .agreeBox input[type="checkbox"] + label span.colGray {	
-    color: #acacac;
-  } */
   .landForm .agreeBox h6,
   .landForm .btnDesignBox h6 {
     font-size: 14px;
@@ -405,9 +398,7 @@
   .landForm .agreeBox h6{
     margin-bottom: 10px;
   }
-/* 
 
-  .landForm .agreeBox h6, */
   .landForm .btnName h6 {
     padding: 7px 6px 0 0;
   }
@@ -418,7 +409,6 @@
 
   .landForm .agreeBox input[type="text"] {
     width: 100%;
-    /* margin-left: 10px; */
   }
 
   .landForm .btnName input {
@@ -435,7 +425,6 @@
     width: auto;
     padding: 5px 10px;
     margin-top: 5px;
-    
   }
 
   .landForm .agreeBox div textarea {
@@ -461,20 +450,16 @@
     transform: translate(-5px, -9px);
   }
 
-
-  /* .landForm .agreeBox input[type="checkbox"], */
   .landForm table input[type="checkbox"],
   .landForm .btnShape input[type="radio"] {
     display: none;
   } 
 
-  /* .landForm .agreeBox input[type="checkbox"] + label, */
   .landForm table input[type="checkbox"] + label,
   .landForm .btnShape input[type="radio"] + label {
     position: relative;
   }
 
-  /* .landForm .agreeBox input[type="checkbox"] + label:before, */
   .landForm table input[type="checkbox"] + label:before,
   .landForm .btnShape input[type="radio"] + label:before {
     clear: both;
@@ -490,7 +475,6 @@
     top: 0;
   }
 
-  /* .landForm .agreeBox input[type="checkbox"]:checked + label:after, */
   .landForm table input[type="checkbox"]:checked + label:after,
   .landForm .btnShape input[type="radio"]:checked + label:after {
     clear: both;
@@ -593,9 +577,8 @@
     top: 1px;
   }
 
-    .landForm .formSub {
-      text-align: center;
-      padding: 20px;
-    }
-
+  .landForm .formSub {
+    text-align: center;
+    padding: 20px;
+  }
 </style>

@@ -14,6 +14,7 @@ export default new Vuex.Store({
     , mbId: 0
     , adId: 0
     , mkId: 0
+    , pgId: 0
     , mkCd: ''
 
     , adGradeCd: localStorage.getItem("grade")  // 회원 레벨
@@ -42,9 +43,6 @@ export default new Vuex.Store({
     , inputObj: []  //
     , secForm: null
     , company: ''   // 회사명
-
-
-
   },
   getters: {
     jwtAuthValid: function() {

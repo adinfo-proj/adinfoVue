@@ -107,12 +107,6 @@
             내정보
           </router-link>
         </li>
-        <li @click="DBMenuBar(9999)" v-bind:class="{on : 9999 == menuSelect}">
-          <router-link to="MENU_0807">
-            <i class="icon-layers"></i>
-            TEST page
-          </router-link>
-        </li>
       </ul>
     </div>
   </div>

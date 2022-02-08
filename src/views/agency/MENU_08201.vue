@@ -8,11 +8,12 @@
 					>{{ campaignNameList.name }}
 				</option>
 			</select>
-      <select v-model="campSelect" @change="campaignListChange(campSelect)">
-				<option v-for="(campaignNameList, index) in campaignNameListObj"
+      <select v-model="landSelect" @change="getLandingPageLst(landSelect)">
+        <option value="-1">전체</option>
+				<option v-for="(landingData, index) in landingDataObj"
 					:key="index" 
-					:value="campaignNameList.caId"
-					>{{ campaignNameList.name }}
+					:value="landingData.pgId"
+					>{{ landingData.name }}
 				</option>
 			</select>
       <input type="radio" name="searchDay" id="searchToday"     class="searchSubDate" @click="ChangeDateRange(1)" checked> <label for="searchToday">오늘</label>
@@ -31,42 +32,42 @@
         <i class="icon-users"></i>
         <h2 class="dataEm">
           <span>랜딩페이지 수</span><br>
-          {{topArrayListObj.maketerCount  }}3    
+          {{summaryDataObj.landingCount  }} 개
         </h2>
       </div>
 			<div class="dailyDataMiddle">
         <i class="icon-laptop-phone bgo"></i>
         <h2  class="dataEm">
-          <span>DB 접수 건수</span><br>
-          {{topArrayListObj.todayDbCount  }} 122건
+          <span>DB 수집 건수</span><br>
+          {{summaryDataObj.commitCount }} 건
         </h2>
       </div>
 			<div class="dailyDataMiddle">
         <i class="icon-pie-chart"></i>
         <h2 class="dataEm">
           <span>DB 노출 건수</span><br>
-          {{topArrayListObj.validDbCount  }} 325건
+          {{summaryDataObj.viewCount  }} 건
         </h2>
       </div>
 			<div class="dailyDataMiddle">
         <i class="icon-pie-chart bgo"></i>
         <h2 class="dataEm">
-          <span>클릭 건수</span><br>
-          {{topArrayListObj.invalidDbCount}} 135건
+          <span>노출 대비 접수율</span><br>
+          {{summaryDataObj.commitPer}} %
         </h2>
         </div>
       <div class="dailyDataMiddle">
         <i class="icon-chart-bars"></i>
         <h2 class="dataEm">
-          <span>광고주 단가 (합계)</span><br>
-          {{topArrayListObj.allDupDBCount }} 35%  
+          <span >광고주 지급 합계</span><br>
+          {{adPriceSum}} 원
         </h2>
         </div>
 			<div class="dailyDataMiddle">
         <i class="icon-eye bgo"></i>
         <h2 class="dataEm">
-          <span>마케터 단가 (합계)</span><br>
-          {{topArrayListObj.clickPer      }} 15초 
+          <span>마케터 수익 합계</span><br>
+          {{mkPriceSum}} 원
         </h2>
         </div>
 		</div>
@@ -118,7 +119,7 @@
 						<tr class="viewTr" @click="DbData(index)" v-bind:class="{dbSelect : index == dbSelectData}">
 							<th class="dailyNum"   >{{ campaignFullData.seqNo   }}</th>
 							<td class="dailyName"  >{{ campaignFullData.caName  }}</td>
-							<td class="maketerCode">{{ campaignFullData.mkId    }}</td>
+							<td class="maketerCode">{{ campaignFullData.pgName  }}</td>
 							<td class="inTime"     >{{ campaignFullData.insDt   }} {{campaignFullData.insTm}}</td>
 							<td class="inIP"       >{{ campaignFullData.regIp   }}</td>
 							<td class="dbPrice"    >{{ campaignFullData.price   }} 원</td>
@@ -136,9 +137,9 @@
                       <table>
                         <tr>
                           <th>{{ askList[0] }}</th>
-                          <td>{{ campaignFullData.value01 }}</td>
-                          <th>{{ askList[1] }}</th>
                           <td>{{ campaignFullData.value02 }}</td>
+                          <th>{{ askList[1] }}</th>
+                          <td>{{ campaignFullData.value01 }}</td>
                           <th>{{ askList[2] }} </th>
                           <td colspan="3">{{ campaignFullData.value03 }}</td>
                         </tr>
@@ -172,22 +173,26 @@
                     <div>
                       <table>
                         <tr>
-                          <th>유입채널</th>
-                          <td>••••</td>
+                          <th>유입 매체</th>
+                          <td>{{ campaignFullData.deviceMachine }}</td>
                           <th>접수지역</th>
-                          <td>••••</td>
+                          <td v-if="campaignFullData.countryCd == 'KR'">국내</td>
+                          <td v-else-if="campaignFullData.countryCd == null">없음</td>
+                          <td v-else-if="campaignFullData.countryCd == ''">없음</td>
+                          <td v-else>해외</td>
+                        </tr>
+                        <tr>
+                          <th>기기 OS</th>
+                          <td colspan="3">{{ campaignFullData.deviceOs }}</td>
+                        </tr>
+                        <tr>
+                          <th>기기 모델</th>
+                          <td colspan="3">{{ campaignFullData.deviceModel }}</td>
                         </tr>
                         <tr>
                           <th>유입URL</th>
-                          <td colspan="3">•••••</td>
-                        </tr>
-                        <tr>
-                          <th>2차전환 체크</th>
-                          <td colspan="3">•••••</td>
-                        </tr>
-                        <tr>
-                          <th>접수기기</th>
-                          <td colspan="3">••••{••••}</td>
+                          <td colspan="3" v-if="campaignFullData.urlReferer != null">{{ campaignFullData.urlReferer }}</td>
+                          <td colspan="3" v-else>직접 접속 또는 즐겨찾기나 검색엔진 링크를 통해 유입</td>
                         </tr>
                       </table>
                     </div>
@@ -228,20 +233,25 @@
 	export default {
 		data() {
 			return {
-					serchDataFromDt: this.$DateAdd(0) 
-				, serchDataToDt: this.$DateAdd(0)
-				, topArrayListObj: ''
-				, selectRowCount: 10
-				, pageCount: []
-				, curPage: 0
-				, divSelect: 0
-				, dbSelectData: null
-				, campaignNameListObj: ''
-				, campaignFullDataObj: ''
-				, campSelect: 1000
-        , roundCount: 0
-        , curRunTotalPages: 100000000
-				, askList: ''
+					serchDataFromDt      : this.$DateAdd(0) 
+				, serchDataToDt        : this.$DateAdd(0)
+				, topArrayListObj      : ''
+				, selectRowCount       : 10
+				, pageCount            : []
+				, curPage              : 0
+				, divSelect            : 0
+				, dbSelectData         : null
+				, campaignNameListObj  : ''
+				, campaignFullDataObj  : ''
+        , summaryDataObj       : ''
+        , landingDataObj       : ''
+				, campSelect           : -1
+        , landSelect           : -1
+        , roundCount           : 0
+        , curRunTotalPages     : 100000000
+				, askList              : ''
+        , adPriceSum           : ''
+        , mkPriceSum           : ''
 			}
 		},
 		methods: {
@@ -268,8 +278,10 @@
 					}
 				})
 				.then(response => {
-					this.campSelect = response.data[0].caId;
+					this.campSelect          = response.data[0].caId;
 					this.campaignNameListObj = response.data;
+
+          this.getLandingPageLst();
 				})
 				.catch(error => {
 					console.log(error);
@@ -278,22 +290,24 @@
 			//******************************************************************************
 			// 상단 합산 정보 조회
 			//******************************************************************************
-			getCampaignTopLst() {
-        // axios.get("http://api.adinfo.co.kr:30000/DataCenter/TopSummary", 
-        // {
-        //   params: {
-        //       mbId: this.$store.state.mbId
-        //     , adId: this.$store.state.adId
-        //     , caId: this.campSelect
-        //     , endDt: this.serchDataToDt
-        //   }
-        // })
-        // .then(response => {
-        //   this.topArrayListObj = response.data;
-        // })
-        // .catch(error => {
-        //   console.log(error);
-        // })
+			getLandingPageLst() {
+        axios.get("http://api.adinfo.co.kr:30000/GetLandingListForMbAdCaCode",
+        {
+          params: {
+              mbId: this.$store.state.mbId
+            , adId: this.$store.state.mbId
+            , mkId: this.$store.state.mbId
+            , caId: this.campSelect
+            , useTp: 'R'
+          }
+        })
+        .then(response => {
+          this.landingDataObj = response.data;
+          this.getCampaignFullData(1, true);
+        })
+        .catch(error => {
+          console.log(error);
+        })
 			},
 			//******************************************************************************
 			// 수집항목 목록
@@ -313,43 +327,40 @@
 				axios.get("http://api.adinfo.co.kr:30000/GetCpaDataForAll",
 				{
 					params: {
-							mbId: this.$store.state.mbId
-						, adId: this.$store.state.adId
-						, caId: this.campSelect
-						, mkId: 0
-						, srtDt: this.serchDataFromDt
-						, endDt: this.serchDataToDt
-						, curPage: selectPage
-						, rowCount: this.selectRowCount
+							mbId      : this.$store.state.mbId
+						, adId      : this.$store.state.mbId
+						, caId      : this.campSelect
+						, mkId      : this.$store.state.mbId
+            , pgId      : this.landSelect
+						, srtDt     : this.serchDataFromDt
+						, endDt     : this.serchDataToDt
+						, curPage   : selectPage
+						, rowCount  : this.selectRowCount
 					}
 				})
 				.then(response => {
-          // 참고해야 할 곳!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					this.askList = response.data[0][0].askList.split(',');
-					this.campaignFullDataObj = response.data[1];
+          //--------------------------------------------------------------------
+          // response.data[0] : 조회되는 조건의 총 건수
+          // response.data[1] : 해당 캠페인의 수집항목
+          // response.data[2] : 조회 데이터
+          //--------------------------------------------------------------------
+					this.askList             = response.data[1][0].askList.split(',');
+					this.campaignFullDataObj = response.data[2];
 
-					//------------------------------------------------------------------------------
-					// 페이지 정보 조회
-					//------------------------------------------------------------------------------
-					axios.get("http://api.adinfo.co.kr:30000/GetCpaDataForAllPageCount", 
-					{
-						params: {
-								mbId: this.$store.state.mbId
-							, adId: this.$store.state.adId
-							, caId: this.campSelect
-							, mkId: 0
-							, srtDt: this.serchDataFromDt
-							, endDt: this.serchDataToDt
-							, curPage: selectPage
-							, rowCount: this.selectRowCount
-						}
-					})
-					.then(response => {
-            let arrGab = [];
+          if(response.data[0][0].rowTotalCount <= 0) {
+            this.HeadCount();
+            return;
+          }
+
+          //--------------------------------------------------------------------
+          // 페이지처리 시작
+          //--------------------------------------------------------------------
+          {
+            let arrGab     = [];
             let pageUpPage = 0;
 
             // 전체 페이지의 수를 확인한다.
-            this.curRunTotalPages = Math.ceil(response.data.rowTotalCount / this.selectRowCount);
+            this.curRunTotalPages = Math.ceil(response.data[0][0].rowTotalCount / this.selectRowCount);
 
             // 페이지가 10개 이하이면...
             if( this.curRunTotalPages < 10) {
@@ -357,39 +368,77 @@
                 arrGab.push(i+1);
               }
               this.pageCount = arrGab;
-              return;
             }
+            else {
+              //--------------------------------------------------------------------
+              // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
+              //--------------------------------------------------------------------
+              let pageCut = Math.floor((selectPage) / 10) * 10;
 
-            //--------------------------------------------------------------------
-            // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
-            //--------------------------------------------------------------------
-            let pageCut = Math.floor((selectPage) / 10) * 10;
+              if( (selectPage % 10) != 0 ) {
+                let nLoop = 0;
+                for(let i = pageCut; i < this.curRunTotalPages; i++) {
+                  if( (nLoop+pageUpPage) >= 10 + pageUpPage)
+                    break;
+                  arrGab.push( i + 1 );
+                  nLoop++;
+                }
 
-            if( (selectPage % 10) == 0 ) {
-              return;
+                this.pageCount = arrGab;
+              }
             }
-
-            let nLoop = 0;
-            for(let i = pageCut; i < this.curRunTotalPages; i++) {
-              if( (nLoop+pageUpPage) >= 10 + pageUpPage)
-                break;
-              arrGab.push(i+1);
-              nLoop++;
-            }
-
-            this.pageCount = arrGab;
-					})
-					.catch(error => {
-						console.log(error);
-					})
+          }
+          this.HeadCount();
 				})
 				.catch(error => {
 					console.log(error);
 				})
 			},
+			HeadCount() {
+        axios.get("http://api.adinfo.co.kr:30000/GetCampaignHeadCount",
+        {
+          params: {
+              mbId: this.$store.state.mbId
+            , adId: this.$store.state.mbId
+            , caId: this.campSelect
+            , mkId: this.$store.state.mbId
+            , pgId: this.landSelect
+            , srtDt: this.serchDataFromDt
+            , endDt: this.serchDataToDt
+            , curPage: 1
+            , rowCount: this.selectRowCount
+          }
+        })
+        .then(response1 => {
+          this.summaryDataObj = response1.data;
+
+          if(this.summaryDataObj.adPriceSum == '' ||
+             this.summaryDataObj.adPriceSum == null )
+          {
+            this.adPriceSum = 0;
+          }
+          else
+          {
+            this.adPriceSum = this.summaryDataObj.adPriceSum;
+          }
+
+          if(this.summaryDataObj.mkPriceSum == '' ||
+             this.summaryDataObj.mkPriceSum == null )
+          {
+            this.mkPriceSum = 0;
+          }
+          else
+          {
+            this.mkPriceSum = this.summaryDataObj.mkPriceSum;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+			},
 			campaignListChange(index) {
 				this.campSelect = index;
-				this.getCampaignTopLst();
+				this.getLandingPageLst();
 				this.getCampaignFullData(1, true);
 			},
 			ChangeDateRange(pos) {
@@ -424,18 +473,18 @@
 				this.getCampaignFullData(1, true);
 			},
 			makeExcel() {
-				let d= new Date();
+				let d = new Date();
         let curDate = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(0,10).replace(/-/g, "");
 				let curTime = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(11,19).replace(/:/g, "");
 
 				var myJSON = new Array();
 
 				for(let i = 0; i < this.campaignFullDataObj.length; i++) {
-					let seqNo, caName, mkId, insDt, insTm, regIp, confirmTp, mkPrice, value01, value02, value03, value04, value05, value06, value07, value08, value09, value10;
+					let seqNo, caName, pgName, insDt, insTm, regIp, confirmTp, price, mkPrice, deviceMachine, countryCd, deviceOs, deviceModel, urlReferer, value01, value02, value03, value04, value05, value06, value07, value08, value09, value10;
 
 					if(this.campaignFullDataObj[i].seqNo  == null) seqNo    = ''; else seqNo  = this.campaignFullDataObj[i].seqNo   ;
 					if(this.campaignFullDataObj[i].caName == null) caName   = ''; else caName = this.campaignFullDataObj[i].caName  ;
-					if(this.campaignFullDataObj[i].mkId   == null) mkId     = ''; else mkId   = this.campaignFullDataObj[i].mkId    ;
+          if(this.campaignFullDataObj[i].pgName == null) pgName   = ''; else pgName = this.campaignFullDataObj[i].pgName  ;
 					if(this.campaignFullDataObj[i].insDt  == null) insDt    = ''; else insDt  = this.campaignFullDataObj[i].insDt   ;
 					if(this.campaignFullDataObj[i].insTm  == null) insTm    = ''; else insTm  = this.campaignFullDataObj[i].insTm   ;
 					if(this.campaignFullDataObj[i].regIp  == null) regIp    = ''; else regIp  = this.campaignFullDataObj[i].regIp   ;
@@ -447,10 +496,27 @@
 					else if(this.campaignFullDataObj[i].confirmTp == 'P') confirmTp = '기타';
           else                                                  confirmTp = '미정';
 
+					if(this.campaignFullDataObj[i].price   == null) 
+						price = '0';
+					else 
+						price = this.campaignFullDataObj[i].price.replace(/,/g, "");
+
 					if(this.campaignFullDataObj[i].mkPrice   == null) 
 						mkPrice = '0';
 					else 
 						mkPrice = this.campaignFullDataObj[i].mkPrice.replace(/,/g, "");
+
+          if(this.campaignFullDataObj[i].deviceMachine == null) deviceMachine = ''; else deviceMachine = this.campaignFullDataObj[i].deviceMachine;
+          if(this.campaignFullDataObj[i].countryCd == null) 
+            countryCd = ''; 
+          else if(this.campaignFullDataObj[i].countryCd == "KR")
+            countryCd = '국내'
+          else
+            countryCd = '해외';
+
+          if(this.campaignFullDataObj[i].deviceOs      == null) deviceOs      = ''; else deviceOs      = this.campaignFullDataObj[i].deviceOs;
+          if(this.campaignFullDataObj[i].deviceModel   == null) deviceModel   = ''; else deviceModel   = this.campaignFullDataObj[i].deviceModel;
+          if(this.campaignFullDataObj[i].urlReferer    == null) urlReferer    = ''; else urlReferer    = this.campaignFullDataObj[i].urlReferer;
 
 					if(this.campaignFullDataObj[i].value01 == null) value01 = ''; else value01 = this.campaignFullDataObj[i].value01;
 					if(this.campaignFullDataObj[i].value02 == null) value02 = ''; else value02 = this.campaignFullDataObj[i].value02;
@@ -466,22 +532,28 @@
 					let myArr = {
 							'번호': seqNo
 						, '캠페인명': caName
-						, '마케터ID': mkId
+            , '랜딩페이지명': pgName
 						, '유입일자': insDt
 						, '유입시간': insTm
 						, '접수IP': regIp
 						, 'DB상태': confirmTp
-						, '단가': Number(mkPrice)
-						, '입력1': value01
-						, '입력2': value02
-						, '입력3': value03
-						, '입력4': value04
-						, '입력5': value05
-						, '입력6': value06
-						, '입력7': value07
-						, '입력8': value08
-						, '입력9': value09
-						, '입력10': value10
+            , '광고주단가': Number(price)
+						, '마케터단가': Number(mkPrice)
+            , '유입매체': deviceMachine
+            , '접수지역': countryCd
+            , '기기OS': deviceOs
+            , '기기모델': deviceModel
+            , '유입URL': urlReferer
+						, [this.askList[0]]: value02
+						, [this.askList[1]]: value01
+						, [this.askList[2]]: value03
+						, [this.askList[3]]: value04
+						, [this.askList[4]]: value05
+						, [this.askList[5]]: value06
+						, [this.askList[6]]: value07
+						, [this.askList[7]]: value08
+						, [this.askList[8]]: value09
+						, [this.askList[9]]: value10
 					};
 					myJSON.push(myArr);
 				}
@@ -498,9 +570,9 @@
 			this.$store.state.headerMidTitle = "일자별 통계";
 
 			this.getCampaignNameLst();
-//			this.getCampaignTopLst();
+			//this.getLandingPageLst ();
 			this.getCampaignFullData(1, true);
-		}
+		},
 	}
 </script>
 
@@ -543,7 +615,7 @@
     height: 100%;
     border: 1px solid #e5e5e5;
     border-radius: 10px;
-    padding: 10px 16px;
+    padding: 10px;
     margin: 0 5px;
   }
 

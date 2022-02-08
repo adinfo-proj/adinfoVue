@@ -1,8 +1,11 @@
 <template>
   <div id="logIn">
     <div class="logInBox">
-      <h1><span>HELLO</span> DB.Master</h1>
-      <p>마케터의 성공파트너, 디비마스터</p>
+      <!-- <h1><span>HELLO</span> DB.Master</h1>
+      <p>마케터의 성공파트너, 디비마스터</p> -->
+
+      <h1><span>마케터의 성공파트너,</span> 디비마스터</h1>
+      <p></p>
       <div class="inputBox">
         <div class="leftInput">
             <input type="text" placeholder="이메일을 입력하세요."
@@ -27,15 +30,13 @@
             @click="SearchIdModal();">아이디 / 비밀번호 찾기</a></li>
         </ul>
       </div>
-      
       <div class="socialBox">
         <p>소셜계정 로그인</p>
         <div class="socialBox2">
-          <a class="socialLog" href="javascript:void(0)"><img src="../../assets/images/socialIcon/NaverIcon.png" alt="네이버">네이버</a>
-          <a class="socialLog" href="javascript:void(0)"><img src="../../assets/images/socialIcon/KakaoIcon.png" alt="카카오톡">카카오톡</a>
-          <a class="socialLog" href="javascript:void(0)"><img src="../../assets/images/socialIcon/GoogleIcon.png" alt="구글">구글</a>
+          <a class="socialLog" href="javascript:void(0)"><img src="../../assets/images/socialIcon/NaverIcon.png"    alt="네이버"  >네이버</a>
+          <a class="socialLog" href="javascript:void(0)"><img src="../../assets/images/socialIcon/KakaoIcon.png"    alt="카카오톡">카카오톡</a>
+          <a class="socialLog" href="javascript:void(0)"><img src="../../assets/images/socialIcon/GoogleIcon.png"   alt="구글"    >구글</a>
           <a class="socialLog" href="javascript:void(0)"><img src="../../assets/images/socialIcon/FaceBookIcon.png" alt="페이스북">페이스북</a>
-          
         </div>
       </div>
     </div>
@@ -45,11 +46,10 @@
 </template>
 
 <script>
-
-import axios from "axios";
-import $ from 'jquery';
-import CreateUser from "../../components/dialog/CreateUser"
-import SearchUser from "../../components/dialog/SearchUser"
+import $          from 'jquery';
+import axios      from "axios";
+import CreateUser from "../../components/dialog/CreateUser";
+import SearchUser from "../../components/dialog/SearchUser";
 
 export default {
   components: {
@@ -73,7 +73,6 @@ export default {
         siteCode: '01'
       })
       .then(response => {
-        console.log(response);
         if( response.data.status == "0" ) {
           this.$store.state.clntId       = response.data.clntId
           this.$store.state.clntNm       = response.data.clntNm

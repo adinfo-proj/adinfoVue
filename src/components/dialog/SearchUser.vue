@@ -27,7 +27,7 @@
                     이 름
                   </th>
                   <td>
-                    <input type="text" name="serchIdname" id="serchIdname" v-model="userName">
+                    <input type="text" name="serchIdname" id="serchIdname" v-model="userName" ref="serchIdname">
                   </td>
                 </tr>
                 <tr>
@@ -35,7 +35,7 @@
                     핸드폰 번호
                   </th>
                   <td>
-                    <input type="text" name="serchIdPhone" id="serchIdPhone" v-model="clntSubsNo" placeholder="회원가입 시 입력한 연락처">
+                    <input type="text" name="serchIdPhone" id="serchIdPhone" v-model="clntSubsNo" placeholder="회원가입 시 입력한 연락처" ref="clntSubsNo">
                   </td>
                 </tr>
               </table>
@@ -55,7 +55,7 @@
                     아이디
                   </th>
                   <td>
-                    <input type="text" name="serchIdname" id="serchIdname">
+                    <input type="text" name="upPassWd" id="upPassWd" ref="upPassWd" v-model="userId">
                   </td>
                 </tr>
               </table>
@@ -90,14 +90,14 @@
  
     data() {
       return {
-          searchSelect: 0                      // 아이디 찾기 탭버튼
-
-        , userName: ''
-        , clntSubsNo: ''
-        , retUeserId:''
-        , message: '회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.'
-        , message1: ''
-        , message2: ''
+          searchSelect : 0                      // 아이디 찾기 탭버튼
+        , userName     : ''
+        , clntSubsNo   : ''
+        , userId       : ''
+        , retUeserId   : ''
+        , message      : '회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.'
+        , message1     : ''
+        , message2     : ''
       }
     },
     methods: {
@@ -107,12 +107,14 @@
       SearchUeser() {
         if( this.searchSelect == 0) {
           if(this.userName == null || this.userName == '') {
-            alert('이름 혹은 회사명을 입력해주세요')
+            alert('이름 혹은 회사명을 입력해주세요');
+            this.$refs.userName.focus();
             return;
           }
 
           if(this.clntSubsNo == null || this.clntSubsNo == '') {
-            alert('연락처를 입력해주세요.')
+            alert('연락처를 입력해주세요.');
+            this.$refs.clntSubsNo.focus();
             return;
           }
 
@@ -120,35 +122,25 @@
           // 정보 보내기
           //------------------------------------------------------------------------------
           var data = {
-              mbId: 20000
-            , userName: this.userName
-            , clntSubsNo: this.clntSubsNo
+              userName   : this.userName
+            , clntSubsNo : this.clntSubsNo
           };
 
           const frm = new FormData();
           frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));		
 
-          axios.post("http://api.adinfo.co.kr:30000/findid", frm)
+          axios.post("http://api.adinfo.co.kr:30000/FindUserId", frm)
           .then(response => {
-            console.log(response);
-
-            //
-
             if( response.data.status == true ) {
-              
               $(".searchId .serachSubBox1").css({display: "none"})
               $(".searchId .serachSubBox2").css({display: "block"})
               $("#searchModar .searchBox .searchTapBox .searchCheckBtn").css({display: "none"})
               $("#searchModar .searchBox .searchTapBox .searchBtn").css({display: "inline"})
 
               this.retUeserId = response.data.message;
-
-
             //   $("#singPopUp").css({display: "none"})
-
             } else {
-
-              this.message = '';
+              this.message  = '';
               this.message1 = "요청하신 고객정보가 존재하지 않습니다.";
               this.message2 = "다시 입력바랍니다.";
               return;
@@ -159,38 +151,62 @@
           })
         }
         else {
-          console.log("1");
+          //------------------------------------------------------------------------------
+          // 정보 보내기
+          //------------------------------------------------------------------------------
+          var data1 = {
+            userId: this.userId
+          };
+
+          const frm = new FormData();
+          frm.append("dataObj", new Blob([JSON.stringify(data1)] , {type: "application/json"}));		
+
+          axios.post("http://api.adinfo.co.kr:30000/UpdateUserPw", frm)
+          .then(response => {
+            if( response.data.status == true ) {
+              $(".searchId .serachSubBox1").css({display: "none"})
+              $(".searchId .serachSubBox2").css({display: "block"})
+              $("#searchModar .searchBox .searchTapBox .searchCheckBtn").css({display: "none"})
+              $("#searchModar .searchBox .searchTapBox .searchBtn").css({display: "inline"})
+
+              //this.retUeserId = response.data.message;
+            //   $("#singPopUp").css({display: "none"})
+            } else {
+              this.message  = '';
+              this.message1 = response.data.message;
+              this.message2 = "[1533-3757] 고객센터로 문의주세요.";
+              return;
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          })
         }
-
       }
-
       //******************************************************************************
       // 아이디 / 비밀번호 취소 함수
       //******************************************************************************
       , SearchIdModalCancle() {
         $("#searchModar").css({display: "none"})
       }
-
+      //******************************************************************************
+      // ???
+      //******************************************************************************
       , SearchFunc(pos) {
         this.searchSelect = pos;
 
-        this.userName = ''
+        this.userName   = ''
         this.clntSubsNo = ''
-        this.retUeserId =''
-        this.message = '회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.'
-        this.message1 = ''
-        this.message2 = ''
+        this.retUeserId = ''
+        this.message    = '회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.'
+        this.message1   = ''
+        this.message2   = ''
         $("#searchModar .searchBox .searchTapBox .searchCheckBtn").css({display: "inline"})
         $("#searchModar .searchBox .searchTapBox .searchBtn").css({display: "none"})
-
-
       }
-
     }
   }
 </script>
-
-
 
 <style scoped>
   #searchModar {
@@ -262,7 +278,6 @@
     padding: 13px;
   }
 
-
   #searchModar .searchBox .searchTapBox .searchTapSub {
     width: 100%;
     height: 170px;
@@ -281,7 +296,6 @@
     width: 70px;
   }
 
-
   #searchModar .searchBox .searchTapBox td {
     padding: 5px;
   }
@@ -292,9 +306,6 @@
     border: 1px solid #e5e5e5;
     padding: 2px 10px;
   }
-
-
-
 
   #searchModar .searchBox .searchTapBox .serachSubBox1 p {
     height: 69px;

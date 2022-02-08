@@ -16,6 +16,8 @@ Vue.use( CKEditor );
 import ChooseLandImg from './components/dialog/ChooseLandImg.vue';
 Vue.use( ChooseLandImg );
 
+//import SendSms from 'solapi'
+//Vue.use( SendSms );
 
 Vue.config.productionTip = false;
 

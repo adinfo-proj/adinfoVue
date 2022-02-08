@@ -21,7 +21,7 @@
       return {
 
         
-          editorConfig: {        
+        editorConfig: {        
           toolbarGroups: [
             { name: 'forms' },
             { name: 'basicstyles', groups: [ 'basicstyles'] },
@@ -32,7 +32,6 @@
           , height: '150px'
           , language: 'ko'
           , resize_enabled: false
-          
         }
         , editorData : this.$store.state.lendchooseObj[this.indexNum].descript
           
@@ -77,8 +76,6 @@
 
         $(btn1).css({display:"none"});
         $(btn2).css({display:"inline"});
-        console.log
-
       },
       DelLandText(){
         this.$store.state.lendchooseObj.splice(this.indexNum, 1);

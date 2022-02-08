@@ -67,22 +67,21 @@
 			// 공지사항 등록
 			//******************************************************************************
 			CreateNotify() {
-        axios.get("http://api.adinfo.co.kr:30000/notify/create",
+        axios.get("http://api.adinfo.co.kr:30000/notice/create",
         {
           params: {
               clntId: this.$store.state.clntId
-            , useTp: '0'
-            , head: this.preface
-            , title: this.title
-            , contents: this.editorData
+						, groupTp   : '00'
+            , head      : this.preface
+            , title     : this.title
+            , contents  : this.editorData
           }
         })
         .then(response => {
-          console.log(response.data);
           if(response.data > 0) {
             alert("정상적으로 공지사항이 등록되었습니다.");
-            this.$router.push({ 
-              name : 'MENU_08701_2', 
+            this.$router.push({
+              name : 'MENU_08701_2',
               params: { index: response.data }
             })
             return;

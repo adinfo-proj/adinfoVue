@@ -75,9 +75,6 @@
 			// 공지사항 목록조회하기.
 			//******************************************************************************
       getNotifyTitleList(selectPage, firstSel) {
-				console.log("selectPage : " + selectPage);
-				console.log("firstSel   : " + firstSel);
-
         if( firstSel == true) {
           this.curRunTotalPages = 100000000;
         }
@@ -89,34 +86,30 @@
 				this.dbSelectData = null;
 				this.curPage = selectPage;
 
-        axios.get("http://api.adinfo.co.kr:30000/notify/titlelist",
+        axios.get("http://api.adinfo.co.kr:30000/notice/titlelist",
         {
           params: {
-              seqNo: 9999999999
+              seqNo     : 9999999999
 						, curPage   : selectPage
 						, rowCount  : this.selectRowCount
+						, groupTp   : '00'
+						, useTp     : 'R'
+						, dataOnly  : 'Y'
           }
         })
         .then(response => 
 				{
-          this.contentsListObj = response.data;
+          this.contentsListObj = response.data[1];
 
           //------------------------------------------------------------------------------
           // 페이지 정보 조회
           //------------------------------------------------------------------------------
-          axios.get("http://api.adinfo.co.kr:30000/GetNotifyForAllPageCount",
-          {
-            params: {
-              useTp : '0'
-            }
-          })
-          .then(response => 
 					{
             let arrGab = [];
             let pageUpPage = 0;
 
             // 전체 페이지의 수를 확인한다.
-            this.curRunTotalPages = Math.ceil(response.data.rowTotalCount / this.selectRowCount);
+            this.curRunTotalPages = Math.ceil(response.data[0][0].rowTotalCount / this.selectRowCount);
 
             // 페이지가 10개 이하이면...
             if( this.curRunTotalPages < 10) 
@@ -149,14 +142,9 @@
             }
 
             this.pageCount = arrGab;
-					})
-					.catch(error => 
-					{
-						console.log(error);
-					})
+					}
 				})
 			},
-
 			GoNoticeCont(index) {
 				this.$router.push({ 
 					name : 'MENU_08701_2', 

@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<div id="menu08702_3">
-			<div class="tableBox techTop">
+			<div class="tableBox boardTop">
 				<h1>기능 개선 요청</h1>
 				<p>안내, 정책변경, 업데이트등 디비마스터의 다양한 소식을 확인하실 수 있습니다.</p>
 			</div>
@@ -11,12 +11,12 @@
 					<input type="text" v-model="title">
 				</h2>
 				<div class="textBox">
-					<ckeditor class="textBoxToolbar" v-model="editorData" :config="editorConfig"></ckeditor>
+					<ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
 				</div>
 			</div>
 			<div class="btnBox">
-				<button @click="CreateTech()">등록하기</button>
-				<button class="canBtn" @click="CancleTechList()">취소하기</button>
+				<button @click="CreateBoard()">등록하기</button>
+				<button class="canBtn" @click="CancleBoardList()">취소하기</button>
 			</div>
 		</div>
 
@@ -25,14 +25,14 @@
 
 <script>
 	import axios          from "axios";
-	// import $ from 'jquery';
+
 
 	export default {
 		data() {
 			return {
 					title: ''
 				, editorConfig: { 
-           toolbarGroups: [ 
+          toolbarGroups: [ 
             { name: 'styles', groups: [ 'styles' ] }, 
             { name: 'colors', groups: [ 'colors' ] }, 
             { name: 'document', groups: [ 'mode', 'document', 'doctools' ] }, 
@@ -46,7 +46,7 @@
             { name: 'others', groups: [ 'others' ] }, 
             { name: 'about', groups: [ 'about' ] }, 
             { name: 'tools', groups: [ 'tools' ] } 
-            ] 
+          ] 
           , height: '590px' 
           , language: 'ko' 
           , resize_enabled: false 
@@ -58,32 +58,31 @@
 			}
 		},
 		methods: {
-
 			//******************************************************************************
-			// 기능개선 요청 등록
+			// 문의사항 등록
 			//******************************************************************************
-			CreateTech() {
-        axios.get("http://api.adinfo.co.kr:30000/inprove/create",
+			CreateBoard() {
+        axios.get("http://api.adinfo.co.kr:30000/notice/create",
         {
           params: {
               clntId: this.$store.state.clntId
-						// , clntNm: this.$store.state.clntNm	
-            , useTp: '0'
-            , title: this.title
-            , contents: this.editorData
+						, groupTp   : '02'
+            , head      : this.preface
+            , title     : this.title
+            , contents  : this.editorData
           }
         })
         .then(response => {
-          console.log(response.data);
           if(response.data > 0) {
-            alert("기능개선 요청이 정상적으로 등록되었습니다. \n\n일주일 내로 답변 드리겠습니다.");
-            this.$router.push({ 
-              name : 'MENU_08703', 
+            alert("정상적으로 기능 개선 요청이 등록되었습니다.");
+            this.$router.push({
+              name : 'MENU_08703_2',
+              params: { index: response.data }
             })
             return;
           }
           else {
-            alert("문의사항이 등록되지 않았습니다.\n\n관리자에게 문의 바랍니다.");
+            alert("기능 개선 요청이 등록되지 않았습니다.\n\n관리자에게 문의 바랍니다.");
           }
         })
         .catch(error => {
@@ -91,13 +90,11 @@
         })
       },
 			//******************************************************************************
-			// 기능개선 리스트로 돌아가기
+			// 문의사항 리스트로 돌아가기
 			//******************************************************************************
-			CancleTechList() { 
-				console.log();
+			CancleBoardList() { 
 				this.$router.push({ name : 'MENU_08703' })
-			},
-
+			}
 		},
 		created() {
 			this.$store.state.headerTopTitle = "고객센터";
@@ -113,11 +110,11 @@
 		background: #fff;
 	}
 
-	#menu08702_3 .techTop {
+	#menu08702_3 .boardTop {
 		padding: 21px;
 	}
 
-	#menu08702_3 .techTop h1{
+	#menu08702_3 .boardTop h1{
 		font-size: 14px;
 		margin-bottom: 7px;
 		color: #222;
@@ -125,7 +122,7 @@
 		position: relative;
 	}
 
-	#menu08702_3 .techTop h1::before {
+	#menu08702_3 .boardTop h1::before {
 		clear: both;
 		content: "";
 		width: 2px;

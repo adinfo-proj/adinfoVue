@@ -1,57 +1,56 @@
 <template>
 	<div class="container">
-		<div id="menu08702">
-			<div class="tableBox boardTop">
+		<div id="menu08701">
+			<div class="tableBox noticeTop">
 				<h1>문의사항</h1>
 				<p>궁금하신 사항이 있으시다면 언제든지 문의해주시기 바랍니다. 신속하고 친절하게 답변드리겠습니다.</p>
+				<!-- 나중에 != =>  == 으로 바꿔야함 -->
+				<!-- <div class="btnBox" v-if="$store.state.adGradeCd != '01'"> -->
+				<div class="btnBox">
+					<button @click="WriteNotice()">문의사항 작성하기</button>
+				</div>
 			</div>
 			<div class="tableBox">
 				<table>
 					<thead>
 						<tr>
-							<th class="boardNum"   >번호</th>
-							<th class="boardNm"    >제목</th>
-							<th class="boardWriter">작성자</th>
-							<th class="boardDate"  >작성일</th>
-							<th class="boardOpen"  >조회수</th>
+							<th class="noticeNum"   >번호</th>
+							<th class="noticeNm"    >제목</th>
+							<th class="noticeWriter">작성자</th>
+							<th class="noticeDate"  >작성일</th>
+							<th class="noticeOpen"  >조회수</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(boardList, index) in boardListObj" :key="index">
-							<th class="boardNum">{{boardList.seqNo}}</th>
-							<td class="boardNm" @click="GoBoardCont(boardList.seqNo)">
-								{{boardList.title}}</td>
-							<td class="boardWriter">{{boardList.clntNm}}</td>
-							<td class="boardDate">{{boardList.createDt}}</td>
-							<td class="boardOpen">{{boardList.readCount}}</td>
+						<tr v-for="(contentsList, index) in contentsListObj" :key="index">
+							<th class="noticeNum">{{contentsList.seqNo}}</th>
+							<td class="noticeNm" @click="GoNoticeCont(contentsList.seqNo)">
+								{{contentsList.title}}</td>
+							<td class="noticeWriter">{{contentsList.clntNm}}</td>
+							<td class="noticeDate">{{contentsList.createDt}}</td>
+							<td class="noticeOpen">{{contentsList.readCount}}</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="5">
-								<button @click="WriteBoard()">문의하기</button>
-							</td>
-						</tr>
-						<tr>
-              <td class="dataBtn" colspan="5">
-                <span class="pageleft" v-if="pageCount.length > 0" @click="getBoardTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
+              <td class="dataBtn" colspan="8">
+                <span class="pageleft" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
 								<ul>
 									<li class="pageBtn" 
 										v-bind:class="{on : (indexPage) == curPage}" 
 										v-for="(indexPage, index) in pageCount" :key="index" 
-										@click="getBoardTitleList(pageCount[0] + index, false)"
+										@click="getNotifyTitleList(pageCount[0] + index, false)"
 									>
 										{{indexPage}}
 									</li>
 								</ul>
-                <span class="pageright" v-if="pageCount.length > 0" @click="getBoardTitleList(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
+                <span class="pageright" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
               </td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 		</div>
-
 	</div>
 </template>
 
@@ -61,7 +60,7 @@
 	export default {
 		data() {
 			return {
-					boardListObj: ''
+					contentsListObj: ''
 				, selectRowCount: 10
 				, curRunTotalPages: 0
 				, pageCount: []
@@ -72,10 +71,7 @@
 			//******************************************************************************
 			// 공지사항 목록조회하기.
 			//******************************************************************************
-      getBoardTitleList(selectPage, firstSel) {
-				console.log("selectPage : " + selectPage);
-				console.log("firstSel   : " + firstSel);
-
+      getNotifyTitleList(selectPage, firstSel) {
         if( firstSel == true) {
           this.curRunTotalPages = 100000000;
         }
@@ -87,34 +83,30 @@
 				this.dbSelectData = null;
 				this.curPage = selectPage;
 
-        axios.get("http://api.adinfo.co.kr:30000/ask/titlelist",
+        axios.get("http://api.adinfo.co.kr:30000/notice/titlelist",
         {
           params: {
-              seqNo: 9999999999
+              seqNo     : 9999999999
 						, curPage   : selectPage
 						, rowCount  : this.selectRowCount
+						, groupTp   : '01'
+						, useTp     : 'R'
+						, dataOnly  : 'Y'
           }
         })
         .then(response => 
 				{
-          this.boardListObj = response.data;
+          this.contentsListObj = response.data[1];
 
           //------------------------------------------------------------------------------
           // 페이지 정보 조회
           //------------------------------------------------------------------------------
-          axios.get("http://api.adinfo.co.kr:30000/GetAskForAllPageCount",
-          {
-            params: {
-              useTp : '0'
-            }
-          })
-          .then(response => 
 					{
             let arrGab = [];
             let pageUpPage = 0;
 
             // 전체 페이지의 수를 확인한다.
-            this.curRunTotalPages = Math.ceil(response.data.rowTotalCount / this.selectRowCount);
+            this.curRunTotalPages = Math.ceil(response.data[0][0].rowTotalCount / this.selectRowCount);
 
             // 페이지가 10개 이하이면...
             if( this.curRunTotalPages < 10) 
@@ -147,23 +139,19 @@
             }
 
             this.pageCount = arrGab;
-					})
-					.catch(error => 
-					{
-						console.log(error);
-					})
+					}
 				})
 			},
-
-			GoBoardCont(index) {
+			GoNoticeCont(index) {
 				this.$router.push({ 
 					name : 'MENU_08702_2', 
 					params: { index: index }
 				})
 			},
-			WriteBoard(){
+			WriteNotice(){
 				this.$router.push({ 
 					name : 'MENU_08702_3', 
+					// params: { index: index } 
 				})
 			}
 		},
@@ -171,30 +159,28 @@
 			this.$store.state.headerTopTitle = "고객센터";
 			this.$store.state.headerMidTitle = "문의하기";
 
-			this.getBoardTitleList(1, true);
+			this.getNotifyTitleList(1, true);
 		}
 	}
 </script>
 
-
-
-
 <style scoped>
-
-	#menu08702 .boardTop {
+	#menu08701 .noticeTop {
 		background: #fff;
 		padding: 21px;
 	}
-
-	#menu08702 .boardTop h1{
+	#menu08701 .noticeTop p,
+	#menu08701 .prevBox p {
+		color: #444;
+	}
+	#menu08701 .noticeTop h1{
 		font-size: 14px;
 		margin-bottom: 7px;
 		color: #222;
 		padding-left: 12px;
 		position: relative;
 	}
-
-	#menu08702 .boardTop h1::before {
+	#menu08701 .noticeTop h1::before {
 		clear: both;
 		content: "";
 		width: 2px;
@@ -204,41 +190,44 @@
 		left: 0;
 		background: #e25b45;
 	}
-
-	#menu08702 th,
-	#menu08702 td {
+	#menu08701 .btnBox {
+		text-align: right;
+	}
+	#menu08701 .btnBox button{
+		padding: 10px 15px;
+		border-radius: 10px;
+		border: none;
+		font-weight: 700;
+		color: #fff;
+		background: #999;
+	}
+	#menu08701 th,
+	#menu08701 td {
 		padding: 15px 18px;
 		text-align: center;
 		border: none;
 		position: relative;
 	}
-
-
-	#menu08702 .boardNum {
+	#menu08701 .noticeNum {
 		width: 7%;
 	}
-
-	#menu08702 .boardNm {
+	#menu08701 .noticeNm {
 		width: 63%;
 	}
-
-	#menu08702 td.boardNm {
+	#menu08701 td.noticeNm {
 		text-align: left;
 		padding-left: 30px;
 		cursor: pointer;
 	}
-
-	#menu08702 .boardWriter,
-	#menu08702 .boardDate,
-	#menu08702 .boardOpen  {
+	#menu08701 .noticeWriter,
+	#menu08701 .noticeDate,
+	#menu08701 .noticeOpen  {
 		width: 10%;
 	}
-
-	#menu08702 thead {
+	#menu08701 thead {
 		border-bottom: 1px solid #5c5c5c;
 	}
-
-	#menu08702 thead tr th:after{
+	#menu08701 thead tr th:after{
 		position: absolute;
     content: "";
     width: 1px;
@@ -248,41 +237,21 @@
     right: 0;
     transform: translateY(-50%);
 	}
-
-	#menu08702 thead tr th:last-child:after{
+	#menu08701 thead tr th:last-child:after{
 		display: none;
 	}
-
-	#menu08702 tbody tr{
+	#menu08701 tbody tr{
 		border-bottom: 1px solid #ececec;
 	}
-
-	#menu08702 tbody span{
+	#menu08701 tbody span{
 		display: inline-block;
 		width: 80px;
 	}
-
-	#menu08702 tfoot tr:first-child td{
-		text-align: right;
-	}
-
-	#menu08702 tfoot tr:first-child td button {
-		padding: 12px 24px;
-		font-size: 14px;
-		font-weight: 700;
-		color: #fff;
-		border: 1px solid #e5e5e5;
-		border-radius: 10px;
-		background: #393939;
-	}
-
-
-	#menu08702 tfoot ul,
-	#menu08702 tfoot ul li {
+	#menu08701 tfoot ul,
+	#menu08701 tfoot ul li {
 		display: inline-block;
 	}
-
-	#menu08702 tfoot span {
+	#menu08701 tfoot span {
 		display: inline-block;
     width: 25px;
     height: 25px;
@@ -293,18 +262,15 @@
     text-align: left;
 		cursor: pointer;
 	}
-
-	#menu08702 tfoot ul li {
+	#menu08701 tfoot ul li {
     margin: 0 10px;
 		cursor: pointer;
 	}
-
-	#menu08702 tfoot ul li.on {
+	#menu08701 tfoot ul li.on {
     font-weight: 900;
     position: relative;
 	}
-
-	#menu08702 tfoot ul li.on:after {
+	#menu08701 tfoot ul li.on:after {
     clear: both;
     position: absolute;
     height: 1px;
@@ -314,8 +280,4 @@
     left: 0;
     background: #666;
 	}
-
-
-
-
 </style>

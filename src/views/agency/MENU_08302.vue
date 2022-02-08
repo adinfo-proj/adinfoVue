@@ -25,27 +25,19 @@
             <!-- 라디오 버튼 -->
             <div v-if="inObj.values == 'radioForm'" class="formInput">
               <span class="fornInputName">{{inObj.names}}</span>
+
+
+              
               <span v-for="index in inObj.lab" :key="index">
-                <input :id="index" :name="inObj.names" type="radio" >
+                <input :id="index" :name="inObj.lab[index]" type="radio" >
                 <label :for="index">{{index}}</label>
-              </span>  
+              </span>
+
+
+
+
+
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <!-- 체크박스 -->
             <div v-if="inObj.values == 'checkForm'" class="formInput">
               <span class="fornInputName">{{inObj.names}}</span>
@@ -54,9 +46,6 @@
                 <label :for="index">{{index}}</label>
               </span>
             </div>
-
-
-
             <!-- 셀렉트박스 -->
             <div v-if="inObj.values == 'selForm'" class="formInput">
               <span class="fornInputName">{{inObj.names}}</span>
@@ -66,18 +55,6 @@
                 </option>
               </select>  
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
           </div>
           <input type="checkbox" name="agree01" id="agree01">
           <label for="agree01">{{lendchoose.formDesc.priNm}}<span @click="PriModal()">[보러가기]</span></label>
@@ -97,7 +74,7 @@
       <div class="subBox">
         <button class="saveBtn" @click="PreviewSend()">랜딩페이지 저장하기</button>
       </div>
-    </div>    
+    </div>
     <div class="landChoice">
       <div class="basicInfo landBox">
         <h2>랜딩페이지 기본정보</h2>
@@ -124,7 +101,7 @@
           </tr>
           <tr>
             <th>
-             페이지 명
+              페이지 명
             </th>
             <td colspan="3">
               <input type="text" class="" v-model="landName">
@@ -186,22 +163,10 @@
     },
     data() {
       return {
-        editorConfig: {        
-          toolbarGroups: [
-            { name: 'forms' },
-            { name: 'basicstyles', groups: [ 'basicstyles'] },
-            { name: 'links' },
-            { name: 'styles' },
-            { name: 'colors' }
-          ]
-          , height: '150px'
-          , language: 'ko'
-          , resize_enabled: false
-        }
-        , scriptInput: false
-        , campaignSelect: ''
-        , campaignListObj: ''
-        , landName: ''
+          scriptInput     : false
+        , campaignSelect  : ''
+        , campaignListObj : ''
+        , landName        : ''
       }
     },
     methods: {
@@ -209,8 +174,6 @@
       // 미리보기를 서버에 전달한다.
       //******************************************************************************
       PreviewSend() {
-        console.log(this.$store.state.lendchooseObj[0].formDesc.inputBox);
-
         //------------------------------------------------------------------------------
         // 입력 유형을 Array로 구성한다.
         //------------------------------------------------------------------------------
@@ -232,6 +195,37 @@
         //------------------------------------------------------------------------------
         // 폼 추가 태그를 Array로 구성한다.
         //------------------------------------------------------------------------------
+        console.log(this.$store.state.lendchooseObj);
+
+        // for(let i = 0 ; i < this.$store.state.lendchooseObj.length ; i++) {
+        //   if(this.$store.state.lendchooseObj[i].tp == '03') {
+        //     console.log(this.$store.state.lendchooseObj[i].formDesc.inputBox.length);
+
+        //     for(let t = 0 ; t < this.$store.state.lendchooseObj.length ; t++) {
+        //       if(this.$store.state.lendchooseObj[i].formDesc.inputBox[t].names == null) {
+        //         let nRow = i + 3;
+        //         alert("폼 꾸미기의 "+ nRow + "번째 항목의 값이 비어있습니다.1");
+        //         return;
+        //       }
+              
+        //       if(this.$store.state.lendchooseObj[i].formDesc.inputBox[t].values == null) {
+        //         let nRow = i + 3;
+        //         alert("폼 꾸미기의 "+ nRow + "번째 유형이 비어있습니다.2");
+        //         return;
+        //       }
+        //       else {
+        //         if(this.$store.state.lendchooseObj[i].formDesc.inputBox[t].values != "textForm") {
+        //           if(this.$store.state.lendchooseObj[i].formDesc.inputBox[t].lab == null) {
+        //             let nRow = i + 3;
+        //             alert("폼 꾸미기의 "+ nRow + "번째 유형의 값이 비어있습니다.3");
+        //             return;
+        //           }
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+
         let formData = [];
         this.$store.state.lendchooseObj.forEach(element => {
           if( element.tp == "03") {
@@ -243,8 +237,6 @@
               , priCon   : element.formDesc.priCon
               , priNm    : element.formDesc.priNm
             };
-
-            console.log(forms);
             formData.push(forms);
           }
         });
@@ -261,6 +253,7 @@
           , mkId        : this.$store.state.adId
           , pgId        : 0
           , clntId      : this.$store.state.clntId
+          , processMode : 'C'       // (C:신규, M:수정, R:삭제)
           , formCount   : this.$store.state.lendchooseObj.length
           , campanyNm   : this.company
           , landingNm   : this.landName
@@ -271,26 +264,21 @@
           , formData    : formData
         };
 
-        console.log(data);
-
         const frm = new FormData();
         for(let i = 0 ; i < this.$store.state.lendchooseObj.length ; i++) {
           if(this.$store.state.lendchooseObj[i].tp == '01') {
-            console.log("tp Start : " + this.$store.state.lendchooseObj[i].tp);
             frm.append("upFile" , this.$store.state.lendchooseObj[i].fileNmOrg);
-            console.log("tp Finish: " + this.$store.state.lendchooseObj[i].tp);
           }
         }
-
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
 
         axios.post("http://api.adinfo.co.kr:30000/newlandingpage", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
-          console.log(response);
-          if( response.data > 0) {
+          if( response.data.status == 'success') {
             alert('정상적으로 캠페인이 등록되어습니다.');
+            window.open(response.data.landingUrl);
           }
         })
         .catch(error => {
@@ -301,9 +289,14 @@
       // 캠페인 분류(대분류)
       //******************************************************************************
       getCampaignAllList() { // 캠페인 분류(대분류)
-        axios.get("http://api.adinfo.co.kr:30000/CampaignAllList")
+        axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst",
+        {
+          params: {
+              mbId   : this.$store.state.mbId
+						, adId   : this.$store.state.adId
+          }
+        })
         .then(response => {
-          console.log(response);
           this.campaignSelect = response.data[0].adId;
           this.campaignListObj   = response.data;
         })
@@ -353,14 +346,13 @@
 
         plusObj.tp = '01';
         this.$store.state.lendchooseObj.push(plusObj);
-        console.log(this.$store.state.lendchooseObj);
       },
       //******************************************************************************
       // 텍스트 추가 함수
       //******************************************************************************
       TextChooseBtn() {
         if(this.$store.state.lendchooseObj.length > 9) {
-          alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
+          alert("이미지, 폼은 10개 까지만 등록 가능합니다.")
           return;
         }
 
@@ -374,7 +366,6 @@
 
         plusObj.tp = '02';
         this.$store.state.lendchooseObj.push(plusObj);
-        console.log(this.$store.state.lendchooseObj);
       },
       //******************************************************************************
       // 폼 추가 함수
@@ -450,6 +441,9 @@
       this.$store.state.headerMidTitle = "랜딩페이지 제작";
 
       this.getCampaignAllList();
+    },
+    beforeDestroy() {
+     //this.$store.state.lendchooseObj = '';
     }
   }
 </script>

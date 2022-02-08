@@ -23,12 +23,12 @@
   export default {
     data() {
       return{
-          formObj: {}
-        , formName: this.$store.state.inputObj[this.formConNm].names
-        , selectVal: this.$store.state.inputObj[this.formConNm].values
-        , formLabel: this.$store.state.inputObj[this.formConNm].lab
-        , disableForm: false // input type="text" 활성화 여부
-        , splText : '' //input type="text" 활성화 시 들어갈 내용
+          formObj     : {}
+        , formName    : this.$store.state.inputObj[this.formConNm].names
+        , selectVal   : this.$store.state.inputObj[this.formConNm].values
+        , formLabel   : this.$store.state.inputObj[this.formConNm].lab
+        , disableForm : false // input type="text" 활성화 여부
+        , splText     : '' //input type="text" 활성화 시 들어갈 내용
       }
     },
     props: {
@@ -39,24 +39,21 @@
       // 폼 변경 시 적용되는
       //******************************************************************************
       inputTypeVal() {
-       
-        if(this.selectVal == 'textForm'){
+        if(this.selectVal == 'textForm') {
           this.disableForm = true;
-          this.splText = ""
-        }else{
+          this.splText = "";
+        } else {
           this.disableForm = false;
-          this.splText = "구분은 ','로만 가능합니다."
+          this.splText = "구분은 ','로만 가능합니다.";
           //this.formLabel = this.formLabel.split(',');
           // this.formLabel = this.formLabel;
         }
 
-        this.formObj.names  = this.formName ;
-        this.formObj.values = this.selectVal ;
-        this.formObj.lab = this.formLabel
+        this.formObj.names  = this.formName;
+        this.formObj.values = this.selectVal;
+        this.formObj.lab    = this.formLabel;
 
-        this.$store.state.inputObj[this.formConNm] = this.formObj
-
-
+        this.$store.state.inputObj[this.formConNm] = this.formObj;
       },
       //******************************************************************************
       // 폼 입력항목 제거 함수
@@ -72,7 +69,6 @@
       formLabel : function() { 
         return this.formLabel = this.formLabel.replace(/[^a-z0-9ㄱ-ㅎ가-힣,]/gi, '');
       },
-
     }, 
   }
 </script>

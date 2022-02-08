@@ -40,9 +40,9 @@
 				<table class="campTable">
 					<thead>
 						<tr>
-							<th class="campNum"     >번호</th>
-							<th class="campCode"    >캠페인코드</th>
+							<th class="campNum"     >번호</th>							
 							<th class="campName"    >캠페인명</th>
+							<th class="campCode"    >랜딩페이지 수</th>
 							<th class="campPay"     >광고주 단가</th>
 							<th class="marketer"    >마케터 단가</th>
 							<th class="dbNum"       >DB 접수 건수</th>
@@ -53,21 +53,24 @@
 						</tr>
 					</thead>
 					<tbody v-if="campaignFullDataObj.length == '0'" class="noLength">
+						<br>
+						<br><br>
 						<tr>
-							<td colspan="9">
-								<img src="../../assets/images/menu08201/data_icon.png" alt="">
+							<td colspan="12">
+								조회하신 정보가 없습니다.
+								<!-- <img src="../../assets/images/menu08201/data_icon.png" alt=""> -->
 							</td>
 						</tr>
 					</tbody>
 					<tbody>
 						<tr v-for="(campaignFullData, index) in campaignFullDataObj" :key="index">
-							<th class="campNum"      >{{ index+1 }}</th>
-							<td class="campCode"     >{{ campaignFullData.caId    }}</td>
+							<th class="campNum"      >{{ index+1 }}</th>							
 							<td class="campName"     >{{ campaignFullData.name  }}</td>
-							<td class="campPay"      >{{ campaignFullData.price   }} 원</td>
+							<td class="campCode"     >{{ campaignFullData.landCount }} 개</td>
+							<td class="campPay"      >{{ campaignFullData.price }} 원</td>
 							<td class="marketer"     >{{ campaignFullData.marketerPrice }} 원</td>
-							<td class="dbNum"        >{{"100"}} 건</td>
-							<td class="pageOpen"     >{{"300"}} 건</td>
+							<td class="dbNum"        >{{ campaignFullData.createCount }} 건</td>
+							<td class="pageOpen"     >{{ campaignFullData.viewCount }} 건</td>
 
 							<td class="campDbbState" v-if     ="campaignFullData.status == '01'">진행중</td>
 							<td class="campDbbState" v-else-if="campaignFullData.status == '02'">승인 대기중</td>
@@ -78,7 +81,8 @@
 
 							<td class="campDate"	   >{{ campaignFullData.srtDt   }}</td>
 							<td class="modifyBtn"    >
-								<button @click='PassData(campaignFullData.caId)'>수정</button>
+								<button @click='UpdateCampaign(campaignFullData.caId)'>수정</button> 
+								<button @click='DeleteCampaign(campaignFullData.caId)'>삭제</button>
 							</td>
 						</tr>
 					</tbody>
@@ -114,23 +118,49 @@
 	export default {
 		data() {
 			return {
-          campaignNameListObj: ''
-        , campaignFullDataObj: ''
-        , campaignStatusCode: ''
-        , campaignStatusCodeObj: ''
-				, pageCount: 0
-				, selectRowCount: 10
+          campaignNameListObj   : ''
+        , campaignFullDataObj   : ''
+        , campaignStatusCode    : ''
+        , campaignStatusCodeObj : ''
+				, pageCount             : 0
+				, selectRowCount        : 10
 			}
 		},
 		methods: {
-
 			//******************************************************************************
 			// 캠페인 수정
 			//******************************************************************************
-			PassData(caId){
+			UpdateCampaign(caId) {
 				this.$router.push({ 
 					name : 'MENU_08103', 
 					params: { caId: caId } 
+				})
+			},
+			//******************************************************************************
+			// 캠페인 삭제
+			//******************************************************************************
+			DeleteCampaign(caId) {
+				axios.get("http://api.adinfo.co.kr:30000/ChangeCampaignStatus", 
+				{
+					params: {
+							mbId        : this.$store.state.mbId
+						, adId        : this.$store.state.adId
+						, caId        : caId
+						, mkId        : this.$store.state.adId
+						, status      : 'ZZ'
+					}
+				})
+				.then(response => {
+					if(response.data.status == "succ") {
+						alert("캠페인을 정상적으로 삭제하였습니다.");
+						this.campaignListChange("00");
+					}
+					else {
+						alert("캠페인을 삭제에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
+					}
+				})
+				.catch(error => {
+					console.log(error);
 				})
 			},
 			//******************************************************************************
@@ -167,7 +197,6 @@
 				})
 				.then(response => {
 					this.campaignFullDataObj = response.data;
-					console.log(this.campaignFullDataObj);
 				})
 				.catch(error => {
 					console.log(error);
@@ -177,64 +206,52 @@
 			// 엑셀로 내려받기
 			//******************************************************************************
 			makeExcel() {
-				let d= new Date();
+				if( this.campaignFullDataObj.length <= 0 ) {
+					alert("조회된 정보가 없어 엑셀 내려받기를 하실 수 없습니다.");
+					return;
+				}
+
+				let d = new Date();
         let curDate = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(0,10).replace(/-/g, "");
 				let curTime = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(11,19).replace(/:/g, "");
 
 				var myJSON = new Array();
 
 				for(let i = 0; i < this.campaignFullDataObj.length; i++) {
-					let seqNo, caName, mkId, insDt, insTm, regIp, confirmTp, mkPrice, value01, value02, value03, value04, value05, value06, value07, value08, value09, value10;
+					let seqNo, name, landCount, price, marketerPrice, createCount, viewCount, status, srtDt;				
 
-					if(this.campaignFullDataObj[i].seqNo  == null) seqNo    = ''; else seqNo  = this.campaignFullDataObj[i].seqNo   ;
-					if(this.campaignFullDataObj[i].caName == null) caName   = ''; else caName = this.campaignFullDataObj[i].caName  ;
-					if(this.campaignFullDataObj[i].mkId   == null) mkId     = ''; else mkId   = this.campaignFullDataObj[i].mkId    ;
-					if(this.campaignFullDataObj[i].insDt  == null) insDt    = ''; else insDt  = this.campaignFullDataObj[i].insDt   ;
-					if(this.campaignFullDataObj[i].insTm  == null) insTm    = ''; else insTm  = this.campaignFullDataObj[i].insTm   ;
-					if(this.campaignFullDataObj[i].regIp  == null) regIp    = ''; else regIp  = this.campaignFullDataObj[i].regIp   ;
+					seqNo = i + 1;
 
-               if(this.campaignFullDataObj[i].confirmTp == 'Z') confirmTp = '미충전';
-					else if(this.campaignFullDataObj[i].confirmTp == 'N') confirmTp = '대기';
-					else if(this.campaignFullDataObj[i].confirmTp == 'Y') confirmTp = '접수';
-					else if(this.campaignFullDataObj[i].confirmTp == 'C') confirmTp = '취소';
-					else if(this.campaignFullDataObj[i].confirmTp == 'P') confirmTp = '기타';
-          else                                                  confirmTp = '미정';
+					if(this.campaignFullDataObj[i].name          == null) name          = ''; else name          = this.campaignFullDataObj[i].name;					
+					if(this.campaignFullDataObj[i].landCount     == null) landCount     = 0 ; else landCount     = this.campaignFullDataObj[i].landCount;
+					if(this.campaignFullDataObj[i].price         == null) price         = 0 ; else price         = this.campaignFullDataObj[i].price;
+					if(this.campaignFullDataObj[i].marketerPrice == null) marketerPrice = 0 ; else marketerPrice = this.campaignFullDataObj[i].marketerPrice;
+					if(this.campaignFullDataObj[i].createCount   == null) createCount   = 0 ; else createCount   = this.campaignFullDataObj[i].createCount;
+					if(this.campaignFullDataObj[i].viewCount     == null) viewCount     = 0 ; else viewCount     = this.campaignFullDataObj[i].viewCount;
 
-					if(this.campaignFullDataObj[i].mkPrice   == null) 
-						mkPrice = '0';
-					else 
-						mkPrice = this.campaignFullDataObj[i].mkPrice.replace(/,/g, "");
+					price         = price.replace(/,/g, '');
+					marketerPrice = marketerPrice.replace(/,/g, '');
 
-					if(this.campaignFullDataObj[i].value01 == null) value01 = ''; else value01 = this.campaignFullDataObj[i].value01;
-					if(this.campaignFullDataObj[i].value02 == null) value02 = ''; else value02 = this.campaignFullDataObj[i].value02;
-					if(this.campaignFullDataObj[i].value03 == null) value03 = ''; else value03 = this.campaignFullDataObj[i].value03;
-					if(this.campaignFullDataObj[i].value04 == null) value04 = ''; else value04 = this.campaignFullDataObj[i].value04;
-					if(this.campaignFullDataObj[i].value05 == null) value05 = ''; else value05 = this.campaignFullDataObj[i].value05;
-					if(this.campaignFullDataObj[i].value06 == null) value06 = ''; else value06 = this.campaignFullDataObj[i].value06;
-					if(this.campaignFullDataObj[i].value07 == null) value07 = ''; else value07 = this.campaignFullDataObj[i].value07;
-					if(this.campaignFullDataObj[i].value08 == null) value08 = ''; else value08 = this.campaignFullDataObj[i].value08;
-					if(this.campaignFullDataObj[i].value09 == null) value09 = ''; else value09 = this.campaignFullDataObj[i].value09;
-					if(this.campaignFullDataObj[i].value10 == null) value10 = ''; else value10 = this.campaignFullDataObj[i].value10;
+               if(this.campaignFullDataObj[i].status == '01') status = '진행중';
+					else if(this.campaignFullDataObj[i].status == '02') status = '대기중';
+					else if(this.campaignFullDataObj[i].status == '03') status = '일시정지';
+					else if(this.campaignFullDataObj[i].status == '04') status = '승인거절';
+					else if(this.campaignFullDataObj[i].status == '05') status = '기간 만기 종료';
+					else if(this.campaignFullDataObj[i].status == '06') status = '강제종료';
+          else                                                status = '삭제';
+
+					if(this.campaignFullDataObj[i].srtDt == null) srtDt = ''; else srtDt = this.campaignFullDataObj[i].srtDt;
 
 					let myArr = {
 							'번호': seqNo
-						, '캠페인명': caName
-						, '마케터ID': mkId
-						, '유입일자': insDt
-						, '유입시간': insTm
-						, '접수IP': regIp
-						, 'DB상태': confirmTp
-						, '단가': Number(mkPrice)
-						, '입력1': value01
-						, '입력2': value02
-						, '입력3': value03
-						, '입력4': value04
-						, '입력5': value05
-						, '입력6': value06
-						, '입력7': value07
-						, '입력8': value08
-						, '입력9': value09
-						, '입력10': value10
+						, '캠페인명': name
+						, '랜딩페이지수': Number(landCount)
+						, '광고주단가': Number(price)
+						, '마케터단가': Number(marketerPrice)
+						, 'DB접수건수': Number(createCount)
+						, '페이지 조회수': Number(viewCount)
+						, '캠페인상태': status
+						, '생성일자': srtDt
 					};
 					myJSON.push(myArr);
 				}
@@ -446,7 +463,7 @@
 	}
 
 	#menu08101 .campDataBox .noLength tr {
-		height: 600px;
 		border-bottom: none;
+		font-weight: 900;
 	}
 </style>

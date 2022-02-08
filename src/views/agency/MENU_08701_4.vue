@@ -21,7 +21,7 @@
 				</div>
 			</div>
 			<div class="btnBox">
-        <button @click="UpDateNotify();">등록하기</button>
+        <button @click="UpDateNotify(contentsData.bodySeqNo);">변경하기</button>
         <button class="canBtn" @click="CancleNoticeList()">취소하기</button>
 			</div>
 		</div>
@@ -68,43 +68,41 @@
 			// 선택된 데이터 불러오기
 			//******************************************************************************
 			getModifyContents(seqNo) {
-				axios.get("http://api.adinfo.co.kr:30000/notify/contents",
+				axios.get("http://api.adinfo.co.kr:30000/notice/contents",
 				{
 					params: {
 							seqNo: seqNo
+						, groupTp : '00'
+						, useTp   : 'R'
+						, dataOnly: 'Y'
 					}
 				})
         .then(response => {
-          this.contentsData     = response.data[0][0];
+          this.contentsData = response.data[0][0];
         })
         .catch(error => {
           console.log(error);
         })
 			},
 			//******************************************************************************
-			// 공지사항 등록
+			// 공지사항 변경
 			//******************************************************************************
-			UpDateNotify() {
-
-				let data = this.contentsData; 
-
-				console.log(data)
-
-        axios.get("http://api.adinfo.co.kr:30000/notify/update",
+			UpDateNotify(seqNo) {
+        axios.get("http://api.adinfo.co.kr:30000/notice/update",
         {
           params: {
-              clntId: this.$store.state.clntId
-            , useTp: '0'
-						, seqNo: this.contentsData.seqNo
-            , head: this.contentsData.head
-            , title: this.contentsData.title
-            , contents: this.contentsData.contents
+              seqNo     : seqNo
+            , clntId    : this.$store.state.clntId
+            , useTp     : 'R'						
+						, groupTp   : '00'
+            , head      : this.contentsData.head
+            , title     : this.contentsData.title
+            , contents  : this.contentsData.contents
           }
         })
         .then(response => {
-          console.log(response.data);
           if(response.data > 0) {
-            alert("정상적으로 공지사항이 수정되었습니다.");
+            alert("정상적으로 공지사항이 변경되었습니다.");
             this.$router.push({ 
               name : 'MENU_08701_2', 
               params: { index: response.data }
@@ -112,7 +110,7 @@
             return;
           }
           else {
-            alert("공지사항이 등록되지 않았습니다.\n\n관리자에게 문의 바랍니다.");
+            alert("공지사항이 변경이 되지 않았습니다.\n\n관리자에게 문의 바랍니다.");
           }
         })
         .catch(error => {

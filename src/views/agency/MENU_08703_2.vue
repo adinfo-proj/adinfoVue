@@ -1,58 +1,81 @@
 <template>
 	<div class="container">
-		<div id="menu08703_2">
-			<div class="tableBox techTop">
+		<div id="menu08701_2">
+			<div class="tableBox noticeTop">
 				<h1>기능 개선 요청</h1>
 				<p>안내, 정책변경, 업데이트등 디비마스터의 다양한 소식을 확인하실 수 있습니다.</p>
 			</div>
-			<div class="tableBox techView">
+			<div class="tableBox noticeView">
 				<h3>
-          {{techData.title}}
+          <span class="titleHead" v-if="contentsData.head == '01'">[ 공지사항 ]</span>
+          <span class="titleHead" v-if="contentsData.head == '02'">[ 업데이트 ]</span>
+          <span class="titleHead" v-if="contentsData.head == '03'">[ 이벤트 ]</span>
+          <span class="titleHead" v-if="contentsData.head == '04'">[ 기타 ]</span>
+          {{contentsData.title}}
 					<p>
-						<span class="techCursor" v-if="$store.state.clntId == techData.clntId " @click="ModifyTech()">수정</span>
-						<span class="techCursor" v-if="$store.state.clntId == techData.clntId" @click="DeleteTech(techData.seqNo)" >삭제</span>
-						<span>{{techData.clntNm}}</span>
-						<span>{{techData.createDt}}</span>
+						<!-- 나중에 != 를 == 로 바꿔야함 -->
+						<span class="noticeCursor" v-if="$store.state.adGradeCd != '01'" @click="ModifyNotice(contentsData.bodySeqNo)">수정</span>
+						<span class="noticeCursor" v-if="$store.state.adGradeCd != '01'" @click="DeleteNotice(contentsData.bodySeqNo)">삭제</span>
+						<span>{{contentsData.clntNm}}</span>
+						<span>{{contentsData.createDt}}</span>
 					</p>
 				</h3>
-        <p v-html="techData.contents"></p>
-
+        <p>
+          <span v-html="contentsData.contents"></span>
+        </p>
+			</div>
+			<div class="tableBox prevBox">
+				<p @click="getNotifyContents(contentsAfter.bodySeqNo)">
+          <span class="prev">다음글</span>
+          <span v-if="contentsAfter.title != null" >            
+            {{contentsAfter.title}}</span>
+          <span v-else>다음 글이 없습니다.</span>
+					<span class="prevDate" v-if="contentsAfter.createDt != null">{{contentsAfter.createDt}}</span>
+				</p>
+				<p @click="getNotifyContents(contentsBefore.bodySeqNo)">
+          <span class="prev">이전글</span>
+          <span v-if="contentsBefore.title != null" >
+            {{contentsBefore.title}}</span>
+          <span v-else>이전 글이 없습니다.</span>
+					<span class="prevDate" v-if="contentsBefore.createDt != null">{{contentsBefore.createDt}}</span>
+				</p>
 			</div>
 			<div class="btnBox">
-				<button @click="GoTechList()">목록으로</button>
+				<button @click="GoNoticeList()">목록으로</button>
 			</div>
 
 		</div>
+
 	</div>
 </template>
 
-
 <script>
-	import axios          from "axios";
-
+  import axios          from "axios";
 
 	export default {
 		data() {
 			return {
-					techData: ''
-
+          contentsData: ''
+        , contentsBefore: ''
+        , contentsAfter: ''
 			}
 		},
 		methods: {
 			//******************************************************************************
-			// 문의사항 내용조회하기.
+			// 공지사항 내용조회하기.
 			//******************************************************************************
-      getTechContents(seqNo) {
-
-
-        axios.get("http://api.adinfo.co.kr:30000/inprove/contents",
+      getNotifyContents(bodySeqNo) {
+        axios.get("http://api.adinfo.co.kr:30000/notice/contents",
         {
           params: {
-            seqNo: seqNo
+              seqNo   : bodySeqNo
+						, groupTp : '02'
+						, useTp   : 'R'
+						, dataOnly: 'N'
           }
         })
         .then(response => {
-          this.techData     = response.data[0][0];
+          this.contentsData     = response.data[0][0];
 
           if(response.data[1].length > 0) {
             this.contentsBefore = response.data[1][0];
@@ -72,32 +95,33 @@
         })
       },
 			//******************************************************************************
-			// 문의사항 리스트로 돌아가기
+			// 공지사항 리스트로 돌아가기
 			//******************************************************************************
-			GoTechList() {
+			GoNoticeList() {
 				this.$router.push({ name : 'MENU_08703' })
 			},
 			//******************************************************************************
-			// 문의사항 현재글 수정
+			// 공지사항 현재글 수정
 			//******************************************************************************
-			ModifyTech() {
+			ModifyNotice(bodySeqNo) {
 				this.$router.push({ 
 					name : 'MENU_08703_4', 
-					params: { seqNo: this.techData.seqNo } 
+					params: { seqNo: bodySeqNo }
 				})
 			},
 			//******************************************************************************
-			// 문의사항 현재글 삭제
+			// 공지사항 현재글 삭제
 			//******************************************************************************
-			DeleteTech(seqNo) {
+			DeleteNotice(bodySeqNo) {
          if(confirm("정말로 해당 글을 삭제하시겠습니까?") == false) {
            return;
          }
 
-        axios.get("http://api.adinfo.co.kr:30000/ask/delete",
+        axios.get("http://api.adinfo.co.kr:30000/notice/delete",
         {
           params: {
-            seqNo: seqNo
+              seqNo    : bodySeqNo
+						, groupTp  : '02'
           }
         })
         .then(response => {
@@ -115,34 +139,34 @@
 		created() {
 			this.$store.state.headerTopTitle = "고객센터";
 			this.$store.state.headerMidTitle = "기능 개선 요청";
-
-
-			this.getTechContents(this.$route.params.index);
-
+      this.getNotifyContents(this.$route.params.index);
 		}
 	}
 </script>
 
-
 <style scoped>
-
-	#menu08703_2 .tableBox {
+	#menu08701_2 .tableBox {
 		background: #fff;
 	}
-
-	#menu08703_2 .techTop {
+	#menu08701_2 .noticeTop {
 		padding: 21px;
 	}
-
-	#menu08703_2 .techTop h1{
+	#menu08701_2 .noticeTop p,
+	#menu08701_2 .prevBox p {
+		color: #444;
+	}
+	#menu08701_2 .titleHead {
+		display: inline-block;
+		width: 70px;
+	}
+	#menu08701_2 .noticeTop h1{
 		font-size: 14px;
 		margin-bottom: 7px;
 		color: #222;
 		padding-left: 12px;
 		position: relative;
 	}
-
-	#menu08703_2 .techTop h1::before {
+	#menu08701_2 .noticeTop h1::before {
 		clear: both;
 		content: "";
 		width: 2px;
@@ -152,29 +176,21 @@
 		left: 0;
 		background: #e25b45;
 	}
-
-	#menu08703_2 .techView h3 {
+	#menu08701_2 .noticeView h3 {
 		padding: 16px 0 16px 20px;
 		border-bottom: 1px solid #939393;
 		color: #222;
 	}
-
-	#menu08703_2 .techView h3 p{
+	#menu08701_2 .noticeView h3 p{
 		/* display: inline-block; */
 		float: right;
 	}
-
-	#menu08703_2 .techView .techCursor {
-		cursor: pointer;
-	}
-
-	#menu08703_2 .techView h3 p span {
+	#menu08701_2 .noticeView h3 p span {
 		display: inline-block;
 		position: relative;
 		padding: 0 20px;
 	}
-
-	#menu08703_2 .techView h3 p span:before {
+	#menu08701_2 .noticeView h3 p span:before {
 		clear: both;
 		content: "";
 		position: absolute;
@@ -185,27 +201,58 @@
 		transform: translateY(-50%);
 		background: #d2d2d2;
 	}
-
-	#menu08703_2 > .techView > p {
+	#menu08701_2 > .noticeView > p {
 		padding: 17px 19px;
 		line-height: 20px;
 		color: #444;
 	}
-
-	#menu08703_2 .btnBox{
-		padding: 20px 0;
-		text-align: center;
+	#menu08701_2 .prevBox p {
+		padding: 11px;
+		
 	}
-
-	#menu08703_2 .btnBox button {
+	#menu08701_2 .prevBox p:first-child {
+		border-bottom: 1px solid #e5e5e5;
+	}
+	#menu08701_2 .prevBox .prev {
+		display: inline-block;
+		padding: 6.13px 13px 7.3px 13px;
+		background: #f0f0f0;
+		border: 1px solid #e5e5e5;
+		border-radius: 10px;
+		margin-right: 18px;
+	}
+	#menu08701_2 .prevBox .prevDate {
+		padding-left: 20px;
+		float: right;
+		padding: 6.13px 9px 7.3px 20px;
+		position: relative;
+	}
+	#menu08701_2 .prevBox .prevDate:before {
+		clear: both;
+		content: "";
+		position: absolute;
+		width: 1px;
+		height: 13px;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		background: #d2d2d2;
+	}
+	#menu08701_2 .noticeCursor,
+	#menu08701_2 .prevBox p {
+		cursor: pointer;
+	}
+	#menu08701_2 .btnBox {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	#menu08701_2 .btnBox button {
 		padding: 13px 31px;
 		border: none;
-		border-radius: 30px;
+		border-radius: 50px;
 		background: #e25b45;
-		color: #fff;
 		font-size: 16px;
+		color: #fff;
 		font-weight: 700;
 	}
-
-
 </style>

@@ -14,8 +14,8 @@
           {{contentsData.title}}
 					<p>
 						<!-- 나중에 != 를 == 로 바꿔야함 -->
-						<span class="noticeCursor" v-if="$store.state.adGradeCd != '01'" @click="ModifyNotice()">수정</span>
-						<span class="noticeCursor" v-if="$store.state.adGradeCd != '01'" @click="DeleteNotice(contentsData.seqNo)" >삭제</span>
+						<span class="noticeCursor" v-if="$store.state.adGradeCd != '01'" @click="ModifyNotice(contentsData.bodySeqNo)">수정</span>
+						<span class="noticeCursor" v-if="$store.state.adGradeCd != '01'" @click="DeleteNotice(contentsData.bodySeqNo)">삭제</span>
 						<span>{{contentsData.clntNm}}</span>
 						<span>{{contentsData.createDt}}</span>
 					</p>
@@ -25,7 +25,7 @@
         </p>
 			</div>
 			<div class="tableBox prevBox">
-				<p @click="getNotifyContents(contentsAfter.seqNo)">
+				<p @click="getNotifyContents(contentsAfter.bodySeqNo)">
           <span class="prev">다음글</span>
           <span v-if="contentsAfter.head != null" >            
             <span class="titleHead" v-if="contentsAfter.head == '01'">[ 공지사항 ]</span>
@@ -36,7 +36,7 @@
           <span v-else>다음 글이 없습니다.</span>
 					<span class="prevDate" v-if="contentsAfter.createDt != null">{{contentsAfter.createDt}}</span>
 				</p>
-				<p @click="getNotifyContents(contentsBefore.seqNo)">
+				<p @click="getNotifyContents(contentsBefore.bodySeqNo)">
           <span class="prev">이전글</span>
           <span v-if="contentsBefore.head != null" >
             <span class="titleHead" v-if="contentsBefore.head == '01'">[ 공지사항 ]</span>
@@ -72,11 +72,14 @@
 			//******************************************************************************
 			// 공지사항 내용조회하기.
 			//******************************************************************************
-      getNotifyContents(seqNo) {
-        axios.get("http://api.adinfo.co.kr:30000/notify/contents",
+      getNotifyContents(bodySeqNo) {
+        axios.get("http://api.adinfo.co.kr:30000/notice/contents",
         {
           params: {
-            seqNo: seqNo
+              seqNo   : bodySeqNo
+						, groupTp : '00'
+						, useTp   : 'R'
+						, dataOnly: 'N'
           }
         })
         .then(response => {
@@ -108,24 +111,25 @@
 			//******************************************************************************
 			// 공지사항 현재글 수정
 			//******************************************************************************
-			ModifyNotice() {
+			ModifyNotice(bodySeqNo) {
 				this.$router.push({ 
 					name : 'MENU_08701_4', 
-					params: { seqNo: this.contentsData.seqNo  } 
+					params: { seqNo: bodySeqNo }
 				})
 			},
 			//******************************************************************************
 			// 공지사항 현재글 삭제
 			//******************************************************************************
-			DeleteNotice(seqNo) {
+			DeleteNotice(bodySeqNo) {
          if(confirm("정말로 해당 글을 삭제하시겠습니까?") == false) {
            return;
          }
 
-        axios.get("http://api.adinfo.co.kr:30000/notify/delete",
+        axios.get("http://api.adinfo.co.kr:30000/notice/delete",
         {
           params: {
-            seqNo: seqNo
+              seqNo    : bodySeqNo
+						, groupTp  : '00'
           }
         })
         .then(response => {

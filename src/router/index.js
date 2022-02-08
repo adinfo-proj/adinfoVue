@@ -37,11 +37,9 @@ import MENU_08701_4 from "../views/agency/MENU_08701_4.vue";
 import MENU_08702 from "../views/agency/MENU_08702.vue";
 import MENU_08702_2 from "../views/agency/MENU_08702_2.vue";
 import MENU_08702_3 from "../views/agency/MENU_08702_3.vue";
-import MENU_08702_4 from "../views/agency/MENU_08702_4.vue";
 import MENU_08703 from "../views/agency/MENU_08703.vue";
 import MENU_08703_2 from "../views/agency/MENU_08703_2.vue";
 import MENU_08703_3 from "../views/agency/MENU_08703_3.vue";
-import MENU_08703_4 from "../views/agency/MENU_08703_4.vue";
 import MENU_08901 from "../views/agency/MENU_08901.vue";
 import MENU_0807 from "../views/agency/MENU_0807.vue";
 
@@ -264,12 +262,6 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     component: MENU_08702_3,
     meta: { requiresAuth: true }
   },
-  {// 문의하기 수정하기
-    path: "/MENU_08702_4",
-    name: "MENU_08702_4",
-    component: MENU_08702_4,
-    meta: { requiresAuth: true }
-  },
   {// 기능 개선 요청하기
     path: "/MENU_08703",
     name: "MENU_08703",
@@ -286,12 +278,6 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     path: "/MENU_08703_3",
     name: "MENU_08703_3",
     component: MENU_08703_3,
-    meta: { requiresAuth: true }
-  },
-  {// 기능 개선 요청 수정
-    path: "/MENU_08703_4",
-    name: "MENU_08703_4",
-    component: MENU_08703_4,
     meta: { requiresAuth: true }
   },
   {// 내정보
@@ -335,7 +321,6 @@ router.beforeEach((to, from, next) => {
         }
       })
       .then(response => {
-        console.log(response);
         if(response.data.status == false) {
           localStorage.clear();
           next('/login');

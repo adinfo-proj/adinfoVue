@@ -34,7 +34,6 @@
       // 파일 업로드 시 text박스의 값 및 미리보기로 보여지기
       //******************************************************************************
       UploadImg(){
-        console.log(this.indexNum);
         let imgFiles = {
             tp: '01'
           , fileNm: ''
@@ -52,14 +51,7 @@
         // 이미지 이름 불러오기
         //------------------------------------------------------------------------------
         imgFiles.landImgNm = this.$refs.upImage01.files[0].name;
-        console.log("2")
-        console.log(imgFiles)
-
         this.$set(this.$store.state.lendchooseObj, this.indexNum, imgFiles);
-        console.log("3")
-        console.log(this.$store.state.lendchooseObj[this.indexNum])
-
-
       },
       DelLandImg(){
         this.$store.state.lendchooseObj.splice(this.indexNum, 1);

@@ -32,7 +32,7 @@
 			return {
 					title: ''
 				, editorConfig: { 
-           toolbarGroups: [ 
+          toolbarGroups: [ 
             { name: 'styles', groups: [ 'styles' ] }, 
             { name: 'colors', groups: [ 'colors' ] }, 
             { name: 'document', groups: [ 'mode', 'document', 'doctools' ] }, 
@@ -46,7 +46,7 @@
             { name: 'others', groups: [ 'others' ] }, 
             { name: 'about', groups: [ 'about' ] }, 
             { name: 'tools', groups: [ 'tools' ] } 
-            ] 
+          ] 
           , height: '590px' 
           , language: 'ko' 
           , resize_enabled: false 
@@ -62,22 +62,22 @@
 			// 문의사항 등록
 			//******************************************************************************
 			CreateBoard() {
-        axios.get("http://api.adinfo.co.kr:30000/ask/create",
+        axios.get("http://api.adinfo.co.kr:30000/notice/create",
         {
           params: {
               clntId: this.$store.state.clntId
-            , useTp: '0'
-            , title: this.title
-            , contents: this.editorData
+						, groupTp   : '01'
+            , head      : this.preface
+            , title     : this.title
+            , contents  : this.editorData
           }
         })
         .then(response => {
-          console.log(response.data);
           if(response.data > 0) {
-            alert("문의글이 정상적으로 등록되었습니다. \n\n 빠른시간내로 답변 드리겠습니다.");
-            this.$router.push({ 
-              name : 'MENU_08702', 
-              // params: { index: response.data }
+            alert("정상적으로 문의사항이 등록되었습니다.");
+            this.$router.push({
+              name : 'MENU_08702_2',
+              params: { index: response.data }
             })
             return;
           }
@@ -93,7 +93,6 @@
 			// 문의사항 리스트로 돌아가기
 			//******************************************************************************
 			CancleBoardList() { 
-				console.log();
 				this.$router.push({ name : 'MENU_08702' })
 			}
 		},

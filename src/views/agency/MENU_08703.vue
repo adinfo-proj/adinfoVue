@@ -1,57 +1,56 @@
 <template>
 	<div class="container">
-		<div id="menu08703">
-			<div class="tableBox techTop">
+		<div id="menu08701">
+			<div class="tableBox noticeTop">
 				<h1>기능 개선 요청</h1>
 				<p>안내, 정책변경, 업데이트등 디비마스터의 다양한 소식을 확인하실 수 있습니다.</p>
+				<!-- 나중에 != =>  == 으로 바꿔야함 -->
+				<!-- <div class="btnBox" v-if="$store.state.adGradeCd != '01'"> -->
+				<div class="btnBox">
+					<button @click="WriteNotice()">기능 개선 요청 하기</button>
+				</div>
 			</div>
 			<div class="tableBox">
 				<table>
 					<thead>
 						<tr>
-							<th class="techNum"   >번호</th>
-							<th class="techNm"    >제목</th>
-							<th class="techWriter">작성자</th>
-							<th class="techDate"  >작성일</th>
-							<th class="techOpen"  >조회수</th>
+							<th class="noticeNum"   >번호</th>
+							<th class="noticeNm"    >제목</th>
+							<th class="noticeWriter">작성자</th>
+							<th class="noticeDate"  >작성일</th>
+							<th class="noticeOpen"  >조회수</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(techList, index) in techListObj" :key="index">
-							<th class="techNum">{{techList.seqNo}}</th>
-							<td class="techNm" @click="GoTechCont(techList.seqNo)">
-								{{techList.title}}</td>
-							<td class="techWriter">{{techList.clntNm}}</td>
-							<td class="techDate">{{techList.createDt}}</td>
-							<td class="techOpen">{{techList.readCount}}</td>
+						<tr v-for="(contentsList, index) in contentsListObj" :key="index">
+							<th class="noticeNum">{{contentsList.seqNo}}</th>
+							<td class="noticeNm" @click="GoNoticeCont(contentsList.seqNo)">
+								{{contentsList.title}}</td>
+							<td class="noticeWriter">{{contentsList.clntNm}}</td>
+							<td class="noticeDate">{{contentsList.createDt}}</td>
+							<td class="noticeOpen">{{contentsList.readCount}}</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="5">
-								<button @click="WriteTech()">기능 개선 요청</button>
-							</td>
-						</tr>
-						<tr>
-              <td class="dataBtn" colspan="5">
-                <span class="pageleft" v-if="pageCount.length > 0" @click="getTechTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
+              <td class="dataBtn" colspan="8">
+                <span class="pageleft" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
 								<ul>
 									<li class="pageBtn" 
 										v-bind:class="{on : (indexPage) == curPage}" 
 										v-for="(indexPage, index) in pageCount" :key="index" 
-										@click="getTechTitleList(pageCount[0] + index, false)"
+										@click="getNotifyTitleList(pageCount[0] + index, false)"
 									>
 										{{indexPage}}
 									</li>
 								</ul>
-                <span class="pageright" v-if="pageCount.length > 0" @click="getTechTitleList(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
+                <span class="pageright" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
               </td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 		</div>
-
 	</div>
 </template>
 
@@ -61,7 +60,7 @@
 	export default {
 		data() {
 			return {
-					techListObj: ''
+					contentsListObj: ''
 				, selectRowCount: 10
 				, curRunTotalPages: 0
 				, pageCount: []
@@ -72,10 +71,7 @@
 			//******************************************************************************
 			// 공지사항 목록조회하기.
 			//******************************************************************************
-      getTechTitleList(selectPage, firstSel) {
-				console.log("selectPage : " + selectPage);
-				console.log("firstSel   : " + firstSel);
-
+      getNotifyTitleList(selectPage, firstSel) {
         if( firstSel == true) {
           this.curRunTotalPages = 100000000;
         }
@@ -87,34 +83,30 @@
 				this.dbSelectData = null;
 				this.curPage = selectPage;
 
-        axios.get("http://api.adinfo.co.kr:30000/inprove/titlelist",
+        axios.get("http://api.adinfo.co.kr:30000/notice/titlelist",
         {
           params: {
-              seqNo: 9999999999
+              seqNo     : 9999999999
 						, curPage   : selectPage
 						, rowCount  : this.selectRowCount
+						, groupTp   : '02'
+						, useTp     : 'R'
+						, dataOnly  : 'Y'
           }
         })
         .then(response => 
 				{
-          this.techListObj = response.data;
+          this.contentsListObj = response.data[1];
 
           //------------------------------------------------------------------------------
           // 페이지 정보 조회
           //------------------------------------------------------------------------------
-          axios.get("http://api.adinfo.co.kr:30000/GetInproveForAllPageCount",
-          {
-            params: {
-              useTp : '0'
-            }
-          })
-          .then(response => 
 					{
             let arrGab = [];
             let pageUpPage = 0;
 
             // 전체 페이지의 수를 확인한다.
-            this.curRunTotalPages = Math.ceil(response.data.rowTotalCount / this.selectRowCount);
+            this.curRunTotalPages = Math.ceil(response.data[0][0].rowTotalCount / this.selectRowCount);
 
             // 페이지가 10개 이하이면...
             if( this.curRunTotalPages < 10) 
@@ -147,51 +139,48 @@
             }
 
             this.pageCount = arrGab;
-					})
-					.catch(error => 
-					{
-						console.log(error);
-					})
+					}
 				})
 			},
-
-			GoTechCont(index) {
+			GoNoticeCont(index) {
 				this.$router.push({ 
 					name : 'MENU_08703_2', 
 					params: { index: index }
 				})
 			},
-			WriteTech(){
+			WriteNotice(){
 				this.$router.push({ 
 					name : 'MENU_08703_3', 
+					// params: { index: index } 
 				})
 			}
 		},
 		created() {
 			this.$store.state.headerTopTitle = "고객센터";
-			this.$store.state.headerMidTitle = "기능 개선 요청하기";
+			this.$store.state.headerMidTitle = "기능 개선 요청";
 
-			this.getTechTitleList(1, true);
+			this.getNotifyTitleList(1, true);
 		}
 	}
 </script>
 
 <style scoped>
-
-	#menu08703 .techTop {
+	#menu08701 .noticeTop {
 		background: #fff;
 		padding: 21px;
 	}
-
-	#menu08703 .techTop h1{
+	#menu08701 .noticeTop p,
+	#menu08701 .prevBox p {
+		color: #444;
+	}
+	#menu08701 .noticeTop h1{
 		font-size: 14px;
 		margin-bottom: 7px;
 		color: #222;
 		padding-left: 12px;
 		position: relative;
 	}
-
-	#menu08703 .techTop h1::before {
+	#menu08701 .noticeTop h1::before {
 		clear: both;
 		content: "";
 		width: 2px;
@@ -201,41 +190,44 @@
 		left: 0;
 		background: #e25b45;
 	}
-
-	#menu08703 th,
-	#menu08703 td {
+	#menu08701 .btnBox {
+		text-align: right;
+	}
+	#menu08701 .btnBox button{
+		padding: 10px 15px;
+		border-radius: 10px;
+		border: none;
+		font-weight: 700;
+		color: #fff;
+		background: #999;
+	}
+	#menu08701 th,
+	#menu08701 td {
 		padding: 15px 18px;
 		text-align: center;
 		border: none;
 		position: relative;
 	}
-
-
-	#menu08703 .techNum {
+	#menu08701 .noticeNum {
 		width: 7%;
 	}
-
-	#menu08703 .techNm {
+	#menu08701 .noticeNm {
 		width: 63%;
 	}
-
-	#menu08703 td.techNm {
+	#menu08701 td.noticeNm {
 		text-align: left;
 		padding-left: 30px;
 		cursor: pointer;
 	}
-
-	#menu08703 .techWriter,
-	#menu08703 .techDate,
-	#menu08703 .techOpen  {
+	#menu08701 .noticeWriter,
+	#menu08701 .noticeDate,
+	#menu08701 .noticeOpen  {
 		width: 10%;
 	}
-
-	#menu08703 thead {
+	#menu08701 thead {
 		border-bottom: 1px solid #5c5c5c;
 	}
-
-	#menu08703 thead tr th:after{
+	#menu08701 thead tr th:after{
 		position: absolute;
     content: "";
     width: 1px;
@@ -245,43 +237,21 @@
     right: 0;
     transform: translateY(-50%);
 	}
-
-	#menu08703 thead tr th:last-child:after{
+	#menu08701 thead tr th:last-child:after{
 		display: none;
 	}
-
-	#menu08703 tbody tr{
+	#menu08701 tbody tr{
 		border-bottom: 1px solid #ececec;
 	}
-	
-	#menu08703 tfoot tr:first-child td{
-		text-align: right;
-	}
-
-	#menu08703 tfoot tr:first-child td button {
-		padding: 12px 24px;
-		font-size: 14px;
-		font-weight: 700;
-		color: #fff;
-		border: 1px solid #e5e5e5;
-		border-radius: 10px;
-		background: #393939;
-	}
-
-
-
-	#menu08703 tbody span{
+	#menu08701 tbody span{
 		display: inline-block;
 		width: 80px;
 	}
-
-
-	#menu08703 tfoot ul,
-	#menu08703 tfoot ul li {
+	#menu08701 tfoot ul,
+	#menu08701 tfoot ul li {
 		display: inline-block;
 	}
-
-	#menu08703 tfoot span {
+	#menu08701 tfoot span {
 		display: inline-block;
     width: 25px;
     height: 25px;
@@ -292,18 +262,15 @@
     text-align: left;
 		cursor: pointer;
 	}
-
-	#menu08703 tfoot ul li {
+	#menu08701 tfoot ul li {
     margin: 0 10px;
 		cursor: pointer;
 	}
-
-	#menu08703 tfoot ul li.on {
+	#menu08701 tfoot ul li.on {
     font-weight: 900;
     position: relative;
 	}
-
-	#menu08703 tfoot ul li.on:after {
+	#menu08701 tfoot ul li.on:after {
     clear: both;
     position: absolute;
     height: 1px;
@@ -313,8 +280,4 @@
     left: 0;
     background: #666;
 	}
-
-
-
-
 </style>
