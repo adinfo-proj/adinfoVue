@@ -3,16 +3,16 @@
     <div class="searchBox">
       <h2>회원 아이디 / 비밀번호 찾기</h2>
       <div class="searchTap">
-        <a href="javascript:void(0)"
+        <span
           @click="SearchFunc(0)" v-bind:class="{on : 0 == searchSelect}"
         >
           아이디 찾기
-        </a>
-        <a href="javascript:void(0)"
+        </span>
+        <span
           @click="SearchFunc(1)" v-bind:class="{on : 1 == searchSelect}"
         >
           비밀번호 찾기
-        </a>
+        </span>
       </div>
       <div class="searchTapBox">
         <div class="searchTapSub">
@@ -27,7 +27,7 @@
                     이 름
                   </th>
                   <td>
-                    <input type="text" name="serchIdname" id="serchIdname" v-model="userName" ref="serchIdname">
+                    <input type="text" id="serchIdname" v-model="userName" ref="serchIdname">
                   </td>
                 </tr>
                 <tr>
@@ -35,7 +35,7 @@
                     핸드폰 번호
                   </th>
                   <td>
-                    <input type="text" name="serchIdPhone" id="serchIdPhone" v-model="clntSubsNo" placeholder="회원가입 시 입력한 연락처" ref="clntSubsNo">
+                    <input type="text" id="serchIdPhone" v-model="clntSubsNo" placeholder="회원가입 시 입력한 연락처" ref="clntSubsNo">
                   </td>
                 </tr>
               </table>
@@ -48,14 +48,22 @@
           <div class="searchPw"
             v-if="searchSelect == 1">
             <div class="serachSubBox1">
-              <p>임시 비밀번호를 생성하여 SMS로 보내드립니다.</p>
+              <p>{{message3}}<span>{{message1}}<br>{{message2}}</span></p>
               <table>
                 <tr>
                   <th>
                     아이디
                   </th>
                   <td>
-                    <input type="text" name="upPassWd" id="upPassWd" ref="upPassWd" v-model="userId">
+                    <input type="text" id="upPassWd" ref="upPassWd" v-model="userId">
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    핸드폰번호
+                  </th>
+                  <td>
+                    <input type="text" id="upPassWdHp" v-model="pwClntSubsNo" placeholder="회원가입 시 입력한 연락처" ref="pwClntSubsNo">
                   </td>
                 </tr>
               </table>
@@ -93,18 +101,23 @@
           searchSelect : 0                      // 아이디 찾기 탭버튼
         , userName     : ''
         , clntSubsNo   : ''
+        , pwClntSubsNo : ''
         , userId       : ''
         , retUeserId   : ''
         , message      : '회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.'
         , message1     : ''
         , message2     : ''
+        , message3     : '임시 비밀번호를 생성하여 SMS로 보내드립니다'
       }
     },
     methods: {
       //******************************************************************************
-      // 아이디 찾기 함수
+      // 아이디 찾기, 임시 비밀번호 전송 함수
       //******************************************************************************      
       SearchUeser() {
+        //------------------------------------------------------------------------------
+        // 아이디 찾기
+        //------------------------------------------------------------------------------
         if( this.searchSelect == 0) {
           if(this.userName == null || this.userName == '') {
             alert('이름 혹은 회사명을 입력해주세요');
@@ -132,6 +145,7 @@
           axios.post("http://api.adinfo.co.kr:30000/FindUserId", frm)
           .then(response => {
             if( response.data.status == true ) {
+              console.log(response.data)
               $(".searchId .serachSubBox1").css({display: "none"})
               $(".searchId .serachSubBox2").css({display: "block"})
               $("#searchModar .searchBox .searchTapBox .searchCheckBtn").css({display: "none"})
@@ -150,12 +164,28 @@
             console.log(error);
           })
         }
+        //------------------------------------------------------------------------------
+        // 임시 비밀번호 전송
+        //------------------------------------------------------------------------------
         else {
+          if(this.userId == null || this.userId == '') {
+            alert('이름 혹은 회사명을 입력해주세요');
+            this.$refs.userId.focus();
+            return;
+          }
+
+          if(this.pwClntSubsNo == null || this.pwClntSubsNo == '') {
+            alert('연락처를 입력해주세요.');
+            this.$refs.pwClntSubsNo.focus();
+            return;
+          }
+
           //------------------------------------------------------------------------------
           // 정보 보내기
           //------------------------------------------------------------------------------
           var data1 = {
-            userId: this.userId
+              userId: this.userId
+            , clntSubsNo: this.pwClntSubsNo
           };
 
           const frm = new FormData();
@@ -164,8 +194,8 @@
           axios.post("http://api.adinfo.co.kr:30000/UpdateUserPw", frm)
           .then(response => {
             if( response.data.status == true ) {
-              $(".searchId .serachSubBox1").css({display: "none"})
-              $(".searchId .serachSubBox2").css({display: "block"})
+              $(".searchPw .serachSubBox1").css({display: "none"})
+              $(".searchPw .serachSubBox2").css({display: "block"})
               $("#searchModar .searchBox .searchTapBox .searchCheckBtn").css({display: "none"})
               $("#searchModar .searchBox .searchTapBox .searchBtn").css({display: "inline"})
 
@@ -175,6 +205,7 @@
               this.message  = '';
               this.message1 = response.data.message;
               this.message2 = "[1533-3757] 고객센터로 문의주세요.";
+              this.message3  = '';
               return;
             }
           })
@@ -187,22 +218,43 @@
       // 아이디 / 비밀번호 취소 함수
       //******************************************************************************
       , SearchIdModalCancle() {
+        this.searchSelect = 0;
+        this.userName     = '';
+        this.clntSubsNo   = ''
+        this.pwClntSubsNo = ''
+        this.userId       = ''
+        this.retUeserId   = ''
+        this.message      = '회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.'
+        this.message1     = ''
+        this.message2     = ''
+        this.message3     = '임시 비밀번호를 생성하여 SMS로 보내드립니다'
+        $(".serachSubBox1").css({display: "block"})
+        $(".serachSubBox2").css({display: "none"})
+        $("#searchModar .searchBox .searchTapBox .searchCheckBtn").css({display: "inline"})
+        $("#searchModar .searchBox .searchTapBox .searchBtn").css({display: "none"})
         $("#searchModar").css({display: "none"})
       }
       //******************************************************************************
-      // ???
+      // 아이디 / 비밀번호 탭버튼
       //******************************************************************************
       , SearchFunc(pos) {
         this.searchSelect = pos;
+        $(".serachSubBox1").css({display: "block"})
+        $(".serachSubBox2").css({display: "none"})
 
         this.userName   = ''
         this.clntSubsNo = ''
+        this.pwClntSubsNo = ''
         this.retUeserId = ''
         this.message    = '회원가입시 등록한 이름, 핸드폰 번호를 입력해주세요.'
         this.message1   = ''
         this.message2   = ''
+        this.message3   = '임시 비밀번호를 생성하여 SMS로 보내드립니다'
         $("#searchModar .searchBox .searchTapBox .searchCheckBtn").css({display: "inline"})
         $("#searchModar .searchBox .searchTapBox .searchBtn").css({display: "none"})
+
+
+        
       }
     }
   }
@@ -260,7 +312,7 @@
     margin-bottom: 10px;
   }
 
-  #searchModar .searchBox .searchTap a {
+  #searchModar .searchBox .searchTap span {
     display: block;
     float: left;
     width: 50%;
@@ -268,9 +320,10 @@
     padding: 14px;
     text-align: center;
     border-radius: 10px;
+    cursor: pointer;
   }
 
-  #searchModar .searchBox .searchTap a.on {
+  #searchModar .searchBox .searchTap span.on {
     background: #fff;
     border: 1px solid #e25b45;
     color: #e25b45;
@@ -322,13 +375,13 @@
     line-height: 1.5;
   }
 
-  #searchModar .searchBox .searchTapBox .searchPw .serachSubBox1 p {
+  /* #searchModar .searchBox .searchTapBox .searchPw .serachSubBox1 p {
     margin-top: 15px;
-  }
+  } */
 
-  #searchModar .searchBox .searchTapBox .searchPw .serachSubBox1 table{
+  /* #searchModar .searchBox .searchTapBox .searchPw .serachSubBox1 table{
     margin-top: 15px;
-  }
+  } */
 
   #searchModar .searchBox .searchTapBox span {
     color: #e25b45;

@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="logSearch">
-        <input type="checkbox" name="stayLog" id="stayLog"><label for="stayLog"> 로그인 유지</label>
+        <!-- <input type="checkbox" name="stayLog" id="stayLog"><label for="stayLog"> 로그인 유지</label> -->
         <ul>
             <li><a href="javascript:void(0)"
             @click="SignMadal();">회원가입</a></li>
@@ -211,6 +211,7 @@ export default {
 
   #logIn .logInBox .logSearch {
     clear: both;
+    height: 35px;
     padding-bottom: 20px;
     border-bottom: 1px solid #000;
   }

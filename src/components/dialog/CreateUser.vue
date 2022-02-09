@@ -567,8 +567,14 @@
         <tr>
           <th>휴대전화번호</th>
           <td colspan="3">
-            <input type="tel" name="phoneNum" id="phoneNum" v-model="clntSubsNo" ref="clntSubsNo">
-            <button @click="CheckSms();">본인확인</button>
+            <input type="tel" id="phoneNum" v-model="clntSubsNo" :disabled="checkYn" ref="clntSubsNo">
+              <button @click="CheckSms();" id="checkBtn">본인확인</button>
+            <div class="certain">
+              <span>
+                <input type="text" v-model="smsNo">
+                <button @click="CheckNo();">인증하기</button>
+              </span>
+            </div>
           </td>
         </tr>
       </table>
@@ -591,15 +597,18 @@
   export default {
     data() {
       return {
-          emailId: '' // 이메일 주소
-        , userPass: '' // 패스워드
-        , userPassConf: '' // 패스워드 확인
-        , userName: '' // 가입자 이름(혹은 회사명)
-        , clntSubsNo: '' // 휴대폰번호 
-        , adGradeCd: '05' // 고객등급
-        , termsYn: '' // 서비스이용약관 YN
-        , policyYn: '' // 개인정보취급 방침 YN
-        , smsRequest: '' // SMS 요청 후 응답데이터
+          emailId: ''       // 이메일 주소
+        , userPass: ''      // 패스워드
+        , userPassConf: ''  // 패스워드 확인
+        , userName: ''      // 가입자 이름(혹은 회사명)
+        , clntSubsNo: ''    // 휴대폰번호 
+        , adGradeCd: '05'   // 고객등급
+        , termsYn: ''       // 서비스이용약관 YN
+        , policyYn: ''      // 개인정보취급 방침 YN
+        , smsRequest: ''    // SMS 요청 후 응답데이터
+        , smsNo: ''         // 입력 인증번호
+        , checkYn: false    // disabled 확인용
+        
       }
     },
     methods: {
@@ -664,6 +673,11 @@
           return;
         }
 
+        if( this.checkYn == false ){
+          alert('본인인증 후 가입 가능합니다. 본인확인을 진행해주시기 바랍니다.');
+          return
+        }
+
         //------------------------------------------------------------------------------
         // 정보 보내기
         //------------------------------------------------------------------------------
@@ -709,10 +723,16 @@
         })
       },
       CheckSms() {
+        if( this.checkYn == true ){
+          return
+        }
+
         if (this.clntSubsNo == null || this.clntSubsNo == '') {
           alert('휴대전화번호를 입력하세요.')
           return;
         }
+
+        $('#singPopUp table td .certain span').css({display : "inline"})
 
         axios.get("http://api.adinfo.co.kr:30000/InsertAuthSms", {
           params: {
@@ -721,14 +741,29 @@
           }
         })
         .then(response => {
-          this.smsRequest = response.data;
+          this.smsRequest = response.data.no;
+          console.log(response.data)
         })
         .catch(error => {
           console.log(error);
         })
+      },
+      CheckNo() {
+        if(this.smsNo == this.smsRequest) {
+          alert("휴대폰 인증이 완료되었습니다.")
+          $('#singPopUp table td .certain').css({display: "none"})
+          this.checkYn = true
+
+          $('#singPopUp table td #checkBtn').html('인증완료');
+
+        }
+        else {
+          alert("인증번호가 동일하지 않습니다. 다시 확인 바랍니다.")
+        }
       }
+
     }
-  }
+  }   
 </script>
 
 <style>
@@ -952,10 +987,17 @@
     font-weight: 700;
   }
 
-  #singPopUp table td button.check {
-    background: #fff;
-    color: #e25b45;
-    border-color: #e25b45;
+  #singPopUp table td .certain {
+    display: inline-block;
+  }
+
+  #singPopUp table td .certain input[type="text"] {
+    width: 150px;
+    margin-left: 30px;
+  }
+
+  #singPopUp table td .certain span{
+    display: none;
   }
 
   #singPopUp .signBtnBox {

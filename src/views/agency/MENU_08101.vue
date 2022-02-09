@@ -3,14 +3,14 @@
 		<div id="menu08101">
 			<div class="campSearch">
 				<div class="campSearchSub">
-					<select v-model="campaignStatusCode" @change="campaignListChange(campaignStatusCode)">
+					<select v-model="campaignStatusCode" @change="campaignListChange(campaignStatusCode, 0, true)">
 						<option v-for="(campaignStatusCodeLst, index) in campaignStatusCodeObj"
 							:key="index" 
 							:value="campaignStatusCodeLst.code"
 							>{{ campaignStatusCodeLst.codeNm}}
 						</option>
 					</select>
-					<button class="campSearchBtn" @click="campaignListChange(campaignStatusCode)">조회</button>
+					<button class="campSearchBtn" @click="campaignListChange(campaignStatusCode, 0, true)">조회</button>
 				</div>
 				<div class="campDataSub">
 					<div class="campEx">
@@ -26,7 +26,7 @@
 							<option value="" >캠페인명 내림차순</option>
 							<option value="" >캠페인명 오름차순</option>
 						</select> -->
-						<select v-model="selectRowCount" @change="getCampaignFullData(1, true)">
+						<select name="" id="" v-model="selectRowCount" @change="campaignListChange(campaignStatusCode, 1, true)">
 							<option value="10" >10개</option>
 							<option value="20" >20개</option>
 							<option value="30" >30개</option>
@@ -40,7 +40,7 @@
 				<table class="campTable">
 					<thead>
 						<tr>
-							<th class="campNum"     >번호</th>							
+							<th class="campNum"     >ID</th>							
 							<th class="campName"    >캠페인명</th>
 							<th class="campCode"    >랜딩페이지 수</th>
 							<th class="campPay"     >광고주 단가</th>
@@ -49,7 +49,7 @@
 							<th class="pageOpen"    >페이지 오픈수</th>
 							<th class="campDbbState">캠페인 상태</th>
 							<th class="campDate"    >등록일자</th>
-							<th class="modifyBtn"   >수정</th>
+							<th class="modifyBtnBox"   >수정</th>
 						</tr>
 					</thead>
 					<tbody v-if="campaignFullDataObj.length == '0'" class="noLength">
@@ -64,7 +64,7 @@
 					</tbody>
 					<tbody>
 						<tr v-for="(campaignFullData, index) in campaignFullDataObj" :key="index">
-							<th class="campNum"      >{{ index+1 }}</th>							
+							<th class="campNum"      >{{ campaignFullData.caId }}</th>							
 							<td class="campName"     >{{ campaignFullData.name  }}</td>
 							<td class="campCode"     >{{ campaignFullData.landCount }} 개</td>
 							<td class="campPay"      >{{ campaignFullData.price }} 원</td>
@@ -80,8 +80,8 @@
 							<td class="campDbbState" v-else                                     >강제종료</td>
 
 							<td class="campDate"	   >{{ campaignFullData.srtDt   }}</td>
-							<td class="modifyBtn"    >
-								<button @click='UpdateCampaign(campaignFullData.caId)'>수정</button> 
+							<td class="modifyBtnBox"    >
+								<button class="modifyBtn" @click='UpdateCampaign(campaignFullData.caId)'>수정</button> 
 								<button @click='DeleteCampaign(campaignFullData.caId)'>삭제</button>
 							</td>
 						</tr>
@@ -89,19 +89,19 @@
 					<tfoot>
 						<tr>
 							<td class="dataBtn" colspan="9">
-								<span class="pageleft" v-if="pageCount.length > 0" @click="getCampaignFullData(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
+								<span class="pageleft" v-if="pageCount.length > 0" @click="campaignListChange(campaignStatusCode, curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
 								<div class="pageNum">
 									<ul>
 										<li class="pageBtn" 
 											v-bind:class="{on : (indexPage) == curPage}" 
 											v-for="(indexPage, index) in pageCount" :key="index" 
-											@click="getCampaignFullData(pageCount[0] + index, false)"
+											@click="campaignListChange(campaignStatusCode, pageCount[0] + index, false)"
 										>
 											{{indexPage}}
 										</li>
 									</ul>
 								</div>
-								<span class="pageright" v-if="pageCount.length > 0" @click="getCampaignFullData(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
+								<span class="pageright" v-if="pageCount.length > 0" @click="campaignListChange(campaignStatusCode, curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
 							</td>
 						</tr>
 					</tfoot>
@@ -122,8 +122,10 @@
         , campaignFullDataObj   : ''
         , campaignStatusCode    : ''
         , campaignStatusCodeObj : ''
-				, pageCount             : 0
+				, pageCount             : []
 				, selectRowCount        : 10
+				, curRunTotalPages      : 0
+        , curPage               : 0
 			}
 		},
 		methods: {
@@ -153,7 +155,7 @@
 				.then(response => {
 					if(response.data.status == "succ") {
 						alert("캠페인을 정상적으로 삭제하였습니다.");
-						this.campaignListChange("00");
+						this.campaignListChange("00", 1, true);
 					}
 					else {
 						alert("캠페인을 삭제에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
@@ -175,8 +177,9 @@
 				})
 				.then(response => {
 					if(response.data.length > 0) {
-						this.campaignStatusCode = response.data[0].code;
+						this.campaignStatusCode    = response.data[0].code;
 						this.campaignStatusCodeObj = response.data;
+						this.campaignListChange("00", 1, true);
 					}
 				})
 				.catch(error => {
@@ -186,17 +189,66 @@
 			//******************************************************************************
 			// 캠페인 목록 조회 (상태에 따른 목록)
 			//******************************************************************************
-			campaignListChange(campaignStatusCode) {
+			campaignListChange(campaignStatusCode, selectPage, firstSel) {
+        if( firstSel == true) {
+          this.curRunTotalPages = 100000000;
+        }
+
+        if( (selectPage > this.curRunTotalPages) || (selectPage <= 0) ) {
+          return false;
+        }
+
+				this.curPage = selectPage;
+
 				axios.get("http://api.adinfo.co.kr:30000/GetCampaignForMbAdStatus", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
 						, adId: this.$store.state.adId
 						, status: campaignStatusCode
+						, curPage: selectPage
+						, rowCount: this.selectRowCount
 					}
 				})
 				.then(response => {
-					this.campaignFullDataObj = response.data;
+					this.campaignFullDataObj = response.data[1];
+
+          //--------------------------------------------------------------------
+          // 페이지처리 시작
+          //--------------------------------------------------------------------
+          {
+            let arrGab     = [];
+            let pageUpPage = 0;
+
+            // 전체 페이지의 수를 확인한다.
+            this.curRunTotalPages = Math.ceil(response.data[0][0].rowTotalCount / this.selectRowCount);
+
+            // 페이지가 10개 이하이면...
+            if( this.curRunTotalPages < 10) {
+              for(let i = 0; i < this.curRunTotalPages; i++) {
+                arrGab.push(i+1);
+              }
+              this.pageCount = arrGab;
+            }
+            else {
+              //--------------------------------------------------------------------
+              // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
+              //--------------------------------------------------------------------
+              let pageCut = Math.floor((selectPage) / 10) * 10;
+
+              if( (selectPage % 10) != 0 ) {
+                let nLoop = 0;
+                for(let i = pageCut; i < this.curRunTotalPages; i++) {
+                  if( (nLoop+pageUpPage) >= 10 + pageUpPage)
+                    break;
+                  arrGab.push( i + 1 );
+                  nLoop++;
+                }
+
+                this.pageCount = arrGab;
+              }
+            }
+          }					
 				})
 				.catch(error => {
 					console.log(error);
@@ -267,8 +319,7 @@
 			this.$store.state.headerTopTitle = "캠페인";
 			this.$store.state.headerMidTitle = "캠페인 목록";
 
-			this.getCommonByTp0009();
-			this.campaignListChange("00");
+			this.getCommonByTp0009();			
 		}
 	}
 </script>
@@ -377,15 +428,15 @@
 		width: 5%;
 	}
 
-	#menu08101 .campDataBox .campCode {
+	#menu08101 .campDataBox .campCode,
+	#menu08101 .campDataBox .campDbbState {
 		width: 8%;
 	}
 
 	#menu08101 .campDataBox .campPay,
 	#menu08101 .campDataBox .marketer,
 	#menu08101 .campDataBox .dbNum,
-	#menu08101 .campDataBox .pageOpen, 
-	#menu08101 .campDataBox .campDbbState {
+	#menu08101 .campDataBox .pageOpen {
 		width: 10%;
 	}
 
@@ -397,9 +448,9 @@
 		width: 15%;
 	}
 
-	#menu08101 .campDataBox .modifyBtn{
+	#menu08101 .campDataBox .modifyBtnBox{
 		padding: 0;
-		width: 7%;
+		width: 9%;
 	}
 
 
@@ -413,7 +464,7 @@
 		text-align: right;
 	}
 
-	#menu08101 .campDataBox .modifyBtn button {
+	#menu08101 .campDataBox .modifyBtnBox button {
 		width: 40px;
     height: 20px;
     border-radius: 20px;
@@ -422,7 +473,11 @@
     color: #fff;
 	}
 
-	#menu08101 .campDataBox .modifyBtn button:hover {
+	#menu08101 .campDataBox .modifyBtnBox .modifyBtn {
+		margin-right: 5px;
+	}
+
+	#menu08101 .campDataBox .modifyBtnBox button:hover {
 		background: #e25b45;
 	}
 

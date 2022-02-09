@@ -462,6 +462,7 @@
 
   .menu0804 .landPrev img {
     width: 100%;
+    display: block;
   }
 
   .menu0804 .landPrev .noLength {
