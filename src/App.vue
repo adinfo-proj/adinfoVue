@@ -19,9 +19,6 @@
           <button class="logOutBtn" @click="LogOut()">로그아웃</button>
         </div>
 
-
-
-
       </div>
       <div id="sectionBody">
         <router-view />
@@ -157,12 +154,6 @@
     padding: 15px 20px;
     position: relative;
   }
-  /* 나중에 지울 거 */
-  .headerNav > ul > li > a > svg {
-    transform: translateY(2.5px);
-  }
-
-  /* 나중에 지울 거 */
 
   .headerNav > ul > li > ul {
     padding: 10px 0 10px 50px ;
@@ -307,36 +298,9 @@
     transform: translateY(-2.5px);
   }
 
-  #sectionHeader .userNamePage svg {
-    margin-right: 9.1px;
-    transform: translateY(8px);
-  }
-
-  #sectionHeader .userNamePage .userNotice {
-    position: relative;
-  }
-
-  #sectionHeader .userNamePage .userNotice::after {
-    clear: both;
-    content: "1";
-    position: absolute;
-    top: -13px;
-    right: 0;
-    width: 16px;
-    height: 16px;
-    text-align: center;
-    background: #e25b45;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 10px;
-    padding: 2.5px;
-    box-sizing: border-box;
-  }
-
   #sectionHeader .userNamePage .logOutBtn {
     width: 67px;
     height: 31px;
-    transform: translateY(-4px);
     color: #666;
     border: none;
     background: #eaebec;

@@ -261,6 +261,11 @@ export default {
     position: relative;
   }
 
+  #logIn .logInBox .logSearch ul li a{
+    font-weight: 800;
+    /* font-size: 14px; */
+  }
+
   #logIn .logInBox .logSearch ul li:before {
     clear: both;
     content: "";
