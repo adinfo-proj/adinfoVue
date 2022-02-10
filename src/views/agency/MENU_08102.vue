@@ -37,7 +37,9 @@
 				</tr>
         <tr>
           <th>캠페인 명<span class="necItem"> *</span></th>
-          <td colspan="3"><input type="text" class="camName" v-model="adName" autofocus></td>
+          <td><input type="text" class="camName" v-model="adName" autofocus></td>
+          <th>광고주명 명<span class="necItem"> *</span></th>
+          <td><input type="text" class="camName" v-model="company" autofocus></td>
         </tr>
         <tr class="notice">
           <th>캠페인 내용<span class="necItem"> *</span></th>
@@ -62,6 +64,93 @@
           </td>
         </tr>
       </table>
+      
+    </div>
+
+    <div class="formBox">
+      <div class="tableB">
+        <h6>폼 설정하기</h6>
+
+        <table>
+          <thead>
+            <tr>
+              <th class="formNum" >번호</th>
+              <th class="formNm"  >항목</th>
+              <th class="formType">유형</th>
+              <th class="formCon" >내용</th>
+              <th class="formCh"  >필수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(formIn, index) in formObj" :key="index">
+              <td class="formNum">{{formIn.no}}</td>
+              <!-- 항목 필터  -->
+              <td v-if="formIn.no == 1" class="formNm">
+                <select v-model="formIn.names">
+                  <option value="이름">이름</option>
+                  <option value="성함">성함</option>
+                </select>
+              </td>
+              <td v-else-if="formIn.no == 2" class="formNm">
+                <select v-model="formIn.names">
+                  <option value="연락처">연락처</option>
+                  <option value="전화번호">전화번호</option>
+                  <option value="휴대폰번호">휴대폰번호</option>
+                </select>
+              </td>
+              <td v-else class="formNm">
+                <input type="text" v-model="formIn.names">
+              </td>
+              <!-- 항목 필터  -->
+
+              <!-- 유형 필터  -->
+              <td v-if="formIn.no == 1 || formIn.no == 2" class="formType">
+                <select v-model="formIn.types" disabled>
+                  <option value="01">입력박스</option>
+                  <option value="02">라디오박스</option>
+                  <option value="03">체크박스  </option>
+                  <option value="04"  >셀렉트박스</option>
+                </select>
+              </td>
+              <td v-else class="formType">
+                <select v-model="formIn.types">
+                  <option value="01">입력박스</option>
+                  <option value="02">라디오박스</option>
+                  <option value="03">체크박스  </option>
+                  <option value="04"  >셀렉트박스</option>
+                </select>
+              </td>
+              <!-- 유형 필터  -->
+              <td class="formCon">
+                <input type="text"  v-model="formIn.desc">
+              </td>
+
+              <!-- 필수박스 필터  -->
+              <td v-if="formIn.no == 1 || formIn.no == 2" class="formCh">
+                <input type="checkbox" :checked="formIn.useYn" :id="index" disabled>
+                <label :for="index" ></label>
+              </td>
+              <td v-else class="formCh">
+                <input type="checkbox" :checked="formIn.useYn" :id="index">
+                <label :for="index"></label>
+              </td>
+              <!-- 필수박스 필터  -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="agreeBox tableB">
+        <h6>약관 설정하기</h6>
+        <div class="agreeSub bot">
+          <span>동의항목 명</span>
+        <input type="text" id="agreeName" placeholder="동의 항목 제목을 입력해주세요 예) 개인정보 제공 동의"  autocomplete='off' v-model="agreeConNm">
+        </div>
+        <div class="agreeSub">
+          <ckeditor id="agreeTextBox" v-model="agreeCon" :config="editorConfig2"></ckeditor>
+          <button @click="PrivacyText()">개인 정보 제공 동의 불러오기</button>
+        </div>
+      </div>
     </div>
     <div class="submitBtn">
       <button @click="createCampaign()"> 등록하기 </button>
@@ -99,7 +188,30 @@ export default {
         , autoParagraph: false 
         , allowedContent: true 
         , removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format' 
-      } 
+      }
+      , editorConfig2: { 
+        toolbarGroups: [ 
+          { name: 'styles', groups: [ 'styles' ] }, 
+          // { name: 'colors', groups: [ 'colors' ] }, 
+          // { name: 'document', groups: [ 'mode', 'document', 'doctools' ] }, 
+          // { name: 'clipboard', groups: [ 'clipboard', 'undo' ] }, 
+          // { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] }, 
+          // { name: 'forms', groups: [ 'forms' ] }, 
+          { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }, 
+          // { name: 'paragraph', groups: [ 'align', 'bidi', 'paragraph' ] }, 
+          // { name: 'links', groups: [ 'links' ] }, 
+          // { name: 'insert', groups: [ 'insert' ] }, 
+          // { name: 'others', groups: [ 'others' ] }, 
+          // { name: 'about', groups: [ 'about' ] }, 
+          // { name: 'tools', groups: [ 'tools' ] } 
+          ] 
+        , height: '330px' 
+        , language: 'ko' 
+        , resize_enabled: false 
+        , autoParagraph: false 
+        , allowedContent: true 
+        , removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format' 
+      }
 			, adPurpose: ''          // 캠페인 목적
       , adPurposeObj: ''       // 캠페인 목적 객체
       , adTopKind: ''          // 캠페인 1차 분류 
@@ -112,8 +224,17 @@ export default {
 
       , smsYn: 'N'             // DB 접수 시 SMS 수신 여부 Y
       , smsNo: ''              // DB 접수 시 SMS 수신 여부
-      , adPrice: '0'            // 광고주 단가
+      , adPrice: '0'           // 광고주 단가
 			, adMaketerPrice: '0'    // 마케터 단가 단가
+      , company: ''
+
+      //-----------------------------------
+      // 폼 설정하기 / 약관설정하기 변수
+      //-----------------------------------
+      , formObj: []
+      , agreeCon: ''
+      , agreeConNm: ''       
+      
     }
   },
   methods: {
@@ -179,10 +300,67 @@ export default {
         console.log(error);
       })
     },
+    CreateFormObj() {
+      for(let i = 0; i < 10; i++) {
+        let formView = {
+            no   : 0
+          , names: ''
+          , types: ''
+          , desc : ''
+          , useYn: ''
+        };
+
+        if(i == 0) {
+          formView.names = '이름';
+          formView.types = '01';
+          formView.desc  = '';
+          formView.useYn = true;
+          formView.no = 1;
+        }
+        else if(i == 1) {
+          formView.names = '연락처';
+          formView.types = '01';
+          formView.desc  = '';
+          formView.useYn = true;
+          formView.no = 2;
+        }
+        else {
+          formView.names = '';
+          formView.types = '01';
+          formView.desc  = '';
+          formView.useYn = false;
+          formView.no = i+1;
+        }
+
+        this.formObj.push(formView);
+      }
+    },
+    //******************************************************************************
+    // 개인정보제공 동의 불러오기
+    //******************************************************************************
+    PrivacyText() {
+      this.agreeCon = "<b>[개인정보 수집 및 이용안내]</b><br>"
+      this.agreeCon += " 개인정보 수집주체 : " 
+      this.agreeCon += this.company 
+      this.agreeCon += "<br>"
+      this.agreeCon += " 개인정보 수집항목 : 성명, 휴대폰, 이메일, IP등을 포함한 고객이 입력한 정보<br>"
+      this.agreeCon += " 개인정보 수집 이용목적 : 전화, SMS를 통한 상품안내 및 상담<br>"
+      this.agreeCon += " 개인정보보유/이용기간 : 수집일로부터 1년(고객동의 철회시 지체없이 파기)<br><br>"
+      this.agreeCon += "<b>[개인정보의 취급 위탁]</b><br>"
+      this.agreeCon += " 당사는 서비스 이행 및 향상을 위해 개인정보 취급업무를 전문업체에 위탁 운영하고 있습니다."
+      this.agreeCon += " 또한 개인정보를 안전하게 처리하기 위하여 필요한 사항등을 명확히 규정하고 있으며,"
+      this.agreeCon += " 당해 계약 내용을 서면 또는 전자적으로 보관하고 있습니다.<br>"
+      this.agreeCon += " 위탁업체 및 위탁업무내용<br>"
+      this.agreeCon += " " 
+      this.agreeCon += this.company 
+      this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>`"
+    },
     //******************************************************************************
     // 최종 등록하기 버튼 선택
     //******************************************************************************
     createCampaign() {
+
+
       //------------------------------------------------------------------------------
       // input validation check
       //------------------------------------------------------------------------------
@@ -209,6 +387,7 @@ export default {
         this.$refs.adMaketerPrice.focus();
         return;
       }
+
       //------------------------------------------------------------------------------
       // 정보 보내기
       //------------------------------------------------------------------------------
@@ -264,6 +443,8 @@ export default {
   created() {
     this.$store.state.headerTopTitle = "캠페인";
     this.$store.state.headerMidTitle = "캠페인 등록";
+
+    this.CreateFormObj();
 
     this.getCommonByTp("0000");
     this.getCommonByTp0005();
@@ -390,8 +571,154 @@ export default {
     top: 1px;
     color: #e25b45;
   }
+  .container .formBox {
+    display: flex;
+    justify-content: space-between;
+  }
 
+  .container .formBox .tableB {
+    width: 670px;
+    background: #fff;
+    border: 1px  solid #e5e5e5;
+    border-radius: 10px;
+  }
+
+  .container .formBox .tableB h6 {
+    padding: 15px 21px;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .container .formBox .tableB table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .container .formBox .tableB table thead {
+    border-bottom: 1px solid #5c5c5c;
+  }
+
+  .container .formBox .tableB table th {
+    padding: 9px 10px;
+    font-size: 14px;
+    background: #fafafa;
+    position: relative;
+  }
+
+  .container .formBox .tableB table th::after {
+		position: absolute;
+		content: "";
+		width: 1px;
+		height: 14px;
+		background: #d2d2d2;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.container .formBox .tableB table th:last-child::after {
+		display: none;
+	}
+
+  .container .formBox .tableB table td {
+    padding: 8px 5px;
+    text-align: center;
+  }
+
+  .container .formBox .tableB table td input,
+  .container .formBox .tableB table td select{
+    width: 100%;
+    border: 1px solid #e5e5e5;
+    padding: 8.5px 11px;
+  }
+
+  .container .formBox .tableB table .formNum {
+    width: 7.4%;
+  }
+
+  .container .formBox .tableB table .formType {
+    width: 19.4%;
+  }
+
+  .container .formBox .tableB table .formC49{
+    width: 49.2%;
+  }
+  
+  .container .formBox .tableB table .formNm {
+    width: 15%;
+  }
+  .container .formBox .tableB table .formCh {
+    width: 9%;
+  }
+  .container .formBox .tableB table input[type="checkbox"] {
+    display: none;
+  } 
+  .container .formBox .tableB table input[type="checkbox"] + label{
+    display: inline-block;
+    transform: translate(-5px, -9px);
+    position: relative;
+  }
+  .container .formBox .tableB table input[type="checkbox"] + label:before {
+    clear: both;
+    position: absolute;
+    content: "";
+    width: 11px;
+    height: 11px;
+    background: #f6f6f6;
+    border: 1px solid #cbcbcb;
+    border-radius: 2px;
+    transform: translateY(-2px);
+    left: 0;
+    top: 0;
+  }
+  .container .formBox .tableB table input[type="checkbox"]:checked + label:after {
+    clear: both;
+    position: absolute;
+    content: "\e91c";
+    font-family: "icomoon";
+    font-weight: 900;
+    font-size: 13px;
+    color: #e25b45;
+    transform: translateY(-2px);
+    left: 0;
+    top: 0px;
+  }
   .container .submitBtn {
+    text-align: center;
+  }
+  .container .formBox .tableB .agreeSub {
+    padding: 8px 11px;
+    text-align: center;
+  }
+  .container .formBox .tableB .bot {
+    border-bottom: 1px solid #e5e5e5;
+    
+  }
+  .container .formBox .tableB input{
+    padding: 8.5px 11px;
+    border: 1px solid #e5e5e5;
+  }
+  .container .formBox .tableB .bot span {
+    display: inline-block;
+    padding: 0 17px 0 10px;
+    font-weight: 700;
+  }
+  .container .formBox .tableB .bot input {
+    width: 559px;
+  }
+
+  .container .formBox .tableB .agreeTextBox {
+    width: 100%;
+  }
+
+
+  .container .formBox .tableB button {
+    height: 30px;
+    padding: 5px 10px;
+    margin: 20px 0 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    background: #f0f0f0;
     text-align: center;
   }
 
@@ -400,7 +727,7 @@ export default {
     background: #e25b45;
     border-radius: 50px;
     padding: 11px;
-    margin: 10px auto 60px;
+    margin: 30px auto 60px;
     color: #fff;
     font-weight: 700;
     font-size: 16px;

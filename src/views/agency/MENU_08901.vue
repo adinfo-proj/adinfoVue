@@ -6,18 +6,18 @@
 					<tbody>
 						<tr>
 							<th>
-								이름/회사명
-							</th>
-							<td colspan="3">
-								<input type="text" autocomplete='off' v-model="clntNm" ref="clntNm">
-							</td>
-						</tr>
-						<tr>
-							<th>
 								아이디
 							</th>
 							<td colspan="3">
 								{{clntId}}
+							</td>
+						</tr>
+						<tr>
+							<th>
+								이름/회사명
+							</th>
+							<td colspan="3">
+								<input type="text" autocomplete='off' v-model="clntNm" ref="clntNm">
 							</td>
 						</tr>
 						<tr>
@@ -53,7 +53,7 @@
 				</table>
 			</div>
 			<div class="flatRate">
-				<span>SLVER (1개월) 포스트백 프미리엄 서비스</span> (2022-01-01~2022-02-01) 
+				<span>SILVER (1개월) 포스트백 프미리엄 서비스</span> (2022-01-01~2022-02-01) 
 			</div>
 			<div class="tableBox priceData">
 				<table>
@@ -61,18 +61,18 @@
 						<tr>
 							<th class="division">이용권 구분</th>
 							<th class="startDate">기간연장 및 이용권 전환일</th>
-							<th class="lastDate">a</th>
-							<th class="pay">a</th>
-							<th class="price">a</th>
+							<th class="lastDate">이용권 만료일</th>
+							<th class="pay">결제수단</th>
+							<th class="price">결제금액</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td class="division">as</td>
-							<td class="startDate">a</td>
-							<td class="lastDate">a</td>
-							<td class="pay">a</td>
-							<td class="price">a</td>
+							<td class="division">SILVER</td>
+							<td class="startDate">2021-03-26 15:29:26</td>
+							<td class="lastDate">2021-04-25</td>
+							<td class="pay">계좌이체</td>
+							<td class="price">66,000원</td>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -80,16 +80,16 @@
 							<td colspan="5">
 								<span class="pageleft"><i class="icon-chevron-left1"></i></span>
 								<ul>
-									<li class="pageBtn">
+									<li class="on">
 										1
 									</li>
-									<li class="pageBtn">
+									<li>
 										2
 									</li>
-									<li class="pageBtn">
+									<li>
 										3
 									</li>
-									<li class="pageBtn">
+									<li>
 										4
 									</li>
 
@@ -97,7 +97,7 @@
                 <span class="pageright"><i class="icon-chevron-right1"></i></span>
                 <!-- <span class="pageleft" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
 								<ul>
-									<li class="pageBtn" 
+									<li
 										v-bind:class="{on : (indexPage) == curPage}" 
 										v-for="(indexPage, index) in pageCount" :key="index" 
 										@click="getNotifyTitleList(pageCount[0] + index, false)"
@@ -279,6 +279,10 @@
 		text-align: center;
 	}
 
+	#menu08901 .priceData table th {
+		font-size: 14px;
+	}
+
 	#menu08901 .priceData .division {
 		width: 15%;
 	}
@@ -296,7 +300,7 @@
 		width: 13%;
 	}
 
-	#menu08901 .priceData table th::after {
+	#menu08901 .priceData th::after {
 		position: absolute;
 		content: "";
 		width: 1px;
@@ -307,9 +311,57 @@
 		transform: translateY(-50%);
 	}
 
-	#menu08901 .priceData table th:last-child::after {
+	#menu08901 .priceData th:last-child::after {
 		display: none;
 	}
+
+	#menu08901 .priceData thead {
+		border-bottom: 1px solid #939393;
+	}
+
+	#menu08901 .priceData tbody tr {
+		border-bottom: 1px solid #ececec;
+	}
+
+	#menu08901 .priceData tfoot span,
+	#menu08901 .priceData tfoot ul,
+	#menu08901 .priceData tfoot ul li {
+		display: inline-block;
+		cursor: pointer;
+	}
+
+	#menu08901 .priceData tfoot span {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #e4e4e4;
+    color: #e6e6e6;
+    font-size: 13px;
+    padding: 5px 5px;
+	}
+
+	#menu08901 .priceData tfoot ul li {
+    margin: 0 10px;
+		cursor: pointer;
+		color: #606060;
+		line-height: 14px;
+	}
+	#menu08901 .priceData tfoot ul li.on {
+    font-weight: 900;
+    position: relative;
+	}
+	#menu08901 .priceData tfoot ul li.on:after {
+    clear: both;
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    content: "";
+    bottom: -1px;
+    left: 0;
+    background: #666;
+	}
+
+
+	
 
 	
 

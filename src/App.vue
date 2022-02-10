@@ -235,7 +235,7 @@
   }
 
   #sectionHeader {
-    padding: 5px 20px 11px;
+    padding: 6px 20px;
     border-bottom: solid 1px #707070;
     height: 50px;
     display: flex;

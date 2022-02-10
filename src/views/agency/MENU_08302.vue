@@ -15,28 +15,23 @@
         <div v-if="lendchoose.tp == '02'" v-html="$store.state.lendchooseObj[index].descript">
         </div>
         <!-- 폼 -->
-        <div class="formPrev" v-if="lendchoose.tp == '03'" v-bind="$store.state.lendchooseObj[index].formDesc">
-          <input type="text" name="value01" placeholder="이름을 입력하세요.">
-          <input type="text" name="value02" placeholder="연락처 '-'없이 입력해주세요.">
+        <div class="formPrev" v-if="lendchoose.tp == '03'" v-bind="$store.state.lendchooseObj[index].formDesc" :style="{borderColor:lendchoose.formDesc.lineColor, borderWidth:lendchoose.formDesc.borderLine} ">
           <!-- <div v-for="(inObj, index) in $store.state.inputObj" :key="index"> -->
           <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
-            <input v-if="inObj.values == 'textForm'" type="text" :placeholder="inObj.names">
+            <!-- 텍스트 박스 -->
+            <div v-if="inObj.values == 'textForm'" class="formInput">
+              <span class="fornInputName">{{inObj.names}}</span>
+              <input type="text" :placeholder="inObj.names">
+            </div>
+
 
             <!-- 라디오 버튼 -->
             <div v-if="inObj.values == 'radioForm'" class="formInput">
               <span class="fornInputName">{{inObj.names}}</span>
-
-
-              
               <span v-for="index in inObj.lab" :key="index">
                 <input :id="index" :name="inObj.lab[index]" type="radio" >
                 <label :for="index">{{index}}</label>
               </span>
-
-
-
-
-
             </div>
             <!-- 체크박스 -->
             <div v-if="inObj.values == 'checkForm'" class="formInput">
@@ -59,7 +54,7 @@
           <input type="checkbox" name="agree01" id="agree01">
           <label for="agree01">{{lendchoose.formDesc.priNm}}<span @click="PriModal()">[보러가기]</span></label>
           <div class="centerBox">
-            <button v-bind:style="{borderRadius:lendchoose.formDesc.btmShape, background:lendchoose.formDesc.btnColor}">{{lendchoose.formDesc.btnNm}}</button>
+            <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor}">{{lendchoose.formDesc.btnNm}}</button>
           </div>
           <!-- 개인정보 동의 모달 팝업 내용 -->
           <div class="priBox">
@@ -141,7 +136,7 @@
       </div>
       <div class="btnBox">
         <button class="imgBtn"  @click="ImgChooseBtn()" >이미지 추가</button>
-        <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button>
+        <!-- <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button> -->
         <button class="formBtn" @click="FormChooseBtn()">폼 추가</button>
       </div>
     </div>
@@ -197,40 +192,11 @@
         //------------------------------------------------------------------------------
         console.log(this.$store.state.lendchooseObj);
 
-        // for(let i = 0 ; i < this.$store.state.lendchooseObj.length ; i++) {
-        //   if(this.$store.state.lendchooseObj[i].tp == '03') {
-        //     console.log(this.$store.state.lendchooseObj[i].formDesc.inputBox.length);
-
-        //     for(let t = 0 ; t < this.$store.state.lendchooseObj.length ; t++) {
-        //       if(this.$store.state.lendchooseObj[i].formDesc.inputBox[t].names == null) {
-        //         let nRow = i + 3;
-        //         alert("폼 꾸미기의 "+ nRow + "번째 항목의 값이 비어있습니다.1");
-        //         return;
-        //       }
-              
-        //       if(this.$store.state.lendchooseObj[i].formDesc.inputBox[t].values == null) {
-        //         let nRow = i + 3;
-        //         alert("폼 꾸미기의 "+ nRow + "번째 유형이 비어있습니다.2");
-        //         return;
-        //       }
-        //       else {
-        //         if(this.$store.state.lendchooseObj[i].formDesc.inputBox[t].values != "textForm") {
-        //           if(this.$store.state.lendchooseObj[i].formDesc.inputBox[t].lab == null) {
-        //             let nRow = i + 3;
-        //             alert("폼 꾸미기의 "+ nRow + "번째 유형의 값이 비어있습니다.3");
-        //             return;
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
-
         let formData = [];
         this.$store.state.lendchooseObj.forEach(element => {
           if( element.tp == "03") {
             let forms = {
-                btmShape : element.formDesc.btmShape
+                btnShape : element.formDesc.btnShape
               , btnColor : element.formDesc.btnColor
               , btnNm    : element.formDesc.btnNm
               , inputBox : element.formDesc.inputBox
@@ -385,34 +351,9 @@
         };
 
         plusObj.tp = '03'
-        let tpLength = this.$store.state.lendchooseObj.filter(tpValue => tpValue.tp == '03').length;
-        if(tpLength == 1) {
-          if(confirm('상단 폼의 입력항목 및 동의항목을 정확히 입력하셨습니까? 추후 입력항목 및 동의항목은 수정이 불가하오니 정확히 입력해주시기 바랍니다.') == false) {
-            return;
-          }
-        }
 
         this.$store.state.lendchooseObj.push(plusObj);
 
-        //------------------------------------------------------------------------------
-        // tp가 03인 것이 2개 이상일 때 폼 항목이 보여지지 않게 하는 함수
-        //------------------------------------------------------------------------------
-        tpLength = this.$store.state.lendchooseObj.filter(tpValue => tpValue.tp == '03').length;
-
-        for(let i = 0 ; i < this.$store.state.lendchooseObj.length ; i++) {
-            //------------------------------------------------------------------------------
-          // tp가 03인 것이 1개일때 
-          //------------------------------------------------------------------------------
-          if(this.$store.state.lendchooseObj[i].tp == '03') {
-            if(tpLength == 1) {
-              return;
-            }
-
-            let n = this.$store.state.lendchooseObj.length - 1;
-            this.$store.state.secForm = n;
-            this.$store.state.lendchooseObj[n].formDesc = this.$store.state.lendchooseObj[i].formDesc;
-          }
-        }
       },
       //******************************************************************************
       // 폼 안에 개인정보 모달 박스 팝업
@@ -825,8 +766,9 @@
   }
 
   .menu0804 .landChoice .btnBox {
-    display: flex;
-    justify-content: space-between;
+    /* display: flex; */
+    text-align: center;
+    /* justify-content: space-between; */
     padding: 10px 66px 0 66px;
   }
 
@@ -842,6 +784,7 @@
   .menu0804 .landChoice .btnBox .imgBtn {
     border: 1px solid #e25b45;
     color: #e25b45;
+    margin-right: 10px;
   }
 
   .menu0804 .landChoice .btnBox .textBtn {
@@ -849,7 +792,7 @@
   }
 
   .menu0804 .landChoice .btnBox .formBtn {
-    background: #393939;
+    background: #e25b45;
   }
 
   /*************************************************/
