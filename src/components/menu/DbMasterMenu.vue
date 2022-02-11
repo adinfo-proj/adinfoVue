@@ -8,17 +8,17 @@
         <li v-bind:class="{on : 1 == menuSelect}">
           <a href="javascript:void(0)" @click="DBMenuBar(1)" >
             <i class="icon-file-text"></i>
-            캠페인 목록
+            캠페인
           </a>
           <ul>
-            <li @click="DbSubMenu('101')"  v-bind:class="{subOn : '101' == subMenuSelect}">
-              <router-link to="MENU_08101">
-                캠페인 목록
-              </router-link>
-            </li>
             <li @click="DbSubMenu('102')"  v-bind:class="{subOn : '102' == subMenuSelect}">
               <router-link to="MENU_08102">
                 캠페인 등록
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('101')"  v-bind:class="{subOn : '101' == subMenuSelect}">
+              <router-link to="MENU_08101">
+                캠페인 목록
               </router-link>
             </li>
           </ul>
@@ -35,14 +35,14 @@
             랜딩페이지
           </a>
           <ul>
-            <li @click="DbSubMenu('301')"  v-bind:class="{subOn : '301' == subMenuSelect}">
-              <router-link to="MENU_08301">
-                 랜딩페이지 목록
-              </router-link>
-            </li>
             <li @click="DbSubMenu('302')"  v-bind:class="{subOn : '302' == subMenuSelect}">
               <router-link to="MENU_08302">
                 랜딩페이지 제작
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('301')"  v-bind:class="{subOn : '301' == subMenuSelect}">
+              <router-link to="MENU_08301">
+                 랜딩페이지 목록
               </router-link>
             </li>
           </ul>
@@ -54,14 +54,14 @@
             포스트백
           </a>
           <ul>
-            <li @click="DbSubMenu('401')"  v-bind:class="{subOn : '401' == subMenuSelect}">
-              <router-link to="MENU_08401">
-                 포스트백 목록
-              </router-link>
-            </li>
             <li @click="DbSubMenu('402')"  v-bind:class="{subOn : '402' == subMenuSelect}">
               <router-link to="MENU_08402">
                 포스트백 등록
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('401')"  v-bind:class="{subOn : '401' == subMenuSelect}">
+              <router-link to="MENU_08401">
+                 포스트백 목록
               </router-link>
             </li>
           </ul>

@@ -333,6 +333,7 @@ export default {
         }
 
         this.formObj.push(formView);
+
       }
     },
     //******************************************************************************
@@ -394,6 +395,7 @@ export default {
       let data = {
           gradeCd           : this.$store.state.adGradeCd
         , mbId              : this.$store.state.mbId
+        , mkId              : this.$store.state.mkId
         , adId              : this.$store.state.adId
         , clntId            : this.$store.state.clntId
         , adPurpose         : this.adPurpose
@@ -408,17 +410,21 @@ export default {
         , smsYn             : this.smsYn
         , smsNo             : this.smsNo
         , status            : '01'
+        , stipulationTitle  : this.agreeConNm
+        , stipulationDesc   : this.agreeCon
       };
-
+      
       const frm = new FormData();
-      frm.append("dataObj", new Blob([JSON.stringify(data)], {type: "application/json"}));
+      frm.append("dataObj", new Blob([JSON.stringify(data)]        , {type: "application/json"}));
+      frm.append("formObj", new Blob([JSON.stringify(this.formObj)], {type: "application/json"}));
 
       axios.post("http://api.adinfo.co.kr:30000/newcampaign", frm, {
         headers: {'Content-Type': 'multipart/form-data'}    
       })
       .then(response => {
-        alert(response.data.resultMessage);
-        if( response.data.result == 'success') {
+        console.log(response);
+        alert(response.data.message);
+        if( response.data.result == true) {
           this.$router.push({ path : "MENU_08101" })
         }
       })
@@ -443,9 +449,7 @@ export default {
   created() {
     this.$store.state.headerTopTitle = "캠페인";
     this.$store.state.headerMidTitle = "캠페인 등록";
-
     this.CreateFormObj();
-
     this.getCommonByTp("0000");
     this.getCommonByTp0005();
   }

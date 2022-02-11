@@ -80,6 +80,7 @@
             </th>
             <td>
               <select class="campDis" id="campDis" v-model="campaignSelect">
+                <option value="0" disabled>캠페인을 선택하세요</option>
                 <option v-for="(adIndex, index) in campaignListObj"
                   :key="index" 
                   :value="adIndex.caId"
@@ -159,7 +160,7 @@
     data() {
       return {
           scriptInput     : false
-        , campaignSelect  : ''
+        , campaignSelect  : '0'
         , campaignListObj : ''
         , landName        : ''
       }
@@ -263,7 +264,7 @@
           }
         })
         .then(response => {
-          this.campaignSelect = response.data[0].adId;
+          // this.campaignSelect = response.data[0].adId;
           this.campaignListObj   = response.data;
         })
         .catch(error => {
