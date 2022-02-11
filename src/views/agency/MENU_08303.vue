@@ -1,5 +1,5 @@
 <template>
-  <div class="container menu0804">
+  <div class="container menu08302">
     <div class="landPrev">
       <div v-if="$store.state.lendchooseObj.length == '0'" class="noLength">
         <img src="../../assets/images/menu08302/NolendData.png" alt="">
@@ -88,12 +88,18 @@
                 </option>
               </select>
             </td>
+            <th>
+              광고주 명
+            </th>
+            <td>
+              <input type="text" class="" v-model="$store.state.company">
+            </td>
           </tr>
           <tr>
             <th>
               페이지 명
             </th>
-            <td>
+            <td colspan="3">
               <input type="text" class="" v-model="landName">
             </td>
           </tr>
@@ -354,15 +360,15 @@
       // 폼 안에 개인정보 모달 박스 팝업
       //******************************************************************************
       PriModal() {
-        $(".menu0804 .landPrev .formPrev .priBox").css({display:'block'})
-        $(".menu0804 .landPrev .bgColor").css({display:'block'})
+        $(".menu08302 .landPrev .formPrev .priBox").css({display:'block'})
+        $(".menu08302 .landPrev .bgColor").css({display:'block'})
       },
       //******************************************************************************
       // 폼 안에 개인정보 모달 박스 닫기
       //******************************************************************************
       PriCancle() {
-        $(".menu0804 .landPrev .formPrev .priBox").css({display:'none'})
-        $(".menu0804 .landPrev .bgColor").css({display:'none'})
+        $(".menu08302 .landPrev .formPrev .priBox").css({display:'none'})
+        $(".menu08302 .landPrev .bgColor").css({display:'none'})
       }
     },
     mounted: function() {
@@ -385,23 +391,23 @@
 </script>
 
 <style scoped>
-  .menu0804 {
+  .menu08302 {
     display: flex;
     justify-content: space-between;
   }
 
-  .menu0804 .landPrev {
+  .menu08302 .landPrev {
     width: 820px;
     padding-right: 20px;
     position: relative;
   }
 
-  .menu0804 .landPrev img {
+  .menu08302 .landPrev img {
     width: 100%;
     display: block;
   }
 
-  .menu0804 .landPrev .noLength {
+  .menu08302 .landPrev .noLength {
     height: 800px;
     display: flex;
     justify-content: center;
@@ -409,29 +415,29 @@
     background: #fff;
   }
 
-  .menu0804 .landPrev .noLength img {
+  .menu08302 .landPrev .noLength img {
     width: auto;
   }
 
-  .menu0804 .landPrev .formPrev {
+  .menu08302 .landPrev .formPrev {
     width: 100%;
     border: 30px solid #3e3e3e;
     padding: 50px;
     position: relative;
   }
 
-  .menu0804 .landPrev .formPrev input[type="text"] {
+  .menu08302 .landPrev .formPrev input[type="text"] {
     width: 100%;
     margin-bottom: 10px;
     font-size: 14px;
     padding: 12px 16px;
   }
 
-  .menu0804 .landPrev .formPrev  .formInput {
+  .menu08302 .landPrev .formPrev  .formInput {
     margin-bottom: 25px;
   }
 
-  .menu0804 .landPrev .formPrev .fornInputName {
+  .menu08302 .landPrev .formPrev .fornInputName {
     display: block;
     font-size: 18px;
     color: #333;
@@ -443,7 +449,7 @@
     position: relative;
   }
 
-  .menu0804 .landPrev .formPrev .fornInputName:before {
+  .menu08302 .landPrev .formPrev .fornInputName:before {
     clear: both;
     width: 2px;
     height: 70%;
@@ -455,19 +461,19 @@
     transform: translateY(-50%);
   }
 
-  .menu0804 .landPrev .formPrev select{
+  .menu08302 .landPrev .formPrev select{
     padding: 12px 16px;
     margin-bottom: 10px;
     width: 100%;
     margin-top: 10px;
   }
 
-  .menu0804 .landPrev .formPrev input[type="radio"],
-  .menu0804 .landPrev .formPrev	input[type="checkbox"] {
+  .menu08302 .landPrev .formPrev input[type="radio"],
+  .menu08302 .landPrev .formPrev	input[type="checkbox"] {
     display: none;
   }
 
-  .menu0804 .landPrev .formPrev label {
+  .menu08302 .landPrev .formPrev label {
     font-size: 16px;
     display: inline-block;
     margin: 10px 10px 0px 0px ;
@@ -477,19 +483,19 @@
     font-weight: 600;
   }
 
-  .menu0804 .landPrev .formPrev label span{
+  .menu08302 .landPrev .formPrev label span{
     font-size: 16px;
     cursor: pointer;
     font-weight: 400;
   }
 
-  .menu0804 .landPrev .formPrev	input[type="checkbox"] + label a {
+  .menu08302 .landPrev .formPrev	input[type="checkbox"] + label a {
     font-size: 16px;
     margin-left: 5px;
   }
 
-  .menu0804 .landPrev .formPrev input[type="radio"] + label:before,
-  .menu0804 .landPrev .formPrev	input[type="checkbox"] + label:before {
+  .menu08302 .landPrev .formPrev input[type="radio"] + label:before,
+  .menu08302 .landPrev .formPrev	input[type="checkbox"] + label:before {
     clear: both;
     position: absolute;
     width: 15px;
@@ -503,12 +509,12 @@
     border-radius: 2px;
   }
 
-  .menu0804 .landPrev .formPrev input[type="radio"] + label:before {
+  .menu08302 .landPrev .formPrev input[type="radio"] + label:before {
     border-radius: 50%;
   }
 
-  .menu0804 .landPrev .formPrev	input[type="checkbox"]:checked + label:after,
-  .menu0804 .landPrev .formPrev input[type="radio"]:checked + label:after {
+  .menu08302 .landPrev .formPrev	input[type="checkbox"]:checked + label:after,
+  .menu08302 .landPrev .formPrev input[type="radio"]:checked + label:after {
     clear: both;
     position: absolute;
     display: block;
@@ -521,7 +527,7 @@
     color: #4b4b4b;
   }
 
-  .menu0804 .landPrev .formPrev	.textBox {
+  .menu08302 .landPrev .formPrev	.textBox {
     width: 100%;
     height: 120px;
     resize: none;
@@ -530,11 +536,11 @@
     font-size: 16px;
   }
 
-  .menu0804 .landPrev .formPrev .centerBox {
+  .menu08302 .landPrev .formPrev .centerBox {
     text-align: center;
   }
 
-  .menu0804 .landPrev .formPrev .centerBox button {
+  .menu08302 .landPrev .formPrev .centerBox button {
     width: 50%;
     background: #aa00e5;
     color: #fff;
@@ -547,7 +553,7 @@
   }
 
   /* 개인정보 수집 동의 항목 */
-  .menu0804 .landPrev .formPrev .priBox {
+  .menu08302 .landPrev .formPrev .priBox {
     position: absolute;
     padding: 20px;
     width: 650px;
@@ -561,14 +567,14 @@
     z-index: 9;
   }
 
-  .menu0804 .landPrev .formPrev .priBox h6 {
+  .menu08302 .landPrev .formPrev .priBox h6 {
     font-size: 24px;
     margin-bottom: 16px;
     letter-spacing: -0.72px;
     color: #000;
   }
 
-  .menu0804 .landPrev .formPrev .priBox div {
+  .menu08302 .landPrev .formPrev .priBox div {
     padding: 5px;
     width: 100%;
     height: 180px;
@@ -576,7 +582,7 @@
     border: 1px solid #e5e5e5;
   }
 
-  .menu0804 .landPrev .formPrev .priBox button {
+  .menu08302 .landPrev .formPrev .priBox button {
     width: 100px;
     height: 35px;
     background: #000;
@@ -590,7 +596,7 @@
     margin: 10px auto;
   }
 
-  .menu0804 .landPrev .bgColor {
+  .menu08302 .landPrev .bgColor {
     position: absolute;
     left: 0;
     top: 0;
@@ -603,11 +609,11 @@
   /* 개인정보 수집 동의 항목 */
 
   /* 랜딩페이지 저장 버튼 */
-  .menu0804 .landPrev .subBox {
+  .menu08302 .landPrev .subBox {
     text-align: center;
     margin-top: 10px;
   }
-  .menu0804 .landPrev .saveBtn {
+  .menu08302 .landPrev .saveBtn {
     padding: 13px 33px;
     font-size: 16px;
     border-radius: 40px;
@@ -618,11 +624,11 @@
   }
 
   /* 랜딩페이지 저장 버튼 */
-  .menu0804 .landChoice {
+  .menu08302 .landChoice {
     width: 525px;
   }
 
-  .menu0804 .landChoice .landBox {
+  .menu08302 .landChoice .landBox {
     width: 100%;
     border: 1px solid #e5e5e5;
     background: #fff;
@@ -638,28 +644,28 @@
     margin-bottom: 8px;
   }
 
-  .menu0804 .landChoice .basicInfo h2,
-  .menu0804 .landChoice .landScr p {
+  .menu08302 .landChoice .basicInfo h2,
+  .menu08302 .landChoice .landScr p {
     font-size: 14px; 
     font-weight: bold;
     color: #222;
   }
 
-  .menu0804 .landChoice .basicInfo h2 {
+  .menu08302 .landChoice .basicInfo h2 {
     padding: 14px 20px;
     border-bottom: 1px solid #e5e5e5;
   }
 
-  .menu0804 .landChoice .basicInfo table {
+  .menu08302 .landChoice .basicInfo table {
     padding: 5px 20px 21px;
     width: 100%;
   }
 
-  .menu0804 .landChoice .basicInfo table td {
+  .menu08302 .landChoice .basicInfo table td {
     text-align: left;
   }
 
-  .menu0804 .landChoice .basicInfo table th {
+  .menu08302 .landChoice .basicInfo table th {
     width: 64px;
     letter-spacing: -0.36px;
     padding: 8.5px 0;
@@ -668,8 +674,8 @@
     text-align: center;
   }
 
-  .menu0804 .landChoice .basicInfo table td input,
-  .menu0804 .landChoice .basicInfo table td select {
+  .menu08302 .landChoice .basicInfo table td input,
+  .menu08302 .landChoice .basicInfo table td select {
     border: 1px solid #e5e5e5;
     padding: 7px 10px;
     margin: 2px 0;
@@ -677,26 +683,26 @@
     height: 100%;
   }
 
-  .menu0804 .landChoice .landScr {
+  .menu08302 .landChoice .landScr {
     padding: 21px 18px;
   }
 
-  .menu0804 .landChoice .landScr p .icon-arrow {
+  .menu08302 .landChoice .landScr p .icon-arrow {
     float: right;
     font-size: 9px;
     transition: 0.3s;
     transform: translateY(3px);
   }
 
-  .menu0804 .landChoice .landScr p .icon-arrow.on {
+  .menu08302 .landChoice .landScr p .icon-arrow.on {
     transform: rotate(180deg);
   }
 
-  .menu0804 .landChoice .landScr input[type="checkbox"] {
+  .menu08302 .landChoice .landScr input[type="checkbox"] {
     display: none;
   }
 
-  .menu0804 .landChoice .landScr input[type="checkbox"] + label {
+  .menu08302 .landChoice .landScr input[type="checkbox"] + label {
     display: inline-block;
     width: 60px;
     height: 25px;
@@ -708,7 +714,7 @@
     position: relative;
   }
 
-  .menu0804 .landChoice .landScr input[type="checkbox"] + label:before {
+  .menu08302 .landChoice .landScr input[type="checkbox"] + label:before {
     clear: both;
     position: absolute;
     color: #a5a5a5;
@@ -718,7 +724,7 @@
     font-weight: 700;
   }
 
-  .menu0804 .landChoice .landScr input[type="checkbox"] + label:after {
+  .menu08302 .landChoice .landScr input[type="checkbox"] + label:after {
     clear: both;
     position: absolute;
     width: 21px;
@@ -731,27 +737,27 @@
     transition: 0.3s;
   }
 
-  .menu0804 .landChoice .landScr input[type="checkbox"]:checked + label {
+  .menu08302 .landChoice .landScr input[type="checkbox"]:checked + label {
     background: #e25b45;
   }
 
-  .menu0804 .landChoice .landScr input[type="checkbox"]:checked + label:before {
+  .menu08302 .landChoice .landScr input[type="checkbox"]:checked + label:before {
     left: 9px;
     content: "ON";
     color: #fff;
   }
 
-  .menu0804 .landChoice .landScr input[type="checkbox"]:checked + label:after {
+  .menu08302 .landChoice .landScr input[type="checkbox"]:checked + label:after {
     left: 37px;
     top: 2px;
   }
 
-  .menu0804 .landChoice .landScr .landScrChecked { 
+  .menu08302 .landChoice .landScr .landScrChecked { 
     width: 487px;
     display: none;
   }
 
-  .menu0804 .landChoice .landScr .landScrChecked textarea {
+  .menu08302 .landChoice .landScr .landScrChecked textarea {
     width: 487px;
     height: 100px;
     resize: none;
@@ -760,14 +766,14 @@
     margin-top: 20px;
   }
 
-  .menu0804 .landChoice .btnBox {
+  .menu08302 .landChoice .btnBox {
     /* display: flex; */
     text-align: center;
     /* justify-content: space-between; */
     padding: 10px 66px 0 66px;
   }
 
-  .menu0804 .landChoice .btnBox button {
+  .menu08302 .landChoice .btnBox button {
     padding: 13px 26px;
     font-size: 16px;
     border-radius: 40px;
@@ -776,17 +782,17 @@
     font-weight: 700;
   }
 
-  .menu0804 .landChoice .btnBox .imgBtn {
+  .menu08302 .landChoice .btnBox .imgBtn {
     border: 1px solid #e25b45;
     color: #e25b45;
     margin-right: 10px;
   }
 
-  .menu0804 .landChoice .btnBox .textBtn {
+  .menu08302 .landChoice .btnBox .textBtn {
     background: #868686;
   }
 
-  .menu0804 .landChoice .btnBox .formBtn {
+  .menu08302 .landChoice .btnBox .formBtn {
     background: #e25b45;
   }
 
@@ -794,47 +800,47 @@
   /*            모바일 참조 용으로 만든 것           */
   /*************************************************/
   @media (max-width: 960px) {
-    .menu0804 .landPrev .formPrev input[type="text"] {
+    .menu08302 .landPrev .formPrev input[type="text"] {
       font-size: 28px;
     }
 
-    .menu0804 .landPrev .formPrev	.checkLine label {
+    .menu08302 .landPrev .formPrev	.checkLine label {
       font-size: 32px;
       margin: 15px 27px 25px 0px ;
       padding: 0;
       width: 104px;
     }
-    .menu0804 .landPrev .formPrev	input[type="checkbox"] + label {
+    .menu08302 .landPrev .formPrev	input[type="checkbox"] + label {
       font-size: 24px;
       display: inline-block;
       padding-left: 45px;
     }
 
-    .menu0804 .landPrev .formPrev	input[type="checkbox"] + label a {
+    .menu08302 .landPrev .formPrev	input[type="checkbox"] + label a {
       font-size: 24px;
     }
     
-    .menu0804 .landPrev .formPrev	.checkLine input[type="radio"] + label:before,
-    .menu0804 .landPrev .formPrev	input[type="checkbox"] + label:before {
+    .menu08302 .landPrev .formPrev	.checkLine input[type="radio"] + label:before,
+    .menu08302 .landPrev .formPrev	input[type="checkbox"] + label:before {
       width: 20px;
       height: 20px;
     }
 
-    .menu0804 .landPrev .formPrev	.checkLine input[type="radio"]:checked + label:after {
+    .menu08302 .landPrev .formPrev	.checkLine input[type="radio"]:checked + label:after {
       font-size: 20px;
       top: 7px;
     }
 
-    .menu0804 .landPrev .formPrev	input[type="checkbox"]:checked + label:after {
+    .menu08302 .landPrev .formPrev	input[type="checkbox"]:checked + label:after {
       font-size: 20px;
       top: 3px;
     }
 
-    .menu0804 .landPrev .formPrev	.textBox {
+    .menu08302 .landPrev .formPrev	.textBox {
       font-size: 32px;
     }
 
-    .menu0804 .landPrev .formPrev .centerBox button {
+    .menu08302 .landPrev .formPrev .centerBox button {
       width: 100%;
       font-size: 40px;
     }

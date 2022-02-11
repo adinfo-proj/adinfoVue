@@ -39,7 +39,7 @@
           <th>캠페인 명<span class="necItem"> *</span></th>
           <td><input type="text" class="camName" v-model="adName" autofocus></td>
           <th>광고주명 명<span class="necItem"> *</span></th>
-          <td><input type="text" class="camName" v-model="company" autofocus></td>
+          <td><input type="text" class="camName" v-model="company"></td>
         </tr>
         <tr class="notice">
           <th>캠페인 내용<span class="necItem"> *</span></th>
@@ -192,18 +192,7 @@ export default {
       , editorConfig2: { 
         toolbarGroups: [ 
           { name: 'styles', groups: [ 'styles' ] }, 
-          // { name: 'colors', groups: [ 'colors' ] }, 
-          // { name: 'document', groups: [ 'mode', 'document', 'doctools' ] }, 
-          // { name: 'clipboard', groups: [ 'clipboard', 'undo' ] }, 
-          // { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] }, 
-          // { name: 'forms', groups: [ 'forms' ] }, 
-          { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }, 
-          // { name: 'paragraph', groups: [ 'align', 'bidi', 'paragraph' ] }, 
-          // { name: 'links', groups: [ 'links' ] }, 
-          // { name: 'insert', groups: [ 'insert' ] }, 
-          // { name: 'others', groups: [ 'others' ] }, 
-          // { name: 'about', groups: [ 'about' ] }, 
-          // { name: 'tools', groups: [ 'tools' ] } 
+          { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }
           ] 
         , height: '330px' 
         , language: 'ko' 
@@ -300,6 +289,9 @@ export default {
         console.log(error);
       })
     },
+    //******************************************************************************
+    // 폼 설정 항목 for문
+    //******************************************************************************
     CreateFormObj() {
       for(let i = 0; i < 10; i++) {
         let formView = {

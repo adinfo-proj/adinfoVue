@@ -38,8 +38,12 @@
         <tr>
           <th>캠페인 명<span class="necItem"> *</span></th>
           <td><input type="text" class="camName" v-model="campaignFullDataObj.name" autofocus></td>
+          <th>광고주명 명<span class="necItem"> *</span></th>
+          <td><input type="text" class="camName" v-model="company"></td>
+				</tr>
+        <tr>
           <th>캠페인 상태</th>
-          <td>
+          <td colspan="3">
             <div
               v-for="(statusCode, index) in statusCodeObj"
               :key="index"
@@ -92,6 +96,91 @@
         </tr>
       </table>
     </div>
+    <div class="formBox">
+      <div class="tableB">
+        <h6>폼 설정하기</h6>
+
+        <table>
+          <thead>
+            <tr>
+              <th class="formNum" >번호</th>
+              <th class="formNm"  >항목</th>
+              <th class="formType">유형</th>
+              <th class="formCon" >내용</th>
+              <th class="formCh"  >필수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(formIn, index) in formObj" :key="index">
+              <td class="formNum">{{formIn.no}}</td>
+              <!-- 항목 필터  -->
+              <td v-if="formIn.no == 1" class="formNm">
+                <select v-model="formIn.names">
+                  <option value="이름">이름</option>
+                  <option value="성함">성함</option>
+                </select>
+              </td>
+              <td v-else-if="formIn.no == 2" class="formNm">
+                <select v-model="formIn.names">
+                  <option value="연락처">연락처</option>
+                  <option value="전화번호">전화번호</option>
+                  <option value="휴대폰번호">휴대폰번호</option>
+                </select>
+              </td>
+              <td v-else class="formNm">
+                <input type="text" v-model="formIn.names">
+              </td>
+              <!-- 항목 필터  -->
+
+              <!-- 유형 필터  -->
+              <td v-if="formIn.no == 1 || formIn.no == 2" class="formType">
+                <select v-model="formIn.types" disabled>
+                  <option value="01">입력박스</option>
+                  <option value="02">라디오박스</option>
+                  <option value="03">체크박스  </option>
+                  <option value="04"  >셀렉트박스</option>
+                </select>
+              </td>
+              <td v-else class="formType">
+                <select v-model="formIn.types">
+                  <option value="01">입력박스</option>
+                  <option value="02">라디오박스</option>
+                  <option value="03">체크박스  </option>
+                  <option value="04"  >셀렉트박스</option>
+                </select>
+              </td>
+              <!-- 유형 필터  -->
+              <td class="formCon">
+                <input type="text"  v-model="formIn.desc">
+              </td>
+
+              <!-- 필수박스 필터  -->
+              <td v-if="formIn.no == 1 || formIn.no == 2" class="formCh">
+                <input type="checkbox" :checked="formIn.useYn" :id="index" disabled>
+                <label :for="index" ></label>
+              </td>
+              <td v-else class="formCh">
+                <input type="checkbox" :checked="formIn.useYn" :id="index">
+                <label :for="index"></label>
+              </td>
+              <!-- 필수박스 필터  -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="agreeBox tableB">
+        <h6>약관 설정하기</h6>
+        <div class="agreeSub bot">
+          <span>동의항목 명</span>
+        <input type="text" id="agreeName" placeholder="동의 항목 제목을 입력해주세요 예) 개인정보 제공 동의"  autocomplete='off' v-model="agreeConNm">
+        </div>
+        <div class="agreeSub">
+          <ckeditor id="agreeTextBox" v-model="agreeCon" :config="editorConfig2"></ckeditor>
+          <button @click="PrivacyText()">개인 정보 제공 동의 불러오기</button>
+        </div>
+      </div>
+    </div>
     <div class="submitBtn">
       <button @click="createCampaign()"> 수정하기 </button>
     </div>
@@ -131,6 +220,18 @@ export default {
         , allowedContent: true 
         , removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format' 
       }
+      , editorConfig2: { 
+        toolbarGroups: [ 
+          { name: 'styles', groups: [ 'styles' ] }, 
+          { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }
+          ] 
+        , height: '330px' 
+        , language: 'ko' 
+        , resize_enabled: false 
+        , autoParagraph: false 
+        , allowedContent: true 
+        , removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format' 
+      }
 			, adPurpose: ''           // 캠페인 목적
       , adPurposeObj: ''        // 캠페인 목적 객체
       , adTopKind: ''           // 캠페인 1차 분류 
@@ -151,6 +252,13 @@ export default {
 			, adMaketerPrice: ''    // 마케터 단가 단가
 
       , campaignFullDataObj: '' //
+
+      //-----------------------------------
+      // 폼 설정하기 / 약관설정하기 변수
+      //-----------------------------------
+      , formObj: []
+      , agreeCon: ''
+      , agreeConNm: ''
     }
   },
   methods: {
@@ -253,6 +361,7 @@ export default {
         console.log(error);
       })
     },
+    
     //******************************************************************************
     // 캠페인 상태
     //******************************************************************************
@@ -277,37 +386,7 @@ export default {
      this.statusCodeValue = this.statusCodeObj[index].code 
 
     },
-    // //******************************************************************************
-    // // 캠페인 상태 수정하기
-    // //******************************************************************************
-    //  createCampaign() {
 
-    //   this.campaignFullDataObj.campaignKind = this.adPurpose;
-    //   this.campaignFullDataObj.topKind      = this.adTopKind;
-    //   this.campaignFullDataObj.middleKind   = this.adMiddleKind;
-    //   this.campaignFullDataObj.smsYn        = this.smsYn;
-    //   this.campaignFullDataObj.caId         = this.statusCode;
-
-
-
-    //   console.log(this.campaignFullDataObj)
-
-    //   // axios.get("http://api.adinfo.co.kr:30000/upcampaign",
-    //   // {
-    //   //   params: {
-    //   //       dataObj: this.campaignFullDataObj
-    //   //   }
-    //   // })
-    //   // .then(response => {
-    //   //   alert(response.data.resultMessage);
-    //   //   if( response.data.result == 'success') {
-    //   //     this.$router.push({ path : "MENU_08101" })
-    //   //   }
-    //   // })
-    //   // .catch(error => {
-    //   //   console.log(error);
-    //   // })
-    // 
     //****************************************************************************** 
     // 캠페인 상태 수정하기 
     //****************************************************************************** 
@@ -315,8 +394,7 @@ export default {
       console.log(this.campaignFullDataObj); 
 
 
-//      this.campaignFullDataObj.price         = this.campaignFullDataObj.price.replace(/,/gi,"", (match) => {return '' + match + '';}); 
-//      this.campaignFullDataObj.marketerPrice = this.campaignFullDataObj.marketerPrice.replace(/,/gi,"", (match) => {return '' + match + '';}); .
+
 
 
       this.campaignFullDataObj.campaignKind = this.adPurpose;
@@ -324,14 +402,7 @@ export default {
       this.campaignFullDataObj.middleKind   = this.adMiddleKind;
       this.campaignFullDataObj.smsYn        = this.smsYn;
       this.campaignFullDataObj.status       = this.statusCodeValue;
-      // console.log ("caId")
 
-      // console.log (this.statusCodeValue )
-
-
-
-      // console.log(this.campaignFullDataObj.price); 
-      // console.log(this.campaignFullDataObj.marketerPrice); 
 
 
       let data = this.campaignFullDataObj; 
@@ -503,6 +574,157 @@ export default {
   }
 
   .container .submitBtn {
+    text-align: center;
+  }
+
+    .container .formBox {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .container .formBox .tableB {
+    width: 670px;
+    background: #fff;
+    border: 1px  solid #e5e5e5;
+    border-radius: 10px;
+  }
+
+  .container .formBox .tableB h6 {
+    padding: 15px 21px;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .container .formBox .tableB table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .container .formBox .tableB table thead {
+    border-bottom: 1px solid #5c5c5c;
+  }
+
+  .container .formBox .tableB table th {
+    padding: 9px 10px;
+    font-size: 14px;
+    background: #fafafa;
+    position: relative;
+  }
+
+  .container .formBox .tableB table th::after {
+		position: absolute;
+		content: "";
+		width: 1px;
+		height: 14px;
+		background: #d2d2d2;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.container .formBox .tableB table th:last-child::after {
+		display: none;
+	}
+
+  .container .formBox .tableB table td {
+    padding: 8px 5px;
+    text-align: center;
+  }
+
+  .container .formBox .tableB table td input,
+  .container .formBox .tableB table td select{
+    width: 100%;
+    border: 1px solid #e5e5e5;
+    padding: 8.5px 11px;
+  }
+
+  .container .formBox .tableB table .formNum {
+    width: 7.4%;
+  }
+
+  .container .formBox .tableB table .formType {
+    width: 19.4%;
+  }
+
+  .container .formBox .tableB table .formC49{
+    width: 49.2%;
+  }
+  
+  .container .formBox .tableB table .formNm {
+    width: 15%;
+  }
+  .container .formBox .tableB table .formCh {
+    width: 9%;
+  }
+  .container .formBox .tableB table input[type="checkbox"] {
+    display: none;
+  } 
+  .container .formBox .tableB table input[type="checkbox"] + label{
+    display: inline-block;
+    transform: translate(-5px, -9px);
+    position: relative;
+  }
+  .container .formBox .tableB table input[type="checkbox"] + label:before {
+    clear: both;
+    position: absolute;
+    content: "";
+    width: 11px;
+    height: 11px;
+    background: #f6f6f6;
+    border: 1px solid #cbcbcb;
+    border-radius: 2px;
+    transform: translateY(-2px);
+    left: 0;
+    top: 0;
+  }
+  .container .formBox .tableB table input[type="checkbox"]:checked + label:after {
+    clear: both;
+    position: absolute;
+    content: "\e91c";
+    font-family: "icomoon";
+    font-weight: 900;
+    font-size: 13px;
+    color: #e25b45;
+    transform: translateY(-2px);
+    left: 0;
+    top: 0px;
+  }
+  .container .submitBtn {
+    text-align: center;
+  }
+  .container .formBox .tableB .agreeSub {
+    padding: 8px 11px;
+    text-align: center;
+  }
+  .container .formBox .tableB .bot {
+    border-bottom: 1px solid #e5e5e5;
+    
+  }
+  .container .formBox .tableB input{
+    padding: 8.5px 11px;
+    border: 1px solid #e5e5e5;
+  }
+  .container .formBox .tableB .bot span {
+    display: inline-block;
+    padding: 0 17px 0 10px;
+    font-weight: 700;
+  }
+  .container .formBox .tableB .bot input {
+    width: 559px;
+  }
+
+  .container .formBox .tableB .agreeTextBox {
+    width: 100%;
+  }
+
+
+  .container .formBox .tableB button {
+    height: 30px;
+    padding: 5px 10px;
+    margin: 20px 0 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    background: #f0f0f0;
     text-align: center;
   }
 

@@ -432,6 +432,19 @@
     padding: 6px 7px 0 0 ;
   }
 
+  .landForm .btnColor td {
+    width: 50%;
+    text-align: left;
+  }
+
+  .landForm .btnColor #boxLine {
+    width: 100px;
+  }
+
+  .landForm .btnColor #boxLine + label {
+    padding-left: 10px;
+  }
+
   .landForm .btnColor input[type="radio"] {
     display: none;
   }
