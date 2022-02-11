@@ -37,7 +37,7 @@
 							<td class="landAdv"  >아직개발중</td>
 							<td class="landColl" >{{askLists[index]}}</td>
 							<td class="landBtn"  >
-								<button>수정</button>
+								<button @click="ModifyLanding(LandingList.pgId)">수정</button>
 								<button>삭제</button>
 							</td>
 						</tr>
@@ -46,17 +46,15 @@
             <tr>
               <td class="dataBtn" colspan="8">
                 <span class="pageleft" v-if="pageCount.length > 0" @click="getLandingLst(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
-                <div class="pageNum">
-                  <ul>
-                    <li class="pageBtn" 
-                      v-bind:class="{on : (indexPage) == curPage}" 
-                      v-for="(indexPage, index) in pageCount" :key="index" 
-                      @click="getLandingLst(pageCount[0] + index, false)"
-                    >
-                      {{indexPage}}
-                    </li>
-                  </ul>
-                </div>
+								<ul class="pageNum">
+									<li class="pageBtn" 
+										v-bind:class="{on : (indexPage) == curPage}" 
+										v-for="(indexPage, index) in pageCount" :key="index" 
+										@click="getLandingLst(pageCount[0] + index, false)"
+									>
+										{{indexPage}}
+									</li>
+								</ul>
                 <span class="pageright" v-if="pageCount.length > 0" @click="getLandingLst(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
               </td>
             </tr>
@@ -180,6 +178,18 @@
 					console.log(error);
 				})
 			},
+			//******************************************************************************
+			// 공지사항 현재글 수정
+			//******************************************************************************
+			ModifyLanding(pgId) {
+				this.$router.push({ 
+					name : 'MENU_08303', 
+					params: { pgId: pgId }
+				})
+			},
+			//******************************************************************************
+			// 랜딩페이지 오픈
+			//******************************************************************************
 			OpenPage(url) {
 				window.open(url);
 			}

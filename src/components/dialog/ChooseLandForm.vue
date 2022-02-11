@@ -21,24 +21,24 @@
       <div class="btnDesignBox btnColor">
         <table>
           <tr>
-            <td>
+            <td class="leftNone">
               <h6 class="leftBox">버튼 텍스트 색상</h6>
               <input type="radio" v-model="textColor" :id="'btn_fff_'+this.indexNum" class="btn_fff" value="#fff">
               <label :for="'btn_fff_'+this.indexNum"></label>
               <input type="radio" v-model="textColor" :id="'btn_000_'+this.indexNum" class="btn_000" value="#000">
               <label :for="'btn_000_'+this.indexNum"></label>
             </td>
-            <td>
+            <td class="rightNone">
               <h6 class="leftBox">버튼 색상 선택</h6>
-              <input type="color" v-model="subShape">
+              <input type="color" v-model="subColor">
             </td>
           </tr>
           <tr>
-            <td>
+            <td class="leftNone">
               <h6 class="leftBox">폼 테두리 굵기</h6>
               <input type="text" id="boxLine" v-model="borderLine"><label for="#">px</label>
             </td>
-            <td>
+            <td class="rightNone">
               <h6 class="leftBox">폼 테두리 색상</h6>
               <input type="color" v-model="lineColor">
             </td>
@@ -371,8 +371,10 @@
   .landForm input[type="color"] {
     display: inline-block;
     padding: 0;
-    background-color:none;
+    background:none;
     border: none;
+    width: 70px;
+    height: 30px;
   }
 
   .landForm .btnShape div input[type="radio"] + label {
@@ -428,6 +430,11 @@
     transform: translateY(50%);
   }
 
+  .landForm .btnColor {
+    padding: 0;
+    border-top: none;
+  }
+
   .landForm .btnColor h6 {
     padding: 6px 7px 0 0 ;
   }
@@ -435,6 +442,16 @@
   .landForm .btnColor td {
     width: 50%;
     text-align: left;
+    border: solid 1px #e5e5e5;
+    padding: 11px 20px;
+  }
+
+  .landForm .btnColor .leftNone {
+    border-left: none;
+  }
+
+    .landForm .btnColor .rightNone {
+    border-right: none;
   }
 
   .landForm .btnColor #boxLine {

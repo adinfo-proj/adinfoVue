@@ -314,26 +314,26 @@
         plusObj.tp = '01';
         this.$store.state.lendchooseObj.push(plusObj);
       },
-      //******************************************************************************
-      // 텍스트 추가 함수
-      //******************************************************************************
-      TextChooseBtn() {
-        if(this.$store.state.lendchooseObj.length > 9) {
-          alert("이미지, 폼은 10개 까지만 등록 가능합니다.")
-          return;
-        }
+      // //******************************************************************************
+      // // 텍스트 추가 함수
+      // //******************************************************************************
+      // TextChooseBtn() {
+      //   if(this.$store.state.lendchooseObj.length > 9) {
+      //     alert("이미지, 폼은 10개 까지만 등록 가능합니다.")
+      //     return;
+      //   }
 
-        let plusObj = {
-            tp: ''
-          , fileNm: ''
-          , descript: ''
-          , formDesc: ''
-          , landImgNm: ''
-        };
+      //   let plusObj = {
+      //       tp: ''
+      //     , fileNm: ''
+      //     , descript: ''
+      //     , formDesc: ''
+      //     , landImgNm: ''
+      //   };
 
-        plusObj.tp = '02';
-        this.$store.state.lendchooseObj.push(plusObj);
-      },
+      //   plusObj.tp = '02';
+      //   this.$store.state.lendchooseObj.push(plusObj);
+      // },
       //******************************************************************************
       // 폼 추가 함수
       //******************************************************************************
@@ -796,53 +796,4 @@
     background: #e25b45;
   }
 
-  /*************************************************/
-  /*            모바일 참조 용으로 만든 것           */
-  /*************************************************/
-  @media (max-width: 960px) {
-    .menu08302 .landPrev .formPrev input[type="text"] {
-      font-size: 28px;
-    }
-
-    .menu08302 .landPrev .formPrev	.checkLine label {
-      font-size: 32px;
-      margin: 15px 27px 25px 0px ;
-      padding: 0;
-      width: 104px;
-    }
-    .menu08302 .landPrev .formPrev	input[type="checkbox"] + label {
-      font-size: 24px;
-      display: inline-block;
-      padding-left: 45px;
-    }
-
-    .menu08302 .landPrev .formPrev	input[type="checkbox"] + label a {
-      font-size: 24px;
-    }
-    
-    .menu08302 .landPrev .formPrev	.checkLine input[type="radio"] + label:before,
-    .menu08302 .landPrev .formPrev	input[type="checkbox"] + label:before {
-      width: 20px;
-      height: 20px;
-    }
-
-    .menu08302 .landPrev .formPrev	.checkLine input[type="radio"]:checked + label:after {
-      font-size: 20px;
-      top: 7px;
-    }
-
-    .menu08302 .landPrev .formPrev	input[type="checkbox"]:checked + label:after {
-      font-size: 20px;
-      top: 3px;
-    }
-
-    .menu08302 .landPrev .formPrev	.textBox {
-      font-size: 32px;
-    }
-
-    .menu08302 .landPrev .formPrev .centerBox button {
-      width: 100%;
-      font-size: 40px;
-    }
-  }
 </style>

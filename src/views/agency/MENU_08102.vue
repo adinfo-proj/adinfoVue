@@ -222,7 +222,7 @@ export default {
       //-----------------------------------
       , formObj: []
       , agreeCon: ''
-      , agreeConNm: ''       
+      , agreeConNm: ''
       
     }
   },
@@ -283,6 +283,39 @@ export default {
         if(response.data.length > 0) {
           this.adMiddleKind = response.data[0].subCode;
           this.adMiddleKindObj = response.data;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
+    //******************************************************************************
+    // 랜딩페이지 내용 조회하기
+    //******************************************************************************
+    getLandingContents(pgId) {
+      axios.get("http://api.adinfo.co.kr:30000/notice/contents",
+      {
+        params: {
+            pgId   : pgId
+          , groupTp : '01'
+          , useTp   : 'R'
+          , dataOnly: 'N'
+        }
+      })
+      .then(response => {
+        this.contentsData     = response.data[0][0];
+
+        if(response.data[1].length > 0) {
+          this.contentsBefore = response.data[1][0];
+        }
+        else {
+          this.contentsBefore = '';
+        }
+        if(response.data[2].length > 0) {
+          this.contentsAfter  = response.data[2][0];
+        }
+        else {
+          this.contentsAfter = '';
         }
       })
       .catch(error => {
