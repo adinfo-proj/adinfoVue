@@ -36,20 +36,20 @@
 					</td>
 				</tr>
         <tr>
-          <th>캠페인 명<span class="necItem"> *</span></th>
+          <th>캠페인 명<span class="necItem"> ❁</span></th>
           <td><input type="text" class="camName" v-model="adName" autofocus></td>
-          <th>광고주명 명<span class="necItem"> *</span></th>
-          <td><input type="text" class="camName" v-model="company"></td>
+          <th>광고주명 명<span class="necItem"> ❁</span></th>
+          <td><input type="text" class="camName" v-model="adNameAd"></td>
         </tr>
         <tr class="notice">
-          <th>캠페인 내용<span class="necItem"> *</span></th>
+          <th>캠페인 내용<span class="necItem"> ❁</span></th>
           <td colspan="3">
             <ckeditor id="camContents" v-model="adComment" :config="editorConfig"></ckeditor>
           </td>
           <!-- cols="30" rows="10" -->
         </tr>
         <tr>
-          <th>광고주 단가<span class="necItem"> *</span></th>
+          <th>광고주 단가<span class="necItem"> ❁</span></th>
           <td><input type="text" name="" id="" v-model="adPrice"></td>
           <th>마케터 단가</th>
           <td><input type="text" name="" id="" v-model="adMaketerPrice"></td>
@@ -86,20 +86,20 @@
               <td class="formNum">{{formIn.no}}</td>
               <!-- 항목 필터  -->
               <td v-if="formIn.no == 1" class="formNm">
-                <select v-model="formIn.names">
+                <select v-model="formIn.value">
                   <option value="이름">이름</option>
                   <option value="성함">성함</option>
                 </select>
               </td>
               <td v-else-if="formIn.no == 2" class="formNm">
-                <select v-model="formIn.names">
+                <select v-model="formIn.value">
                   <option value="연락처">연락처</option>
                   <option value="전화번호">전화번호</option>
                   <option value="휴대폰번호">휴대폰번호</option>
                 </select>
               </td>
               <td v-else class="formNm">
-                <input type="text" v-model="formIn.names">
+                <input type="text" v-model="formIn.value">
               </td>
               <!-- 항목 필터  -->
 
@@ -107,17 +107,15 @@
               <td v-if="formIn.no == 1 || formIn.no == 2" class="formType">
                 <select v-model="formIn.types" disabled>
                   <option value="01">입력박스</option>
-                  <option value="02">라디오박스</option>
-                  <option value="03">체크박스  </option>
-                  <option value="04"  >셀렉트박스</option>
                 </select>
               </td>
               <td v-else class="formType">
                 <select v-model="formIn.types">
+                  <option value="00">선택</option>
                   <option value="01">입력박스</option>
                   <option value="02">라디오박스</option>
                   <option value="03">체크박스  </option>
-                  <option value="04"  >셀렉트박스</option>
+                  <option value="04">셀렉트박스</option>
                 </select>
               </td>
               <!-- 유형 필터  -->
@@ -127,11 +125,11 @@
 
               <!-- 필수박스 필터  -->
               <td v-if="formIn.no == 1 || formIn.no == 2" class="formCh">
-                <input type="checkbox" :checked="formIn.useYn" :id="index" disabled>
+                <input type="checkbox" :checked="formIn.reqYn" :id="index" disabled>
                 <label :for="index" ></label>
               </td>
               <td v-else class="formCh">
-                <input type="checkbox" :checked="formIn.useYn" :id="index">
+                <input type="checkbox" :checked="formIn.reqYn" :id="index">
                 <label :for="index"></label>
               </td>
               <!-- 필수박스 필터  -->
@@ -209,12 +207,13 @@ export default {
       , adMiddleKindObj: ''    // 캠페인 2차 분류 객체
 
       , adName: ''             // 캠페인 명
+      , adNameAd: ''           // 광고주
       , adComment: ''          // 캠페인 내용
 
       , smsYn: 'N'             // DB 접수 시 SMS 수신 여부 Y
       , smsNo: ''              // DB 접수 시 SMS 수신 여부
       , adPrice: '0'           // 광고주 단가
-			, adMaketerPrice: '0'    // 마케터 단가 단가
+			, adMaketerPrice: '0'    // 마케터 단가
       , company: ''
 
       //-----------------------------------
@@ -223,7 +222,6 @@ export default {
       , formObj: []
       , agreeCon: ''
       , agreeConNm: ''
-      
     }
   },
   methods: {
@@ -328,37 +326,36 @@ export default {
     CreateFormObj() {
       for(let i = 0; i < 10; i++) {
         let formView = {
-            no   : 0
-          , names: ''
-          , types: ''
+            no    : 0
+          , types : ''
+          , value : ''
           , desc : ''
-          , useYn: ''
+          , reqYn : false
         };
 
         if(i == 0) {
-          formView.names = '이름';
+          formView.no    = 1;
           formView.types = '01';
+          formView.value = '이름';
           formView.desc  = '';
-          formView.useYn = true;
-          formView.no = 1;
+          formView.reqYn = true;
         }
         else if(i == 1) {
-          formView.names = '연락처';
+          formView.no    = 2;
           formView.types = '01';
+          formView.value = '연락처';
           formView.desc  = '';
-          formView.useYn = true;
-          formView.no = 2;
+          formView.reqYn = true;
+          
         }
         else {
-          formView.names = '';
-          formView.types = '01';
+          formView.no    = i+1;
+          formView.types = '00';
+          formView.value = '';
           formView.desc  = '';
-          formView.useYn = false;
-          formView.no = i+1;
+          formView.reqYn = false;
         }
-
         this.formObj.push(formView);
-
       }
     },
     //******************************************************************************
@@ -367,7 +364,7 @@ export default {
     PrivacyText() {
       this.agreeCon = "<b>[개인정보 수집 및 이용안내]</b><br>"
       this.agreeCon += " 개인정보 수집주체 : " 
-      this.agreeCon += this.company 
+      this.agreeCon += this.adNameAd 
       this.agreeCon += "<br>"
       this.agreeCon += " 개인정보 수집항목 : 성명, 휴대폰, 이메일, IP등을 포함한 고객이 입력한 정보<br>"
       this.agreeCon += " 개인정보 수집 이용목적 : 전화, SMS를 통한 상품안내 및 상담<br>"
@@ -378,15 +375,13 @@ export default {
       this.agreeCon += " 당해 계약 내용을 서면 또는 전자적으로 보관하고 있습니다.<br>"
       this.agreeCon += " 위탁업체 및 위탁업무내용<br>"
       this.agreeCon += " " 
-      this.agreeCon += this.company 
+      this.agreeCon += this.adNameAd 
       this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>`"
     },
     //******************************************************************************
     // 최종 등록하기 버튼 선택
     //******************************************************************************
     createCampaign() {
-
-
       //------------------------------------------------------------------------------
       // input validation check
       //------------------------------------------------------------------------------
@@ -395,19 +390,21 @@ export default {
         this.$refs.adName.focus(); ///$refs
         return;
       }
-
+      if(this.adNameAd == null || this.adNameAd == '') {
+        alert("광고주명을 입력해주세요.");
+        this.$refs.adNameAd.focus(); ///$refs
+        return;
+      }
       if(this.adComment == null || this.adComment == '') {
         alert("캠페인 내용을 입력해주세요.");
         this.$refs.adComment.focus();
         return;
       }
-
       if(this.adPrice == null || this.adPrice == '') {
         alert("광고주 단가를 입력해주세요.");
         this.$refs.adComment.focus();
         return;
       }
-
 			if(this.adMaketerPrice == null || this.adMaketerPrice == '') {
         alert("마케터 단가를 입력해주세요.");
         this.$refs.adMaketerPrice.focus();
@@ -429,6 +426,7 @@ export default {
         , adSrtDt           : this.$DateAdd(0)
         , adSrtTm           : '235959'
         , adName            : this.adName
+        , adNameAd          : this.adNameAd
         , adComment         : this.adComment
         , adPrice           : this.adPrice
         , adMaketerPrice    : this.adMaketerPrice

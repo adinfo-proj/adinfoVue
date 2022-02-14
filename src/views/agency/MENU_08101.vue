@@ -3,14 +3,14 @@
 		<div id="menu08101">
 			<div class="campSearch">
 				<div class="campSearchSub">
-					<select v-model="campaignStatusCode" @change="campaignListChange(campaignStatusCode, 0, true)">
+					<select v-model="campaignStatusCode" @change="campaignListChange(campaignStatusCode, 1, true)">
 						<option v-for="(campaignStatusCodeLst, index) in campaignStatusCodeObj"
 							:key="index" 
 							:value="campaignStatusCodeLst.code"
 							>{{ campaignStatusCodeLst.codeNm}}
 						</option>
 					</select>
-					<button class="campSearchBtn" @click="campaignListChange(campaignStatusCode, 0, true)">조회</button>
+					<button class="campSearchBtn" @click="campaignListChange(campaignStatusCode, 1, true)">조회</button>
 				</div>
 				<div class="campDataSub">
 					<div class="campEx">
@@ -82,7 +82,7 @@
 							<td class="campDate"	   >{{ campaignFullData.srtDt   }}</td>
 							<td class="modifyBtnBox"    >
 								<button class="modifyBtn" @click='UpdateCampaign(campaignFullData.caId)'>수정</button> 
-								<button @click='DeleteCampaign(campaignFullData.caId)'>삭제</button>
+								<button @click='DeleteCampaign(campaignFullData.caId, index)'>삭제</button>
 							</td>
 						</tr>
 					</tbody>
@@ -141,7 +141,11 @@
 			//******************************************************************************
 			// 캠페인 삭제
 			//******************************************************************************
-			DeleteCampaign(caId) {
+			DeleteCampaign(caId, index) {
+				if(confirm("정말 삭제하시겠습니까??") == false) {
+					return;
+				}
+
 				axios.get("http://api.adinfo.co.kr:30000/ChangeCampaignStatus", 
 				{
 					params: {
@@ -150,12 +154,14 @@
 						, caId        : caId
 						, mkId        : this.$store.state.adId
 						, status      : 'ZZ'
+						, clntId      : this.$store.state.clntId
+						, campName    : this.campaignFullDataObj[index].name
 					}
 				})
 				.then(response => {
-					if(response.data.status == "succ") {
+					if(response.data.status == true) {
 						alert("캠페인을 정상적으로 삭제하였습니다.");
-						this.campaignListChange("00", 1, true);
+						this.campaignListChange(this.campaignStatusCode, 1, true);
 					}
 					else {
 						alert("캠페인을 삭제에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
@@ -179,7 +185,7 @@
 					if(response.data.length > 0) {
 						this.campaignStatusCode    = response.data[0].code;
 						this.campaignStatusCodeObj = response.data;
-						this.campaignListChange("00", 1, true);
+						this.campaignListChange(this.campaignStatusCode, 1, true);
 					}
 				})
 				.catch(error => {
