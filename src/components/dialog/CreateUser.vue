@@ -566,7 +566,7 @@
         </tr>
         <tr>
           <th>휴대전화번호</th>
-          <td colspan="3">
+          <td>
             <input type="tel" id="phoneNum" v-model="clntSubsNo" :disabled="checkYn" ref="clntSubsNo">
               <button @click="CheckSms();" id="checkBtn">본인확인</button>
             <div class="certain">
@@ -575,6 +575,12 @@
                 <button @click="CheckNo();">인증하기</button>
               </span>
             </div>
+          </td>
+          <th>수신여부</th>
+          <td>
+            이벤트 및 애드인포소식을 SMS수신합니다.
+            <input type="radio" name="recYn" id="recY"><label for="recY">예</label>
+            <input type="radio" name="recYn" id="recN"><label for="recN">아니오</label>
           </td>
         </tr>
       </table>
@@ -785,8 +791,28 @@
     text-align: center;
     font-size: 24px;
     letter-spacing: 0.84;
-    color: #444;
+    color: #e25b45;
     margin-bottom: 22px;
+    position: relative;
+  }
+
+  #singPopUp h2::before,
+  #singPopUp h2::after {
+    position: absolute;
+    content: "";
+    background: #e25b45;
+    width: 2px;
+    height: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  #singPopUp h2::before {
+    left: 386.5px;
+  }
+
+  #singPopUp h2::after {
+    right: 386.5px;
   }
 
 
@@ -892,12 +918,13 @@
     display: none;
   }
 
-  #singPopUp .radioBox input[type="radio"]+label {
+  #singPopUp .radioBox input[type="radio"] + label {
     padding-left: 26.8px;
     position: relative;
+    font-weight: 700;
   }
 
-  #singPopUp .radioBox input[type="radio"]+label:before {
+  #singPopUp .radioBox input[type="radio"] + label:before {
     clear: both;
     position: absolute;
     width: 11px;
@@ -911,14 +938,14 @@
     border-radius: 2px;
   }
 
-  #singPopUp .radioBox input[type="radio"]:checked+label:after {
+  #singPopUp .radioBox input[type="radio"]:checked + label:after {
     clear: both;
     position: absolute;
     display: block;
     content: "\e91c";
     font-family: "icomoon";
     font-weight: 900;
-    font-size: 7px;
+    font-size: 12px;
     left: 7px;
     top: 1px;
     color: #e25b45;
@@ -972,19 +999,29 @@
     margin-left: 5px;
   }
 
+  #singPopUp table td input[type="tel"] {
+    width: 120px;
+  }
+
   #singPopUp table td input[type="password"],
   #singPopUp table td input[type="tel"] {
     margin-right: 10px;
   }
 
   #singPopUp table td button {
-    width: 89px;
+    width: 70px;
     height: 28px;
     border-radius: 10px;
+    background: #fff;
+    border: 1px solid #e25b45;
+    color: #e25b45;
+    font-weight: 700;
+  }
+
+  #singPopUp table td .certain button {
     background: #f0f0f0;
     border: 1px solid #e5e5e5;
-    color: 000;
-    font-weight: 700;
+    color: #666;
   }
 
   #singPopUp table td .certain {
@@ -992,12 +1029,50 @@
   }
 
   #singPopUp table td .certain input[type="text"] {
-    width: 150px;
-    margin-left: 30px;
+    width: 70px;
+    margin-left: 10px;
   }
 
   #singPopUp table td .certain span{
     display: none;
+  }
+
+
+  #singPopUp table input[type="radio"] {
+    display: none;
+  }
+
+  #singPopUp table input[type="radio"] + label {
+    padding-left: 40px;
+    font-weight: 700;
+    position: relative;
+  }
+
+  #singPopUp table input[type="radio"] + label:before {
+    clear: both;
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border: 1px solid #cbcbcb;
+    background: #f6f6f6;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    content: "";
+    border-radius: 2px;
+  }
+
+  #singPopUp table input[type="radio"]:checked + label:after {
+    clear: both;
+    position: absolute;
+    display: block;
+    content: "\e91c";
+    font-family: "icomoon";
+    font-weight: 900;
+    font-size: 12px;
+    left: 21px;
+    top: 1px;
+    color: #e25b45;
   }
 
   #singPopUp .signBtnBox {

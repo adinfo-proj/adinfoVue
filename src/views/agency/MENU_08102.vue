@@ -38,8 +38,8 @@
         <tr>
           <th>캠페인 명<span class="necItem"> ❁</span></th>
           <td><input type="text" class="camName" v-model="adName" autofocus></td>
-          <th>광고주명 명<span class="necItem"> ❁</span></th>
-          <td><input type="text" class="camName" v-model="adNameAd"></td>
+          <th>광고주 명<span class="necItem"> ❁</span></th>
+          <td><input type="text" class="camName" v-model="adNameAd" autofocus></td>
         </tr>
         <tr class="notice">
           <th>캠페인 내용<span class="necItem"> ❁</span></th>
@@ -49,7 +49,7 @@
           <!-- cols="30" rows="10" -->
         </tr>
         <tr>
-          <th>광고주 단가<span class="necItem"> ❁</span></th>
+          <th>광고주 단가<span class="necItem"> *</span></th>
           <td><input type="text" name="" id="" v-model="adPrice"></td>
           <th>마케터 단가</th>
           <td><input type="text" name="" id="" v-model="adMaketerPrice"></td>
@@ -111,8 +111,8 @@
               </td>
               <td v-else class="formType">
                 <select v-model="formIn.types">
-                  <option value="00">선택</option>
-                  <option value="01">입력박스</option>
+                  <option value="00">선택      </option>
+                  <option value="01">입력박스  </option>
                   <option value="02">라디오박스</option>
                   <option value="03">체크박스  </option>
                   <option value="04">셀렉트박스</option>
@@ -159,9 +159,7 @@
 <script>
 import axios from "axios";
 // import $ from 'jquery';
-
 export default {
-
   data() {
     return {
       editorConfig: { 
@@ -190,7 +188,18 @@ export default {
       , editorConfig2: { 
         toolbarGroups: [ 
           { name: 'styles', groups: [ 'styles' ] }, 
-          { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }
+          // { name: 'colors', groups: [ 'colors' ] }, 
+          // { name: 'document', groups: [ 'mode', 'document', 'doctools' ] }, 
+          // { name: 'clipboard', groups: [ 'clipboard', 'undo' ] }, 
+          // { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] }, 
+          // { name: 'forms', groups: [ 'forms' ] }, 
+          { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }, 
+          // { name: 'paragraph', groups: [ 'align', 'bidi', 'paragraph' ] }, 
+          // { name: 'links', groups: [ 'links' ] }, 
+          // { name: 'insert', groups: [ 'insert' ] }, 
+          // { name: 'others', groups: [ 'others' ] }, 
+          // { name: 'about', groups: [ 'about' ] }, 
+          // { name: 'tools', groups: [ 'tools' ] } 
           ] 
         , height: '330px' 
         , language: 'ko' 
@@ -205,11 +214,9 @@ export default {
       , adMiddleKind: ''       // 캠페인 2차 분류
       , adTopKindObj: ''       // 캠페인 1차 분류 객체
       , adMiddleKindObj: ''    // 캠페인 2차 분류 객체
-
       , adName: ''             // 캠페인 명
-      , adNameAd: ''           // 광고주
+      , adNameAd: ''           // 광고주 명
       , adComment: ''          // 캠페인 내용
-
       , smsYn: 'N'             // DB 접수 시 SMS 수신 여부 Y
       , smsNo: ''              // DB 접수 시 SMS 수신 여부
       , adPrice: '0'           // 광고주 단가
@@ -221,7 +228,7 @@ export default {
       //-----------------------------------
       , formObj: []
       , agreeCon: ''
-      , agreeConNm: ''
+      , agreeConNm: ''      
     }
   },
   methods: {
@@ -287,42 +294,6 @@ export default {
         console.log(error);
       })
     },
-    //******************************************************************************
-    // 랜딩페이지 내용 조회하기
-    //******************************************************************************
-    getLandingContents(pgId) {
-      axios.get("http://api.adinfo.co.kr:30000/notice/contents",
-      {
-        params: {
-            pgId   : pgId
-          , groupTp : '01'
-          , useTp   : 'R'
-          , dataOnly: 'N'
-        }
-      })
-      .then(response => {
-        this.contentsData     = response.data[0][0];
-
-        if(response.data[1].length > 0) {
-          this.contentsBefore = response.data[1][0];
-        }
-        else {
-          this.contentsBefore = '';
-        }
-        if(response.data[2].length > 0) {
-          this.contentsAfter  = response.data[2][0];
-        }
-        else {
-          this.contentsAfter = '';
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      })
-    },
-    //******************************************************************************
-    // 폼 설정 항목 for문
-    //******************************************************************************
     CreateFormObj() {
       for(let i = 0; i < 10; i++) {
         let formView = {
@@ -338,7 +309,7 @@ export default {
           formView.types = '01';
           formView.value = '이름';
           formView.desc  = '';
-          formView.reqYn = true;
+          formView.reqYn = true;          
         }
         else if(i == 1) {
           formView.no    = 2;
@@ -410,6 +381,8 @@ export default {
         this.$refs.adMaketerPrice.focus();
         return;
       }
+
+      console.log(this.formObj);
 
       //------------------------------------------------------------------------------
       // 정보 보내기
@@ -483,14 +456,12 @@ export default {
   button {
     cursor: pointer;
   }
-
   /* 입력값 */
   .tableBox {
     border: solid 1px #e5e5e5; 
     border-radius: 10px;
 		margin-bottom: 20px;
   }
-
   .container .tableBox table {
     width: 100%;
     border-collapse: collapse;
@@ -500,18 +471,15 @@ export default {
     border-radius: 10px;
     border-style: hidden;
   }
-
   .container .tableBox td {
     height: 46px;
     padding: 8px 7px;
 		width: 40%;
   }
-
   .container .tableBox th,
   .container .tableBox td {
     border: 1px solid #e5e5e5;
   }
-
   .container .tableBox th{
     font-weight: 700;
     width: 150px;
@@ -520,7 +488,6 @@ export default {
     text-align: left;
     color: #222;
   }
-
 	.container .tableBox td select {
 		padding: 9px 15px ;
 		width: 45%;
@@ -528,13 +495,11 @@ export default {
     border-radius: 2px;
 		margin-right: 2%;
 	}
-
   .container .tableBox .necItem {
-    color: red;
+    color: rgb(233, 96, 96);
     transform: translateY(-2px);
     font-size: 13px;
   }
-
   .container .tableBox input[type="text"] {
     width: 100%;
     height: 100%;
@@ -542,36 +507,30 @@ export default {
     border: 1px solid #e5e5e5;
     border-radius: 3px;
   }
-
   .container .tableBox input[type="tel"]#phoneNum{
     width: 0px;
     transition: 0.5s;
     opacity: 0;
     padding: 0 10px;
   }
-
 	.container .tableBox #smsY:checked  ~ #phoneNum {
     width: 200px;
     margin: 0 10px;
     opacity: 1;
   }
-
   .container .tableBox input[type="text"]#cancleCondEtc {
     width: 150px;
     height: 100%;
     margin: 0 5px;
     padding: 0 10px;
   }
-
   .container .tableBox input[type="radio"] {
     display: none;
   }
-
   .container .tableBox input[type="radio"] + label {
     position: relative;
     padding: 0 5px 0 23px;
   }
-
   .container .tableBox input[type="radio"] + label:before {
     clear: both;
     position: absolute;
@@ -585,7 +544,6 @@ export default {
     content: "";
     border-radius: 2px;
   } 
-
   .container .tableBox input[type="radio"]:checked + label:after { 
     clear: both;
     position: absolute;
@@ -602,36 +560,30 @@ export default {
     display: flex;
     justify-content: space-between;
   }
-
   .container .formBox .tableB {
     width: 670px;
     background: #fff;
     border: 1px  solid #e5e5e5;
     border-radius: 10px;
   }
-
   .container .formBox .tableB h6 {
     padding: 15px 21px;
     font-size: 14px;
     border-bottom: 1px solid #e5e5e5;
   }
-
   .container .formBox .tableB table {
     width: 100%;
     border-collapse: collapse;
   }
-
   .container .formBox .tableB table thead {
     border-bottom: 1px solid #5c5c5c;
   }
-
   .container .formBox .tableB table th {
     padding: 9px 10px;
     font-size: 14px;
     background: #fafafa;
     position: relative;
   }
-
   .container .formBox .tableB table th::after {
 		position: absolute;
 		content: "";
@@ -642,31 +594,25 @@ export default {
 		top: 50%;
 		transform: translateY(-50%);
 	}
-
 	.container .formBox .tableB table th:last-child::after {
 		display: none;
 	}
-
   .container .formBox .tableB table td {
     padding: 8px 5px;
     text-align: center;
   }
-
   .container .formBox .tableB table td input,
   .container .formBox .tableB table td select{
     width: 100%;
     border: 1px solid #e5e5e5;
     padding: 8.5px 11px;
   }
-
   .container .formBox .tableB table .formNum {
     width: 7.4%;
   }
-
   .container .formBox .tableB table .formType {
     width: 19.4%;
   }
-
   .container .formBox .tableB table .formC49{
     width: 49.2%;
   }
@@ -733,12 +679,9 @@ export default {
   .container .formBox .tableB .bot input {
     width: 559px;
   }
-
   .container .formBox .tableB .agreeTextBox {
     width: 100%;
   }
-
-
   .container .formBox .tableB button {
     height: 30px;
     padding: 5px 10px;
@@ -748,7 +691,6 @@ export default {
     background: #f0f0f0;
     text-align: center;
   }
-
   .container .submitBtn button {
     width: 140px;
     background: #e25b45;

@@ -15,7 +15,10 @@
         <div v-if="lendchoose.tp == '02'" v-html="$store.state.lendchooseObj[index].descript">
         </div>
         <!-- 폼 -->
-        <div class="formPrev" v-if="lendchoose.tp == '03'" v-bind="$store.state.lendchooseObj[index].formDesc" :style="{borderColor:lendchoose.formDesc.lineColor, borderWidth:lendchoose.formDesc.borderLine} ">
+        <div class="formPrev" 
+          v-if="lendchoose.tp == '03'" 
+          v-bind="$store.state.lendchooseObj[index].formDesc" 
+          :style="{borderColor:lendchoose.formDesc.lineColor, borderWidth:lendchoose.formDesc.borderLine} ">
           <!-- <div v-for="(inObj, index) in $store.state.inputObj" :key="index"> -->
           <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
             <!-- 텍스트 박스 -->
@@ -23,8 +26,6 @@
               <span class="fornInputName">{{inObj.names}}</span>
               <input type="text" :placeholder="inObj.names">
             </div>
-
-
             <!-- 라디오 버튼 -->
             <div v-if="inObj.values == 'radioForm'" class="formInput">
               <span class="fornInputName">{{inObj.names}}</span>
@@ -52,14 +53,14 @@
             </div>
           </div>
           <input type="checkbox" name="agree01" id="agree01">
-          <label for="agree01">{{lendchoose.formDesc.priNm}}<span @click="PriModal()">[보러가기]</span></label>
+          <label for="agree01">{{formView.stipulationTitle}}<span @click="PriModal()">[보러가기]</span></label>
           <div class="centerBox">
             <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor}">{{lendchoose.formDesc.btnNm}}</button>
           </div>
           <!-- 개인정보 동의 모달 팝업 내용 -->
           <div class="priBox">
             <h6>개인정보 취급방침</h6>
-            <div v-html="lendchoose.formDesc.priCon"></div>
+            <div v-html="formView.stipulationDesc"></div>
             <button @click="PriCancle()">확인</button>
           </div>
         </div>
@@ -70,6 +71,8 @@
         <button class="saveBtn" @click="PreviewSend()">랜딩페이지 저장하기</button>
       </div>
     </div>
+
+
     <div class="landChoice">
       <div class="basicInfo landBox">
         <h2>랜딩페이지 기본정보</h2>
@@ -79,7 +82,7 @@
               캠페인 명
             </th>
             <td>
-              <select class="campDis" id="campDis" v-model="campaignSelect">
+              <select class="campDis" id="campDis" v-model="campaignSelect" @change="getCampaignSelect();">
                 <option value="0" disabled>캠페인을 선택하세요</option>
                 <option v-for="(adIndex, index) in campaignListObj"
                   :key="index" 
@@ -133,6 +136,7 @@
         <button class="imgBtn"  @click="ImgChooseBtn()" >이미지 추가</button>
         <!-- <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button> -->
         <button class="formBtn" @click="FormChooseBtn()">폼 추가</button>
+        <button class="iniBtn" @click="InitForm()">초기화</button>
       </div>
     </div>
   </div>
@@ -144,7 +148,6 @@
   import ChooseLandImg  from '../../components/dialog/ChooseLandImg.vue';
   import ChooseLandText from '../../components/dialog/ChooseLandText.vue';
   import ChooseLandForm from '../../components/dialog/ChooseLandForm.vue';
-
   export default {
     components: {
         ChooseLandImg
@@ -157,13 +160,79 @@
         , campaignSelect  : '0'
         , campaignListObj : ''
         , landName        : ''
+
+        , campData: {
+            gradeCd           : ''
+          , mbId              : ''
+          , mkId              : ''
+          , adId              : ''
+          , clntId            : ''
+          , adPurpose         : ''
+          , adTopKind         : ''
+          , adMiddleKind      : ''
+          , adSrtDt           : ''
+          , adSrtTm           : ''
+          , adName            : ''
+          , adComment         : ''
+          , adPrice           : ''
+          , adMaketerPrice    : ''
+          , smsYn             : ''
+          , smsNo             : ''
+          , status            : ''
+          , stipulationTitle  : ''
+          , stipulationDesc   : ''
+        }
+        , formView: {
+            no   : ''
+          , names: ''
+          , types: ''
+          , desc : ''
+          , useYn: ''
+        }
       }
     },
     methods: {
       //******************************************************************************
+      // 랜딩페이지 초기화
+      //******************************************************************************
+      InitForm() {
+        for(let i = 0 ; i < 10 ; i++) {
+          this.$store.state.lendchooseObj.splice(0, 1);
+        }
+      },      
+      //******************************************************************************
+      // Open Event
+      //******************************************************************************
+      getCampaignSelect() { // 캠페인 분류(대분류)
+        axios.get("http://api.adinfo.co.kr:30000/GetCampInfo",
+        {
+          params: {
+              mbId   : this.$store.state.mbId
+						, adId   : this.$store.state.adId
+            , mkId   : this.$store.state.mkId
+            , caId   : this.campaignSelect
+          }
+        })
+        .then(response => {
+          console.log(response);
+          if(response.data[0].status == true) {
+            this.campData = response.data[1];
+            this.formView = response.data[2];
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      },
+      //******************************************************************************
       // 미리보기를 서버에 전달한다.
       //******************************************************************************
       PreviewSend() {
+        if(this.landName == "" || this.landName == null) {
+          alert("페이지명을 입력해주세요.");
+          return;
+        }
+
         //------------------------------------------------------------------------------
         // 입력 유형을 Array로 구성한다.
         //------------------------------------------------------------------------------
@@ -171,7 +240,6 @@
         this.$store.state.lendchooseObj.forEach(element => {
           formType.push(element.tp);
         });
-
         //------------------------------------------------------------------------------
         // 텍스트 추가의 경우 입력된 태그를 Array로 구성한다.
         //------------------------------------------------------------------------------
@@ -181,12 +249,9 @@
             textData.push(element.descript);
           }
         });
-
         //------------------------------------------------------------------------------
         // 폼 추가 태그를 Array로 구성한다.
         //------------------------------------------------------------------------------
-        console.log(this.$store.state.lendchooseObj);
-
         let formData = [];
         this.$store.state.lendchooseObj.forEach(element => {
           if( element.tp == "03") {
@@ -197,16 +262,17 @@
               , inputBox : element.formDesc.inputBox
               , priCon   : element.formDesc.priCon
               , priNm    : element.formDesc.priNm
+              , lineColor : element.formDesc.lineColor
+              , textColor : element.formDesc.textColor
+              , borderLine: element.formDesc.borderLine
             };
             formData.push(forms);
           }
         });
-
         let scriptAdd = '';
         if(this.scriptInput == false) {
           scriptAdd = this.scriptComment;
         }
-
         let data = {
             mbId        : this.$store.state.mbId
           , adId        : this.$store.state.adId
@@ -223,8 +289,10 @@
           , scriptAdd   : scriptAdd
           , textData    : textData
           , formData    : formData
-        };
+          , stipulationTitle : this.formView.stipulationTitle
+          , stipulationDesc : this.formView.stipulationDesc
 
+        };
         const frm = new FormData();
         for(let i = 0 ; i < this.$store.state.lendchooseObj.length ; i++) {
           if(this.$store.state.lendchooseObj[i].tp == '01') {
@@ -233,14 +301,27 @@
         }
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
 
+
+
+        console.log(data);
+        
+        if(this.$store.state.inputObj.length < 1 ){
+          alert('입력항목은 총 10개까지 가능합니다.')
+          return
+        }
+
+        
+
+
+
         axios.post("http://api.adinfo.co.kr:30000/newlandingpage", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
-          if( response.data.status == 'success') {
-            alert('정상적으로 캠페인이 등록되어습니다.');
+          alert(response.data.message);
+
+          if( response.data.status == true)
             window.open(response.data.landingUrl);
-          }
         })
         .catch(error => {
           console.log(error);
@@ -258,8 +339,10 @@
           }
         })
         .then(response => {
-          // this.campaignSelect = response.data[0].adId;
-          this.campaignListObj   = response.data;
+          //this.campaignSelect  = response.data[0].adId;
+          this.campaignListObj = response.data;
+
+          //this.getCampaignSelect();
         })
         .catch(error => {
           console.log(error);
@@ -284,7 +367,6 @@
         if(this.scriptInput == false) {
           return;
         }
-
         $(".landScr .landScrChecked").slideToggle(300);
         $(".landScr .icon-arrow").toggleClass("on");
       },
@@ -297,6 +379,11 @@
           return;
         }
 
+        if(this.campData.caId == null || this.campData.caId == '') {
+          alert("캠페인명을 선택해주세요.");
+          return;
+        }
+
         let plusObj = {
             tp: ''
           , fileNm: ''
@@ -304,7 +391,6 @@
           , formDesc: ''
           , landImgNm: ''
         };
-
         plusObj.tp = '01';
         this.$store.state.lendchooseObj.push(plusObj);
       },
@@ -316,7 +402,6 @@
           alert("이미지, 폼은 10개 까지만 등록 가능합니다.")
           return;
         }
-
         let plusObj = {
             tp: ''
           , fileNm: ''
@@ -324,7 +409,6 @@
           , formDesc: ''
           , landImgNm: ''
         };
-
         plusObj.tp = '02';
         this.$store.state.lendchooseObj.push(plusObj);
       },
@@ -332,23 +416,153 @@
       // 폼 추가 함수
       //******************************************************************************
       FormChooseBtn() {
+        // if(this.$store.state.lendchooseObj.length > 9) {
+        //   alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
+        //   return;
+        // }
+        // let plusObj = {
+        //     tp         : ''
+        //   , fileNm     : ''
+        //   , descript   : ''
+        //   , formDesc   : ''
+        //   , landImgNm  : ''
+        // };
+        // plusObj.tp = '03'
+        // this.$store.state.lendchooseObj.push(plusObj);
+
         if(this.$store.state.lendchooseObj.length > 9) {
           alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
           return;
         }
 
+        if(this.campData.caId == null || this.campData.caId == '') {
+          alert("캠페인명을 선택해주세요.");
+          return;
+        }
+
+        let inputBoxObj = [];
+
+        for(let i = 0 ; i < 10; i++) {
+          let inputBox = {
+              value01 : ''
+            , values  : ''
+            , names   : ''
+            , lab     : ''
+          };
+
+          switch(i) {
+            case 0 : 
+              if     (this.formView.type01 == '01') {
+                inputBox.values  = 'textForm';
+                inputBox.names   = this.formView.value01;
+                inputBox.lab     = this.formView.page01;
+              }
+              else if(this.formView.type01 == '02') {
+                inputBox.values  = 'radioForm';
+                inputBox.names = this.formView.value01;
+                inputBox.lab     = this.formView.page01;
+              }
+              else if(this.formView.type01 == '03') {
+                inputBox.values  = 'checkForm';
+                inputBox.names = this.formView.value01;
+                inputBox.lab     = this.formView.page01;
+              }
+              else {
+                inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value01;
+                inputBox.lab     = this.formView.page01;
+              }
+              break;
+            case 1 : 
+              if     (this.formView.type02 == '01') {
+                inputBox.values  = 'textForm';
+                inputBox.names = this.formView.value02;
+                inputBox.lab  = this.formView.page02;
+              }
+              else if(this.formView.type02 == '02') {
+                inputBox.values  = 'radioForm';
+                inputBox.names = this.formView.value02;
+                inputBox.lab  = this.formView.page02;
+              }
+              else if(this.formView.type02 == '03') {
+                inputBox.values  = 'checkForm';
+                inputBox.names = this.formView.value02;
+                inputBox.lab  = this.formView.page02;
+              }
+              else {
+                inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value02;
+                inputBox.lab  = this.formView.page02;
+              }
+              break;
+            case 2 : 
+              if     (this.formView.type03 == '01') {
+                inputBox.values  = 'textForm';
+                inputBox.names = this.formView.value03;
+                inputBox.lab  = this.formView.page03;
+              }
+              else if(this.formView.type03 == '02') {
+                inputBox.values  = 'radioForm';
+                inputBox.names = this.formView.value03;
+                inputBox.lab  = this.formView.page03;
+              }
+              else if(this.formView.type03 == '03') {
+                inputBox.values  = 'checkForm';
+                inputBox.names = this.formView.value03;
+                inputBox.lab  = this.formView.page03;
+              }
+              else {
+                inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value03;
+                inputBox.lab  = this.formView.page03;
+              }
+              break;
+            case 3 : 
+              if     (this.formView.type04 == '01') {
+                inputBox.values  = 'textForm';
+                inputBox.names = this.formView.value04;
+                inputBox.lab  = this.formView.page04;
+              }
+              else if(this.formView.type04 == '02') {
+                inputBox.values  = 'radioForm';
+                inputBox.names = this.formView.value04;
+                inputBox.lab  = this.formView.page04;
+              }
+              else if(this.formView.type04 == '03') {
+                inputBox.values  = 'checkForm';
+                inputBox.names = this.formView.value04;
+                inputBox.lab  = this.formView.page04;
+              }
+              else {
+                inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value04;
+                inputBox.lab  = this.formView.page04;
+              }
+              break;
+          }
+
+          inputBoxObj.push(inputBox);
+        }
+
         let plusObj = {
-            tp         : ''
-          , fileNm     : ''
-          , descript   : ''
-          , formDesc   : ''
-          , landImgNm  : ''
+            tp        : '03'
+          , fileNm    : ''
+          , descript  : ''
+          , landImgNm : ''
+          , formDesc: {
+              inputBox  : inputBoxObj
+            , priNm     : this.agreeTitle
+            , priCon    : this.agreeCon
+            , btnNm     : this.btnNm
+            , btnShape  : this.btnShape
+            , textColor : this.textColor
+            , btnColor  : this.btnColor
+            , borderLine: this.borderLine + 'px'
+            , lineColor : this.lineColor
+          }
         };
 
-        plusObj.tp = '03'
-
         this.$store.state.lendchooseObj.push(plusObj);
-
       },
       //******************************************************************************
       // 폼 안에 개인정보 모달 박스 팝업
@@ -373,9 +587,9 @@
       })
     },
     created() {
+      this.InitForm();
       this.$store.state.headerTopTitle = "랜딩페이지";
       this.$store.state.headerMidTitle = "랜딩페이지 제작";
-
       this.getCampaignAllList();
     },
     beforeDestroy() {
@@ -389,18 +603,15 @@
     display: flex;
     justify-content: space-between;
   }
-
   .menu0804 .landPrev {
     width: 820px;
     padding-right: 20px;
     position: relative;
   }
-
   .menu0804 .landPrev img {
     width: 100%;
     display: block;
   }
-
   .menu0804 .landPrev .noLength {
     height: 800px;
     display: flex;
@@ -408,29 +619,24 @@
     align-items: center;
     background: #fff;
   }
-
   .menu0804 .landPrev .noLength img {
     width: auto;
   }
-
   .menu0804 .landPrev .formPrev {
     width: 100%;
     border: 30px solid #3e3e3e;
     padding: 50px;
     position: relative;
   }
-
   .menu0804 .landPrev .formPrev input[type="text"] {
     width: 100%;
     margin-bottom: 10px;
     font-size: 14px;
     padding: 12px 16px;
   }
-
   .menu0804 .landPrev .formPrev  .formInput {
     margin-bottom: 25px;
   }
-
   .menu0804 .landPrev .formPrev .fornInputName {
     display: block;
     font-size: 18px;
@@ -442,7 +648,6 @@
     padding-left: 10px;
     position: relative;
   }
-
   .menu0804 .landPrev .formPrev .fornInputName:before {
     clear: both;
     width: 2px;
@@ -454,19 +659,16 @@
     top: 50%;
     transform: translateY(-50%);
   }
-
   .menu0804 .landPrev .formPrev select{
     padding: 12px 16px;
     margin-bottom: 10px;
     width: 100%;
     margin-top: 10px;
   }
-
   .menu0804 .landPrev .formPrev input[type="radio"],
   .menu0804 .landPrev .formPrev	input[type="checkbox"] {
     display: none;
   }
-
   .menu0804 .landPrev .formPrev label {
     font-size: 16px;
     display: inline-block;
@@ -476,18 +678,15 @@
     padding: 0 10px 0 35px;
     font-weight: 600;
   }
-
   .menu0804 .landPrev .formPrev label span{
     font-size: 16px;
     cursor: pointer;
     font-weight: 400;
   }
-
   .menu0804 .landPrev .formPrev	input[type="checkbox"] + label a {
     font-size: 16px;
     margin-left: 5px;
   }
-
   .menu0804 .landPrev .formPrev input[type="radio"] + label:before,
   .menu0804 .landPrev .formPrev	input[type="checkbox"] + label:before {
     clear: both;
@@ -502,11 +701,9 @@
     content: "";
     border-radius: 2px;
   }
-
   .menu0804 .landPrev .formPrev input[type="radio"] + label:before {
     border-radius: 50%;
   }
-
   .menu0804 .landPrev .formPrev	input[type="checkbox"]:checked + label:after,
   .menu0804 .landPrev .formPrev input[type="radio"]:checked + label:after {
     clear: both;
@@ -520,7 +717,6 @@
     top: 2px;
     color: #4b4b4b;
   }
-
   .menu0804 .landPrev .formPrev	.textBox {
     width: 100%;
     height: 120px;
@@ -529,11 +725,9 @@
     padding: 10px;
     font-size: 16px;
   }
-
   .menu0804 .landPrev .formPrev .centerBox {
     text-align: center;
   }
-
   .menu0804 .landPrev .formPrev .centerBox button {
     width: 50%;
     background: #aa00e5;
@@ -545,7 +739,6 @@
     font-weight: 700;
     margin-top: 15px;
   }
-
   /* 개인정보 수집 동의 항목 */
   .menu0804 .landPrev .formPrev .priBox {
     position: absolute;
@@ -560,14 +753,12 @@
     display: none;
     z-index: 9;
   }
-
   .menu0804 .landPrev .formPrev .priBox h6 {
     font-size: 24px;
     margin-bottom: 16px;
     letter-spacing: -0.72px;
     color: #000;
   }
-
   .menu0804 .landPrev .formPrev .priBox div {
     padding: 5px;
     width: 100%;
@@ -575,7 +766,6 @@
     overflow-y: scroll;
     border: 1px solid #e5e5e5;
   }
-
   .menu0804 .landPrev .formPrev .priBox button {
     width: 100px;
     height: 35px;
@@ -589,7 +779,6 @@
     cursor: pointer;
     margin: 10px auto;
   }
-
   .menu0804 .landPrev .bgColor {
     position: absolute;
     left: 0;
@@ -599,9 +788,7 @@
     background: rgba(0, 0, 0, 0.4);
     display: none;
   }
-
   /* 개인정보 수집 동의 항목 */
-
   /* 랜딩페이지 저장 버튼 */
   .menu0804 .landPrev .subBox {
     text-align: center;
@@ -616,12 +803,10 @@
     font-weight: 700;
     background: #e25b45;
   }
-
   /* 랜딩페이지 저장 버튼 */
   .menu0804 .landChoice {
     width: 525px;
   }
-
   .menu0804 .landChoice .landBox {
     width: 100%;
     border: 1px solid #e5e5e5;
@@ -629,7 +814,6 @@
     border-radius: 10px;
     margin-bottom: 8px;
   }
-
   .landChoice .landBox {
     width: 100%;
     border: 1px solid #e5e5e5;
@@ -637,28 +821,23 @@
     border-radius: 10px;
     margin-bottom: 8px;
   }
-
   .menu0804 .landChoice .basicInfo h2,
   .menu0804 .landChoice .landScr p {
     font-size: 14px; 
     font-weight: bold;
     color: #222;
   }
-
   .menu0804 .landChoice .basicInfo h2 {
     padding: 14px 20px;
     border-bottom: 1px solid #e5e5e5;
   }
-
   .menu0804 .landChoice .basicInfo table {
     padding: 5px 20px 21px;
     width: 100%;
   }
-
   .menu0804 .landChoice .basicInfo table td {
     text-align: left;
   }
-
   .menu0804 .landChoice .basicInfo table th {
     width: 64px;
     letter-spacing: -0.36px;
@@ -667,7 +846,6 @@
     color: #222;
     text-align: center;
   }
-
   .menu0804 .landChoice .basicInfo table td input,
   .menu0804 .landChoice .basicInfo table td select {
     border: 1px solid #e5e5e5;
@@ -676,26 +854,21 @@
     width: 100%;
     height: 100%;
   }
-
   .menu0804 .landChoice .landScr {
     padding: 21px 18px;
   }
-
   .menu0804 .landChoice .landScr p .icon-arrow {
     float: right;
     font-size: 9px;
     transition: 0.3s;
     transform: translateY(3px);
   }
-
   .menu0804 .landChoice .landScr p .icon-arrow.on {
     transform: rotate(180deg);
   }
-
   .menu0804 .landChoice .landScr input[type="checkbox"] {
     display: none;
   }
-
   .menu0804 .landChoice .landScr input[type="checkbox"] + label {
     display: inline-block;
     width: 60px;
@@ -707,7 +880,6 @@
     transition: 0.3s;
     position: relative;
   }
-
   .menu0804 .landChoice .landScr input[type="checkbox"] + label:before {
     clear: both;
     position: absolute;
@@ -717,7 +889,6 @@
     content: "OFF";
     font-weight: 700;
   }
-
   .menu0804 .landChoice .landScr input[type="checkbox"] + label:after {
     clear: both;
     position: absolute;
@@ -730,27 +901,22 @@
     content: "";
     transition: 0.3s;
   }
-
   .menu0804 .landChoice .landScr input[type="checkbox"]:checked + label {
     background: #e25b45;
   }
-
   .menu0804 .landChoice .landScr input[type="checkbox"]:checked + label:before {
     left: 9px;
     content: "ON";
     color: #fff;
   }
-
   .menu0804 .landChoice .landScr input[type="checkbox"]:checked + label:after {
     left: 37px;
     top: 2px;
   }
-
   .menu0804 .landChoice .landScr .landScrChecked { 
     width: 487px;
     display: none;
   }
-
   .menu0804 .landChoice .landScr .landScrChecked textarea {
     width: 487px;
     height: 100px;
@@ -759,14 +925,12 @@
     font-size: 16px;
     margin-top: 20px;
   }
-
   .menu0804 .landChoice .btnBox {
     /* display: flex; */
     text-align: center;
     /* justify-content: space-between; */
     padding: 10px 66px 0 66px;
   }
-
   .menu0804 .landChoice .btnBox button {
     padding: 13px 26px;
     font-size: 16px;
@@ -775,21 +939,18 @@
     color: #fff;
     font-weight: 700;
   }
-
   .menu0804 .landChoice .btnBox .imgBtn {
     border: 1px solid #e25b45;
     color: #e25b45;
     margin-right: 10px;
   }
-
-  .menu0804 .landChoice .btnBox .textBtn {
-    background: #868686;
-  }
-
   .menu0804 .landChoice .btnBox .formBtn {
     background: #e25b45;
+    margin-right: 10px;
   }
-
+  .menu0804 .landChoice .btnBox .iniBtn {
+    background: #868686;
+  }
   /*************************************************/
   /*            모바일 참조 용으로 만든 것           */
   /*************************************************/
@@ -797,7 +958,6 @@
     .menu0804 .landPrev .formPrev input[type="text"] {
       font-size: 28px;
     }
-
     .menu0804 .landPrev .formPrev	.checkLine label {
       font-size: 32px;
       margin: 15px 27px 25px 0px ;
@@ -809,7 +969,6 @@
       display: inline-block;
       padding-left: 45px;
     }
-
     .menu0804 .landPrev .formPrev	input[type="checkbox"] + label a {
       font-size: 24px;
     }
@@ -819,21 +978,17 @@
       width: 20px;
       height: 20px;
     }
-
     .menu0804 .landPrev .formPrev	.checkLine input[type="radio"]:checked + label:after {
       font-size: 20px;
       top: 7px;
     }
-
     .menu0804 .landPrev .formPrev	input[type="checkbox"]:checked + label:after {
       font-size: 20px;
       top: 3px;
     }
-
     .menu0804 .landPrev .formPrev	.textBox {
       font-size: 32px;
     }
-
     .menu0804 .landPrev .formPrev .centerBox button {
       width: 100%;
       font-size: 40px;

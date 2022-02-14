@@ -1,11 +1,14 @@
 <template>
   <div id="logIn">
     <div class="logInBox">
-      <!-- <h1><span>HELLO</span> DB.Master</h1>
-      <p>마케터의 성공파트너, 디비마스터</p> -->
+      <!-- <h1><span>HELLO</span> DB.Master</h1> -->
+      <div class="logInLogo">
+        <img src="../../assets/images/loginLogo.png" alt="">
+      </div>
+      <p>정보를 정확하고 가치있게 생각하는 마케터의 성공 파트너</p>
 
-      <h1><span>마케터의 성공파트너,</span> 디비마스터</h1>
-      <p></p>
+      <!-- <h1><span>마케터의 성공파트너,</span> 디비마스터</h1> -->
+      <!-- <p></p> -->
       <div class="inputBox">
         <div class="leftInput">
             <input type="text" placeholder="이메일을 입력하세요."
@@ -32,6 +35,9 @@
       </div>
       <div class="socialBox">
         <p>소셜계정 로그인</p>
+        <div class="socialBox3">
+          로그인서비스 준비중
+        </div>
         <div class="socialBox2">
           <a class="socialLog" href="javascript:void(0)"><img src="../../assets/images/socialIcon/NaverIcon.png"    alt="네이버"  >네이버</a>
           <a class="socialLog" href="javascript:void(0)"><img src="../../assets/images/socialIcon/KakaoIcon.png"    alt="카카오톡">카카오톡</a>
@@ -153,12 +159,17 @@ export default {
     border-radius: 10px;
   }
 
-  #logIn > .logInBox > h1,
+  /* #logIn > .logInBox > h1, */
+  #logIn > .logInBox > .logInLogo,
   #logIn > .logInBox > p {
     text-align: center;
   }
 
-  #logIn .logInBox h1 {
+  #logIn > .logInBox > .logInLogo {
+    margin-bottom: 10px;
+  }
+
+  /* #logIn .logInBox h1 {
     font-size: 30px;
     color: #e25b45;
     letter-spacing: -1.05px;
@@ -168,12 +179,13 @@ export default {
   #logIn .logInBox h1 span {
     font-size: 30px;
     color: #262626;
-  }
+  } */
 
   #logIn > .logInBox > p {
     font-size: 14px;
     letter-spacing: -0.49px;
-    color: #949494;
+    font-weight: 700;
+    color: #222;
     margin-bottom: 56px;
   }
 
@@ -281,6 +293,10 @@ export default {
     display: none;
   }
 
+  #logIn .logInBox .socialBox {
+    position: relative;
+  }
+
   #logIn .logInBox .socialBox p {
     padding: 19px 0;
     font-size: 14px;
@@ -305,5 +321,18 @@ export default {
     align-items: center;
     font-weight: 700;
     color: #666;
+  }
+
+  #logIn .logInBox .socialBox .socialBox3{
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    border-radius: 15.5px;
+    text-align: center;
+    font-weight: 700;
+    padding: 13px;
+    border: 1px solid #eee;
+    color: #000;
+    background: rgba(255, 255, 255, 0.85);
   }
 </style>

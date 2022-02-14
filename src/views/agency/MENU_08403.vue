@@ -1,12 +1,12 @@
 <template>
 	<div class="container">
-		<div id="menu08402">
+		<div id="menu08403">
 			<div class="tableBox campList">
 				<table>
 					<tr>
 						<th>캠페인 선택</th>
 						<td>
-							<select v-model="campSelect" @change="getCampAsk(campSelect)">
+							<select v-model="campSelect" @change="getCampAsk(campSelect)" disabled>
 								<option v-for="(campaignNameList, index) in campaignNameListObj"
 									:key="index" 
 									:value="campaignNameList.caId"
@@ -18,7 +18,7 @@
 					<tr>
 						<th>랜딩페이지 선택</th>
 						<td>
-							<select v-model="landSelect">
+							<select v-model="landSelect" disabled>
 								<option v-for="(landingData, index) in landingDataObj"
 									:key="index" 
 									:value="landingData.pgId"
@@ -353,37 +353,40 @@
 </script>
 
 <style scoped>
-	#menu08402 {
+	#menu08403 {
 		width: 800px;
 	}
-	#menu08402 .tableBox table th,
-	#menu08402 .tableBox table td{
+	#menu08403 .tableBox table th,
+	#menu08403 .tableBox table td{
 		border: none;
 	}
-	#menu08402 .tableBox table tr {
+	#menu08403 .tableBox table tr {
 		border-bottom: 1px solid #ececec; 
 	}
-	#menu08402 .campList th {
+	#menu08403 .campList th {
 		width: 130px;
 		padding: 15px 5px 15px 21px;
 		font-size: 14px;
 		letter-spacing: -0.42px;
 		color: #666;
 	}
-	#menu08402 .campList td {
+	#menu08403 .campList td {
 		padding: 9px 10px 9px 0;
 	}
-	#menu08402 .campList input,
-	#menu08402 .campList select {
+	#menu08403 .campList input,
+	#menu08403 .campList select {
 		height: 100%;
 		width: 100%;
 		border: 1px solid #e5e5e5;
 		padding: 5px;
 	}
-	#menu08402 .campList input + label {
+	#menu08403 .campList #campaignList {
+		width: 350px;
+	}
+	#menu08403 .campList input + label {
 		padding: 0 30px 0 24px;
 	}
-	#menu08402 .campList input + label::before {
+	#menu08403 .campList input + label::before {
 		border-color: #e5e5e5;
 		width: 14px;
 		height: 14px;
@@ -391,10 +394,10 @@
 		left: 0;
 		background: #fff;
 	}
-	#menu08402 .campList input:checked + label::before {
+	#menu08403 .campList input:checked + label::before {
 		border-color: #e25b45;
 	}
-	#menu08402 .campList input:checked + label::after {
+	#menu08403 .campList input:checked + label::after {
 		content: "";
 		width: 6px;
 		height: 6px;
@@ -404,21 +407,21 @@
 		top: 50%;
 		transform: translate(-50%, -50%);
 	}
-	#menu08402 .valueList table thead tr {
+	#menu08403 .valueList table thead tr {
 		border-bottom-color: #939393;
 	}
-	#menu08402 .valueList table th{
+	#menu08403 .valueList table th{
 		padding: 12px;
 		text-align: center;
 		position: relative;
 	}
-	#menu08402 .valueList table .info,
-	#menu08402 .valueList table .infofix,
-	#menu08402 .valueList table .opp{
+	#menu08403 .valueList table .info,
+	#menu08403 .valueList table .infofix,
+	#menu08403 .valueList table .opp {
 		font-weight: 700;
 		width: 30%;
 	}
-	#menu08402 .valueList table th::after {
+	#menu08403 .valueList table th::after {
 		width: 1px;
 		height: 14px;
 		background: #d2d2d2;
@@ -428,15 +431,14 @@
 		top: 50%;
 		transform: translateY(-50%);
 	}
-	#menu08402 .valueList table th:last-child::after{
+	#menu08403 .valueList table th:last-child::after{
 		display: none;
 	}
 
-	#menu08402 .valueList table td{
+	#menu08403 .valueList table td{
 		text-align: center;
 	}
-
-	#menu08402 .valueList button {
+	#menu08403 .valueList button {
 		width: 120px;
 		height: 30px;
 		border: none;
@@ -445,20 +447,18 @@
 		font-weight: 700;
 		color: #fff;
 	}
-
-	#menu08402 .valueList button:first-child {
+	#menu08403 .valueList button:first-child {
 		margin-right: 10px;
 		width: 100px;
 		background: #fff;
 		border: 1px solid #393939;
 		color: #393939;
 	}
-
-	#menu08402 .btnBox{
+	#menu08403 .btnBox{
 		margin-bottom: 50px;
 		text-align: center;
 	}
-	#menu08402 .btnBox button {
+	#menu08403 .btnBox button {
 		width: 120px;
 		height: 45px;
 		border-radius: 20px;
@@ -469,8 +469,7 @@
 		background: #868686;
 		font-weight: 700;
 	}
-	
-	#menu08402 .btnBox button:first-child {
+	#menu08403 .btnBox button:first-child {
 		margin-right: 20px;
 		background: #e25b45;
 	}
