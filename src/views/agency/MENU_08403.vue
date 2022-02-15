@@ -1,12 +1,12 @@
 <template>
 	<div class="container">
-		<div id="menu08403">
+		<div id="menu08402">
 			<div class="tableBox campList">
 				<table>
 					<tr>
 						<th>캠페인 선택</th>
 						<td>
-							<select v-model="campSelect" @change="getCampAsk(campSelect)" disabled>
+							<select v-model="campSelect" disabled>
 								<option v-for="(campaignNameList, index) in campaignNameListObj"
 									:key="index" 
 									:value="campaignNameList.caId"
@@ -65,19 +65,21 @@
 							:key="index" 
 							:value="askList"
 						> 
-							<td class="info" v-if="askList.name != ''"> 
+							<td class="info" v-if="(askList.name != '-') && (askList.name != '')"> 
 								{{ askList.name }} 
 							</td>
 							<td class="infofix" v-else>
 								고정 항목
 							</td>
 							<td class="opp" ><input type="text" name="" id="memberId" v-model="askList.memberId"></td>
-							<td class="opp" v-if="askList.name != ''" >
+
+							<td class="opp" v-if="askList.name != '-'" >
 								없음
 							</td>
 							<td class="opp" v-else>
 								<input type="text" name="" id="memberValue" v-model="askList.memberValue">
-								</td>
+							</td>
+
 							<td class="useCheck">
 								<input type="checkbox" :id="'useYn'+index" v-model="askList.useYn">
 								<label :for="'useYn'+index"></label>
@@ -87,16 +89,16 @@
 					<tfoot>
 						<tr>
 							<td colspan="4">
-								<button class="imgBtn" @click="ValueAdd()"  >항목 추가</button>
-								<button class="imgBtn" @click="ValueInit()" >전송 항목 초기화</button>
+								<button class="imgBtn" @click="ValueAdd()" >항목 추가</button>
+								<button class="imgBtn" @click="ValueInit()">전송 항목 초기화</button>
 							</td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 			<div class="btnBox">
-				<button @click="RegisterPostback()">등록하기</button>
-				<button>취소하기</button>
+				<button @click="ModifyPostback()">변경하기</button>
+				<button @click="CancelUpdate()">취소하기</button>
 			</div>
 		</div>
 
@@ -115,15 +117,23 @@
 				, sendUrl             : ''
 				, encrypt             : ''
         , postBack            : ''
+				, stAskValue          : []
 				, stAskListObj        : []
 				, stAskList           : []
+
+				//------------------------------------------------------------------------------
+				// MENU_08401 화면에서 전달받은 변수를 담는다.
+				//------------------------------------------------------------------------------
+				, paramCaId           : this.$route.params.caId
+				, paramPgId           : this.$route.params.pgId
+				, paramPbId           : this.$route.params.pbId
 			}
 		},
 		methods: {
 			//******************************************************************************
-			// POSTBACK 등록 처리
+			// POSTBACK 변경 처리
 			//******************************************************************************
-			RegisterPostback() {
+			ModifyPostback() {
 				//------------------------------------------------------------------------------
 				// input validation check
 				//------------------------------------------------------------------------------
@@ -132,31 +142,26 @@
 					this.$refs.landSelect.focus(); ///$refs
 					return;
 				}
-
 				if(this.sendUrl == null || this.sendUrl == '') {
 					alert("발송주소(URL)를 입력해주세요.");
 					this.$refs.sendUrl.focus(); ///$refs
 					return;
 				}
-
 				if(this.encrypt == null || this.encrypt == '') {
 					alert("암호화 여부를 선택해주세요.");
 					this.$refs.encrypt.focus(); ///$refs
 					return;
 				}
-
 				if(this.postBack == null || this.postBack == '') {
 					alert("발송 형식을 선택해주세요.");
 					this.$refs.postBack.focus(); ///$refs
 					return;
 				}
-
           //   tp          : true
 					// , name        : ''
 					// , memberId    : ''
 					// , memberValue : ''
 					// , useYn       : true
-
 				for(let i = 0 ; i < this.stAskList.length; i++) {
 					if(this.stAskList[i].memberId == null || this.stAskList[i].memberId == '' ) {
 						if(this.stAskList[i].tp == false)
@@ -165,7 +170,6 @@
 							alert("전송 항목 중 고정항목의 수신측 변수명을 입력해주세요.");
 						return;
 					}
-
 					if(this.stAskList[i].tp == true) {
 						if(this.stAskList[i].memberValue == null || this.stAskList[i].memberValue == '' ) {
 							alert("전송 항목 중 " + this.stAskList[i].name + "의 고정값을 입력해주세요.");
@@ -173,7 +177,6 @@
 						}
 					}
 				}
-
 				//------------------------------------------------------------------------------
 				// 정보 보내기
 				//------------------------------------------------------------------------------
@@ -183,21 +186,24 @@
 					, adId              : this.$store.state.mbId
 					, caId              : this.campSelect
 					, pgId              : this.landSelect
+					, pbId              : this.paramPbId
 					, clntId            : this.$store.state.clntId
 					, sendUrl           : this.sendUrl
 					, encrypt           : this.encrypt
 					, postBack          : this.postBack
 					, inputParam        : this.stAskList
 				};
-				
-				const frm = new FormData();
-				frm.append("dataObj", new Blob([JSON.stringify(data)]        , {type: "application/json"}));
 
-				axios.post("http://api.adinfo.co.kr:30000/newSendPostback", frm, {
+				if(data.length < 0) {
+					return;
+				}
+
+				const frm = new FormData();
+				frm.append("dataObj", new Blob([JSON.stringify(data)], {type: "application/json"}));
+				axios.post("http://127.0.0.1:30000/updSendPostback", frm, {
 					headers: {'Content-Type': 'multipart/form-data'}    
 				})
 				.then(response => {
-					console.log(response);
 					alert(response.data.message);
 					if( response.data.result == true) {
 						this.$router.push({ path : "MENU_08401" })
@@ -219,7 +225,12 @@
 					}
 				})
 				.then(response => {
-					this.campSelect          = response.data[0].caId;
+					for(let i = 0 ; i < response.data.length; i++) {
+						if(this.paramCaId == response.data[i].caId) {
+							this.campSelect = response.data[0].caId;
+						}
+					}
+
 					this.campaignNameListObj = response.data;
           this.getLandingPageLst();
 				})
@@ -235,17 +246,21 @@
 					alert('포스트백으로 전송할 항목은 최대 10개까지 가능합니다.');
 					return;
 				}
-
 				let paramAdd = {
             tp          : true
-					, name        : ''
+					, name        : '-'
 					, memberId    : ''
 					, memberValue : ''
 					, useYn       : true
 				}
-
 				this.stAskList.push(paramAdd);
 			},
+			//******************************************************************************
+			// 포스트백 변경 취소
+			//******************************************************************************
+			CancelUpdate() {
+				this.$router.push({ path : "MENU_08401" });
+			},			
 			//******************************************************************************
 			// 포스트백 항목 초기화
 			//******************************************************************************
@@ -253,21 +268,18 @@
 				if(confirm("전송 항목을 정말로 초기화하시겠습니까?") == false) {
 					return;
 				}
-
 				//--------------------------------------------------------------------
 				// stAskList 오브젝트 초기화
 				//--------------------------------------------------------------------
 				for(let i = 0 ; i < 10; i++) {
 					this.stAskList.splice(i);
 				}
-
 				//--------------------------------------------------------------------
 				// DB 컬럼에는 없음이 '-'로 처리되어있음.
 				//--------------------------------------------------------------------
 				for(let i = 0 ; i < 10; i++) {
 					if( this.stAskListObj[i] == '-' )
 						continue;
-
 					let paramAdd = {
 							tp          : false
 						,	name        : this.stAskListObj[i]
@@ -275,7 +287,6 @@
 						, memberValue : ''
 						, useYn       : ''
 					}
-
 					this.stAskList.push(paramAdd);
 				}
 			},
@@ -289,12 +300,18 @@
               mbId: this.$store.state.mbId
             , adId: this.$store.state.mbId
             , mkId: this.$store.state.mbId
-            , caId: this.campSelect
+            , caId: this.paramCaId
             , useTp: 'R'
           }
         })
         .then(response => {
-          this.landingDataObj = response.data;
+					this.landingDataObj = response.data;
+					for(let i = 0 ; i < response.data.length; i++) {
+						if(this.paramPgId == response.data[i].pgId) {
+							this.landSelect = response.data[i].pgId;
+						}
+					}
+
 					this.getCampAsk();
         })
         .catch(error => {
@@ -302,7 +319,81 @@
         })
 			},
 			//******************************************************************************
-			// 랜딩페이지 목록
+			// 포스트백 항목
+			//******************************************************************************
+			getLandFormat() {
+        axios.get("http://api.adinfo.co.kr:30000/GetSelPostbackOne",
+        {
+          params: {
+              mbId: this.$store.state.mbId
+            , adId: this.$store.state.mbId
+            , caId: this.paramCaId
+						, pgId: this.paramPgId
+						, pbId: this.paramPbId
+          }
+        })
+        .then(response => {
+					console.log(response);
+					if(response.data != null) {
+						this.sendUrl  = response.data.postbackUrl;
+						this.encrypt  = response.data.sslYn;
+						this.postBack = response.data.sendType;
+
+						for(let i = 0 ; i < 10; i++) {
+							if( response.data.accessFlag.charAt(i) == '_' )
+								continue;
+
+							let paramAdd = {
+									tp          : false
+								, name        : this.stAskValue[i]
+								, memberId    : ''
+								, memberValue : ''
+								, useYn       : true
+							}
+
+							switch(i) {
+								case 0 :  paramAdd.memberId    = response.data.value01.split("=")[0];
+													paramAdd.memberValue = response.data.value01.split("=")[1];
+													break;
+								case 1 :  paramAdd.memberId    = response.data.value02.split("=")[0];
+													paramAdd.memberValue = response.data.value02.split("=")[1];
+													break;
+								case 2 :  paramAdd.memberId    = response.data.value03.split("=")[0];
+													paramAdd.memberValue = response.data.value03.split("=")[1];
+													break;
+								case 3 :  paramAdd.memberId    = response.data.value04.split("=")[0];
+													paramAdd.memberValue = response.data.value04.split("=")[1];
+													break;
+								case 4 :  paramAdd.memberId    = response.data.value05.split("=")[0];
+													paramAdd.memberValue = response.data.value05.split("=")[1];
+													break;
+								case 5 :  paramAdd.memberId    = response.data.value06.split("=")[0];
+													paramAdd.memberValue = response.data.value06.split("=")[1];
+													break;
+								case 6 :  paramAdd.memberId    = response.data.value07.split("=")[0];
+													paramAdd.memberValue = response.data.value07.split("=")[1];
+													break;
+								case 7 :  paramAdd.memberId    = response.data.value08.split("=")[0];
+													paramAdd.memberValue = response.data.value08.split("=")[1];
+													break;
+								case 8 :  paramAdd.memberId    = response.data.value09.split("=")[0];
+													paramAdd.memberValue = response.data.value09.split("=")[1];
+													break;
+								case 9 :  paramAdd.memberId    = response.data.value10.split("=")[0];
+													paramAdd.memberValue = response.data.value10.split("=")[1];
+													break;
+							}
+
+							this.stAskList.push(paramAdd);
+						}
+					}
+        })
+        .catch(error => {
+          console.log(error);
+        })
+			},
+			//******************************************************************************
+			// DB 수집 항목 조회
 			//******************************************************************************
 			getCampAsk() {
         axios.get("http://api.adinfo.co.kr:30000/GetCampaignAskList",
@@ -310,34 +401,17 @@
           params: {
               mbId: this.$store.state.mbId
             , adId: this.$store.state.mbId
-            , caId: this.campSelect
+            , caId: this.paramCaId
           }
         })
         .then(response => {
 					for(let i = 0 ; i < 10; i++) {
 						this.stAskList.splice(i);
 					}
-
 					// 설정 초기화시 사용할 오브젝트
 					this.stAskListObj = response.data[0].askList.split(",");
-					let AskList       = response.data[0].askList.split(",");
-
-					for(let i = 0 ; i < 10; i++) {
-						if( AskList[i] == '-' )
-							continue;
-
-            let paramAdd = {
-                tp          : false
-							,	name        : AskList[i]
-							, memberId    : ''
-							, memberValue : ''
-							, useYn       : ''
-						}
-
-						this.stAskList.push(paramAdd);
-					}
-
-					console.log(this.stAskList);
+					this.stAskValue   = response.data[0].askList.split(",");
+					this.getLandFormat();
         })
         .catch(error => {
           console.log(error);
@@ -346,47 +420,44 @@
 		},
 		created() {
 			this.$store.state.headerTopTitle = "포스트백";
-			this.$store.state.headerMidTitle = "포스트백 등록";
+			this.$store.state.headerMidTitle = "포스트백 변경";
 			this.getCampaignNameLst();
 		}
 	}
 </script>
 
 <style scoped>
-	#menu08403 {
+	#menu08402 {
 		width: 800px;
 	}
-	#menu08403 .tableBox table th,
-	#menu08403 .tableBox table td{
+	#menu08402 .tableBox table th,
+	#menu08402 .tableBox table td{
 		border: none;
 	}
-	#menu08403 .tableBox table tr {
+	#menu08402 .tableBox table tr {
 		border-bottom: 1px solid #ececec; 
 	}
-	#menu08403 .campList th {
+	#menu08402 .campList th {
 		width: 130px;
 		padding: 15px 5px 15px 21px;
 		font-size: 14px;
 		letter-spacing: -0.42px;
 		color: #666;
 	}
-	#menu08403 .campList td {
+	#menu08402 .campList td {
 		padding: 9px 10px 9px 0;
 	}
-	#menu08403 .campList input,
-	#menu08403 .campList select {
+	#menu08402 .campList input,
+	#menu08402 .campList select {
 		height: 100%;
 		width: 100%;
 		border: 1px solid #e5e5e5;
 		padding: 5px;
 	}
-	#menu08403 .campList #campaignList {
-		width: 350px;
-	}
-	#menu08403 .campList input + label {
+	#menu08402 .campList input + label {
 		padding: 0 30px 0 24px;
 	}
-	#menu08403 .campList input + label::before {
+	#menu08402 .campList input + label::before {
 		border-color: #e5e5e5;
 		width: 14px;
 		height: 14px;
@@ -394,10 +465,10 @@
 		left: 0;
 		background: #fff;
 	}
-	#menu08403 .campList input:checked + label::before {
+	#menu08402 .campList input:checked + label::before {
 		border-color: #e25b45;
 	}
-	#menu08403 .campList input:checked + label::after {
+	#menu08402 .campList input:checked + label::after {
 		content: "";
 		width: 6px;
 		height: 6px;
@@ -407,21 +478,21 @@
 		top: 50%;
 		transform: translate(-50%, -50%);
 	}
-	#menu08403 .valueList table thead tr {
+	#menu08402 .valueList table thead tr {
 		border-bottom-color: #939393;
 	}
-	#menu08403 .valueList table th{
+	#menu08402 .valueList table th{
 		padding: 12px;
 		text-align: center;
 		position: relative;
 	}
-	#menu08403 .valueList table .info,
-	#menu08403 .valueList table .infofix,
-	#menu08403 .valueList table .opp {
+	#menu08402 .valueList table .info,
+	#menu08402 .valueList table .infofix,
+	#menu08402 .valueList table .opp{
 		font-weight: 700;
 		width: 30%;
 	}
-	#menu08403 .valueList table th::after {
+	#menu08402 .valueList table th::after {
 		width: 1px;
 		height: 14px;
 		background: #d2d2d2;
@@ -431,14 +502,13 @@
 		top: 50%;
 		transform: translateY(-50%);
 	}
-	#menu08403 .valueList table th:last-child::after{
+	#menu08402 .valueList table th:last-child::after{
 		display: none;
 	}
-
-	#menu08403 .valueList table td{
+	#menu08402 .valueList table td{
 		text-align: center;
 	}
-	#menu08403 .valueList button {
+	#menu08402 .valueList button {
 		width: 120px;
 		height: 30px;
 		border: none;
@@ -447,18 +517,18 @@
 		font-weight: 700;
 		color: #fff;
 	}
-	#menu08403 .valueList button:first-child {
+	#menu08402 .valueList button:first-child {
 		margin-right: 10px;
 		width: 100px;
 		background: #fff;
 		border: 1px solid #393939;
 		color: #393939;
 	}
-	#menu08403 .btnBox{
+	#menu08402 .btnBox{
 		margin-bottom: 50px;
 		text-align: center;
 	}
-	#menu08403 .btnBox button {
+	#menu08402 .btnBox button {
 		width: 120px;
 		height: 45px;
 		border-radius: 20px;
@@ -469,7 +539,8 @@
 		background: #868686;
 		font-weight: 700;
 	}
-	#menu08403 .btnBox button:first-child {
+	
+	#menu08402 .btnBox button:first-child {
 		margin-right: 20px;
 		background: #e25b45;
 	}

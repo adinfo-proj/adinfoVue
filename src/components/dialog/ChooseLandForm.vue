@@ -1,44 +1,44 @@
 <template>
   <div class="landForm landBox" >
     <h2>
-      폼 꾸미기<span>(수집 항목은 캠페인에서 지정 바랍니다.)</span>
+      폼 꾸미기<span> (수집 항목은 캠페인에서 지정 바랍니다.)</span>
       <i class="icon-x_btn" @click="DelLandForm()"></i>
       <i class="icon-arrow" @click="FormUpPage()" ></i>
     </h2>
     <div class="upPage">
       <div class="btnDesignBox btnName">
         <h6 class="leftBox">버튼 이름</h6>
-        <input type="text" v-model="sumBtn" id="sumBtn">
+        <input type="text" v-model="btnNm" id="btnNm">
       </div>
       <div class="btnDesignBox btnShape">
         <h6>신청버튼 모양 선택</h6>
         <div>
-          <input type="radio" v-model="subShape" :id="'btn01_'+this.indexNum" value="0"   ><label :for="'btn01_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape01.png"></label>
-          <input type="radio" v-model="subShape" :id="'btn02_'+this.indexNum" value="10px"><label :for="'btn02_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape02.png"></label>
-          <input type="radio" v-model="subShape" :id="'btn03_'+this.indexNum" value="50px"><label :for="'btn03_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape03.png"></label>
+          <input type="radio" v-model="btnShape" :id="'btn01_'+this.indexNum" value="0"   ><label :for="'btn01_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape01.png"></label>
+          <input type="radio" v-model="btnShape" :id="'btn02_'+this.indexNum" value="10px"><label :for="'btn02_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape02.png"></label>
+          <input type="radio" v-model="btnShape" :id="'btn03_'+this.indexNum" value="50px"><label :for="'btn03_'+this.indexNum"><img src="../../assets/images/menu08302/btnShape03.png"></label>
         </div>
       </div>
       <div class="btnDesignBox btnColor">
         <table>
           <tr>
-            <td class="leftNone">
+            <td>
               <h6 class="leftBox">버튼 텍스트 색상</h6>
               <input type="radio" v-model="textColor" :id="'btn_fff_'+this.indexNum" class="btn_fff" value="#fff">
               <label :for="'btn_fff_'+this.indexNum"></label>
               <input type="radio" v-model="textColor" :id="'btn_000_'+this.indexNum" class="btn_000" value="#000">
               <label :for="'btn_000_'+this.indexNum"></label>
             </td>
-            <td class="rightNone">
+            <td>
               <h6 class="leftBox">버튼 색상 선택</h6>
-              <input type="color" v-model="subColor">
+              <input type="color" v-model="btnColor">
             </td>
           </tr>
           <tr>
-            <td class="leftNone">
+            <td>
               <h6 class="leftBox">폼 테두리 굵기</h6>
               <input type="text" id="boxLine" v-model="borderLine"><label for="#">px</label>
             </td>
-            <td class="rightNone">
+            <td>
               <h6 class="leftBox">폼 테두리 색상</h6>
               <input type="color" v-model="lineColor">
             </td>
@@ -57,10 +57,9 @@
   // import axios from "axios";
   import $ from 'jquery';
   // import InputForm from '../../components/dialog/InputForm.vue';
-
   export default {
     props: {
-      indexNum: Number
+        indexNum: Number
     },
     components:{
       // InputForm
@@ -68,11 +67,11 @@
     data() {
       return{
           inputForm  : ''
-        , sumBtn     : '신청하기' // 버튼내용
+        , btnNm     : '신청하기' // 버튼내용
         , agreeTitle : this.$store.state.lendchooseObj[this.indexNum].formDesc.priNm
         , agreeCon   : this.$store.state.lendchooseObj[this.indexNum].formDesc.priCon
-        , subShape   : ''
-        , subColor   : ''
+        , btnShape   : ''
+        , btnColor   : ''
         , textColor  : '#fff'
         , borderLine : 0
         , lineColor : ''
@@ -102,7 +101,6 @@
       DelLandForm(){
         this.$store.state.lendchooseObj.splice(this.indexNum, 1);
       },
-
       PrivacyText() {
         this.agreeCon = "<b>[개인정보 수집 및 이용안내]</b><br>"
         this.agreeCon += " 개인정보 수집주체 : " 
@@ -118,32 +116,32 @@
         this.agreeCon += " 위탁업체 및 위탁업무내용<br>"
         this.agreeCon += " " 
         this.agreeCon += this.$store.state.company 
-        this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>`"
+        this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>"
         this.agreeCon += " $('.agreeBox div').slideUp(0);"
       },
       //******************************************************************************
       // 폼 적용되는 함수
       //******************************************************************************
       FormApp() {
+        console.log(this.$store.state.inputObj);
         let formviewObj = {
             tp        : '03'
           , fileNm    : ''
           , descript  : ''
           , landImgNm : ''
           , formDesc: {
-              inputBox  : this.$store.state.inputObj
+//              inputBox  : this.$store.state.inputObj
+              inputBox  : this.$store.state.lendchooseObj[this.indexNum].formDesc.inputBox
             , priNm     : this.agreeTitle
             , priCon    : this.agreeCon
-            , btnNm     : this.sumBtn
-            , btnShape  : this.subShape
+            , btnNm     : this.btnNm
+            , btnShape  : this.btnShape
             , textColor : this.textColor
-            , btnColor  : this.subColor
+            , btnColor  : this.btnColor
             , borderLine: this.borderLine + 'px'
             , lineColor : this.lineColor
-
           }
         }
-
         this.$set(this.$store.state.lendchooseObj, this.indexNum, formviewObj);
       }
     }
@@ -157,7 +155,6 @@
     padding: 0;
     margin: 0;
   }
-
   .landForm h2 {
     font-size: 14px; 
     font-weight: bold;
@@ -166,22 +163,18 @@
     /* border-color: ; */
     /* border-width: ; */
   }
-
   .landForm h2 {
     padding: 21px 18px 15px 18px;
   }
-
   .landForm h2 .icon-arrow {
     font-size: 9px;
     float: right;
     transform: translateY(3px);
     transition: 0.3s;
   }
-
   .landForm h2 .icon-arrow.on {
     transform: rotate(180deg);
   }
-
   .landForm h2 .icon-x_btn {
     font-size: 18px;
     margin: 0 10px;
@@ -193,50 +186,40 @@
     border-radius: 50%;
     cursor: pointer;
   }
-
   .landForm table {
     width: 100%;
     text-align: center;
     border-collapse: collapse;
   }
-
   .landForm td,
   .landForm th {
     height: 41px;
   }
-
   .landForm td {
     padding: 6px 3px 0 3px;
   }
-
   .landForm .formNum,
   .landForm .formCh,
   .landForm .formDel {
     width: 7.65%;
   }
-
   .landForm .formNm {
     width: 20.05%;		
   }
-
   .landForm .formType { 
     width: 52%;
   }
-
   .landForm td.formType {
     text-align: left;
   }
-
   .landForm thead {
     background: #fafafa;
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #5c5c5c;
   }
-
   .landForm thead th {
     position: relative;  
   }
-
   .landForm thead th:after {
     clear: both;
     position: absolute;
@@ -248,34 +231,27 @@
     top: 50%;
     transform: translateY(-50%);
   }
-
   .landForm thead th:last-child:after {
     display: none;
   }
-
   .landForm input,
   .landForm select {
     padding: 7px 10px;
     border: 1px solid #e5e5e5;
   }
-
   .landForm .formNm input {
     width: 100%;
   }
-
   .landForm .formType input {
     width: 61.215%;
   }
-
   .landForm select {
     width: 37%;
     margin-right: 1.785%;
   }
-
   .landForm .formDel i {
     font-size: 15px;
   }
-
   .landForm button {
     width: 100px;
     height: 30px;
@@ -285,7 +261,6 @@
     text-align: center;
     margin-bottom: 10px;
   }
-
   .landForm button i {
     font-size: 14px;
     color: #e25b45;
@@ -293,55 +268,43 @@
     margin-right: -7px;
     vertical-align: middle;
   }
-
   .landForm .agreeBox {
     padding: 4px 21px;
     color: #fff;
   }
-
   .landForm .btnDesignBox {
     padding: 8px 0 8px 21px;
   }
-
   .landForm .btnName {
     padding: 4px 21px;
   }
-
   .landForm .agreeBox,
   .landForm .btnDesignBox {
     border-top: 1px solid #e5e5e5;
   }
-
   .landForm .agreeBox h6,
   .landForm .btnDesignBox h6 {
     font-size: 14px;
     color: #222;
   }
-
   .landForm .btnDesignBox .leftBox {
     float: left;
   }
-
   .landForm .agreeBox h6{
     margin-bottom: 10px;
   }
-
   .landForm .btnName h6 {
     padding: 7px 6px 0 0;
   }
-
   .landForm .agreeBox label {
     font-size: 14px;
   }
-
   .landForm .agreeBox input[type="text"] {
     width: 100%;
   }
-
   .landForm .btnName input {
     width: 388px;
   }
-
   .landForm .agreeBox div{
     clear: both;
     width: 100%;
@@ -353,7 +316,6 @@
     padding: 5px 10px;
     margin-top: 5px;
   }
-
   .landForm .agreeBox div textarea {
     margin-top: 10px;
     width: 100%;
@@ -361,41 +323,32 @@
     resize: none;
     padding: 10px;
   }
-
   .landForm .btnShape div {
     padding: 10px 0 0 0;
     display: flex;
     align-items: center;
   }
-
   .landForm input[type="color"] {
     display: inline-block;
     padding: 0;
-    background:none;
+    background-color:none;
     border: none;
-    width: 70px;
-    height: 30px;
   }
-
   .landForm .btnShape div input[type="radio"] + label {
     padding: 0 29px 0 25px;
   }
-
   .landForm table input[type="checkbox"] + label{
     display: inline-block;
     transform: translate(-5px, -9px);
   }
-
   .landForm table input[type="checkbox"],
   .landForm .btnShape input[type="radio"] {
     display: none;
   } 
-
   .landForm table input[type="checkbox"] + label,
   .landForm .btnShape input[type="radio"] + label {
     position: relative;
   }
-
   .landForm table input[type="checkbox"] + label:before,
   .landForm .btnShape input[type="radio"] + label:before {
     clear: both;
@@ -410,7 +363,6 @@
     left: 0;
     top: 0;
   }
-
   .landForm table input[type="checkbox"]:checked + label:after,
   .landForm .btnShape input[type="radio"]:checked + label:after {
     clear: both;
@@ -424,48 +376,16 @@
     left: 0;
     top: 0px;
   }
-
   .landForm .btnShape input[type="radio"] + label:before,
   .landForm .btnShape input[type="radio"]:checked + label:after{
     transform: translateY(50%);
   }
-
-  .landForm .btnColor {
-    padding: 0;
-    border-top: none;
-  }
-
   .landForm .btnColor h6 {
     padding: 6px 7px 0 0 ;
   }
-
-  .landForm .btnColor td {
-    width: 50%;
-    text-align: left;
-    border: solid 1px #e5e5e5;
-    padding: 11px 20px;
-  }
-
-  .landForm .btnColor .leftNone {
-    border-left: none;
-  }
-
-    .landForm .btnColor .rightNone {
-    border-right: none;
-  }
-
-  .landForm .btnColor #boxLine {
-    width: 100px;
-  }
-
-  .landForm .btnColor #boxLine + label {
-    padding-left: 10px;
-  }
-
   .landForm .btnColor input[type="radio"] {
     display: none;
   }
-
   .landForm .btnColor input[type="radio"] + label,
   .landForm .btnColor input[type="checkbox"] + label {
     display: inline-block;
@@ -476,16 +396,12 @@
     transition: 0.3s;
     border: 1px solid #000;
   }
-
-
   .landForm .btnColor .btn_fff + label{
     background: #fff;
   }
-
   .landForm .btnColor .btn_000 + label{
     background: #000;
   }
-
   .landForm .btnColor input:checked + label:before {
     clear: both;
     content: "";
@@ -496,7 +412,6 @@
     left: 0;
     top: 0;
   }
-
   .landForm .btnColor input:checked + label:after {
     clear: both;
     content: "";
@@ -507,7 +422,6 @@
     left: 1px;
     top: 1px;
   }
-
   .landForm .formSub {
     text-align: center;
     padding: 20px;

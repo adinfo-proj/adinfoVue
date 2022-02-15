@@ -23,6 +23,7 @@ import MENU_0701 from "../views/agency/MENU_0701.vue";
 import MENU_08101 from "../views/agency/MENU_08101.vue";
 import MENU_08102 from "../views/agency/MENU_08102.vue";
 import MENU_08103 from "../views/agency/MENU_08103.vue";
+import MENU_08104 from "../views/agency/MENU_08104.vue";
 import MENU_08201 from "../views/agency/MENU_08201.vue";
 import MENU_08301 from "../views/agency/MENU_08301.vue";
 import MENU_08302 from "../views/agency/MENU_08302.vue";
@@ -43,6 +44,7 @@ import MENU_08703 from "../views/agency/MENU_08703.vue";
 import MENU_08703_2 from "../views/agency/MENU_08703_2.vue";
 import MENU_08703_3 from "../views/agency/MENU_08703_3.vue";
 import MENU_08901 from "../views/agency/MENU_08901.vue";
+import MENU_08999 from "../views/agency/MENU_08999.vue";
 import MENU_0807 from "../views/agency/MENU_0807.vue";
 
 import TEST_etc from "../views/agency/TEST_etc.vue";
@@ -180,6 +182,12 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     component: MENU_08103,
     meta: { requiresAuth: true }
   },
+  {// 캠페인 보기
+    path: "/MENU_08104",
+    name: "MENU_08104",
+    component: MENU_08104,
+    meta: { requiresAuth: true }
+  },
   {// DB확인
     path: "/MENU_08201",
     name: "MENU_08201",
@@ -298,6 +306,12 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     path: "/MENU_08901",
     name: "MENU_08901",
     component: MENU_08901,
+    meta: { requiresAuth: true }
+  },
+  {// 요금제
+    path: "/MENU_08999",
+    name: "MENU_08999",
+    component: MENU_08999,
     meta: { requiresAuth: true }
   },
   {// test

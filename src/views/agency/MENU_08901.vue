@@ -53,24 +53,26 @@
 				</table>
 			</div>
 			<div class="flatRate">
-				<span>SILVER (1개월) 포스트백 프미리엄 서비스</span> (2022-01-01~2022-02-01) 
+				<span>SILVER (1개월)</span> (2022-02-01) 
 			</div>
 			<div class="tableBox priceData">
 				<table>
 					<thead>
 						<tr>
 							<th class="division">이용권 구분</th>
-							<th class="startDate">기간연장 및 이용권 전환일</th>
+							<th class="startDate">이용권 시작일</th>
 							<th class="lastDate">이용권 만료일</th>
+							<th class="extra">부가서비스</th>
 							<th class="pay">결제수단</th>
 							<th class="price">결제금액</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td class="division">SILVER</td>
+							<td class="division">SILVER <span>(랜딩페이지 7개)</span></td>
 							<td class="startDate">2021-03-26 15:29:26</td>
 							<td class="lastDate">2021-04-25</td>
+							<td class="extra"> 포스트백,  SMS 발송</td>
 							<td class="pay">계좌이체</td>
 							<td class="price">66,000원</td>
 						</tr>
@@ -288,8 +290,9 @@
 	}
 
 	#menu08901 .priceData .startDate,
-	#menu08901 .priceData .lastDate {
-		width: 30%;
+	#menu08901 .priceData .lastDate,
+	#menu08901 .priceData .extra {
+		width: 20%;
 	}
 
 	#menu08901 .priceData .pay {
@@ -298,6 +301,10 @@
 
 	#menu08901 .priceData .price {
 		width: 13%;
+	}
+
+	#menu08901 .priceData .division  span{
+		color: #999;
 	}
 
 	#menu08901 .priceData th::after {

@@ -55,7 +55,7 @@
           <input type="checkbox" name="agree01" id="agree01">
           <label for="agree01">{{formView.stipulationTitle}}<span @click="PriModal()">[보러가기]</span></label>
           <div class="centerBox">
-            <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor}">{{lendchoose.formDesc.btnNm}}</button>
+            <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor, color:lendchoose.formDesc.textColor}">{{lendchoose.formDesc.btnNm}}</button>
           </div>
           <!-- 개인정보 동의 모달 팝업 내용 -->
           <div class="priBox">
@@ -68,11 +68,9 @@
       <div class="bgColor">
       </div>
       <div class="subBox">
-        <button class="saveBtn" @click="PreviewSend()">랜딩페이지 저장하기</button>
+        <button class="saveBtn" @click="PreviewSend()">랜딩페이지 생성하기</button>
       </div>
     </div>
-
-
     <div class="landChoice">
       <div class="basicInfo landBox">
         <h2>랜딩페이지 기본정보</h2>
@@ -102,18 +100,33 @@
           </tr>
         </table>
       </div>
-      <div class="landScr landBox">
+      <div class="landScr landScr01 landBox">
         <p>
-          스크립트 삽입
-          <input type="checkbox" name="landScr" id="landScr" v-model="scriptInput" @change="ScriptOn()"
-          :checked="scriptInput">
-          <label for="landScr"></label>
-          <i class="icon-arrow on" @click="ScriptUp()"></i>
+          헤더 스크립트 삽입
+          <input type="checkbox" id="landScrBtn01" v-model="scriptInput01" @change="ScriptOn(1)"
+          :checked="scriptInput01">
+          <label for="landScrBtn01"></label>
+          <i class="icon-arrow on" @click="ScriptUp(1)"></i>
         </p>
         <div class="landScrChecked">
-          <textarea class=""></textarea>
+          <textarea v-model="addScr"></textarea>
         </div>
       </div>
+
+      <div class="landScr landScr02 landBox">
+        <p>
+          폼 스크립트 삽입
+          <input type="checkbox" id="landScrBtn02" v-model="scriptInput02" @change="ScriptOn(2)"
+          :checked="scriptInput02">
+          <label for="landScrBtn02"></label>
+          <i class="icon-arrow on" @click="ScriptUp(2)"></i>
+        </p>
+        <div class="landScrChecked">
+          <textarea v-model="innerAddScr"></textarea>
+        </div>
+      </div>
+      
+      
 
       <!------------------------------------------------------------------------------------------------------
        이곳부터 for 루프안에서 이미지/텍스트/폼의 경우를 위해 콤포넌트를 처리한다.
@@ -156,10 +169,13 @@
     },
     data() {
       return {
-          scriptInput     : false
+          scriptInput01   : false
+        , scriptInput02   : false
         , campaignSelect  : '0'
         , campaignListObj : ''
         , landName        : ''
+        , addddScr        : ''
+        , innerAddScr     : ''
 
         , campData: {
             gradeCd           : ''
@@ -232,7 +248,6 @@
           alert("페이지명을 입력해주세요.");
           return;
         }
-
         //------------------------------------------------------------------------------
         // 입력 유형을 Array로 구성한다.
         //------------------------------------------------------------------------------
@@ -256,12 +271,12 @@
         this.$store.state.lendchooseObj.forEach(element => {
           if( element.tp == "03") {
             let forms = {
-                btnShape : element.formDesc.btnShape
-              , btnColor : element.formDesc.btnColor
-              , btnNm    : element.formDesc.btnNm
-              , inputBox : element.formDesc.inputBox
-              , priCon   : element.formDesc.priCon
-              , priNm    : element.formDesc.priNm
+                btnShape  : element.formDesc.btnShape
+              , btnColor  : element.formDesc.btnColor
+              , btnNm     : element.formDesc.btnNm
+              , inputBox  : element.formDesc.inputBox
+              , priCon    : element.formDesc.priCon
+              , priNm     : element.formDesc.priNm
               , lineColor : element.formDesc.lineColor
               , textColor : element.formDesc.textColor
               , borderLine: element.formDesc.borderLine
@@ -290,8 +305,7 @@
           , textData    : textData
           , formData    : formData
           , stipulationTitle : this.formView.stipulationTitle
-          , stipulationDesc : this.formView.stipulationDesc
-
+          , stipulationDesc  : this.formView.stipulationDesc
         };
         const frm = new FormData();
         for(let i = 0 ; i < this.$store.state.lendchooseObj.length ; i++) {
@@ -300,19 +314,12 @@
           }
         }
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-
-
-
         console.log(data);
         
-        if(this.$store.state.inputObj.length < 1 ){
-          alert('입력항목은 총 10개까지 가능합니다.')
-          return
-        }
-
-        
-
-
+        // if(this.$store.state.inputObj.length < 1 ){
+        //   alert('입력항목은 총 10개까지 가능합니다.')
+        //   return
+        // }
 
         axios.post("http://api.adinfo.co.kr:30000/newlandingpage", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
@@ -351,24 +358,43 @@
       //******************************************************************************
       // 스크립트 추가 시 텍스트박스 보이는 함수
       //******************************************************************************
-      ScriptOn() {
-        if(this.scriptInput == true) {
-          $(".landScr .landScrChecked").slideDown(300);
-          $(".landScr .icon-arrow").removeClass("on");
-        } else {
-          $(".landScr .landScrChecked").slideUp(300);
-          $(".landScr .icon-arrow").addClass("on");
+      ScriptOn(num) {
+        if(num == 1){
+          if(this.scriptInput01 == true) {
+            $(".landScr01 .landScrChecked").slideDown(300);
+            $(".landScr01 .icon-arrow").removeClass("on");
+          } else {
+            $(".landScr01 .landScrChecked").slideUp(300);
+            $(".landScr01 .icon-arrow").addClass("on");
+          }
+        }
+        else if(num == 2){
+          if(this.scriptInput02 == true) {
+            $(".landScr02 .landScrChecked").slideDown(300);
+            $(".landScr02 .icon-arrow").removeClass("on");
+          } else {
+            $(".landScr02 .landScrChecked").slideUp(300);
+            $(".landScr02 .icon-arrow").addClass("on");
+          }
         }
       },
       //******************************************************************************
       // 스크립트 접는 함수
       //******************************************************************************
-      ScriptUp() {
-        if(this.scriptInput == false) {
-          return;
+      ScriptUp(num) {
+        if(num == 1){
+          if(this.scriptInput01 == false) {
+            return;
+          }
+          $(".landScr01 .landScrChecked").slideToggle(300);
+          $(".landScr01 .icon-arrow").toggleClass("on");
+        }else if(num == 2) {
+          if(this.scriptInput02 == false) {
+            return;
+          }
+          $(".landScr02 .landScrChecked").slideToggle(300);
+          $(".landScr02 .icon-arrow").toggleClass("on");
         }
-        $(".landScr .landScrChecked").slideToggle(300);
-        $(".landScr .icon-arrow").toggleClass("on");
       },
       //******************************************************************************
       // 이미지 추가 함수
@@ -416,20 +442,6 @@
       // 폼 추가 함수
       //******************************************************************************
       FormChooseBtn() {
-        // if(this.$store.state.lendchooseObj.length > 9) {
-        //   alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
-        //   return;
-        // }
-        // let plusObj = {
-        //     tp         : ''
-        //   , fileNm     : ''
-        //   , descript   : ''
-        //   , formDesc   : ''
-        //   , landImgNm  : ''
-        // };
-        // plusObj.tp = '03'
-        // this.$store.state.lendchooseObj.push(plusObj);
-
         if(this.$store.state.lendchooseObj.length > 9) {
           alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
           return;
@@ -452,7 +464,10 @@
 
           switch(i) {
             case 0 : 
-              if     (this.formView.type01 == '01') {
+              if     (this.formView.type01 == '00') {
+                continue;
+              }
+              else if(this.formView.type01 == '01') {
                 inputBox.values  = 'textForm';
                 inputBox.names   = this.formView.value01;
                 inputBox.lab     = this.formView.page01;
@@ -474,7 +489,10 @@
               }
               break;
             case 1 : 
-              if     (this.formView.type02 == '01') {
+              if     (this.formView.type02 == '00') {
+                continue;
+              }
+              else if(this.formView.type02 == '01') {
                 inputBox.values  = 'textForm';
                 inputBox.names = this.formView.value02;
                 inputBox.lab  = this.formView.page02;
@@ -496,7 +514,10 @@
               }
               break;
             case 2 : 
-              if     (this.formView.type03 == '01') {
+              if     (this.formView.type03 == '00') {
+                continue;
+              }
+              else if(this.formView.type03 == '01') {
                 inputBox.values  = 'textForm';
                 inputBox.names = this.formView.value03;
                 inputBox.lab  = this.formView.page03;
@@ -518,7 +539,10 @@
               }
               break;
             case 3 : 
-              if     (this.formView.type04 == '01') {
+              if     (this.formView.type04 == '00') {
+                continue;
+              }
+              else if(this.formView.type04 == '01') {
                 inputBox.values  = 'textForm';
                 inputBox.names = this.formView.value04;
                 inputBox.lab  = this.formView.page04;
@@ -539,8 +563,157 @@
                 inputBox.lab  = this.formView.page04;
               }
               break;
+            case 4 : 
+              if     (this.formView.type05 == '00') {
+                continue;
+              }
+              else if(this.formView.type05 == '01') {
+                inputBox.values  = 'textForm';
+                inputBox.names = this.formView.value05;
+                inputBox.lab  = this.formView.page05;
+              }
+              else if(this.formView.type05 == '02') {
+                inputBox.values  = 'radioForm';
+                inputBox.names = this.formView.value05;
+                inputBox.lab  = this.formView.page05;
+              }
+              else if(this.formView.type05 == '03') {
+                inputBox.values  = 'checkForm';
+                inputBox.names = this.formView.value05;
+                inputBox.lab  = this.formView.page05;
+              }
+              else {
+                inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value05;
+                inputBox.lab  = this.formView.page05;
+              }
+              break;
+            case 5 : 
+              if     (this.formView.type06 == '00') {
+                continue;
+              }
+              else if(this.formView.type06 == '01') {
+                inputBox.values  = 'textForm';
+                inputBox.names = this.formView.value06;
+                inputBox.lab  = this.formView.page06;
+              }
+              else if(this.formView.type06 == '02') {
+                inputBox.values  = 'radioForm';
+                inputBox.names = this.formView.value06;
+                inputBox.lab  = this.formView.page06;
+              }
+              else if(this.formView.type06 == '03') {
+                inputBox.values  = 'checkForm';
+                inputBox.names = this.formView.value06;
+                inputBox.lab  = this.formView.page06;
+              }
+              else {
+                inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value06;
+                inputBox.lab  = this.formView.page06;
+              }
+              break;
+            case 6 : 
+              if     (this.formView.type07 == '00') {
+                continue;
+              }
+              else if(this.formView.type07 == '01') {
+                inputBox.values  = 'textForm';
+                inputBox.names = this.formView.value07;
+                inputBox.lab  = this.formView.page07;
+              }
+              else if(this.formView.type07 == '02') {
+                inputBox.values  = 'radioForm';
+                inputBox.names = this.formView.value07;
+                inputBox.lab  = this.formView.page07;
+              }
+              else if(this.formView.type07 == '03') {
+                inputBox.values  = 'checkForm';
+                inputBox.names = this.formView.value07;
+                inputBox.lab  = this.formView.page07;
+              }
+              else {
+                inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value07;
+                inputBox.lab  = this.formView.page07;
+              }
+              break;
+            case 7 : 
+              if     (this.formView.type08 == '00') {
+                continue;
+              }
+              else if(this.formView.type08 == '01') {
+                inputBox.values  = 'textForm';
+                inputBox.names = this.formView.value08;
+                inputBox.lab  = this.formView.page08;
+              }
+              else if(this.formView.type08 == '02') {
+                inputBox.values  = 'radioForm';
+                inputBox.names = this.formView.value08;
+                inputBox.lab  = this.formView.page08;
+              }
+              else if(this.formView.type08 == '03') {
+                inputBox.values  = 'checkForm';
+                inputBox.names = this.formView.value08;
+                inputBox.lab  = this.formView.page08;
+              }
+              else {
+                inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value08;
+                inputBox.lab  = this.formView.page08;
+              }
+              break;
+            case 8 : 
+              if     (this.formView.type09 == '00') {
+                continue;
+              }
+              else if(this.formView.type09 == '01') {
+                inputBox.values  = 'textForm';
+                inputBox.names = this.formView.value09;
+                inputBox.lab  = this.formView.page09;
+              }
+              else if(this.formView.type09 == '02') {
+                inputBox.values  = 'radioForm';
+                inputBox.names = this.formView.value09;
+                inputBox.lab  = this.formView.page09;
+              }
+              else if(this.formView.type09 == '03') {
+                inputBox.values  = 'checkForm';
+                inputBox.names = this.formView.value09;
+                inputBox.lab  = this.formView.page09;
+              }
+              else {
+                inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value09;
+                inputBox.lab  = this.formView.page09;
+              }
+              break;
+            case 9 : 
+              if     (this.formView.type10 == '00') {
+                continue;
+              }
+              else if(this.formView.type10 == '01') {
+                inputBox.values  = 'textForm';
+                inputBox.names = this.formView.value10;
+                inputBox.lab  = this.formView.page10;
+              }
+              else if(this.formView.type10 == '02') {
+                inputBox.values  = 'radioForm';
+                inputBox.names = this.formView.value10;
+                inputBox.lab  = this.formView.page10;
+              }
+              else if(this.formView.type10 == '03') {
+                inputBox.values  = 'checkForm';
+                inputBox.names = this.formView.value10;
+                inputBox.lab  = this.formView.page10;
+              }
+              else {
+                inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value10;
+                inputBox.lab  = this.formView.page10;
+              }
+              break;
           }
-
           inputBoxObj.push(inputBox);
         }
 
@@ -644,7 +817,7 @@
     font-weight: 700;
     width: 20%;
     height: 100%;
-    margin-top: 10px;
+    margin: 10px 0;
     padding-left: 10px;
     position: relative;
   }

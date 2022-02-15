@@ -76,19 +76,16 @@
 							<th class="campNum"      >{{ index+1 }}</th>							
 							<td class="campNameData" >{{ postbackData.caName }}</td>
 							<td class="campCodeData" >{{ postbackData.pgName }}</td>
-
 							<td class="campPay"      >{{ postbackData.postbackUrl }}</td>
 
-							<td class="marketer"     v-if="postbackData.postbackIo='G'">GET</td>
+							<td class="marketer"     v-if="postbackData.sendType=='G'">GET</td>
 							<td class="marketer"     v-else>POST</td>
 
 							<td class="dbNum"        >{{ postbackData.accessFlag }} 개</td>
-
-
 							<td class="campDate"	   >{{ postbackData.updateDt.substring(0, 10) }}</td>
 							<td class="modifyBtnBox"    >
-								<button class="modifyBtn" @click='UpdateCampaign(postbackData.caId)'>수정</button> 
-								<button @click='DeleteCampaign(postbackData.caId, index)'>삭제</button>
+								<button class="modifyBtn" @click='UpdatePostback(postbackData.caId, postbackData.pgId, postbackData.pbId)'>수정</button> 
+								<button @click='DeletePostback(postbackData.caId, postbackData.pgId, postbackData.pbId, index)'>삭제</button>
 							</td>
 						</tr>
 					</tbody>
@@ -140,41 +137,43 @@
 		},
 		methods: {
 			//******************************************************************************
-			// 캠페인 수정
+			// 포스트백 수정
 			//******************************************************************************
-			UpdateCampaign(caId) {
+			UpdatePostback(caId, pgId, pbId) {
 				this.$router.push({ 
 					name : 'MENU_08403', 
-					params: { caId: caId } 
+					params: { pbId: pbId, pgId: pgId, caId: caId } 
 				})
 			},
 			//******************************************************************************
 			// 캠페인 삭제
 			//******************************************************************************
-			DeleteCampaign(caId, index) {
-				if(confirm("정말 삭제하시겠습니까??") == false) {
+			DeletePostback(caId, pgId, pbId, index) {
+				if(confirm("정말로 포스트백을 삭제하시겠습니까??") == false) {
 					return;
 				}
 
-				axios.get("http://api.adinfo.co.kr:30000/ChangeCampaignStatus", 
+				axios.get("http://api.adinfo.co.kr:30000/ChangePostbackStatus", 
 				{
 					params: {
 							mbId        : this.$store.state.mbId
 						, adId        : this.$store.state.adId
 						, caId        : caId
 						, mkId        : this.$store.state.adId
+						, pgId        : pgId
+						, pbId        : pbId
 						, status      : 'ZZ'
 						, clntId      : this.$store.state.clntId
-						, campName    : this.postbackDataObj[index].name
+						, campName    : this.postbackDataObj[index].caName
 					}
 				})
 				.then(response => {
 					if(response.data.status == true) {
-						alert("캠페인을 정상적으로 삭제하였습니다.");
+						alert("포스트백을 정상적으로 삭제하였습니다.");
 						this.postbackListChange(1, true);
 					}
 					else {
-						alert("캠페인을 삭제에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
+						alert("포스트백을 삭제에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
 					}
 				})
 				.catch(error => {
@@ -259,6 +258,7 @@
 					}
 				})
 				.then(response => {
+					console.log(response);
 					this.postbackDataObj = response.data;
 
 					for(let i = 0 ; i < this.postbackDataObj.length; i++) {

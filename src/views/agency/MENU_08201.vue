@@ -2,6 +2,7 @@
 	<div class="container">
 		<div class="campanignSearch">
 			<select v-model="campSelect" @change="campaignListChange(campSelect)">
+        <option value="-1">전체</option>
 				<option v-for="(campaignNameList, index) in campaignNameListObj"
 					:key="index" 
 					:value="campaignNameList.caId"
@@ -109,7 +110,8 @@
           <tbody v-if="campaignFullDataObj.length == '0'" class="noLength">
             <tr>
               <td colspan="8">
-                <img src="../../assets/images/menu08201/data_icon.png" alt="">
+                <!-- <img src="../../assets/images/menu08201/data_icon.png" alt=""> -->
+                조회된 데이터가 없습니다.
               </td>
             </tr>
           </tbody>
@@ -124,7 +126,7 @@
 							<td class="inIP"       >{{ campaignFullData.regIp   }}</td>
 							<td class="dbPrice"    >{{ campaignFullData.price   }} 원</td>
 							<td class="dbPrice"    >{{ campaignFullData.mkPrice }} 원</td>
-							<td class="inData"     >승인 대기중
+							<td class="inData"     >메모 등록 예정
                 <i class="icon-arrow2"></i>
               </td>
 						</tr>
@@ -567,7 +569,7 @@
 		},
 		created() {
 			this.$store.state.headerTopTitle = "데이터 센터";
-			this.$store.state.headerMidTitle = "일자별 통계";
+			this.$store.state.headerMidTitle = "수집 DB 확인";
 
 			this.getCampaignNameLst();
 			//this.getLandingPageLst ();
@@ -611,14 +613,13 @@
     border-color: #e25b45;
   }
   .campanignSearch input[type="date"] {
-    width: 150px;
+    width: 180px;
     height: 100%;
     border: 1px solid #e5e5e5;
     border-radius: 10px;
     padding: 10px;
     margin: 0 5px;
   }
-
   .campanignSearch > span {
     padding: 0 11px 0 20px ;
     font-weight: 700 ;
@@ -771,6 +772,7 @@
   }
   .dailyDataSub .dailySub .noLength {
     height: 600px;
+    font-weight: 700;
   }
   .dailyDataSub .dailySub .noLength tr {
     border-bottom: none;

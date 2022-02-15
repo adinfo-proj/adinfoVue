@@ -25,24 +25,34 @@
 							<th class="landBtn"  >수정</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody v-if="LandingListObj.length <= 0">
+						<br>
+						<br><br>
+						<tr>
+							<td colspan="12">
+								조회하신 정보가 없습니다.
+								<!-- <img src="../../assets/images/menu08201/data_icon.png" alt=""> -->
+							</td>
+						</tr>
+					</tbody>
+					<tbody v-else>
 						<tr v-for="(LandingList, index) in LandingListObj"
 							:key="index" 
 							:value="LandingList.mkId"
 						>
 							<th class="landNo"   >{{LandingList.seqNo}}</th>
 							<td class="landCamp" >{{LandingList.adName}}</td>
-							<td class="landNm" @click="OpenPage('http://dbfactory.kr/dbm/' + LandingList.url);">{{LandingList.name}}</td>
+							<td class="landNm" @click="OpenPage('http://www.dbmaster.co.kr/ad/' + LandingList.url);">{{LandingList.name}}</td>
 							<td class="landDbNum">{{LandingList.createCount}}</td>
-							<td class="landAdv"  >아직개발중</td>
+							<td class="landAdv"  >{{LandingList.adName}}</td>
 							<td class="landColl" >{{askLists[index]}}</td>
 							<td class="landBtn"  >
-								<button @click="ModifyLanding(LandingList.pgId)">수정</button>
-								<button>삭제</button>
+								<button @click="ModifyLanding(LandingList.caId, LandingList.pgId)">수정</button>
+								<button @click="RemoveLanding(LandingList.caId, LandingList.pgId, LandingList.adName)">삭제</button>
 							</td>
 						</tr>
 					</tbody>
-					<tfoot>
+					<tfoot v-if="LandingListObj.length > 0">
             <tr>
               <td class="dataBtn" colspan="8">
                 <span class="pageleft" v-if="pageCount.length > 0" @click="getLandingLst(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
@@ -52,7 +62,7 @@
 										v-for="(indexPage, index) in pageCount" :key="index" 
 										@click="getLandingLst(pageCount[0] + index, false)"
 									>
-										{{indexPage}}
+                    {{indexPage}}
 									</li>
 								</ul>
                 <span class="pageright" v-if="pageCount.length > 0" @click="getLandingLst(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
@@ -71,17 +81,17 @@
 	export default {
 		data() {
 			return {
-					campaignNameListObj: ''
-				,	LandingListObj: ''
-				, campSelect: -1
-				, askLists: []
+          campaignNameListObj : ''
+				, LandingListObj      : ''
+				, campSelect          : -1
+				, askLists            : []
 				//--------------------------------------------------------------
 				// 페이지 처리용 변수
 				//--------------------------------------------------------------
-				, selectRowCount: 10
-				, pageCount: []
-				, curPage: 0
-				, curRunTotalPages: 0
+				, selectRowCount      : 10
+				, pageCount           : []
+				, curPage             : 0
+				, curRunTotalPages    : 0
 			}
 		},
 		methods: {
@@ -113,6 +123,7 @@
 					}
 				})
 				.then(response => {
+					console.log(response.data[0]);
 					this.LandingListObj = response.data[0];
 
 					for(let i = 0 ; i < this.LandingListObj.length ; i++) {
@@ -179,12 +190,46 @@
 				})
 			},
 			//******************************************************************************
-			// 공지사항 현재글 수정
+			// 랜딩페이지 변경
 			//******************************************************************************
-			ModifyLanding(pgId) {
+			ModifyLanding(caId, pgId) {
 				this.$router.push({ 
 					name : 'MENU_08303', 
-					params: { pgId: pgId }
+					params: { caId: caId, pgId: pgId }
+				})
+			},
+			//******************************************************************************
+			// 랜딩페이지 삭제
+			//******************************************************************************
+			RemoveLanding(caId, pgId, adName) {
+				if(confirm("정말로 랜딩페이지를 삭제하시겠습니까??") == false) {
+					return;
+				}
+
+				axios.get("http://api.adinfo.co.kr:30000/ChangeLandingStatus",
+				{
+					params: {
+              clntId      : this.$store.state.clntId
+						, campName    : adName
+						, mbId        : this.$store.state.mbId
+						, adId        : this.$store.state.adId
+						, caId        : caId
+						, mkId        : this.$store.state.adId
+						, pgId        : pgId
+						, status      : 'F'
+					}
+				})
+				.then(response => {
+					if(response.data.status == true) {
+						alert("포스트백을 정상적으로 삭제하였습니다.");
+						this.getCampaignNameLst();
+					}
+					else {
+						alert("포스트백을 삭제에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
+					}
+				})
+				.catch(error => {
+					console.log(error);
 				})
 			},
 			//******************************************************************************
@@ -236,7 +281,7 @@
 		position: relative;
 	}
 
-	#menu08301 .tableBox .landNm {
+	#menu08301 .tableBox td.landNm {
 		cursor: pointer;
 	}
 

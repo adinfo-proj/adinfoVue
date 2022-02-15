@@ -36,9 +36,9 @@
 					</td>
 				</tr>
         <tr>
-          <th><span class="necItem">● </span>캠페인 명</th>
+          <th><span class="necItem">* </span>캠페인 명</th>
           <td><input type="text" class="camName" v-model="campainData.name" autofocus></td>
-          <th><span class="necItem">● </span>광고주 명</th>
+          <th><span class="necItem">* </span>광고주 명</th>
           <td><input type="text" class="camName" v-model="campainData.adName"></td>
 				</tr>
         <tr>
@@ -75,14 +75,14 @@
           </td>
         </tr>
         <tr class="notice">
-          <th><span class="necItem">● </span>캠페인 내용</th>
+          <th><span class="necItem">* </span>캠페인 내용</th>
           <td colspan="3">
             <ckeditor id="camContents" v-model="campainData.comment" :config="editorConfig"></ckeditor>
           </td>
           <!-- cols="30" rows="10" -->
         </tr>
         <tr>
-          <th><span class="necItem"> ●</span> 광고주 단가</th>
+          <th><span class="necItem"> *</span> 광고주 단가</th>
           <td><input type="text" v-model="adPrice"></td>
           <th>마케터 단가</th>
           <td><input type="text" v-model="adMaketerPrice"></td>
@@ -91,9 +91,9 @@
           <th>SMS 수신 여부</th>
           <td colspan="3">
             DB접수 시 SMS를 수신합니다. 
-            <input type="radio" name="sms" id="smsY" v-model="campainData.smsYn" value="Y"><label for="smsY">예</label>
-            <input type="tel" id="phoneNum" placeholder="연락처를 입력해주세요." maxlength="11" v-model="campainData.smsNo">
-            <input type="radio" name="sms" id="smsN" v-model="campainData.smsYn" value="N" checked><label for="smsN">아니오</label> 
+            <input type="radio" name="sms" id="smsY" v-model="smsYn" value="Y"><label for="smsY">예</label>
+            <input type="tel" id="phoneNum" placeholder="연락처를 입력해주세요." maxlength="11" v-model="smsNo">
+            <input type="radio" name="sms" id="smsN" v-model="smsYn" value="N" checked><label for="smsN">아니오</label> 
           </td>
         </tr>
       </table>
@@ -468,6 +468,26 @@ export default {
     StatusValue(index) {
      this.statusCodeValue = this.statusCodeObj[index].code 
     },
+    //******************************************************************************
+    // 개인정보제공 동의 불러오기
+    //******************************************************************************
+    PrivacyText() {
+      this.agreeCon = "<b>[개인정보 수집 및 이용안내]</b><br>"
+      this.agreeCon += " 개인정보 수집주체 : " 
+      this.agreeCon += this.campainData.adName
+      this.agreeCon += "<br>"
+      this.agreeCon += " 개인정보 수집항목 : 성명, 휴대폰, 이메일, IP등을 포함한 고객이 입력한 정보<br>"
+      this.agreeCon += " 개인정보 수집 이용목적 : 전화, SMS를 통한 상품안내 및 상담<br>"
+      this.agreeCon += " 개인정보보유/이용기간 : 수집일로부터 1년(고객동의 철회시 지체없이 파기)<br><br>"
+      this.agreeCon += "<b>[개인정보의 취급 위탁]</b><br>"
+      this.agreeCon += " 당사는 서비스 이행 및 향상을 위해 개인정보 취급업무를 전문업체에 위탁 운영하고 있습니다."
+      this.agreeCon += " 또한 개인정보를 안전하게 처리하기 위하여 필요한 사항등을 명확히 규정하고 있으며,"
+      this.agreeCon += " 당해 계약 내용을 서면 또는 전자적으로 보관하고 있습니다.<br>"
+      this.agreeCon += " 위탁업체 및 위탁업무내용<br>"
+      this.agreeCon += " " 
+      this.agreeCon += this.campainData.adName
+      this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>`"
+    },
 
 
 
@@ -486,15 +506,20 @@ export default {
     // 캠페인 상태 수정하기 
     //****************************************************************************** 
      updateCampaign() {
-      console.log(this.campainData);
-      console.log(this.formObj);
+      // console.log(this.campainData);
+      // console.log(this.formObj);
       
       
       //campainData.status
-      this.campainData.price         = this.adPrice;
-      this.campainData.marketerPrice = this.adMaketerPrice;
+      this.campainData.price            = this.adPrice;
+      this.campainData.marketerPrice    = this.adMaketerPrice;
       this.campainData.stipulationTitle = this.agreeConNm;
       this.campainData.stipulationDesc  = this.agreeCon;
+      this.campainData.smsNo            = this.smsNo;
+      this.campainData.smsYn            = this.smsYn;
+
+      console.log(this.campainData);
+      console.log(this.formObj);
 
       const frm = new FormData();
       frm.append("dataObj", new Blob([JSON.stringify(this.campainData)], {type: "application/json"}));

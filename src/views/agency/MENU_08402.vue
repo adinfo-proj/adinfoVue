@@ -87,8 +87,8 @@
 					<tfoot>
 						<tr>
 							<td colspan="4">
-								<button class="imgBtn" @click="ValueAdd()"  >항목 추가</button>
-								<button class="imgBtn" @click="ValueInit()" >전송 항목 초기화</button>
+								<button class="imgBtn" @click="ValueAdd()" >항목 추가</button>
+								<button class="imgBtn" @click="ValueInit()">전송 항목 초기화</button>
 							</td>
 						</tr>
 					</tfoot>
@@ -96,7 +96,7 @@
 			</div>
 			<div class="btnBox">
 				<button @click="RegisterPostback()">등록하기</button>
-				<button>취소하기</button>
+				<button @click="CancelUpdate()">취소하기</button>
 			</div>
 		</div>
 
@@ -132,31 +132,26 @@
 					this.$refs.landSelect.focus(); ///$refs
 					return;
 				}
-
 				if(this.sendUrl == null || this.sendUrl == '') {
 					alert("발송주소(URL)를 입력해주세요.");
 					this.$refs.sendUrl.focus(); ///$refs
 					return;
 				}
-
 				if(this.encrypt == null || this.encrypt == '') {
 					alert("암호화 여부를 선택해주세요.");
 					this.$refs.encrypt.focus(); ///$refs
 					return;
 				}
-
 				if(this.postBack == null || this.postBack == '') {
 					alert("발송 형식을 선택해주세요.");
 					this.$refs.postBack.focus(); ///$refs
 					return;
 				}
-
           //   tp          : true
 					// , name        : ''
 					// , memberId    : ''
 					// , memberValue : ''
 					// , useYn       : true
-
 				for(let i = 0 ; i < this.stAskList.length; i++) {
 					if(this.stAskList[i].memberId == null || this.stAskList[i].memberId == '' ) {
 						if(this.stAskList[i].tp == false)
@@ -165,7 +160,6 @@
 							alert("전송 항목 중 고정항목의 수신측 변수명을 입력해주세요.");
 						return;
 					}
-
 					if(this.stAskList[i].tp == true) {
 						if(this.stAskList[i].memberValue == null || this.stAskList[i].memberValue == '' ) {
 							alert("전송 항목 중 " + this.stAskList[i].name + "의 고정값을 입력해주세요.");
@@ -173,7 +167,6 @@
 						}
 					}
 				}
-
 				//------------------------------------------------------------------------------
 				// 정보 보내기
 				//------------------------------------------------------------------------------
@@ -189,10 +182,15 @@
 					, postBack          : this.postBack
 					, inputParam        : this.stAskList
 				};
+
+				console.log(data);
+
+				if(data.length < 0) {
+					return;
+				}
 				
 				const frm = new FormData();
 				frm.append("dataObj", new Blob([JSON.stringify(data)]        , {type: "application/json"}));
-
 				axios.post("http://api.adinfo.co.kr:30000/newSendPostback", frm, {
 					headers: {'Content-Type': 'multipart/form-data'}    
 				})
@@ -206,6 +204,12 @@
 				.catch(error => {
 					console.log(error);
 				})
+			},
+			//******************************************************************************
+			// 포스트백 등록 취소
+			//******************************************************************************
+			CancelUpdate() {
+				this.$router.push({ path : "MENU_08401" });
 			},
 			//******************************************************************************
 			// 캠페인 목록
@@ -235,7 +239,6 @@
 					alert('포스트백으로 전송할 항목은 최대 10개까지 가능합니다.');
 					return;
 				}
-
 				let paramAdd = {
             tp          : true
 					, name        : ''
@@ -243,7 +246,6 @@
 					, memberValue : ''
 					, useYn       : true
 				}
-
 				this.stAskList.push(paramAdd);
 			},
 			//******************************************************************************
@@ -253,21 +255,18 @@
 				if(confirm("전송 항목을 정말로 초기화하시겠습니까?") == false) {
 					return;
 				}
-
 				//--------------------------------------------------------------------
 				// stAskList 오브젝트 초기화
 				//--------------------------------------------------------------------
 				for(let i = 0 ; i < 10; i++) {
 					this.stAskList.splice(i);
 				}
-
 				//--------------------------------------------------------------------
 				// DB 컬럼에는 없음이 '-'로 처리되어있음.
 				//--------------------------------------------------------------------
 				for(let i = 0 ; i < 10; i++) {
 					if( this.stAskListObj[i] == '-' )
 						continue;
-
 					let paramAdd = {
 							tp          : false
 						,	name        : this.stAskListObj[i]
@@ -275,7 +274,6 @@
 						, memberValue : ''
 						, useYn       : ''
 					}
-
 					this.stAskList.push(paramAdd);
 				}
 			},
@@ -317,15 +315,12 @@
 					for(let i = 0 ; i < 10; i++) {
 						this.stAskList.splice(i);
 					}
-
 					// 설정 초기화시 사용할 오브젝트
 					this.stAskListObj = response.data[0].askList.split(",");
 					let AskList       = response.data[0].askList.split(",");
-
 					for(let i = 0 ; i < 10; i++) {
 						if( AskList[i] == '-' )
 							continue;
-
             let paramAdd = {
                 tp          : false
 							,	name        : AskList[i]
@@ -333,10 +328,8 @@
 							, memberValue : ''
 							, useYn       : ''
 						}
-
 						this.stAskList.push(paramAdd);
 					}
-
 					console.log(this.stAskList);
         })
         .catch(error => {
@@ -431,11 +424,9 @@
 	#menu08402 .valueList table th:last-child::after{
 		display: none;
 	}
-
 	#menu08402 .valueList table td{
 		text-align: center;
 	}
-
 	#menu08402 .valueList button {
 		width: 120px;
 		height: 30px;
@@ -445,7 +436,6 @@
 		font-weight: 700;
 		color: #fff;
 	}
-
 	#menu08402 .valueList button:first-child {
 		margin-right: 10px;
 		width: 100px;
@@ -453,7 +443,6 @@
 		border: 1px solid #393939;
 		color: #393939;
 	}
-
 	#menu08402 .btnBox{
 		margin-bottom: 50px;
 		text-align: center;

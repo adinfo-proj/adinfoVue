@@ -8,6 +8,7 @@
 					</th>
 					<td>
 						<select class="camAim" v-model="adPurpose">
+              <option value="0" disabled>선택</option>
 							<option v-for="(adIndex, index) in adPurposeObj"
 								:key="index" 
 								:value="adIndex.code"
@@ -20,6 +21,7 @@
 					</th>
 					<td>
 						<select class="camParcel01" v-model="adTopKind" @change="firstComboChg(adTopKind);">
+              <option value="0" disabled>선택</option>
 							<option v-for="(adIndex, index) in adTopKindObj"
 								:key="index" 
 								:value="adIndex.code"
@@ -27,6 +29,7 @@
 							</option>
 						</select>
 						<select class="camParcel02" v-model="adMiddleKind">2차 분류를 선택
+              <option value="0" disabled>선택</option>
 							<option v-for="(adIndex, index) in adMiddleKindObj"
 								:key="index"
 								:value="adIndex.subCode"
@@ -36,20 +39,20 @@
 					</td>
 				</tr>
         <tr>
-          <th>캠페인 명<span class="necItem"> ❁</span></th>
+          <th>캠페인 명<span class="necItem"> *</span></th>
           <td><input type="text" class="camName" v-model="adName" autofocus></td>
-          <th>광고주 명<span class="necItem"> ❁</span></th>
+          <th>광고주 명<span class="necItem"> *</span></th>
           <td><input type="text" class="camName" v-model="adNameAd" autofocus></td>
         </tr>
         <tr class="notice">
-          <th>캠페인 내용<span class="necItem"> ❁</span></th>
+          <th>캠페인 내용<span class="necItem"> *</span></th>
           <td colspan="3">
             <ckeditor id="camContents" v-model="adComment" :config="editorConfig"></ckeditor>
           </td>
           <!-- cols="30" rows="10" -->
         </tr>
         <tr>
-          <th>광고주 단가<span class="necItem"> *</span></th>
+          <th>광고 단가<span class="necItem"> *</span></th>
           <td><input type="text" name="" id="" v-model="adPrice"></td>
           <th>마케터 단가</th>
           <td><input type="text" name="" id="" v-model="adMaketerPrice"></td>
@@ -64,9 +67,7 @@
           </td>
         </tr>
       </table>
-      
     </div>
-
     <div class="formBox">
       <div class="tableB">
         <h6>폼 설정하기</h6>
@@ -109,9 +110,9 @@
                   <option value="01">입력박스</option>
                 </select>
               </td>
-              <td v-else class="formType">
+              <td v-else class="formType" @change="inputTypeVal()">
                 <select v-model="formIn.types">
-                  <option value="00">선택      </option>
+                  <option value="00" disabled>선택      </option>
                   <option value="01">입력박스  </option>
                   <option value="02">라디오박스</option>
                   <option value="03">체크박스  </option>
@@ -120,7 +121,7 @@
               </td>
               <!-- 유형 필터  -->
               <td class="formCon">
-                <input type="text"  v-model="formIn.desc">
+                <input type="text"  v-model="formIn.desc" :placeholder="splText">
               </td>
 
               <!-- 필수박스 필터  -->
@@ -188,18 +189,7 @@ export default {
       , editorConfig2: { 
         toolbarGroups: [ 
           { name: 'styles', groups: [ 'styles' ] }, 
-          // { name: 'colors', groups: [ 'colors' ] }, 
-          // { name: 'document', groups: [ 'mode', 'document', 'doctools' ] }, 
-          // { name: 'clipboard', groups: [ 'clipboard', 'undo' ] }, 
-          // { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] }, 
-          // { name: 'forms', groups: [ 'forms' ] }, 
           { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }, 
-          // { name: 'paragraph', groups: [ 'align', 'bidi', 'paragraph' ] }, 
-          // { name: 'links', groups: [ 'links' ] }, 
-          // { name: 'insert', groups: [ 'insert' ] }, 
-          // { name: 'others', groups: [ 'others' ] }, 
-          // { name: 'about', groups: [ 'about' ] }, 
-          // { name: 'tools', groups: [ 'tools' ] } 
           ] 
         , height: '330px' 
         , language: 'ko' 
@@ -210,8 +200,8 @@ export default {
       }
 			, adPurpose: ''          // 캠페인 목적
       , adPurposeObj: ''       // 캠페인 목적 객체
-      , adTopKind: ''          // 캠페인 1차 분류 
-      , adMiddleKind: ''       // 캠페인 2차 분류
+      , adTopKind: '0'          // 캠페인 1차 분류 
+      , adMiddleKind: '0'       // 캠페인 2차 분류
       , adTopKindObj: ''       // 캠페인 1차 분류 객체
       , adMiddleKindObj: ''    // 캠페인 2차 분류 객체
       , adName: ''             // 캠페인 명
@@ -228,7 +218,8 @@ export default {
       //-----------------------------------
       , formObj: []
       , agreeCon: ''
-      , agreeConNm: ''      
+      , agreeConNm: ''
+      , splText: ''
     }
   },
   methods: {
@@ -244,7 +235,7 @@ export default {
       })
       .then(response => {
         if(response.data.length > 0) {
-          this.adPurpose = response.data[0].code;
+          this.adPurpose = 0;
           this.adPurposeObj = response.data;
         }
       })
@@ -264,7 +255,7 @@ export default {
       })
       .then(response => {
         if(response.data.length > 0) {
-          this.adTopKind = response.data[0].code;
+          this.adTopKind = 0;
           this.adTopKindObj = response.data;
           this.firstComboChg(this.adTopKind);
         }
@@ -286,7 +277,7 @@ export default {
       })
       .then(response => {
         if(response.data.length > 0) {
-          this.adMiddleKind = response.data[0].subCode;
+          this.adMiddleKind = 0;
           this.adMiddleKindObj = response.data;
         }
       })
@@ -350,6 +341,19 @@ export default {
       this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>`"
     },
     //******************************************************************************
+    // 폼 변경 시 적용되는
+    //******************************************************************************
+    // inputTypeVal() {
+    //   if(this.formObj[index].types == '01') {
+    //     this.splText = "입력박스에 보여질 값을 입력하세요";
+    //   } else {
+    //     this.splText = "구분은 ','로만 가능합니다.";
+    //     this.formLabel = this.formLabel.split(',');
+    //     // this.formLabel = this.formLabel;
+    //   }
+
+    // },
+    //******************************************************************************
     // 최종 등록하기 버튼 선택
     //******************************************************************************
     createCampaign() {
@@ -382,7 +386,7 @@ export default {
         return;
       }
 
-      console.log(this.formObj);
+      // console.log(this.formObj);
 
       //------------------------------------------------------------------------------
       // 정보 보내기

@@ -26,7 +26,7 @@
         <li @click="DBMenuBar(2)" v-bind:class="{on : 2 == menuSelect}">
           <router-link to="MENU_08201">
             <i class="icon-layers"></i>
-            DB확인
+            수집 DB확인
           </router-link>
         </li>
         <li v-bind:class="{on : 3 == menuSelect}">
@@ -107,6 +107,12 @@
             내정보
           </router-link>
         </li>
+        <li @click="DBMenuBar(999)" v-bind:class="{on : 999 == menuSelect}">
+          <router-link to="MENU_08999">
+            <i class="icon-store"></i>
+            요금제
+          </router-link>
+        </li>
       </ul>
     </div>
   </div>
@@ -116,14 +122,14 @@
   export default {
     data() {
       return {
-            menuSelect : 1
-          , subMenuSelect  : ''
+          menuSelect : 2
+        , subMenuSelect  : ''
       }
     },
     methods:{
         DBMenuBar(pos) {
         this.menuSelect = pos;
-        if(this.menuSelect == '2' || this.menuSelect == '5' || this.menuSelect == '6' || this.menuSelect == '9' || this.menuSelect == '9999') {
+        if(this.menuSelect == '2' || this.menuSelect == '5' || this.menuSelect == '6' || this.menuSelect == '9' || this.menuSelect == '999') {
           this.subMenuSelect = ''
           // let page = "MENU_08"+ this.menuSelect + '01'
         }

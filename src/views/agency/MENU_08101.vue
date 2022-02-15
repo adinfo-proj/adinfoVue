@@ -40,16 +40,16 @@
 				<table class="campTable">
 					<thead>
 						<tr>
-							<th class="campNum"     >ID</th>							
-							<th class="campName"    >캠페인명</th>
-							<th class="campCode"    >랜딩페이지 수</th>
-							<th class="campPay"     >광고주 단가</th>
-							<th class="marketer"    >마케터 단가</th>
-							<th class="dbNum"       >DB 접수 건수</th>
-							<th class="pageOpen"    >페이지 오픈수</th>
-							<th class="campDbbState">캠페인 상태</th>
-							<th class="campDate"    >등록일자</th>
-							<th class="modifyBtnBox"   >수정</th>
+							<th class="campNum"   	  >ID</th>							
+							<th class="campName"  	  >캠페인명</th>
+							<th class="campCode"  	  >랜딩페이지 수</th>
+							<th class="campPay"   	  >광고주 단가</th>
+							<th class="marketer"  	  >마케터 단가</th>
+							<th class="dbNum"     	  >DB 접수 건수</th>
+							<th class="pageOpen"    	>페이지 오픈수</th>
+							<th class="campDbbState"	>캠페인 상태</th>
+							<th class="campDate"    	>등록일자</th>
+							<th class="modifyBtnBox"  >비고</th>
 						</tr>
 					</thead>
 					<tbody v-if="campaignFullDataObj.length == '0'" class="noLength">
@@ -65,7 +65,7 @@
 					<tbody>
 						<tr v-for="(campaignFullData, index) in campaignFullDataObj" :key="index">
 							<th class="campNum"      >{{ campaignFullData.caId }}</th>							
-							<td class="campName"     >{{ campaignFullData.name  }}</td>
+							<td class="campName" @click='ReadCampaign(campaignFullData.caId, index)'>{{ campaignFullData.name  }}</td>
 							<td class="campCode"     >{{ campaignFullData.landCount }} 개</td>
 							<td class="campPay"      >{{ campaignFullData.price }} 원</td>
 							<td class="marketer"     >{{ campaignFullData.marketerPrice }} 원</td>
@@ -135,6 +135,15 @@
 			UpdateCampaign(caId) {
 				this.$router.push({ 
 					name : 'MENU_08103', 
+					params: { caId: caId } 
+				})
+			},
+			//******************************************************************************
+			// 캠페인 보기
+			//******************************************************************************
+			ReadCampaign(caId) {
+				this.$router.push({ 
+					name : 'MENU_08104',
 					params: { caId: caId } 
 				})
 			},
@@ -460,10 +469,10 @@
 	}
 
 
-/* 
+
 	#menu08101 .campDataBox td.campName {
-		text-align: left;
-	} */
+		cursor: pointer;
+	}
 
 	#menu08101 .campDataBox td.campPay,
 	#menu08101 .campDataBox td.marketer {

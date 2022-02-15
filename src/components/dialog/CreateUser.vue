@@ -554,7 +554,7 @@
           <th>비밀번호</th>
           <td colspan="3">
             <input type="password" name="userPw" id="userPw" v-model="userPass" ref="userPass">
-            <label for="userPw">* 영문 / 숫자 (특수문자 ~!@#$%^-* 만 사용 가능)를 조합하여 최소 8자 이상 13자 이내</label>
+            <label for="userPw">* 최소 8자 이상 13자 이내 (영문 , 숫자 ,특수문자 조합 사용) </label>
           </td>
         </tr>
         <tr>
@@ -566,7 +566,7 @@
         </tr>
         <tr>
           <th>휴대전화번호</th>
-          <td>
+          <td colspan="3">
             <input type="tel" id="phoneNum" v-model="clntSubsNo" :disabled="checkYn" ref="clntSubsNo">
               <button @click="CheckSms();" id="checkBtn">본인확인</button>
             <div class="certain">
@@ -576,12 +576,12 @@
               </span>
             </div>
           </td>
-          <th>수신여부</th>
+          <!-- <th>수신여부</th>
           <td>
             이벤트 및 애드인포소식을 SMS수신합니다.
             <input type="radio" name="recYn" id="recY"><label for="recY">예</label>
             <input type="radio" name="recYn" id="recN"><label for="recN">아니오</label>
-          </td>
+          </td> -->
         </tr>
       </table>
     </div>
@@ -661,6 +661,12 @@
           return;
         }
 
+        if (this.userPass.length > 13 || this.userPass.length < 8) {
+          alert('비밀번호는  8자 ~ 13자 이내 입력바랍니다. (영문 , 숫자 ,특수문자 조합 사용)');
+          this.$refs.userPass.focus();
+          return;
+        }
+
         if (this.userPassConf == null || this.userPassConf == '') {
           alert('비밀번호 확인을 입력하세요');
           this.$refs.userPassConf.focus();
@@ -717,7 +723,7 @@
             localStorage.setItem("token", this.$store.state.jwtAuthToken);
             localStorage.setItem("grade", this.$store.state.adGradeCd);
 
-            alert("회원가입이 완료되었습니다. DashBoard로 넘어갑니다.")
+            alert("회원가입이 완료되었습니다.")
 
             // this.$router.push({ path : "MENU_0000" })
           } else {
@@ -748,7 +754,8 @@
         })
         .then(response => {
           this.smsRequest = response.data.no;
-          console.log(response.data)
+          // console.log(response.data)
+          alert("인증번호가 발송되었습니다.")
         })
         .catch(error => {
           console.log(error);
@@ -768,7 +775,18 @@
         }
       }
 
-    }
+    },
+    watch: {
+      //******************************************************************************
+      // 입력 값에 정규표현식 문자 및 "," 표시
+      //******************************************************************************
+      userPass : function() { 
+        return this.userPass = this.userPass.replace(/\s/g,'').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,'');
+      },
+      userPassConf : function() {
+        return this.userPassConf = this.userPassConf.replace(/\s/g,'').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,'');
+      },
+    }, 
   }   
 </script>
 

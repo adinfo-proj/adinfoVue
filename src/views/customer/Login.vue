@@ -105,7 +105,7 @@ export default {
           localStorage.setItem("mkCd"  , this.$store.state.mkCd);
 
           if( this.$store.state.adGradeCd == '05' ){
-            this.$router.push({ path : "MENU_08101" })
+            this.$router.push({ path : "MENU_08201" })
           } else {
             this.$router.push({ path : "MENU_0000" })
           }
@@ -273,10 +273,10 @@ export default {
     position: relative;
   }
 
-  #logIn .logInBox .logSearch ul li a{
+  /* #logIn .logInBox .logSearch ul li a{
     font-weight: 800;
-    /* font-size: 14px; */
-  }
+    font-size: 14px;
+  } */
 
   #logIn .logInBox .logSearch ul li:before {
     clear: both;
