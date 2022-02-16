@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="headerLogo" @click="DBMenuBar(1)">
-      <router-link to="MENU_08101" ><img src="../../assets/images/header_logo_2.png" alt=""></router-link>
+    <div class="headerLogo" @click="DBMenuBar(2)">
+      <router-link to="MENU_08201" ><img src="../../assets/images/header_logo_2.png" alt=""></router-link>
     </div>
     <div class="headerNav">
       <ul>
@@ -66,7 +66,7 @@
             </li>
           </ul>
         </li>
-        <li @click="DBMenuBar(5)" v-bind:class="{on : 5 == menuSelect}">
+        <!-- <li @click="DBMenuBar(5)" v-bind:class="{on : 5 == menuSelect}">
           <router-link to="MENU_08501">
             <i class="icon-picture1"></i>
             랜딩 샘플 보기
@@ -77,7 +77,7 @@
             <i class="icon-brush"></i>
             랜딩 제작 의뢰
           </router-link>
-        </li>
+        </li> -->
         <li v-bind:class="{on : 7 == menuSelect}">
           <a  href="javascript:void(0)" @click="DBMenuBar(7)">
             <i class="icon-bubble-text"></i>

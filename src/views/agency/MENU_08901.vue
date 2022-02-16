@@ -53,7 +53,7 @@
 				</table>
 			</div>
 			<div class="flatRate">
-				<span>SILVER (1개월)</span> (2022-02-01) 
+				<span>SILVER (1개월)</span> ( 2022-02-01 만료 / 잔여기간: 5일) 
 			</div>
 			<div class="tableBox priceData">
 				<table>
@@ -261,12 +261,13 @@
 		border: 1px solid #e25b45;
 		text-align: center;
 		margin-bottom: 10px;
-		font-size: 18px;
+		font-size: 14px;
 		color: #666;
-		font-weight: 700;
+		/* font-weight: 700; */
 	}
 
 	#menu08901 .flatRate span{
+		font-weight: 700;
 		font-size: 18px;
 		color: #e25b45;
 		letter-spacing: -0.45px;

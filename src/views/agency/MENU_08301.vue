@@ -22,7 +22,7 @@
 							<th class="landDbNum">총 DB 접수건수</th>
 							<th class="landAdv"  >광고주명</th>
 							<th class="landColl" >수집항목</th>
-							<th class="landBtn"  >수정</th>
+							<th class="landBtn"  >삭제</th>
 						</tr>
 					</thead>
 					<tbody v-if="LandingListObj.length <= 0">
@@ -47,7 +47,7 @@
 							<td class="landAdv"  >{{LandingList.adName}}</td>
 							<td class="landColl" >{{askLists[index]}}</td>
 							<td class="landBtn"  >
-								<button @click="ModifyLanding(LandingList.caId, LandingList.pgId)">수정</button>
+								<!-- <button @click="ModifyLanding(LandingList.caId, LandingList.pgId)">수정</button> -->
 								<button @click="RemoveLanding(LandingList.caId, LandingList.pgId, LandingList.adName)">삭제</button>
 							</td>
 						</tr>
@@ -117,7 +117,7 @@
 						, adId: this.$store.state.mbId
 						, mkId: this.$store.state.mbId
 						, caId: this.campSelect
-						, useTp: 'R'
+						, useTp: '00'
 						, curPage   : selectPage
 						, rowCount  : this.selectRowCount
 					}

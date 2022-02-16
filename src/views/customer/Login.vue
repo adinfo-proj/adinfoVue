@@ -334,5 +334,6 @@ export default {
     border: 1px solid #eee;
     color: #000;
     background: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 0 5px #fff;
   }
 </style>

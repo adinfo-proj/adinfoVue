@@ -300,7 +300,7 @@
             , adId: this.$store.state.mbId
             , mkId: this.$store.state.mbId
             , caId: this.campSelect
-            , useTp: 'R'
+            , useTp: '00'
           }
         })
         .then(response => {

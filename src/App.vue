@@ -15,7 +15,7 @@
           <span class="subMenuName">{{ this.$store.state.headerMidTitle }}</span>
         </div>
         <div class="userNamePage">
-          <span>{{ this.$store.state.clntNm }}님</span>
+          <span @click="Mypage()">{{ this.$store.state.clntNm }}님</span>
           <button class="logOutBtn" @click="LogOut()">로그아웃</button>
         </div>
 
@@ -59,6 +59,9 @@
         localStorage.clear();
         this.$router.push({ path : "Login" });
       },
+      Mypage() {
+        this.$router.push({ path : "MENU_08901" });
+      }
     },
     created() {
       document.title = "디비마스터 플랫폼";
@@ -296,6 +299,7 @@
     display: inline-block;
     margin-right: 9px;; 
     transform: translateY(-2.5px);
+    cursor: pointer;
   }
 
   #sectionHeader .userNamePage .logOutBtn {

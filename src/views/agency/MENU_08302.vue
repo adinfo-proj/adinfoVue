@@ -83,7 +83,7 @@
               캠페인 명
             </th>
             <td>
-              <select class="campDis" id="campDis" v-model="campaignSelect" @change="getCampaignSelect();">
+              <select class="campDis" id="campDis" v-model="campaignSelect" @change="getCampaignSelect(campaignSelect);">
                 <option value="0" disabled>캠페인을 선택하세요</option>
                 <option v-for="(adIndex, index) in campaignListObj"
                   :key="index" 
@@ -97,8 +97,27 @@
             <th>
               페이지 명
             </th>
-            <td>
+            <td v-if="landReplace == false">
               <input type="text" class="" v-model="landName">
+            </td>
+            <td v-if="landReplace == true">
+              <select v-model="landName">
+                <option value="0" disabled>선택</option>
+                <option v-for="(landingData, index) in landingDataObj"
+                  :key="index" 
+                  :value="landingData.pgId"
+                  >{{ landingData.name }}
+                </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              랜딩페이지 대체
+            </th>
+            <td>
+              <input type="checkbox" id="landrep" v-model="landReplace" @change="Replace()">
+              <label for="landrep"></label>
             </td>
           </tr>
         </table>
@@ -115,7 +134,6 @@
           <textarea v-model="addScr"></textarea>
         </div>
       </div>
-
       <div class="landScr landScr02 landBox">
         <p>
           폼 스크립트 삽입
@@ -179,6 +197,9 @@
         , landName        : ''
         , addScr          : ''
         , innerAddScr     : ''
+        , landReplace     : false
+        , landingDataObj  : '' 
+
         , campData: {
             gradeCd           : ''
           , mbId              : ''
@@ -221,7 +242,10 @@
       //******************************************************************************
       // Open Event
       //******************************************************************************
-      getCampaignSelect() { // 캠페인 분류(대분류)
+      getCampaignSelect(index) { // 캠페인 분류(대분류)
+
+
+
         axios.get("http://api.adinfo.co.kr:30000/GetCampInfo",
         {
           params: {
@@ -237,6 +261,8 @@
             this.campData = response.data[1];
             this.formView = response.data[2];
           }
+          this.campaignSelect =index;
+          this.ReplacePage();
         })
         .catch(error => {
           console.log(error);
@@ -355,9 +381,39 @@
           }
         })
         .then(response => {
-          //this.campaignSelect  = response.data[0].adId;
           this.campaignListObj = response.data;
-          //this.getCampaignSelect();
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      },
+      //******************************************************************************
+      // 캠페인 대체 여부 변경 시 
+      //******************************************************************************
+      Replace(){
+        this.landName = '';
+        
+        if( this.landReplace == true){
+          this.landName = '0';
+        }
+
+      },
+      //******************************************************************************
+      // 캠페인 대체 시 
+      //******************************************************************************
+      ReplacePage(){
+        axios.get("http://api.adinfo.co.kr:30000/GetLandingListForMbAdCaCode",
+        {
+          params: {
+              mbId: this.$store.state.mbId
+            , adId: this.$store.state.mbId
+            , mkId: this.$store.state.mbId
+            , caId: this.campaignSelect
+            , useTp: '00'
+          }
+        })
+        .then(response => {
+          this.landingDataObj = response.data;
         })
         .catch(error => {
           console.log(error);
@@ -448,10 +504,7 @@
       // 폼 추가 함수
       //******************************************************************************
       FormChooseBtn() {
-        if(this.$store.state.lendchooseObj.length > 9) {
-          alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
-          return;
-        }
+
         if(this.campData.caId == null || this.campData.caId == '') {
           alert("캠페인명을 선택해주세요.");
           return;
@@ -1003,19 +1056,20 @@
     border-bottom: 1px solid #e5e5e5;
   }
   .menu0804 .landChoice .basicInfo table {
-    padding: 5px 20px 21px;
+    padding: 5px 20px 10px;
     width: 100%;
   }
   .menu0804 .landChoice .basicInfo table td {
     text-align: left;
   }
   .menu0804 .landChoice .basicInfo table th {
-    width: 64px;
+    height: 36px;
+    width: 100px;
     letter-spacing: -0.36px;
-    padding: 8.5px 0;
+    padding: 10.5px 0;
     vertical-align: top;
     color: #222;
-    text-align: center;
+    text-align: left;
   }
   .menu0804 .landChoice .basicInfo table td input,
   .menu0804 .landChoice .basicInfo table td select {
@@ -1023,8 +1077,67 @@
     padding: 7px 10px;
     margin: 2px 0;
     width: 100%;
-    height: 100%;
+    height: 32px;
+
   }
+
+  .menu0804 .landChoice .basicInfo table td input[type="checkbox"] {
+    display: none;
+  }
+
+  .menu0804 .landChoice .basicInfo table td input[type="checkbox"] + label{
+    display: inline-block;
+    width: 45px;
+    height: 20px;
+    border-radius: 25px;
+    background: #ebebeb;
+    margin-top: 5px;
+    transition: 0.3s;
+    position: relative;
+  }
+
+  .menu0804 .landChoice .basicInfo table td input[type="checkbox"] + label::after {
+    clear: both;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    background: #fff;
+    left: 2px;
+    top: 2px;
+    content: "";
+    transition: 0.3s;
+  }
+
+
+
+  .menu0804 .landChoice .basicInfo table td input[type="checkbox"] + label::before {
+    clear: both;
+    position: absolute;
+    color: #a5a5a5;
+    left: 21px;
+    top: 5px;
+    content: "OFF";
+    font-size: 10px;
+    font-weight: 700;
+    /* font-size: 16px; */
+  }
+
+  .menu0804 .landChoice .basicInfo table td input[type="checkbox"]:checked + label {
+      background: #e25b45;
+  }
+
+  .menu0804 .landChoice .basicInfo table td input[type="checkbox"]:checked + label::before {
+    left: 6px;
+    content: "ON";
+    color: #fff;
+  }
+
+  .menu0804 .landChoice .basicInfo table td input[type="checkbox"]:checked + label::after {
+    left: 28px;
+  }
+
+
   .menu0804 .landChoice .landScr {
     padding: 21px 18px;
   }
