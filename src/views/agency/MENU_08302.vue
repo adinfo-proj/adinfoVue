@@ -23,12 +23,12 @@
           <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
             <!-- 텍스트 박스 -->
             <div v-if="inObj.values == 'textForm'" class="formInput">
-              <span class="fornInputName">{{inObj.names}}</span>
+              <span class="formInputName">{{inObj.names}}</span>
               <input type="text" :placeholder="inObj.names">
             </div>
             <!-- 라디오 버튼 -->
             <div v-if="inObj.values == 'radioForm'" class="formInput">
-              <span class="fornInputName">{{inObj.names}}</span>
+              <span class="formInputName">{{inObj.names}}</span>
               <span v-for="index in inObj.lab" :key="index">
                 <input :id="index" :name="inObj.lab[index]" type="radio" >
                 <label :for="index">{{index}}</label>
@@ -36,7 +36,7 @@
             </div>
             <!-- 체크박스 -->
             <div v-if="inObj.values == 'checkForm'" class="formInput">
-              <span class="fornInputName">{{inObj.names}}</span>
+              <span class="formInputName">{{inObj.names}}</span>
               <span v-for="index in inObj.lab" :key="index">
                 <input :id="index" type="checkbox" >
                 <label :for="index">{{index}}</label>
@@ -44,7 +44,7 @@
             </div>
             <!-- 셀렉트박스 -->
             <div v-if="inObj.values == 'selForm'" class="formInput">
-              <span class="fornInputName">{{inObj.names}}</span>
+              <span class="formInputName">{{inObj.names}}</span>
               <select>
                 <option v-for="index in inObj.lab" :key="index" :value="index">
                   {{index}}
@@ -52,8 +52,11 @@
               </select>  
             </div>
           </div>
-          <input type="checkbox" name="agree01" id="agree01">
-          <label for="agree01">{{formView.stipulationTitle}}<span @click="PriModal()">[보러가기]</span></label>
+          <div class="agreeBox">
+            <input type="checkbox" name="agree01" id="agree01">
+            <label for="agree01">{{formView.stipulationTitle}}</label>
+            <span @click="PriModal()">[보러가기]</span>
+          </div>
           <div class="centerBox">
             <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor, color:lendchoose.formDesc.textColor}">{{lendchoose.formDesc.btnNm}}</button>
           </div>
@@ -103,8 +106,8 @@
       <div class="landScr landScr01 landBox">
         <p>
           헤더 스크립트 삽입
-          <input type="checkbox" id="landScrBtn01" v-model="scriptInput01" @change="ScriptOn(1)"
-          :checked="scriptInput01">
+          <input type="checkbox" id="landScrBtn01" v-model="scriptHeader" @change="ScriptOn(1)"
+          :checked="scriptHeader">
           <label for="landScrBtn01"></label>
           <i class="icon-arrow on" @click="ScriptUp(1)"></i>
         </p>
@@ -116,8 +119,8 @@
       <div class="landScr landScr02 landBox">
         <p>
           폼 스크립트 삽입
-          <input type="checkbox" id="landScrBtn02" v-model="scriptInput02" @change="ScriptOn(2)"
-          :checked="scriptInput02">
+          <input type="checkbox" id="landScrBtn02" v-model="scriptForm" @change="ScriptOn(2)"
+          :checked="scriptForm">
           <label for="landScrBtn02"></label>
           <i class="icon-arrow on" @click="ScriptUp(2)"></i>
         </p>
@@ -169,14 +172,13 @@
     },
     data() {
       return {
-          scriptInput01   : false
-        , scriptInput02   : false
+          scriptHeader    : false
+        , scriptForm      : false
         , campaignSelect  : '0'
         , campaignListObj : ''
         , landName        : ''
-        , addddScr        : ''
+        , addScr          : ''
         , innerAddScr     : ''
-
         , campData: {
             gradeCd           : ''
           , mbId              : ''
@@ -288,6 +290,18 @@
         if(this.scriptInput == false) {
           scriptAdd = this.scriptComment;
         }
+
+        let sAddScr = '';
+        let sInnerAddScr = '';
+
+        if( this.scriptHeader == true) {
+          sAddScr = this.addScr;
+        }
+
+        if( this.scriptForm == true) {
+          sInnerAddScr = this.innerAddScr;
+        }
+
         let data = {
             mbId        : this.$store.state.mbId
           , adId        : this.$store.state.adId
@@ -295,6 +309,8 @@
           , mkId        : this.$store.state.adId
           , pgId        : 0
           , clntId      : this.$store.state.clntId
+          , scriptHeader : sAddScr
+          , scriptForm   : sInnerAddScr
           , processMode : 'C'       // (C:신규, M:수정, R:삭제)
           , formCount   : this.$store.state.lendchooseObj.length
           , campanyNm   : this.company
@@ -314,19 +330,12 @@
           }
         }
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-        console.log(data);
-        
-        // if(this.$store.state.inputObj.length < 1 ){
-        //   alert('입력항목은 총 10개까지 가능합니다.')
-        //   return
-        // }
 
         axios.post("http://api.adinfo.co.kr:30000/newlandingpage", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
           alert(response.data.message);
-
           if( response.data.status == true)
             window.open(response.data.landingUrl);
         })
@@ -348,7 +357,6 @@
         .then(response => {
           //this.campaignSelect  = response.data[0].adId;
           this.campaignListObj = response.data;
-
           //this.getCampaignSelect();
         })
         .catch(error => {
@@ -360,7 +368,7 @@
       //******************************************************************************
       ScriptOn(num) {
         if(num == 1){
-          if(this.scriptInput01 == true) {
+          if(this.scriptHeader == true) {
             $(".landScr01 .landScrChecked").slideDown(300);
             $(".landScr01 .icon-arrow").removeClass("on");
           } else {
@@ -369,7 +377,7 @@
           }
         }
         else if(num == 2){
-          if(this.scriptInput02 == true) {
+          if(this.scriptForm == true) {
             $(".landScr02 .landScrChecked").slideDown(300);
             $(".landScr02 .icon-arrow").removeClass("on");
           } else {
@@ -383,13 +391,13 @@
       //******************************************************************************
       ScriptUp(num) {
         if(num == 1){
-          if(this.scriptInput01 == false) {
+          if(this.scriptHeader == false) {
             return;
           }
           $(".landScr01 .landScrChecked").slideToggle(300);
           $(".landScr01 .icon-arrow").toggleClass("on");
         }else if(num == 2) {
-          if(this.scriptInput02 == false) {
+          if(this.scriptForm == false) {
             return;
           }
           $(".landScr02 .landScrChecked").slideToggle(300);
@@ -404,12 +412,10 @@
           alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
           return;
         }
-
         if(this.campData.caId == null || this.campData.caId == '') {
           alert("캠페인명을 선택해주세요.");
           return;
         }
-
         let plusObj = {
             tp: ''
           , fileNm: ''
@@ -446,14 +452,11 @@
           alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
           return;
         }
-
         if(this.campData.caId == null || this.campData.caId == '') {
           alert("캠페인명을 선택해주세요.");
           return;
         }
-
         let inputBoxObj = [];
-
         for(let i = 0 ; i < 10; i++) {
           let inputBox = {
               value01 : ''
@@ -461,7 +464,6 @@
             , names   : ''
             , lab     : ''
           };
-
           switch(i) {
             case 0 : 
               if     (this.formView.type01 == '00') {
@@ -716,7 +718,6 @@
           }
           inputBoxObj.push(inputBox);
         }
-
         let plusObj = {
             tp        : '03'
           , fileNm    : ''
@@ -734,7 +735,6 @@
             , lineColor : this.lineColor
           }
         };
-
         this.$store.state.lendchooseObj.push(plusObj);
       },
       //******************************************************************************
@@ -765,9 +765,6 @@
       this.$store.state.headerMidTitle = "랜딩페이지 제작";
       this.getCampaignAllList();
     },
-    beforeDestroy() {
-     //this.$store.state.lendchooseObj = '';
-    }
   }
 </script>
 
@@ -810,7 +807,7 @@
   .menu0804 .landPrev .formPrev  .formInput {
     margin-bottom: 25px;
   }
-  .menu0804 .landPrev .formPrev .fornInputName {
+  .menu0804 .landPrev .formPrev .formInputName {
     display: block;
     font-size: 18px;
     color: #333;
@@ -821,7 +818,7 @@
     padding-left: 10px;
     position: relative;
   }
-  .menu0804 .landPrev .formPrev .fornInputName:before {
+  .menu0804 .landPrev .formPrev .formInputName:before {
     clear: both;
     width: 2px;
     height: 70%;
@@ -836,7 +833,6 @@
     padding: 12px 16px;
     margin-bottom: 10px;
     width: 100%;
-    margin-top: 10px;
   }
   .menu0804 .landPrev .formPrev input[type="radio"],
   .menu0804 .landPrev .formPrev	input[type="checkbox"] {
@@ -850,15 +846,6 @@
     text-align: right;
     padding: 0 10px 0 35px;
     font-weight: 600;
-  }
-  .menu0804 .landPrev .formPrev label span{
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: 400;
-  }
-  .menu0804 .landPrev .formPrev	input[type="checkbox"] + label a {
-    font-size: 16px;
-    margin-left: 5px;
   }
   .menu0804 .landPrev .formPrev input[type="radio"] + label:before,
   .menu0804 .landPrev .formPrev	input[type="checkbox"] + label:before {
@@ -889,6 +876,17 @@
     left: 6.5px;
     top: 2px;
     color: #4b4b4b;
+  }
+
+  .menu0804 .landPrev .formPrev .agreeBox label {
+    margin: 10px 0 0 0;
+    padding-right: 0;
+  }
+
+ .menu0804 .landPrev .formPrev .agreeBox span{
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 400;
   }
   .menu0804 .landPrev .formPrev	.textBox {
     width: 100%;
