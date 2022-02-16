@@ -10,6 +10,12 @@
 						>{{ campaignNameList.name }}
 					</option>
 				</select>
+				<select v-model="statusSelect" @change="getLandingLst(1, true)">
+					<option value="99">전체</option>
+					<option value="00">진행중</option>
+					<option value="01">정지중</option>
+					<option value="02">종료</option>
+				</select>
 				<button @click="getLandingLst(1, true)">조회</button>
 			</div>
 			<div class="tableBox">
@@ -19,10 +25,10 @@
 							<th class="landNo"   >번호</th>
 							<th class="landCamp" >캠페인 명</th>
 							<th class="landNm"   >랜딩페이지 명</th>
-							<th class="landDbNum">총 DB 접수건수</th>
-							<th class="landAdv"  >광고주명</th>
+							<th class="landDbNum">URL</th>
+							<th class="landAdv"  >상태</th>
 							<th class="landColl" >수집항목</th>
-							<th class="landBtn"  >삭제</th>
+							<th class="landBtn"  >수정</th>
 						</tr>
 					</thead>
 					<tbody v-if="LandingListObj.length <= 0">
@@ -42,13 +48,18 @@
 						>
 							<th class="landNo"   >{{LandingList.seqNo}}</th>
 							<td class="landCamp" >{{LandingList.adName}}</td>
-							<td class="landNm" @click="OpenPage('http://www.dbmaster.co.kr/ad/' + LandingList.url);">{{LandingList.name}}</td>
-							<td class="landDbNum">{{LandingList.createCount}}</td>
-							<td class="landAdv"  >{{LandingList.adName}}</td>
+							<td class="landNm" @click="OpenPage('http://dbmaster.co.kr/ad/' + LandingList.url);">{{LandingList.name}}</td>
+							<td class="landDbNum">http://dbmaster.co.kr/ad/{{LandingList.url}}</td>
+
+							<td class="landAdv"  v-if     ="LandingList.useTp == '00'">진행중</td>
+							<td class="landAdv"  v-else-if="LandingList.useTp == '01'">정지중</td>
+							<td class="landAdv"  v-else-if="LandingList.useTp == '02'">종료</td>
+							<td class="landAdv"  v-else                               >기타</td>
+
 							<td class="landColl" >{{askLists[index]}}</td>
 							<td class="landBtn"  >
-								<!-- <button @click="ModifyLanding(LandingList.caId, LandingList.pgId)">수정</button> -->
-								<button @click="RemoveLanding(LandingList.caId, LandingList.pgId, LandingList.adName)">삭제</button>
+								<button @click="ModifyLanding(LandingList.caId, LandingList.pgId, LandingList.useTp)">변경</button>
+								<!-- <button @click="RemoveLanding(LandingList.caId, LandingList.pgId, LandingList.adName)">삭제</button> -->
 							</td>
 						</tr>
 					</tbody>
@@ -84,6 +95,7 @@
           campaignNameListObj : ''
 				, LandingListObj      : ''
 				, campSelect          : -1
+				, statusSelect        : '00'
 				, askLists            : []
 				//--------------------------------------------------------------
 				// 페이지 처리용 변수
@@ -117,7 +129,7 @@
 						, adId: this.$store.state.mbId
 						, mkId: this.$store.state.mbId
 						, caId: this.campSelect
-						, useTp: '00'
+						, useTp: this.statusSelect
 						, curPage   : selectPage
 						, rowCount  : this.selectRowCount
 					}
@@ -192,11 +204,29 @@
 			//******************************************************************************
 			// 랜딩페이지 변경
 			//******************************************************************************
-			ModifyLanding(caId, pgId) {
-				this.$router.push({ 
-					name : 'MENU_08303', 
-					params: { caId: caId, pgId: pgId }
-				})
+			ModifyLanding(caId, pgId, useTp) {
+				let statusComment = ''
+				if(useTp == '00') {
+					statusComment = '진행중으로';
+				}
+				else if(useTp == '01') {
+					statusComment = '정지중으로';
+				}
+				else if(useTp == '02') {
+					statusComment = '종료로';
+				}
+				else { // if(useTp == '03')
+					statusComment = '삭제로';
+				}
+
+				if(confirm("정말로 랜딩페이지를 " + statusComment + " 변경하시겠습니까??") == false) {
+					return;
+				}
+				
+				// this.$router.push({ 
+				// 	name : 'MENU_08303', 
+				// 	params: { caId: caId, pgId: pgId }
+				// })
 			},
 			//******************************************************************************
 			// 랜딩페이지 삭제
@@ -281,7 +311,7 @@
 		position: relative;
 	}
 
-	#menu08301 .tableBox td.landNm {
+	#menu08301 .tableBox .landNm {
 		cursor: pointer;
 	}
 
@@ -299,15 +329,15 @@
 	}
 	#menu08301 .tableBox .landNm,
 	#menu08301 .tableBox .landColl {
-		width: 22.5%;
+		width: 18%;
 	}
 
 	#menu08301 .tableBox .landDbNum{
-		width: 9%;
+		width: 14%;
 	}
 
 	#menu08301 .tableBox .landAdv{
-		width: 11%;
+		width: 6%;
 	}
 
 	#menu08301 .tableBox .landBtn{

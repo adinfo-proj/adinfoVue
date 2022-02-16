@@ -6,7 +6,7 @@
 					<tr>
 						<th>캠페인 선택</th>
 						<td>
-							<select v-model="campSelect" @change="getCampAsk(campSelect)">
+							<select v-model="campSelect" @change="getLandingPageLst(campSelect)">
 								<option v-for="(campaignNameList, index) in campaignNameListObj"
 									:key="index" 
 									:value="campaignNameList.caId"
@@ -18,7 +18,7 @@
 					<tr>
 						<th>랜딩페이지 선택</th>
 						<td>
-							<select v-model="landSelect">
+							<select v-model="landSelect" >
 								<option v-for="(landingData, index) in landingDataObj"
 									:key="index" 
 									:value="landingData.pgId"
@@ -183,8 +183,6 @@
 					, inputParam        : this.stAskList
 				};
 
-				console.log(data);
-
 				if(data.length < 0) {
 					return;
 				}
@@ -195,7 +193,6 @@
 					headers: {'Content-Type': 'multipart/form-data'}    
 				})
 				.then(response => {
-					console.log(response);
 					alert(response.data.message);
 					if( response.data.result == true) {
 						this.$router.push({ path : "MENU_08401" })
@@ -225,6 +222,7 @@
 				.then(response => {
 					this.campSelect          = response.data[0].caId;
 					this.campaignNameListObj = response.data;
+
           this.getLandingPageLst();
 				})
 				.catch(error => {
@@ -288,7 +286,7 @@
             , adId: this.$store.state.mbId
             , mkId: this.$store.state.mbId
             , caId: this.campSelect
-            , useTp: 'R'
+            , useTp: '00'
           }
         })
         .then(response => {
@@ -330,7 +328,6 @@
 						}
 						this.stAskList.push(paramAdd);
 					}
-					console.log(this.stAskList);
         })
         .catch(error => {
           console.log(error);

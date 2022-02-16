@@ -301,7 +301,7 @@
             , adId: this.$store.state.mbId
             , mkId: this.$store.state.mbId
             , caId: this.paramCaId
-            , useTp: 'R'
+            , useTp: '00'
           }
         })
         .then(response => {

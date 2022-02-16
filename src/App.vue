@@ -16,12 +16,36 @@
         </div>
         <div class="userNamePage">
           <span @click="Mypage()">{{ this.$store.state.clntNm }}님</span>
+          <span class="rate"> 14일 무료 이용중</span>
           <button class="logOutBtn" @click="LogOut()">로그아웃</button>
         </div>
 
       </div>
       <div id="sectionBody">
         <router-view />
+      </div>
+      <div id="sectionFooter">
+        <div class="footerTop">
+          <div class="left">
+            서울특별시 구로구 디지털로 26길 111, 제이앤케이디지털타워 708호<br>
+            대표자: 유기옥&nbsp;&nbsp;&nbsp;&nbsp;대표번호:1533-3757&nbsp;&nbsp;&nbsp;사업자등록번호: 567-87-00066&nbsp;&nbsp;&nbsp;&nbsp;통신판매 신고번호: 제2020-서울구로-2892호
+          </div>
+          <div class="right">
+            <img src="./assets/images/footerIcon01.png" alt="">
+            <img src="./assets/images/footerIcon02.png" alt="">
+            <img src="./assets/images/footerIcon03.png" alt="">
+          </div>
+
+        </div>
+        <div class="footerBottom">
+          <div class="left">
+            COPYRIGHT© 2022 (주)마케팅디자인. ALL RIGHTS RESERVED
+          </div>
+          <div class="right">
+            <a href="javascript:void(0)">이용약관</a>
+            <a href="javascript:void(0)">개인정보처리방침</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -231,7 +255,8 @@
   }
 
   #sectionHeader,
-  #sectionBody {
+  #sectionBody,
+  #sectionFooter {
     margin-left: 200px;
     border-right: solid 1px #e5e5e5;
     width: 1400px;
@@ -249,10 +274,6 @@
     background: #fff;
     z-index: 999;
   }
-
-
-  
-
   #sectionHeader .menuPage {
     color: #222;
     font-size: 14px;
@@ -265,8 +286,6 @@
      position: relative;
      padding-right: 20px;
    }
-
-  
  
   #sectionHeader .menuPage .subMenuName:after {
     clear: both;
@@ -279,8 +298,6 @@
     height: 10px;
     background: #707070;
   }
- 
-
 
   #sectionHeader .menuPage span {
     font-weight: normal;
@@ -302,6 +319,28 @@
     cursor: pointer;
   }
 
+  #sectionHeader .userNamePage .rate {
+    font-weight: 700;
+    position: relative;
+    padding: 8.5px 15px;
+    background: #e25b45;
+    color: #fff;
+    border-radius: 50px;
+    /* color: #262626; */
+    transform: translateY(0);
+  }
+  /* #sectionHeader .userNamePage .rate::after {
+    height: 1px;
+    width: 75%;
+     background: #262626;
+    background: #fff;
+    content: "";
+    position: absolute;
+    bottom: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+  } */
+
   #sectionHeader .userNamePage .logOutBtn {
     width: 67px;
     height: 31px;
@@ -310,12 +349,64 @@
     background: #eaebec;
     border-radius: 31px;
   }
-  
 
+  #sectionFooter > div {
+    border-bottom: solid 1px #e5e5e5;
+  }
+
+  #sectionFooter .footerTop {
+    padding: 26px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #sectionFooter .footerTop .right img{
+    vertical-align: middle;
+    margin-left: 20px;
+  }
+
+  #sectionFooter .footerBottom {
+    padding: 13px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #sectionFooter .footerBottom .right a{
+    padding: 0 18px;
+  }
+
+  #sectionFooter .footerBottom .right a:last-child {
+    padding-right: 0;
+    position: relative;
+  }
+
+  #sectionFooter .footerBottom .right a:last-child::before {
+    clear: both;
+    content: "";
+    width: 1px;
+    height: 10px;
+    left: -0.5px;
+    top: 50%;
+    background: #e0e0e0;
+    position: absolute;
+    transform: translateY(-50%);
+  }
+
+  #sectionFooter .left,
+  #sectionFooter .right
+  #sectionFooter .right a {
+    line-height: 1.5;
+    letter-spacing: -0.48px;
+    color: #222;
+  }
+  
   .container {
     height: 100%;
     background: #F6F6F6;
     padding: 20px;
     border-bottom: solid 1px #e5e5e5;
   }
+
 </style>

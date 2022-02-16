@@ -221,7 +221,7 @@
             , adId: this.$store.state.mbId
             , mkId: this.$store.state.mbId
             , caId: this.campSelect
-            , useTp: 'R'
+            , useTp: '00'
           }
         })
         .then(response => {
@@ -381,8 +381,8 @@
 			}
 		},
 		created() {
-			this.$store.state.headerTopTitle = "포스트백";
-			this.$store.state.headerMidTitle = "포스트백 목록";
+			this.$store.state.headerTopTitle = "API 연동";
+			this.$store.state.headerMidTitle = "API 목록";
 
 			this.getCampaignNameLst();			
 		}

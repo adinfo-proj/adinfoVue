@@ -26,7 +26,7 @@
         <li @click="DBMenuBar(2)" v-bind:class="{on : 2 == menuSelect}">
           <router-link to="MENU_08201">
             <i class="icon-layers"></i>
-            수집 DB확인
+            수집 DB
           </router-link>
         </li>
         <li v-bind:class="{on : 3 == menuSelect}">
@@ -45,23 +45,33 @@
                  랜딩페이지 목록
               </router-link>
             </li>
+            <!-- <li @click="DbSubMenu('303')"  v-bind:class="{subOn : '303' == subMenuSelect}">
+              <router-link to="MENU_08303">
+                 외부 DB확인 설정
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('304')"  v-bind:class="{subOn : '304' == subMenuSelect}">
+              <router-link to="MENU_08304">
+                 외부 DB확인 설정 목록
+              </router-link>
+            </li> -->
           </ul>
         </li>
 
         <li v-bind:class="{on : 4 == menuSelect}">
           <a  href="javascript:void(0)" @click="DBMenuBar(4)">
             <i class="icon-stats"></i>
-            포스트백
+            API 연동
           </a>
           <ul>
             <li @click="DbSubMenu('402')"  v-bind:class="{subOn : '402' == subMenuSelect}">
               <router-link to="MENU_08402">
-                포스트백 등록
+                API 등록
               </router-link>
             </li>
             <li @click="DbSubMenu('401')"  v-bind:class="{subOn : '401' == subMenuSelect}">
               <router-link to="MENU_08401">
-                 포스트백 목록
+                 API 목록
               </router-link>
             </li>
           </ul>
@@ -96,7 +106,7 @@
             </li>
             <li @click="DbSubMenu('703')"  v-bind:class="{subOn : '703' == subMenuSelect}">
               <router-link to="MENU_08703">
-                기능 개선 요청하기
+                기능 개선 요청
               </router-link>
             </li>
           </ul>

@@ -46,7 +46,7 @@
 			<div class="dailyDataMiddle">
         <i class="icon-pie-chart"></i>
         <h2 class="dataEm">
-          <span>DB 노출 건수</span><br>
+          <span>페이지 노출 건수</span><br>
           {{summaryDataObj.viewCount  }} 건
         </h2>
       </div>
@@ -75,7 +75,7 @@
 		<div class="dailyDataSub">
       <div class="dailyDataTop">
         <div class="dailyTab">
-          <div class="dailyTabBtn" v-bind:class="{on : 0 == divSelect}">DB 유입 정보</div>
+          <div class="dailyTabBtn" v-bind:class="{on : 0 == divSelect}">DB 수집 정보</div>
         </div>
         <div class="dailyEx">
           <button @click="makeExcel">
@@ -100,7 +100,7 @@
 							<th class="dailyNum"   >번호</th>
 							<th class="dailyName"  >캠페인명</th>
 							<th class="maketerCode">랜딩페이지명</th>
-							<th class="inTime"     >유입 시간</th>
+							<th class="inTime"     >수집 시간</th>
 							<th class="inIP"       >접수 IP</th>
 							<th class="dbState"    >광고주단가</th>
 							<th class="dbPrice"    >마케터단가</th>
@@ -143,7 +143,7 @@
                           <th>{{ askList[1] }}</th>
                           <td>{{ campaignFullData.value01 }}</td>
                           <th>{{ askList[2] }} </th>
-                          <td colspan="3">{{ campaignFullData.value03 }}</td>
+                          <td>{{ campaignFullData.value03 }}</td>
                         </tr>
                         <tr>
                           <th>{{ askList[3] }}</th>
@@ -151,7 +151,7 @@
                           <th>{{ askList[4] }}</th>
                           <td>{{ campaignFullData.value05 }}</td>
                           <th>{{ askList[5] }} </th>
-                          <td colspan="3">{{ campaignFullData.value06 }}</td>
+                          <td>{{ campaignFullData.value06 }}</td>
                         </tr>
                         <tr>
                           <th>{{ askList[6] }}</th>
@@ -159,13 +159,13 @@
                           <th>{{ askList[7] }}</th>
                           <td>{{ campaignFullData.value08 }}</td>
                           <th>{{ askList[8] }} </th>
-                          <td colspan="3">{{ campaignFullData.value09 }}</td>
+                          <td>{{ campaignFullData.value09 }}</td>
                         </tr>
                         <tr>
                           <th>{{ askList[9] }}</th>
                           <td>{{ campaignFullData.value10 }}</td>
                           <th>메모 </th>
-                          <td colspan="3">{{ campaignFullData.value07 }}</td>
+                          <td  class="" colspan="3">{{ campaignFullData.value07 }}</td>
                         </tr>
                       </table>
                     </div>
@@ -280,7 +280,7 @@
 					}
 				})
 				.then(response => {
-					this.campSelect          = response.data[0].caId;
+					// this.campSelect          = response.data[0].caId;
 					this.campaignNameListObj = response.data;
 
           this.getLandingPageLst();
@@ -535,8 +535,8 @@
 							'번호': seqNo
 						, '캠페인명': caName
             , '랜딩페이지명': pgName
-						, '유입일자': insDt
-						, '유입시간': insTm
+						, '수집일자': insDt
+						, '수집시간': insTm
 						, '접수IP': regIp
 						, 'DB상태': confirmTp
             , '광고주단가': Number(price)
@@ -854,7 +854,7 @@
   .dailyDataSub .dailySub .dbSelect::after{
     position: absolute;
     width: 1357px;
-    height: 272.5px;
+    height: 274px;
     content: "";
     border: 1px solid #b3b3b3;
     left: 0;
@@ -889,9 +889,11 @@
   }
   .dailyDataSub .dailySub .hidetr .dbDataBox .basicData table,
   .dailyDataSub .dailySub .hidetr .dbDataBox .payData table {
+    width: 100%;
     border-collapse: collapse;
     border: solid 1px #e5e5e5;
     border-style: hidden;
+    table-layout: fixed;
   } 
   .dailyDataSub .dailySub .hidetr .dbDataBox h6,
   .dailyDataSub .dailySub .hidetr .dbDataBox th,
@@ -900,10 +902,17 @@
   }
   .dailyDataSub .dailySub .hidetr .dbDataBox th,
   .dailyDataSub .dailySub .hidetr .dbDataBox td {
+    height: 41px;
     border: 1px solid #e5e5e5;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    word-break:break-all;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3
   }
   .dailyDataSub .dailySub .hidetr .dbDataBox th {
-    padding: 12px 0px 12px 16px;
+    padding: 12px 0px 12px 15px;
   }
   .dailyDataSub .dailySub .hidetr .dbDataBox td {
     padding: 13px 11px;
@@ -926,10 +935,10 @@
     background: #444;
   }
   .dailyDataSub .dailySub .hidetr .basicData th {
-    width: 72px;;
+    width: 80px;;
   }
   .dailyDataSub .dailySub .hidetr .basicData td {
-    width: 175px;
+    width: 170px;
   }
   .dailyDataSub .dailySub .hidetr .payData th {
     width: 92px;;

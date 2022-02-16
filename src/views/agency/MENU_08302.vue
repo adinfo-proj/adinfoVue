@@ -101,7 +101,7 @@
               <input type="text" class="" v-model="landName">
             </td>
             <td v-if="landReplace == true">
-              <select v-model="landName">
+              <select v-model="landPgId">
                 <option value="0" disabled>선택</option>
                 <option v-for="(landingData, index) in landingDataObj"
                   :key="index" 
@@ -194,12 +194,16 @@
         , scriptForm      : false
         , campaignSelect  : '0'
         , campaignListObj : ''
-        , landName        : ''
+        
         , addScr          : ''
         , innerAddScr     : ''
-        , landReplace     : false
-        , landingDataObj  : '' 
 
+        , landName        : ''
+        , landReplace     : false
+
+        , landPgId        : 0
+
+        , landingDataObj  : '' 
         , campData: {
             gradeCd           : ''
           , mbId              : ''
@@ -243,9 +247,6 @@
       // Open Event
       //******************************************************************************
       getCampaignSelect(index) { // 캠페인 분류(대분류)
-
-
-
         axios.get("http://api.adinfo.co.kr:30000/GetCampInfo",
         {
           params: {
@@ -256,7 +257,6 @@
           }
         })
         .then(response => {
-          console.log(response);
           if(response.data[0].status == true) {
             this.campData = response.data[1];
             this.formView = response.data[2];
@@ -316,24 +316,20 @@
         if(this.scriptInput == false) {
           scriptAdd = this.scriptComment;
         }
-
         let sAddScr = '';
         let sInnerAddScr = '';
-
         if( this.scriptHeader == true) {
           sAddScr = this.addScr;
         }
-
         if( this.scriptForm == true) {
           sInnerAddScr = this.innerAddScr;
         }
-
         let data = {
             mbId        : this.$store.state.mbId
           , adId        : this.$store.state.adId
           , caId        : this.campaignSelect
           , mkId        : this.$store.state.adId
-          , pgId        : 0
+          , pgId        : this.landPgId
           , clntId      : this.$store.state.clntId
           , scriptHeader : sAddScr
           , scriptForm   : sInnerAddScr
@@ -342,6 +338,7 @@
           , campanyNm   : this.company
           , landingNm   : this.landName
           , campaignId  : this.campaignSelect
+          , landReplace : this.landReplace
           , formType    : formType
           , scriptAdd   : scriptAdd
           , textData    : textData
@@ -349,6 +346,7 @@
           , stipulationTitle : this.formView.stipulationTitle
           , stipulationDesc  : this.formView.stipulationDesc
         };
+
         const frm = new FormData();
         for(let i = 0 ; i < this.$store.state.lendchooseObj.length ; i++) {
           if(this.$store.state.lendchooseObj[i].tp == '01') {
@@ -356,7 +354,6 @@
           }
         }
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-
         axios.post("http://api.adinfo.co.kr:30000/newlandingpage", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
@@ -396,7 +393,6 @@
         if( this.landReplace == true){
           this.landName = '0';
         }
-
       },
       //******************************************************************************
       // 캠페인 대체 시 
@@ -504,7 +500,6 @@
       // 폼 추가 함수
       //******************************************************************************
       FormChooseBtn() {
-
         if(this.campData.caId == null || this.campData.caId == '') {
           alert("캠페인명을 선택해주세요.");
           return;
@@ -836,7 +831,7 @@
     display: block;
   }
   .menu0804 .landPrev .noLength {
-    height: 800px;
+    height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -850,6 +845,7 @@
     border: 30px solid #3e3e3e;
     padding: 50px;
     position: relative;
+    background: #fff;
   }
   .menu0804 .landPrev .formPrev input[type="text"] {
     width: 100%;
@@ -930,12 +926,10 @@
     top: 2px;
     color: #4b4b4b;
   }
-
   .menu0804 .landPrev .formPrev .agreeBox label {
     margin: 10px 0 0 0;
     padding-right: 0;
   }
-
  .menu0804 .landPrev .formPrev .agreeBox span{
     font-size: 16px;
     cursor: pointer;
@@ -1078,13 +1072,10 @@
     margin: 2px 0;
     width: 100%;
     height: 32px;
-
   }
-
   .menu0804 .landChoice .basicInfo table td input[type="checkbox"] {
     display: none;
   }
-
   .menu0804 .landChoice .basicInfo table td input[type="checkbox"] + label{
     display: inline-block;
     width: 45px;
@@ -1095,7 +1086,6 @@
     transition: 0.3s;
     position: relative;
   }
-
   .menu0804 .landChoice .basicInfo table td input[type="checkbox"] + label::after {
     clear: both;
     position: absolute;
@@ -1108,9 +1098,6 @@
     content: "";
     transition: 0.3s;
   }
-
-
-
   .menu0804 .landChoice .basicInfo table td input[type="checkbox"] + label::before {
     clear: both;
     position: absolute;
@@ -1122,22 +1109,17 @@
     font-weight: 700;
     /* font-size: 16px; */
   }
-
   .menu0804 .landChoice .basicInfo table td input[type="checkbox"]:checked + label {
       background: #e25b45;
   }
-
   .menu0804 .landChoice .basicInfo table td input[type="checkbox"]:checked + label::before {
     left: 6px;
     content: "ON";
     color: #fff;
   }
-
   .menu0804 .landChoice .basicInfo table td input[type="checkbox"]:checked + label::after {
     left: 28px;
   }
-
-
   .menu0804 .landChoice .landScr {
     padding: 21px 18px;
   }
