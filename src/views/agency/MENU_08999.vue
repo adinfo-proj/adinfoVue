@@ -12,19 +12,19 @@
 								<span class="middle">29,700 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>랜딩 갯 수</span> 3개</span>
 							</label>
-							<input type="radio" name="plan02" id="silver" value="silver">
+							<input type="radio" name="plan02" id="silver" value="silver" v-model="servicePlan">
 							<label for="silver">
 								<span class="top">SILVER</span>
 								<span class="middle">66,000 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>랜딩 갯 수</span> 7개</span>
 							</label>
-							<input type="radio" name="plan02" id="gold" value="gold">
+							<input type="radio" name="plan02" id="gold" value="gold" v-model="servicePlan">
 							<label for="gold">
 								<span class="top">GOLD</span>
 								<span class="middle">99,000 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>랜딩 갯 수</span> 12개</span>
 							</label>
-							<input type="radio" name="plan02" id="vip" value="vip">
+							<input type="radio" name="plan02" id="vip" value="vip" v-model="servicePlan">
 							<label for="vip">
 								<span class="top">VIP</span>
 								<span class="middle">220,000 <span>원/월(VAT 포함)</span></span>
@@ -52,7 +52,7 @@
 				</ul>
 			</div>
 			<div class="ratePlanBottom">
-				<div class="detailPlan">
+				<div class="detailPlan" v-if="servicePlan == 'basic'">
 					<div class="left">
 						<img src="../../assets/images/ratePlan/basic.jpg" alt="basic">
 					</div>
@@ -103,9 +103,68 @@
 						</div>
 					</div>
 				</div>
-				<img src="../../assets/images/ratePlan/basicPlan.png" alt="basicPlan">
+				<div class="detailPlan" v-if="servicePlan == 'silver'">
+					<div class="left">
+						<img src="../../assets/images/ratePlan/silver.jpg" alt="basic">
+					</div>
+					<div class="right">
+						<h6>
+							[디비마스터] 실버 1개월
+						</h6>
+						<p class="subtitle">
+							마케터의 성공 파트너 디비마스터의 유료 서비스 상품입니다.
+						</p>
+						<p>
+							<span class="planTitle">
+								상품가
+							</span>
+							<span class="org">
+								66,000원
+							</span>
+						</p>
+						<p>
+							<span class="planTitle">
+								제조사
+							</span>
+							<span class="gray">
+								(주)마케팅디자인
+							</span>
+						</p>
+						<p>
+							<span class="planTitle">
+								추가옵션
+							</span>
+							<span class="org">
+								<select name="" id="">
+									<option value="">dd</option>
+									<option value="">sss</option>
+								</select>
+							</span>
+						</p>
+						<p>
+							<span class="planTitle">
+								총 금액
+							</span>
+							<span class="org">
+								29,700원
+							</span>
+						</p>
+						<div class="btn">
+							<button>바로 구매</button>
+						</div>
+					</div>
+				</div>
+				<div	class="planInfo">
+					<h6>디비마스터 상품정보</h6>
+					<img src="../../assets/images/ratePlan/basicPlan.jpg" alt="basicPlan">
+				</div>
 				<div class="ratePlanFooter">
 					<h2>배송 및 환불/취소정보</h2>
+					<h6>상품 배송 </h6>
+					<p>
+						* 배송이 없는 상품입니다.<br>
+						<br>
+					</p>
 					<h6>서비스의 요금환불/취소정책</h6>
 					<p>
 						① 서비스 이용에 따른 환불정책은 다음과 같습니다. 단, 회원의 귀책사유로 회사가 이용계약을 직권해지하는 경우 환불하지 않습니다.<br>
@@ -134,6 +193,10 @@
 			}
 		},
 		methods: {
+
+			// Rate() {
+			// 	console.log(this.servicePlan)
+			// }
 
 
 		},
@@ -169,6 +232,7 @@
 }
 #menu08999 .ratePlanTop li span {
 	text-align: center;
+	cursor: pointer;
 }
 #menu08999 .ratePlanTop li .tapBtn {
 	display: block;
@@ -369,6 +433,32 @@
 	border: 2px solid #f68a1e;
 	font-weight: 700;
 	font-size: 18px;
+}
+
+#menu08999 .ratePlanBottom .planInfo h6{
+	font-size: 24px;
+	line-height: 1.02;
+	letter-spacing: -0.84px;
+	color: #262626;
+	text-align: center;
+	position: relative;
+}
+#menu08999 .ratePlanBottom .planInfo h6::before,
+#menu08999 .ratePlanBottom .planInfo h6::after {
+	clear: both;
+	width: 520px;
+	height: 1px;
+	position: absolute;
+	background: #939393;
+	content: "";
+	top: 50%;
+	transform: translateY(-50%);
+}
+#menu08999 .ratePlanBottom .planInfo h6::before{
+	left: 0;
+}
+#menu08999 .ratePlanBottom .planInfo h6::after {
+	right: 0;
 }
 
 

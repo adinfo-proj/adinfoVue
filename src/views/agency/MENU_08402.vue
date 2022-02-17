@@ -33,15 +33,15 @@
 							<input type="text" v-model="sendUrl">
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<th>암호화 여부</th>
 						<td>
 							<input type="radio" v-model="encrypt" name="encrypt" id="http"  value='N'><label for="http">일반 사이트</label>
 							<input type="radio" v-model="encrypt" name="encrypt" id="https" value='Y'><label for="https">SSL 사이트</label>
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
-						<th>발송 형식</th>
+						<th>전송 방식</th>
 						<td>
 							<input type="radio" v-model="postBack" name="postBack" id="goGet"  value='G'><label for="goGet">GET 전송</label>
 							<input type="radio" v-model="postBack" name="postBack" id="goPost" value='P'><label for="goPost">POST 전송</label>
@@ -113,7 +113,7 @@
 				, landSelect					: ''
 				, landingDataObj			: ''
 				, sendUrl             : ''
-				, encrypt             : ''
+				, encrypt             : 'N'
         , postBack            : ''
 				, stAskListObj        : []
 				, stAskList           : []
@@ -181,6 +181,7 @@
 					, encrypt           : this.encrypt
 					, postBack          : this.postBack
 					, inputParam        : this.stAskList
+					, status            : '00'
 				};
 
 				if(data.length < 0) {

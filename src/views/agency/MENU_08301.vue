@@ -28,7 +28,7 @@
 							<th class="landDbNum">URL</th>
 							<th class="landAdv"  >상태</th>
 							<th class="landColl" >수집항목</th>
-							<th class="landBtn"  >수정</th>
+							<th class="landBtn"  >삭제</th>
 						</tr>
 					</thead>
 					<tbody v-if="LandingListObj.length <= 0">
@@ -58,8 +58,8 @@
 
 							<td class="landColl" >{{askLists[index]}}</td>
 							<td class="landBtn"  >
-								<button @click="ModifyLanding(LandingList.caId, LandingList.pgId, LandingList.useTp)">변경</button>
-								<!-- <button @click="RemoveLanding(LandingList.caId, LandingList.pgId, LandingList.adName)">삭제</button> -->
+								<!-- <button @click="ModifyLanding(LandingList.caId, LandingList.pgId, LandingList.useTp)">변경</button> -->
+								<button @click="RemoveLanding(LandingList.caId, LandingList.pgId, LandingList.adName)">삭제</button>
 							</td>
 						</tr>
 					</tbody>

@@ -139,9 +139,9 @@
                       <table>
                         <tr>
                           <th>{{ askList[0] }}</th>
-                          <td>{{ campaignFullData.value02 }}</td>
-                          <th>{{ askList[1] }}</th>
                           <td>{{ campaignFullData.value01 }}</td>
+                          <th>{{ askList[1] }}</th>
+                          <td>{{ campaignFullData.value02 }}</td>
                           <th>{{ askList[2] }} </th>
                           <td>{{ campaignFullData.value03 }}</td>
                         </tr>

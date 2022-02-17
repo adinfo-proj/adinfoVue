@@ -326,21 +326,8 @@
     background: #e25b45;
     color: #fff;
     border-radius: 50px;
-    /* color: #262626; */
     transform: translateY(0);
   }
-  /* #sectionHeader .userNamePage .rate::after {
-    height: 1px;
-    width: 75%;
-     background: #262626;
-    background: #fff;
-    content: "";
-    position: absolute;
-    bottom: 7px;
-    left: 50%;
-    transform: translateX(-50%);
-  } */
-
   #sectionHeader .userNamePage .logOutBtn {
     width: 67px;
     height: 31px;

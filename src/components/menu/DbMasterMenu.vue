@@ -45,16 +45,11 @@
                  랜딩페이지 목록
               </router-link>
             </li>
-            <!-- <li @click="DbSubMenu('303')"  v-bind:class="{subOn : '303' == subMenuSelect}">
+            <li @click="DbSubMenu('303')"  v-bind:class="{subOn : '303' == subMenuSelect}">
               <router-link to="MENU_08303">
                  외부 DB확인 설정
               </router-link>
             </li>
-            <li @click="DbSubMenu('304')"  v-bind:class="{subOn : '304' == subMenuSelect}">
-              <router-link to="MENU_08304">
-                 외부 DB확인 설정 목록
-              </router-link>
-            </li> -->
           </ul>
         </li>
 

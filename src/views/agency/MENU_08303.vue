@@ -64,7 +64,9 @@
         </table>
       </div>
       <div class="btnBox">
-        <button>설정 저장하기</button>
+        <button>등록</button>
+        <button>변경</button>
+        <button>삭제</button>
       </div>
     </div>
   </div>

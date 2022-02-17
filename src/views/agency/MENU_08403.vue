@@ -33,18 +33,26 @@
 							<input type="text" v-model="sendUrl">
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<th>암호화 여부</th>
 						<td>
 							<input type="radio" v-model="encrypt" name="encrypt" id="http"  value='N'><label for="http">일반 사이트</label>
 							<input type="radio" v-model="encrypt" name="encrypt" id="https" value='Y'><label for="https">SSL 사이트</label>
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<th>발송 형식</th>
 						<td>
 							<input type="radio" v-model="postBack" name="postBack" id="goGet"  value='G'><label for="goGet">GET 전송</label>
 							<input type="radio" v-model="postBack" name="postBack" id="goPost" value='P'><label for="goPost">POST 전송</label>
+						</td>
+					</tr>
+					<tr>
+						<th>사용여부</th>
+						<td>
+							<input type="radio" v-model="used" name="used" id="ing"  value='00'><label for="ing">진행중</label>
+							<input type="radio" v-model="used" name="used" id="pause" value='01'><label for="pause">일시정지</label>
+							<input type="radio" v-model="used" name="used" id="end"  value='02'><label for="end">종료</label>
 						</td>
 					</tr>
 				</table>
@@ -117,6 +125,7 @@
 				, sendUrl             : ''
 				, encrypt             : ''
         , postBack            : ''
+				, used								: ''
 				, stAskValue          : []
 				, stAskListObj        : []
 				, stAskList           : []
@@ -192,6 +201,7 @@
 					, encrypt           : this.encrypt
 					, postBack          : this.postBack
 					, inputParam        : this.stAskList
+					, status						: this.used
 				};
 
 				if(data.length < 0) {
@@ -200,7 +210,7 @@
 
 				const frm = new FormData();
 				frm.append("dataObj", new Blob([JSON.stringify(data)], {type: "application/json"}));
-				axios.post("http://127.0.0.1:30000/updSendPostback", frm, {
+				axios.post("http://api.adinfo.co.kr:30000/updSendPostback", frm, {
 					headers: {'Content-Type': 'multipart/form-data'}    
 				})
 				.then(response => {
@@ -338,7 +348,8 @@
 						this.sendUrl  = response.data.postbackUrl;
 						this.encrypt  = response.data.sslYn;
 						this.postBack = response.data.sendType;
-
+						this.used     = response.data.status;
+						
 						for(let i = 0 ; i < 10; i++) {
 							if( response.data.accessFlag.charAt(i) == '_' )
 								continue;
