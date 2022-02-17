@@ -12,9 +12,9 @@
       <div class="inputBox">
         <div class="leftInput">
             <input type="text" placeholder="이메일을 입력하세요."
-            v-model="clntId">
+            v-model="clntId" @keyup.enter="GoFocus();">
             <input type="password" placeholder="비밀번호를 입력하세요"
-            v-model="clntPw">
+            v-model="clntPw" ref="clntPw" @keyup.enter="LogIn();">
         </div>
         <div class="loginBtn">
             <button
@@ -69,6 +69,9 @@ export default {
     }
   },
   methods: {
+    GoFocus() {
+      this.$refs.clntPw.focus(); ///$refs
+    },
     //******************************************************************************
     // 로그인 함수
     //******************************************************************************    
@@ -93,16 +96,17 @@ export default {
           this.$store.state.mkCd = response.data.mkCd
 
           // 토큰값을 LocalStorage에 저장한다.
-          localStorage.setItem("clntId", this.$store.state.clntId);
-          localStorage.setItem("clntNm", this.$store.state.clntNm);
-          localStorage.setItem("nickNm", this.$store.state.nickNm);
-          localStorage.setItem("token" , this.$store.state.jwtAuthToken);
-          localStorage.setItem("grade" , this.$store.state.adGradeCd);
+          
+          sessionStorage.setItem("clntId", this.$store.state.clntId);
+          sessionStorage.setItem("clntNm", this.$store.state.clntNm);
+          sessionStorage.setItem("nickNm", this.$store.state.nickNm);
+          sessionStorage.setItem("token" , this.$store.state.jwtAuthToken);
+          sessionStorage.setItem("grade" , this.$store.state.adGradeCd);
 
-          localStorage.setItem("mbId"  , this.$store.state.mbId);
-          localStorage.setItem("adId"  , this.$store.state.adId);
-          localStorage.setItem("mkId"  , this.$store.state.mkId);
-          localStorage.setItem("mkCd"  , this.$store.state.mkCd);
+          sessionStorage.setItem("mbId"  , this.$store.state.mbId);
+          sessionStorage.setItem("adId"  , this.$store.state.adId);
+          sessionStorage.setItem("mkId"  , this.$store.state.mkId);
+          sessionStorage.setItem("mkCd"  , this.$store.state.mkCd);
 
           if( this.$store.state.adGradeCd == '05' ){
             this.$router.push({ path : "MENU_08201" })

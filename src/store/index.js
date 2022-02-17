@@ -17,7 +17,7 @@ export default new Vuex.Store({
     , pgId: 0
     , mkCd: ''
 
-    , adGradeCd: localStorage.getItem("grade")  // 회원 레벨
+    , adGradeCd: sessionStorage.getItem("grade")  // 회원 레벨
     , jwtAuthToken: ''                          // 접속자가 로그인 후 수신받은 TOKEN, (로그인 유효시간)    
 
     , headerTopTitle: "데이터 센터"

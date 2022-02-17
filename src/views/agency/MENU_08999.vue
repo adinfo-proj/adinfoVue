@@ -83,11 +83,9 @@
 							<span class="planTitle">
 								추가옵션
 							</span>
-							<span class="org">
-								<select name="" id="">
-									<option value="">dd</option>
-									<option value="">sss</option>
-								</select>
+							<span>
+								<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
+								<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
 							</span>
 						</p>
 						<p>
@@ -105,7 +103,7 @@
 				</div>
 				<div class="detailPlan" v-if="servicePlan == 'silver'">
 					<div class="left">
-						<img src="../../assets/images/ratePlan/silver.jpg" alt="basic">
+						<img src="../../assets/images/ratePlan/silver.jpg" alt="silver">
 					</div>
 					<div class="right">
 						<h6>
@@ -134,11 +132,107 @@
 							<span class="planTitle">
 								추가옵션
 							</span>
+							<span>
+								<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
+								<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
+							</span>
+						</p>
+						<p>
+							<span class="planTitle">
+								총 금액
+							</span>
 							<span class="org">
-								<select name="" id="">
-									<option value="">dd</option>
-									<option value="">sss</option>
-								</select>
+								29,700원
+							</span>
+						</p>
+						<div class="btn">
+							<button>바로 구매</button>
+						</div>
+					</div>
+				</div>
+				<div class="detailPlan" v-if="servicePlan == 'gold'">
+					<div class="left">
+						<img src="../../assets/images/ratePlan/gold.jpg" alt="gold">
+					</div>
+					<div class="right">
+						<h6>
+							[디비마스터] 골드 1개월
+						</h6>
+						<p class="subtitle">
+							마케터의 성공 파트너 디비마스터의 유료 서비스 상품입니다.
+						</p>
+						<p>
+							<span class="planTitle">
+								상품가
+							</span>
+							<span class="org">
+								99,000원
+							</span>
+						</p>
+						<p>
+							<span class="planTitle">
+								제조사
+							</span>
+							<span class="gray">
+								(주)마케팅디자인
+							</span>
+						</p>
+						<p>
+							<span class="planTitle">
+								추가옵션
+							</span>
+							<span>
+								<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
+								<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
+							</span>
+						</p>
+						<p>
+							<span class="planTitle">
+								총 금액
+							</span>
+							<span class="org">
+								29,700원
+							</span>
+						</p>
+						<div class="btn">
+							<button>바로 구매</button>
+						</div>
+					</div>
+				</div>
+				<div class="detailPlan" v-if="servicePlan == 'vip'">
+					<div class="left">
+						<img src="../../assets/images/ratePlan/vip.jpg" alt="vip">
+					</div>
+					<div class="right">
+						<h6>
+							[디비마스터] 브이아이피 1개월
+						</h6>
+						<p class="subtitle">
+							마케터의 성공 파트너 디비마스터의 유료 서비스 상품입니다.
+						</p>
+						<p>
+							<span class="planTitle">
+								상품가
+							</span>
+							<span class="org">
+								220,000원
+							</span>
+						</p>
+						<p>
+							<span class="planTitle">
+								제조사
+							</span>
+							<span class="gray">
+								(주)마케팅디자인
+							</span>
+						</p>
+						<p>
+							<span class="planTitle">
+								추가옵션
+							</span>
+							<span>
+								<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
+								<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
 							</span>
 						</p>
 						<p>
@@ -411,13 +505,50 @@
 	color: #e25b45;
 }
 
-#menu08999 .ratePlanBottom .detailPlan .right p select {
+#menu08999 .ratePlanBottom .detailPlan .right p input {
+	display: none;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p input + label {
+	padding: 0 19px 0 24px;
+	font-weight: 700;
+	letter-spacing: -0.36px;
+	position: relative;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p input + label::before {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 2px;
+	width: 14px;
+	height: 14px;
+	border: 1px solid #b3b3b3;
+	content: "";
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p input:checked + label::before {
+	border: none;
+	background: #e25b45;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p input:checked + label::after {
+	content: "\e91c";
+	font-family: "icomoon";
+	position: absolute;
+	color: #fff;
+	left: 1px;
+	top: 1px;
+}
+
+/* #menu08999 .ratePlanBottom .detailPlan .right p select {
 	width: 470px;
 	height: 31px;
 	padding: 6px 14px;
 	font-size: 12px;
 	margin-top: -13px;
-}
+} */
 
 #menu08999 .ratePlanBottom .detailPlan .btn{
 	text-align: center;

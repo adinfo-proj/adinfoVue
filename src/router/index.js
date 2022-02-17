@@ -338,26 +338,26 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // 이 라우트는 인증이 필요하며 로그인 한 경우 확인하십시오.
     // 그렇지 않은 경우 로그인 페이지로 리디렉션하십시오.
-    if (localStorage.getItem("token") == null || localStorage.getItem("token") == '') {
+    if (sessionStorage.getItem("token") == null || sessionStorage.getItem("token") == '') {
       next('/login')
     } else {
       // api call 후 유효시간 확인
       axios.get("http://api.adinfo.co.kr:30000/vaildauth",
       {
         params: {
-          token: localStorage.getItem("token")
+          token: sessionStorage.getItem("token")
         }
       })
       .then(response => {
         if(response.data.status == false) {
-          localStorage.clear();
+          sessionStorage.clear();
           next('/login');
         }
       })
       .catch(error => {
         console.log(error);
 
-        localStorage.clear();
+        sessionStorage.clear();
         next('/login');
       })
 

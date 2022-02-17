@@ -257,10 +257,109 @@
           }
         })
         .then(response => {
+          // console.log(response);
+
           if(response.data[0].status == true) {
             this.campData = response.data[1];
             this.formView = response.data[2];
+
+            for(let i = 0 ; i < 10; i++) {
+              var arrS = [];
+              switch(i) {
+                case 0 : if(this.formView.type01 == '02' || 
+                            this.formView.type01 == '03' || 
+                            this.formView.type01 == '04')
+                            {
+                              arrS =  this.formView.page01.split(",")
+                              this.formView.page01 = arrS
+
+                            }
+                         break;
+                case 1 : if(this.formView.type02 == '02' || 
+                            this.formView.type02 == '03' || 
+                            this.formView.type02 == '04')
+                            {
+                              arrS =  this.formView.page02.split(",")
+                              this.formView.page02 = arrS
+
+                            }
+                         break;
+                case 2 : if(this.formView.type03 == '02' || 
+                            this.formView.type03 == '03' || 
+                            this.formView.type03 == '04')
+                            {
+                              arrS =  this.formView.page03.split(",")
+                              this.formView.page03 = arrS
+
+                            }
+                         break;
+                case 3 : if(this.formView.type04 == '02' || 
+                            this.formView.type04 == '03' || 
+                            this.formView.type04 == '04')
+                            {
+                              arrS =  this.formView.page04.split(",")
+                              this.formView.page04 = arrS
+
+                            }
+                         break;
+                case 4 : if(this.formView.type05 == '02' || 
+                            this.formView.type05 == '03' || 
+                            this.formView.type05 == '04')
+                            {
+                              arrS =  this.formView.page05.split(",")
+                              this.formView.page05 = arrS
+
+                            }
+                         break;
+                case 5 : if(this.formView.type06 == '02' || 
+                            this.formView.type06 == '03' || 
+                            this.formView.type06 == '04')
+                            {
+                              arrS =  this.formView.page06.split(",")
+                              this.formView.page06 = arrS
+
+                            }
+                         break;
+                case 6 : if(this.formView.type07 == '02' || 
+                            this.formView.type07 == '03' || 
+                            this.formView.type07 == '04')
+                            {
+                              arrS =  this.formView.page07.split(",")
+                              this.formView.page07 = arrS
+
+                            }
+                         break;
+                case 7 : if(this.formView.type08 == '02' || 
+                            this.formView.type08 == '03' || 
+                            this.formView.type08 == '04')
+                            {
+                              arrS =  this.formView.page08.split(",")
+                              this.formView.page08 = arrS
+
+                            }
+                         break;
+                case 8 : if(this.formView.type09 == '02' || 
+                            this.formView.type09 == '03' || 
+                            this.formView.type09 == '04')
+                            {
+                              arrS =  this.formView.page09.split(",")
+                              this.formView.page09 = arrS
+
+                            }
+                         break;
+                case 9 : if(this.formView.type10 == '02' || 
+                            this.formView.type10 == '03' || 
+                            this.formView.type10 == '04')
+                            {
+                              arrS =  this.formView.page10.split(",")
+                              this.formView.page10 = arrS
+
+                            }
+                         break;
+              }
+            }
           }
+          console.log(this.formView)
           this.campaignSelect =index;
           this.ReplacePage();
         })
@@ -359,8 +458,11 @@
         })
         .then(response => {
           alert(response.data.message);
-          if( response.data.status == true)
+          if( response.data.status == true) {
             window.open(response.data.landingUrl);
+            this.InitForm();
+            this.$router.push({ path : "MENU_08301" });
+          }
         })
         .catch(error => {
           console.log(error);

@@ -1,102 +1,107 @@
 <template>
 	<div class="container">
 		<div id="menu08402">
-			<div class="tableBox campList">
-				<table>
-					<tr>
-						<th>캠페인 선택</th>
-						<td>
-							<select v-model="campSelect" @change="getLandingPageLst(campSelect)">
-								<option v-for="(campaignNameList, index) in campaignNameListObj"
-									:key="index" 
-									:value="campaignNameList.caId"
-									>{{ campaignNameList.name }}
-								</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<th>랜딩페이지 선택</th>
-						<td>
-							<select v-model="landSelect" >
-								<option v-for="(landingData, index) in landingDataObj"
-									:key="index" 
-									:value="landingData.pgId"
-									>{{ landingData.name }}
-								</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<th>발송주소(URL)</th>
-						<td>
-							<input type="text" v-model="sendUrl">
-						</td>
-					</tr>
-					<!-- <tr>
-						<th>암호화 여부</th>
-						<td>
-							<input type="radio" v-model="encrypt" name="encrypt" id="http"  value='N'><label for="http">일반 사이트</label>
-							<input type="radio" v-model="encrypt" name="encrypt" id="https" value='Y'><label for="https">SSL 사이트</label>
-						</td>
-					</tr> -->
-					<tr>
-						<th>전송 방식</th>
-						<td>
-							<input type="radio" v-model="postBack" name="postBack" id="goGet"  value='G'><label for="goGet">GET 전송</label>
-							<input type="radio" v-model="postBack" name="postBack" id="goPost" value='P'><label for="goPost">POST 전송</label>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="tableBox valueList">
-				<table>
-					<thead>
+			<div class="left">
+				<div class="tableBox campList">
+					<table>
 						<tr>
-							<th class="info">전송 항목</th>
-							<th class="infofix">수신측 변수명</th>
-							<th class="opp">고정값</th>
-							<th class="useCheck">전송여부
-							</th>
+							<th>캠페인 선택</th>
+							<td>
+								<select v-model="campSelect" @change="getLandingPageLst(campSelect)">
+									<option v-for="(campaignNameList, index) in campaignNameListObj"
+										:key="index" 
+										:value="campaignNameList.caId"
+										>{{ campaignNameList.name }}
+									</option>
+								</select>
+							</td>
 						</tr>
-					</thead>
-					<tbody>
-						<tr v-for="(askList, index) in stAskList"
-							:key="index" 
-							:value="askList"
-						> 
-							<td class="info" v-if="askList.name != ''"> 
-								{{ askList.name }} 
+						<tr>
+							<th>랜딩페이지 선택</th>
+							<td>
+								<select v-model="landSelect" >
+									<option v-for="(landingData, index) in landingDataObj"
+										:key="index" 
+										:value="landingData.pgId"
+										>{{ landingData.name }}
+									</option>
+								</select>
 							</td>
-							<td class="infofix" v-else>
-								고정 항목
+						</tr>
+						<tr>
+							<th>발송주소(URL)</th>
+							<td>
+								<input type="text" v-model="sendUrl">
 							</td>
-							<td class="opp" ><input type="text" name="" id="memberId" v-model="askList.memberId"></td>
-							<td class="opp" v-if="askList.name != ''" >
-								없음
+						</tr>
+						<!-- <tr>
+							<th>암호화 여부</th>
+							<td>
+								<input type="radio" v-model="encrypt" name="encrypt" id="http"  value='N'><label for="http">일반 사이트</label>
+								<input type="radio" v-model="encrypt" name="encrypt" id="https" value='Y'><label for="https">SSL 사이트</label>
 							</td>
-							<td class="opp" v-else>
-								<input type="text" name="" id="memberValue" v-model="askList.memberValue">
+						</tr> -->
+						<tr>
+							<th>전송 방식</th>
+							<td>
+								<input type="radio" v-model="postBack" name="postBack" id="goGet"  value='G'><label for="goGet">GET 전송</label>
+								<input type="radio" v-model="postBack" name="postBack" id="goPost" value='P'><label for="goPost">POST 전송</label>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="tableBox valueList">
+					<table>
+						<thead>
+							<tr>
+								<th class="info">전송 항목</th>
+								<th class="infofix">수신측 변수명</th>
+								<th class="opp">고정값</th>
+								<th class="useCheck">전송여부
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="(askList, index) in stAskList"
+								:key="index" 
+								:value="askList"
+							> 
+								<td class="info" v-if="askList.name != ''"> 
+									{{ askList.name }} 
 								</td>
-							<td class="useCheck">
-								<input type="checkbox" :id="'useYn'+index" v-model="askList.useYn">
-								<label :for="'useYn'+index"></label>
-							</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="4">
-								<button class="imgBtn" @click="ValueAdd()" >항목 추가</button>
-								<button class="imgBtn" @click="ValueInit()">전송 항목 초기화</button>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
+								<td class="infofix" v-else>
+									고정 항목
+								</td>
+								<td class="opp" ><input type="text" name="" id="memberId" v-model="askList.memberId"></td>
+								<td class="opp" v-if="askList.name != ''" >
+									없음
+								</td>
+								<td class="opp" v-else>
+									<input type="text" name="" id="memberValue" v-model="askList.memberValue">
+									</td>
+								<td class="useCheck">
+									<input type="checkbox" :id="'useYn'+index" v-model="askList.useYn">
+									<label :for="'useYn'+index"></label>
+								</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="4">
+									<button class="imgBtn" @click="ValueAdd()" >항목 추가</button>
+									<button class="imgBtn" @click="ValueInit()">전송 항목 초기화</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<div class="btnBox">
+					<button @click="RegisterPostback()">등록하기</button>
+					<button @click="CancelUpdate()">취소하기</button>
+				</div>
 			</div>
-			<div class="btnBox">
-				<button @click="RegisterPostback()">등록하기</button>
-				<button @click="CancelUpdate()">취소하기</button>
+			<div class="right">
+				<img src="../../assets/images/menu08402/apiToWrite.png" alt="">
 			</div>
 		</div>
 
@@ -345,36 +350,40 @@
 
 <style scoped>
 	#menu08402 {
+		display: flex;
+		justify-content: space-between;
+	}
+	#menu08402 .left {
 		width: 800px;
 	}
-	#menu08402 .tableBox table th,
-	#menu08402 .tableBox table td{
+	#menu08402 .left .tableBox table th,
+	#menu08402 .left .tableBox table td{
 		border: none;
 	}
-	#menu08402 .tableBox table tr {
+	#menu08402 .left .tableBox table tr {
 		border-bottom: 1px solid #ececec; 
 	}
-	#menu08402 .campList th {
+	#menu08402 .left .campList th {
 		width: 130px;
 		padding: 15px 5px 15px 21px;
 		font-size: 14px;
 		letter-spacing: -0.42px;
 		color: #666;
 	}
-	#menu08402 .campList td {
+	#menu08402 .left .campList td {
 		padding: 9px 10px 9px 0;
 	}
-	#menu08402 .campList input,
-	#menu08402 .campList select {
+	#menu08402 .left .campList input,
+	#menu08402 .left .campList select {
 		height: 100%;
 		width: 100%;
 		border: 1px solid #e5e5e5;
 		padding: 5px;
 	}
-	#menu08402 .campList input + label {
+	#menu08402 .left .campList input + label {
 		padding: 0 30px 0 24px;
 	}
-	#menu08402 .campList input + label::before {
+	#menu08402 .left .campList input + label::before {
 		border-color: #e5e5e5;
 		width: 14px;
 		height: 14px;
@@ -382,10 +391,10 @@
 		left: 0;
 		background: #fff;
 	}
-	#menu08402 .campList input:checked + label::before {
+	#menu08402 .left .campList input:checked + label::before {
 		border-color: #e25b45;
 	}
-	#menu08402 .campList input:checked + label::after {
+	#menu08402 .left .campList input:checked + label::after {
 		content: "";
 		width: 6px;
 		height: 6px;
@@ -395,21 +404,21 @@
 		top: 50%;
 		transform: translate(-50%, -50%);
 	}
-	#menu08402 .valueList table thead tr {
+	#menu08402 .left .valueList table thead tr {
 		border-bottom-color: #939393;
 	}
-	#menu08402 .valueList table th{
+	#menu08402 .left .valueList table th{
 		padding: 12px;
 		text-align: center;
 		position: relative;
 	}
-	#menu08402 .valueList table .info,
-	#menu08402 .valueList table .infofix,
-	#menu08402 .valueList table .opp{
+	#menu08402 .left .valueList table .info,
+	#menu08402 .left .valueList table .infofix,
+	#menu08402 .left .valueList table .opp{
 		font-weight: 700;
 		width: 30%;
 	}
-	#menu08402 .valueList table th::after {
+	#menu08402 .left .valueList table th::after {
 		width: 1px;
 		height: 14px;
 		background: #d2d2d2;
@@ -419,13 +428,17 @@
 		top: 50%;
 		transform: translateY(-50%);
 	}
-	#menu08402 .valueList table th:last-child::after{
+	#menu08402 .left .valueList table th:last-child::after{
 		display: none;
 	}
-	#menu08402 .valueList table td{
+	#menu08402 .left .valueList table td{
 		text-align: center;
 	}
-	#menu08402 .valueList button {
+
+	#menu08402 .left .valueList tfoot td{
+		padding: 15px 0;
+	}
+	#menu08402 .left .valueList button {
 		width: 120px;
 		height: 30px;
 		border: none;
@@ -434,18 +447,18 @@
 		font-weight: 700;
 		color: #fff;
 	}
-	#menu08402 .valueList button:first-child {
+	#menu08402 .left .valueList button:first-child {
 		margin-right: 10px;
 		width: 100px;
 		background: #fff;
 		border: 1px solid #393939;
 		color: #393939;
 	}
-	#menu08402 .btnBox{
+	#menu08402 .left .btnBox{
 		margin-bottom: 50px;
 		text-align: center;
 	}
-	#menu08402 .btnBox button {
+	#menu08402 .left .btnBox button {
 		width: 120px;
 		height: 45px;
 		border-radius: 20px;
@@ -457,7 +470,7 @@
 		font-weight: 700;
 	}
 	
-	#menu08402 .btnBox button:first-child {
+	#menu08402 .left .btnBox button:first-child {
 		margin-right: 20px;
 		background: #e25b45;
 	}

@@ -14,7 +14,7 @@
 					<option value="99">전체</option>
 					<option value="00">진행중</option>
 					<option value="01">정지중</option>
-					<option value="02">종료</option>
+					<!-- <option value="02">종료</option> -->
 				</select>
 				<button @click="getLandingLst(1, true)">조회</button>
 			</div>
@@ -52,13 +52,26 @@
 							<td class="landDbNum">http://dbmaster.co.kr/ad/{{LandingList.url}}</td>
 
 							<td class="landAdv"  v-if     ="LandingList.useTp == '00'">진행중</td>
-							<td class="landAdv"  v-else-if="LandingList.useTp == '01'">정지중</td>
+							<td class="landAdv"  v-else-if="LandingList.useTp == '01'">일시정지</td>
 							<td class="landAdv"  v-else-if="LandingList.useTp == '02'">종료</td>
 							<td class="landAdv"  v-else                               >기타</td>
 
 							<td class="landColl" >{{askLists[index]}}</td>
 							<td class="landBtn"  >
 								<!-- <button @click="ModifyLanding(LandingList.caId, LandingList.pgId, LandingList.useTp)">변경</button> -->
+								<button 
+                  v-if="LandingList.useTp == '00'"
+									@click="SleepLanding(LandingList.caId, LandingList.pgId, LandingList.adName, LandingList.useTp)"
+								>정지
+								</button>
+								<button 
+									v-else
+									@click="SleepLanding(LandingList.caId, LandingList.pgId, LandingList.adName, LandingList.useTp)"
+								>시작
+								</button>
+
+
+
 								<button @click="RemoveLanding(LandingList.caId, LandingList.pgId, LandingList.adName)">삭제</button>
 							</td>
 						</tr>
@@ -137,6 +150,8 @@
 				.then(response => {
 					console.log(response.data[0]);
 					this.LandingListObj = response.data[0];
+
+
 
 					for(let i = 0 ; i < this.LandingListObj.length ; i++) {
             let parseData = this.LandingListObj[i].askList.replace(/,-/gi,"", (match) => {return '' + match + '';});
@@ -232,7 +247,7 @@
 			// 랜딩페이지 삭제
 			//******************************************************************************
 			RemoveLanding(caId, pgId, adName) {
-				if(confirm("정말로 랜딩페이지를 삭제하시겠습니까??") == false) {
+				if(confirm("정말로 [" + adName + "] 랜딩페이지를 삭제하시겠습니까??") == false) {
 					return;
 				}
 
@@ -246,16 +261,58 @@
 						, caId        : caId
 						, mkId        : this.$store.state.adId
 						, pgId        : pgId
-						, status      : 'F'
+						, status      : '03'
 					}
 				})
 				.then(response => {
 					if(response.data.status == true) {
-						alert("포스트백을 정상적으로 삭제하였습니다.");
+						alert("[" + adName + "] 포스트백을 정상적으로 삭제하였습니다.");
 						this.getCampaignNameLst();
 					}
 					else {
 						alert("포스트백을 삭제에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
+					}
+				})
+				.catch(error => {
+					console.log(error);
+				})
+			},
+			//******************************************************************************
+			// 랜딩페이지 삭제
+			//******************************************************************************
+			SleepLanding(caId, pgId, adName, useTp) {
+				if(confirm("정말로 [" + adName + "] 랜딩페이지를 정지하시겠습니까??") == false) {
+					return;
+				}
+
+				let status = '';
+				if(useTp == '00') {
+					status = '01';
+				}
+				else {
+					status = '00';
+				}
+
+				axios.get("http://api.adinfo.co.kr:30000/ChangeLandingStatus",
+				{
+					params: {
+              clntId      : this.$store.state.clntId
+						, campName    : adName
+						, mbId        : this.$store.state.mbId
+						, adId        : this.$store.state.adId
+						, caId        : caId
+						, mkId        : this.$store.state.adId
+						, pgId        : pgId
+						, status      : status
+					}
+				})
+				.then(response => {
+					if(response.data.status == true) {
+						alert("[" + adName + "] 포스트백을 정상적으로 정지하였습니다.");
+						this.getCampaignNameLst();
+					}
+					else {
+						alert("포스트백을 정지에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
 					}
 				})
 				.catch(error => {

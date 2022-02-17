@@ -42,23 +42,26 @@
             COPYRIGHT© 2022 (주)마케팅디자인. ALL RIGHTS RESERVED
           </div>
           <div class="right">
-            <a href="javascript:void(0)">이용약관</a>
-            <a href="javascript:void(0)">개인정보처리방침</a>
+            <a href="javascript:void(0)" @click="PopUpTerms();">이용약관</a>
+            <a href="javascript:void(0)" @click="PopUpPrivacy();">개인정보처리방침</a>
           </div>
         </div>
       </div>
     </div>
+    <UseTerms></UseTerms>
+    <PrivacyPolicy></PrivacyPolicy>
   </div>
 </template>
 <script>
   // import axios from "axios";
-  //import $ from 'jquery';
-
-  import AdminMenu from './components/menu/AdminMenu'
-  import AdExcuteMenu from './components/menu/AdExcuteMenu'
-  import SponserMenu from './components/menu/SponserMenu'
-  import MarketerMenu from './components/menu/MarketerMenu'
-  import DbMasterMenu from './components/menu/DbMasterMenu'
+  import $              from 'jquery';
+  import AdminMenu      from './components/menu/AdminMenu'
+  import AdExcuteMenu   from './components/menu/AdExcuteMenu'
+  import SponserMenu    from './components/menu/SponserMenu'
+  import MarketerMenu   from './components/menu/MarketerMenu'
+  import DbMasterMenu   from './components/menu/DbMasterMenu'
+  import UseTerms       from './components/dialog/UseTerms'
+  import PrivacyPolicy  from './components/dialog/PrivacyPolicy'
 
   export default {
     components: {
@@ -67,6 +70,8 @@
       , SponserMenu
       , MarketerMenu
       , DbMasterMenu
+      , UseTerms
+      , PrivacyPolicy
 
     },
     data() {
@@ -80,24 +85,30 @@
       //******************************************************************************
       LogOut() {
                 // LocalStorage 전체를 지운다.
-        localStorage.clear();
+        sessionStorage.clear();
         this.$router.push({ path : "Login" });
       },
       Mypage() {
         this.$router.push({ path : "MENU_08901" });
+      },
+      PopUpPrivacy () {
+        $("#privacyPolicy").css({display: "block"})
+      },
+      PopUpTerms () {
+        $("#useTerms").css({display: "block"})
       }
     },
     created() {
       document.title = "디비마스터 플랫폼";
-      this.$store.state.clntId       = localStorage.getItem("clntId");
-      this.$store.state.clntNm       = localStorage.getItem("clntNm");
-      this.$store.state.nickNm       = localStorage.getItem("nickNm");
-      this.$store.state.jwtAuthToken = localStorage.getItem("token");
-      this.$store.state.adGradeCd    = localStorage.getItem("grade");
-      this.$store.state.mbId         = localStorage.getItem("mbId");
-      this.$store.state.adId         = localStorage.getItem("adId");
-      this.$store.state.mkId         = localStorage.getItem("mkId");
-      this.$store.state.mkCd         = localStorage.getItem("mkCd");
+      this.$store.state.clntId       = sessionStorage.getItem("clntId");
+      this.$store.state.clntNm       = sessionStorage.getItem("clntNm");
+      this.$store.state.nickNm       = sessionStorage.getItem("nickNm");
+      this.$store.state.jwtAuthToken = sessionStorage.getItem("token");
+      this.$store.state.adGradeCd    = sessionStorage.getItem("grade");
+      this.$store.state.mbId         = sessionStorage.getItem("mbId");
+      this.$store.state.adId         = sessionStorage.getItem("adId");
+      this.$store.state.mkId         = sessionStorage.getItem("mkId");
+      this.$store.state.mkCd         = sessionStorage.getItem("mkCd");
     }
   }
 </script>

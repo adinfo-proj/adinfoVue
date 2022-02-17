@@ -33,13 +33,6 @@
 							<input type="text" v-model="sendUrl">
 						</td>
 					</tr>
-					<!-- <tr>
-						<th>암호화 여부</th>
-						<td>
-							<input type="radio" v-model="encrypt" name="encrypt" id="http"  value='N'><label for="http">일반 사이트</label>
-							<input type="radio" v-model="encrypt" name="encrypt" id="https" value='Y'><label for="https">SSL 사이트</label>
-						</td>
-					</tr> -->
 					<tr>
 						<th>발송 형식</th>
 						<td>
@@ -166,20 +159,18 @@
 					this.$refs.postBack.focus(); ///$refs
 					return;
 				}
-          //   tp          : true
-					// , name        : ''
-					// , memberId    : ''
-					// , memberValue : ''
-					// , useYn       : true
+
 				for(let i = 0 ; i < this.stAskList.length; i++) {
+
 					if(this.stAskList[i].memberId == null || this.stAskList[i].memberId == '' ) {
-						if(this.stAskList[i].tp == false)
+						if(this.stAskList[i].tp == 'N')
 							alert("전송 항목 중 " + this.stAskList[i].name + "의 수신측 변수명을 입력해주세요.");
 						else
 							alert("전송 항목 중 고정항목의 수신측 변수명을 입력해주세요.");
 						return;
 					}
-					if(this.stAskList[i].tp == true) {
+
+					if(this.stAskList[i].tp == 'Y') {
 						if(this.stAskList[i].memberValue == null || this.stAskList[i].memberValue == '' ) {
 							alert("전송 항목 중 " + this.stAskList[i].name + "의 고정값을 입력해주세요.");
 							return;
@@ -203,10 +194,6 @@
 					, inputParam        : this.stAskList
 					, status						: this.used
 				};
-
-				if(data.length < 0) {
-					return;
-				}
 
 				const frm = new FormData();
 				frm.append("dataObj", new Blob([JSON.stringify(data)], {type: "application/json"}));
@@ -235,13 +222,14 @@
 					}
 				})
 				.then(response => {
+					console.log(response);
+					this.campaignNameListObj = response.data;
+
 					for(let i = 0 ; i < response.data.length; i++) {
 						if(this.paramCaId == response.data[i].caId) {
-							this.campSelect = response.data[0].caId;
+							this.campSelect = response.data[i].caId;
 						}
-					}
-
-					this.campaignNameListObj = response.data;
+					}					
           this.getLandingPageLst();
 				})
 				.catch(error => {
@@ -257,7 +245,7 @@
 					return;
 				}
 				let paramAdd = {
-            tp          : true
+            tp          : 'Y'
 					, name        : '-'
 					, memberId    : ''
 					, memberValue : ''
@@ -291,7 +279,7 @@
 					if( this.stAskListObj[i] == '-' )
 						continue;
 					let paramAdd = {
-							tp          : false
+							tp          : 'N'
 						,	name        : this.stAskListObj[i]
 						, memberId    : ''
 						, memberValue : ''
@@ -351,16 +339,18 @@
 						this.used     = response.data.status;
 						
 						for(let i = 0 ; i < 10; i++) {
-							if( response.data.accessFlag.charAt(i) == '_' )
-								continue;
+//							if( response.data.accessFlag.charAt(i) == '_' )
+//								continue;
 
 							let paramAdd = {
-									tp          : false
+									tp          : 'N'
 								, name        : this.stAskValue[i]
 								, memberId    : ''
 								, memberValue : ''
 								, useYn       : true
 							}
+
+							paramAdd.tp = response.data.accessFlag.charAt(i);
 
 							switch(i) {
 								case 0 :  paramAdd.memberId    = response.data.value01.split("=")[0];

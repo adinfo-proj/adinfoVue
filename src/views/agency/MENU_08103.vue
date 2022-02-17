@@ -224,7 +224,7 @@ export default {
       }
       , editorConfig2: { 
         toolbarGroups: [ 
-          { name: 'styles', groups: [ 'styles' ] }, 
+          // { name: 'styles', groups: [ 'styles' ] }, 
           { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }
           ] 
         , height: '330px' 

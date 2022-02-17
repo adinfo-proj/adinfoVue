@@ -719,9 +719,9 @@
             this.$store.state.adGradeCd = response.data.adGradeCd
 
             // 토큰값을 LocalStorage에 저장한다.
-            localStorage.setItem("email", this.$store.state.emailId);
-            localStorage.setItem("token", this.$store.state.jwtAuthToken);
-            localStorage.setItem("grade", this.$store.state.adGradeCd);
+            sessionStorage.setItem("email", this.$store.state.emailId);
+            sessionStorage.setItem("token", this.$store.state.jwtAuthToken);
+            sessionStorage.setItem("grade", this.$store.state.adGradeCd);
 
             alert("회원가입이 완료되었습니다.")
 

@@ -143,7 +143,7 @@
         <h6>약관 설정하기</h6>
         <div class="agreeSub bot">
           <span>동의항목 명</span>
-        <input type="text" id="agreeName" placeholder="동의 항목 제목을 입력해주세요 예) 개인정보 제공 동의"  autocomplete='off' v-model="agreeConNm">
+        <input type="text" id="agreeName" autocomplete='off' v-model="agreeConNm">
         </div>
         <div class="agreeSub">
           <ckeditor id="agreeTextBox" v-model="agreeCon" :config="editorConfig2"></ckeditor>
@@ -188,7 +188,7 @@ export default {
       }
       , editorConfig2: { 
         toolbarGroups: [ 
-          { name: 'styles', groups: [ 'styles' ] }, 
+          // { name: 'styles', groups: [ 'styles' ] }, 
           { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }, 
           ] 
         , height: '330px' 
@@ -218,7 +218,7 @@ export default {
       //-----------------------------------
       , formObj: []
       , agreeCon: ''
-      , agreeConNm: ''
+      , agreeConNm: '개인정보 제공 동의'
       , splText: ''
     }
   },
@@ -338,7 +338,7 @@ export default {
       this.agreeCon += " 위탁업체 및 위탁업무내용<br>"
       this.agreeCon += " " 
       this.agreeCon += this.adNameAd 
-      this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>`"
+      this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>"
     },
     //******************************************************************************
     // 폼 변경 시 적용되는
@@ -386,7 +386,35 @@ export default {
         return;
       }
 
-      // console.log(this.formObj);
+      console.log(this.formObj.length);
+
+
+      for(let i = 2 ; i < this.formObj.length ; i++) {
+        let nuText = i+1;
+
+        console.log(this.formObj[i].value);
+        //------------------------------------
+        // 폼 설정하기 항목
+        //------------------------------------
+        if(this.formObj[i].types == '00') {
+          if(this.formObj[i].value != '' || this.formObj[i].desc  != '') {
+            alert("폼 설정하기의" + nuText + "번째의 정보를 확인해주세요.");
+            return;
+          }
+        }
+        else if(this.formObj[i].types == '01') {
+          if(this.formObj[i].value == '') {
+            alert("폼 설정하기의" + nuText + "번째의 정보를 확인해주세요.");
+            return;
+          }
+        }
+        else {
+          if(this.formObj[i].value == '' || this.formObj[i].desc  == '') {
+            alert("폼 설정하기의" + nuText + "번째의 정보를 확인해주세요.");
+            return;
+          }
+        }
+      }
 
       //------------------------------------------------------------------------------
       // 정보 보내기
