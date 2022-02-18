@@ -348,6 +348,7 @@
 		padding: 9px 18px;
 		margin-right: 5px;
 		font-weight: 700;
+		/* min-height: ; */
 	}
 
 	#menu08301 .landSearch button {

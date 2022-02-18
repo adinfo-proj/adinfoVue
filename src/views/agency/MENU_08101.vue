@@ -88,7 +88,7 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<td class="dataBtn" colspan="9">
+							<td class="dataBtn" colspan="10">
 								<span class="pageleft" v-if="pageCount.length > 0" @click="campaignListChange(campaignStatusCode, curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
 								<div class="pageNum">
 									<ul>

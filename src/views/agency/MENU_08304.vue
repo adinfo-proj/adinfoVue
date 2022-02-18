@@ -36,39 +36,19 @@
               </tr>
               <tr>
                 <th>
-                  DB확인 페이지 ID명
-                </th>
-                <td class="idBox pad">
-                  <span>
-                    {{idComment}}
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  외부 접속 비밀번호 
+                  외부 도메인 URL
                 </th>
                 <td>
-                  <input type="text" name="" id="" v-model="passWd">
+                  <input class="boxSz" type="text" name="" id="" v-model="externalUrl">
                 </td>
               </tr>
-              <tr>
-                <th>
-                  조회가능 일시
-                </th>
-                <td>
-                  <input type="date" name="" id="" v-model="srtDt"> ~ <input type="date" name="" id="" v-model="endDt">
-                </td>
-              </tr>
-              <tr></tr>
-              <tr></tr>
             </table>
           </div>
           <div class="btnBox">
-            <button class="clear" @click="CreateClearClntId()">초기화</button>
-            <button class="submit" @click="CreateExternalClntId()">만들기</button>
-            <button class="modify">변경</button>
-            <button class="del">삭제</button>
+            <button class="clear" @click="CreateClearUrl()">초기화</button>
+            <button class="submit" @click="CreateExternalUrl()">연결 하기 신청</button>
+            <button class="modify">연결 해제 신청</button>
+            <button class="del">항목 삭제</button>
           </div>
         </div>
         <div class="right">
@@ -79,28 +59,22 @@
         <table>
           <thead>
             <tr>
-              <th class="admNo">번호</th>
-              <th class="admStart">등록일시</th>
-              <th class="admCamp">캠페인 명</th>
-              <th class="admLand">랜딩페이지 명</th>
-              <th class="admId">ID</th>
-              <th class="admPw">PW</th>
-              <th class="admAccess">최종접속일시</th>
-              <th class="admEnd">만기일(예정)</th>
+              <th class="admNo"   >번호</th>
+              <th class="admStart">요청일시</th>
+              <th class="admCamp" >캠페인 명</th>
+              <th class="admLand" >랜딩페이지 명</th>
+              <th class="admId"   >요청 URL</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(stUserList, index) in stUserListObj"
               :key="index"
             >
-              <th class="admNo">{{index+1}}</th>
-              <td class="admStart">{{stUserList.createDt}}</td>
-              <td class="admCamp">{{stUserList.caNm}}</td>
-              <td class="admLand">{{stUserList.pgNm}}</td>
-              <td class="admId">{{stUserList.externalClntId}}</td>
-              <td class="admPw">{{stUserList.externalClntPw}}</td>
-              <td class="admAccess">추후 제공 예정</td>
-              <td class="admEnd">{{stUserList.endDt}}</td>
+              <th class="admNo"    >{{index+1}}</th>
+              <td class="admStart" >{{stUserList.createDt}}</td>
+              <td class="admCamp"  >{{stUserList.caNm}}</td>
+              <td class="admLand"  >{{stUserList.pgNm}}</td>
+              <td class="admIdData">{{stUserList.externalUrl}}</td>
             </tr>
           </tbody>
           <tfoot>
@@ -139,19 +113,9 @@
 				, landingDataObj			: ''
         , landingDataOne      : ''
 				, sendUrl             : ''
-				, encrypt             : ''
-        , postBack            : ''
-				, used								: ''
         , landStatus          : ''
-				, stAskValue          : []
-				, stAskListObj        : []
-				, stAskList           : []
         , stUserListObj       : ''
-        , passWd              : ''
-        , srtDt               : ''
-        , endDt               : ''
-        , idComment           : '만들기 클릭 후 아이디는 자동으로 생성됩니다.'
-        , pwComment           : ''
+        , externalUrl         : ''
 
 				, pageCount             : []
 				, selectRowCount        : 10
@@ -179,6 +143,8 @@
 					console.log(response);
 					this.campaignNameListObj = response.data;
           //this.getLandingPageLst();
+
+          this.getClntUser(1, true);
 				})
 				.catch(error => {
 					console.log(error);
@@ -259,23 +225,16 @@
       //******************************************************************************
       // 신규사용자 등록
       //******************************************************************************
-      CreateExternalClntId() {
+      CreateExternalUrl() {
         if(this.campSelect == "-1" || this.landSelect == "-1") {
           alert("캠페인과 랜딩페이지 정보를 선택해주세요.");
           return;
         }
 
-        if(this.passWd == "" || this.passWd == null) {
-          alert("등록하실 외부 접속 비밀번호를 입력해주세요.");
+        if(this.externalUrl == "" || this.externalUrl == null) {
+          alert("등록하실 외부 등록 URL을 입력해주세요.");
           return;
         }
-
-        let lAdSrtDt = this.srtDt.replace(/-/gi,"", (match) => {
-          return '' + match + '';
-        });
-        let lAdEndDt = this.endDt.replace(/-/gi,"", (match) => {
-          return '' + match + '';
-        });
 
         let data = {
             mbId        : this.$store.state.mbId
@@ -283,11 +242,8 @@
           , caId        : this.campSelect
           , mkId        : this.$store.state.adId
           , pgId        : this.landSelect
-          , clntId      : this.$store.state.clntId
           , status      : '00'  // 00:생성, 01:일시정지, 02:삭제
-          , externalPw  : this.passWd
-          , srtDt       : lAdSrtDt
-          , endDt       : lAdEndDt
+          , externalUrl : this.externalUrl
           , description : ''
         };
 
@@ -295,22 +251,24 @@
 
         const frm = new FormData();
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-        axios.post("http://api.adinfo.co.kr:30000/CreExternalUser", frm, {
+        axios.post("http://api.adinfo.co.kr:30000/CreExternalUrl", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
           console.log(response);
 
-          if( response.data.status == true) {
-            this.idComment = response.data.externalClntId + " / " + response.data.externalClntPw;
+          alert(response.data.message);
 
-            this.campSelect = "-1";
-            this.landSelect = "-1";
-            this.passWd = '';
-          }
-          else {
-            this.idComment = '';
-          }
+          // if( response.data.status == true) {
+          //   this.idComment = response.data.externalClntId + " / " + response.data.externalClntPw;
+
+          //   this.campSelect = "-1";
+          //   this.landSelect = "-1";
+          //   this.externalUrl = '';
+          // }
+          // else {
+          //   this.idComment = '';
+          // }
 
           // alert(response.data.message);
           // if( response.data.status == true) {
@@ -336,8 +294,8 @@
         }
 
 				this.curPage = selectPage;
-
-        axios.get("http://api.adinfo.co.kr:30000/GetExternalUserList",
+        
+        axios.get("http://api.adinfo.co.kr:30000/GetExternalUrlList",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -345,12 +303,12 @@
             , caId: this.campSelect
             , pgId: this.landSelect
             , status: '00'
+            , description: ''
           }
         })
         .then(response => {
           console.log(response);
           this.stUserListObj = response.data[1];
-          // this.landingDataOne = response.data;
 
           //--------------------------------------------------------------------
           // 페이지처리 시작
@@ -396,10 +354,10 @@
     },
 		created() {
 			this.$store.state.headerTopTitle = "랜딩페이지";
-			this.$store.state.headerMidTitle = "외부 DB확인 설정";
+			this.$store.state.headerMidTitle = "외부 도메인 연결 설정";
 			this.getCampaignNameLst();
 
-      this.getClntUser(1, true);
+      //this.getClntUser();
 		}
   }
 </script>
@@ -433,10 +391,12 @@
     padding-left: 15px;
   }
 
-
-
   #menu08303 .flex .left .tableBox td input[type="date"] {
     height: 29px;
+  }
+
+  #menu08303 .flex .left .tableBox .boxSz{
+    width: 620px;
   }
 
   #menu08303 .flex .left .btnBox {
@@ -504,14 +464,19 @@
     width: 5%;
   }
 
-  #menu08303 .adminData .admStart,
-  #menu08303 .adminData .admId,
+  #menu08303 .adminData .admStart{
+    width: 15%;
+  }
   #menu08303 .adminData .admPw,
   #menu08303 .adminData .admEnd {
     width: 10%;
   }
-
-
+  #menu08303 .adminData .admId {
+    width: 50%;
+  }
+  #menu08303 .adminData .admIdData {
+    text-align: left;
+  }
 
   #menu08303 .adminData .admCamp,
   #menu08303 .adminData .admLand {
@@ -520,7 +485,6 @@
   #menu08303 .adminData .admAccess{
     width: 15%;
   }
-
 
   #menu08303 tfoot ul,
   #menu08303 tfoot ul li {
@@ -555,7 +519,4 @@
     left: 0;
     background: #666;
   }
-
-
-
 </style>

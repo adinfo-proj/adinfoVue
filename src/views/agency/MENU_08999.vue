@@ -3,28 +3,28 @@
 		<div id="menu08999">
 			<div class="ratePlanTop">
 				<ul>
-					<li class="on">
-						<span class="tapBtn">디미바스터 서비스 상품</span>
+					<li @click="Rate(1)" v-bind:class="{ on : 1 == tapbtn}">
+						<span class="tapBtn" >디미바스터 서비스 상품</span>
 						<div class="ratePlanMiddle mid01">
-							<input type="radio"  name="plan02" id="basic" value="basic" v-model="servicePlan">
+							<input type="radio" id="basic" value="basic" v-model="servicePlan">
 							<label for="basic">
 								<span class="top">BASIC</span>
 								<span class="middle">29,700 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>랜딩 갯 수</span> 3개</span>
 							</label>
-							<input type="radio" name="plan02" id="silver" value="silver" v-model="servicePlan">
+							<input type="radio" id="silver" value="silver" v-model="servicePlan">
 							<label for="silver">
 								<span class="top">SILVER</span>
 								<span class="middle">66,000 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>랜딩 갯 수</span> 7개</span>
 							</label>
-							<input type="radio" name="plan02" id="gold" value="gold" v-model="servicePlan">
+							<input type="radio" id="gold" value="gold" v-model="servicePlan">
 							<label for="gold">
 								<span class="top">GOLD</span>
 								<span class="middle">99,000 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>랜딩 갯 수</span> 12개</span>
 							</label>
-							<input type="radio" name="plan02" id="vip" value="vip" v-model="servicePlan">
+							<input type="radio" id="vip" value="vip" v-model="servicePlan">
 							<label for="vip">
 								<span class="top">VIP</span>
 								<span class="middle">220,000 <span>원/월(VAT 포함)</span></span>
@@ -32,225 +32,333 @@
 							</label>
 						</div>
 					</li>
-					<li >
+					<li @click="Rate(2)" v-bind:class="{ on : 2 == tapbtn}">
 						<span class="tapBtn">부가서비스 상품</span>
 						<div class="ratePlanMiddle mid02">
-							<input type="radio" name="plan02" id="post" value="basic">
+							<input type="radio" v-model="subPlan" id="post" value="post">
 							<label for="post">
-								<span class="top">BASIC</span>
-								<span class="middle">29,700 <span>원/월(VAT 포함)</span></span>
-								<span class="bottom"><span>랜딩 갯 수</span> 3개</span>
+								<span class="top">포스트백 프리미엄 서비스</span>
+								<span class="middle">55,000 <span>원/월(VAT 포함)</span></span>
+								<span class="bottom"><span>DB 데이터 보내기 + 받기 + 다중전송이 가능</span></span>
 							</label>
-							<input type="radio" name="plan02" id="sms" value="silver">
+							<input type="radio" v-model="subPlan" id="sms" value="sms">
 							<label for="sms">
-								<span class="top">SILVER</span>
-								<span class="middle">66,000 <span>원/월(VAT 포함)</span></span>
-								<span class="bottom"><span>랜딩 갯 수</span> 7개</span>
+								<span class="top">SMS 수신 서비스</span>
+								<span class="middle">2,200 / 6,600 /11,000 / 22,000 <span>원/월(VAT 포함)</span></span>
+								<span class="bottom"><span>DB접수 시 SMS수신 서비스</span></span>
 							</label>
 						</div>
 					</li>
 				</ul>
 			</div>
 			<div class="ratePlanBottom">
-				<div class="detailPlan" v-if="servicePlan == 'basic'">
-					<div class="left">
-						<img src="../../assets/images/ratePlan/basic.jpg" alt="basic">
-					</div>
-					<div class="right">
-						<h6>
-							[디비마스터] 베이직 1개월
-						</h6>
-						<p class="subtitle">
-							마케터의 성공 파트너 디비마스터의 유료 서비스 상품입니다.
-						</p>
-						<p>
-							<span class="planTitle">
-								상품가
-							</span>
-							<span class="org">
-								29,700원
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								제조사
-							</span>
-							<span class="gray">
-								(주)마케팅디자인
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								추가옵션
-							</span>
-							<span>
-								<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
-								<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								총 금액
-							</span>
-							<span class="org">
-								29,700원
-							</span>
-						</p>
-						<div class="btn">
-							<button>바로 구매</button>
+				<div v-if="tapbtn == 1">
+					<div class="detailPlan" v-if="servicePlan == 'basic'">
+						<div class="left">
+							<img src="../../assets/images/ratePlan/basic.jpg" alt="basic">
+						</div>
+						<div class="right">
+							<h6>
+								[디비마스터] 베이직 1개월
+							</h6>
+							<p class="subtitle">
+								마케터의 성공 파트너 디비마스터의 유료 서비스 상품입니다.
+							</p>
+							<p>
+								<span class="planTitle">
+									상품가
+								</span>
+								<span class="org">
+									29,700원
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									개발사
+								</span>
+								<span class="gray">
+									디비마스터
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									추가옵션
+								</span>
+								<span>
+									<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
+									<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									총 금액
+								</span>
+								<span class="org">
+									29,700원
+								</span>
+							</p>
+							<div class="btn">
+								<button>바로 구매</button>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="detailPlan" v-if="servicePlan == 'silver'">
-					<div class="left">
-						<img src="../../assets/images/ratePlan/silver.jpg" alt="silver">
-					</div>
-					<div class="right">
-						<h6>
-							[디비마스터] 실버 1개월
-						</h6>
-						<p class="subtitle">
-							마케터의 성공 파트너 디비마스터의 유료 서비스 상품입니다.
-						</p>
-						<p>
-							<span class="planTitle">
-								상품가
-							</span>
-							<span class="org">
-								66,000원
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								제조사
-							</span>
-							<span class="gray">
-								(주)마케팅디자인
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								추가옵션
-							</span>
-							<span>
-								<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
-								<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								총 금액
-							</span>
-							<span class="org">
-								29,700원
-							</span>
-						</p>
-						<div class="btn">
-							<button>바로 구매</button>
+					<div class="detailPlan" v-if="servicePlan == 'silver'">
+						<div class="left">
+							<img src="../../assets/images/ratePlan/silver.jpg" alt="silver">
+						</div>
+						<div class="right">
+							<h6>
+								[디비마스터] 실버 1개월
+							</h6>
+							<p class="subtitle">
+								마케터의 성공 파트너 디비마스터의 유료 서비스 상품입니다.
+							</p>
+							<p>
+								<span class="planTitle">
+									상품가
+								</span>
+								<span class="org">
+									66,000원
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									개발사
+								</span>
+								<span class="gray">
+									디비마스터
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									추가옵션
+								</span>
+								<span>
+									<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
+									<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									총 금액
+								</span>
+								<span class="org">
+									29,700원
+								</span>
+							</p>
+							<div class="btn">
+								<button>바로 구매</button>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="detailPlan" v-if="servicePlan == 'gold'">
-					<div class="left">
-						<img src="../../assets/images/ratePlan/gold.jpg" alt="gold">
-					</div>
-					<div class="right">
-						<h6>
-							[디비마스터] 골드 1개월
-						</h6>
-						<p class="subtitle">
-							마케터의 성공 파트너 디비마스터의 유료 서비스 상품입니다.
-						</p>
-						<p>
-							<span class="planTitle">
-								상품가
-							</span>
-							<span class="org">
-								99,000원
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								제조사
-							</span>
-							<span class="gray">
-								(주)마케팅디자인
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								추가옵션
-							</span>
-							<span>
-								<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
-								<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								총 금액
-							</span>
-							<span class="org">
-								29,700원
-							</span>
-						</p>
-						<div class="btn">
-							<button>바로 구매</button>
+					<div class="detailPlan" v-if="servicePlan == 'gold'">
+						<div class="left">
+							<img src="../../assets/images/ratePlan/gold.jpg" alt="gold">
+						</div>
+						<div class="right">
+							<h6>
+								[디비마스터] 골드 1개월
+							</h6>
+							<p class="subtitle">
+								마케터의 성공 파트너 디비마스터의 유료 서비스 상품입니다.
+							</p>
+							<p>
+								<span class="planTitle">
+									상품가
+								</span>
+								<span class="org">
+									99,000원
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									개발사
+								</span>
+								<span class="gray">
+									디비마스터
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									추가옵션
+								</span>
+								<span>
+									<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
+									<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									총 금액
+								</span>
+								<span class="org">
+									29,700원
+								</span>
+							</p>
+							<div class="btn">
+								<button>바로 구매</button>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="detailPlan" v-if="servicePlan == 'vip'">
-					<div class="left">
-						<img src="../../assets/images/ratePlan/vip.jpg" alt="vip">
-					</div>
-					<div class="right">
-						<h6>
-							[디비마스터] 브이아이피 1개월
-						</h6>
-						<p class="subtitle">
-							마케터의 성공 파트너 디비마스터의 유료 서비스 상품입니다.
-						</p>
-						<p>
-							<span class="planTitle">
-								상품가
-							</span>
-							<span class="org">
-								220,000원
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								제조사
-							</span>
-							<span class="gray">
-								(주)마케팅디자인
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								추가옵션
-							</span>
-							<span>
-								<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
-								<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
-							</span>
-						</p>
-						<p>
-							<span class="planTitle">
-								총 금액
-							</span>
-							<span class="org">
-								29,700원
-							</span>
-						</p>
-						<div class="btn">
-							<button>바로 구매</button>
+					<div class="detailPlan" v-if="servicePlan == 'vip'">
+						<div class="left">
+							<img src="../../assets/images/ratePlan/vip.jpg" alt="vip">
+						</div>
+						<div class="right">
+							<h6>
+								[디비마스터] 브이아이피 1개월
+							</h6>
+							<p class="subtitle">
+								마케터의 성공 파트너 디비마스터의 유료 서비스 상품입니다.
+							</p>
+							<p>
+								<span class="planTitle">
+									상품가
+								</span>
+								<span class="org">
+									220,000원
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									개발사
+								</span>
+								<span class="gray">
+									디비마스터
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									추가옵션
+								</span>
+								<span>
+									<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
+									<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									총 금액
+								</span>
+								<span class="org">
+									29,700원
+								</span>
+							</p>
+							<div class="btn">
+								<button>바로 구매</button>
+							</div>
 						</div>
 					</div>
+					<div	class="planInfo">
+						<h6>디비마스터 상품정보</h6>
+						<img src="../../assets/images/ratePlan/basicPlan.jpg" alt="basicPlan">
+					</div>
 				</div>
-				<div	class="planInfo">
-					<h6>디비마스터 상품정보</h6>
-					<img src="../../assets/images/ratePlan/basicPlan.jpg" alt="basicPlan">
+				<div v-if="tapbtn == 2">
+					<div class="detailPlan" v-if="subPlan == 'post'">
+						<div class="left">
+							<img src="../../assets/images/ratePlan/post.jpg" alt="basic">
+						</div>
+						<div class="right">
+							<h6>
+								[디비마스터] 포스트백 프리미엄 서비스 1개월
+							</h6>
+							<p class="subtitle">
+								디비마스터의 유료 서비스상품을 구매 후 이용할 수 있는 상품입니다. 
+							</p>
+							<p>
+								<span class="planTitle">
+									상품가
+								</span>
+								<span class="org">
+									55,000원
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									개발사
+								</span>
+								<span class="gray">
+									디비마스터
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									상품선택
+								</span>
+								<span>
+									단일상품
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									총 금액
+								</span>
+								<span class="org">
+									55,000원
+								</span>
+							</p>
+							<div class="btn">
+								<button>바로 구매</button>
+							</div>
+						</div>
+					</div>
+					<div class="detailPlan" v-if="subPlan == 'sms'">
+						<div class="left">
+							<img src="../../assets/images/ratePlan/sms.jpg" alt="silver">
+						</div>
+						<div class="right">
+							<h6>
+								[디비마스터] SMS 수신 서비스
+							</h6>
+							<p class="subtitle">
+								디비마스터의 유료 서비스상품을 구매 후 이용할 수 있는 상품입니다. 
+							</p>
+							<p>
+								<span class="planTitle">
+									상품가
+								</span>
+								<span class="org">
+									2,200원 ~
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									개발사
+								</span>
+								<span class="gray">
+									디비마스터
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									상품선택
+								</span>
+								<span>
+									<select name="" id="">
+										<option value="2200"></option>
+									</select>
+								</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									총 금액
+								</span>
+								<span class="org">
+									29,700원
+								</span>
+							</p>
+							<div class="btn">
+								<button>바로 구매</button>
+							</div>
+						</div>
+					</div>
+					<div	class="planInfo">
+						<h6>디비마스터 상품정보</h6>
+
+						<img v-if="subPlan == 'post'" src="../../assets/images/ratePlan/postPlan.jpg" alt="basicPlan">
+						<img v-if="subPlan == 'sms'" src="../../assets/images/ratePlan/smsPlan.jpg" alt="basicPlan">
+					</div>
 				</div>
 				<div class="ratePlanFooter">
 					<h2>배송 및 환불/취소정보</h2>
@@ -284,13 +392,21 @@
 		data() {
 			return {
 					servicePlan: 'basic'
+				, tapbtn: 1
+				, subPlan: 'post'
 			}
 		},
 		methods: {
 
-			// Rate() {
-			// 	console.log(this.servicePlan)
-			// }
+			Rate(pos) {
+				this.tapbtn = pos
+				if(this.tapbtn == 1) {
+					this.servicePlan = 'basic'
+				}
+				else if(this.tapbtn == 2) {
+					this.subPlan = 'post'
+				}
+			}
 
 
 		},
@@ -338,6 +454,7 @@
 	border-bottom-color: #262626;
 	font-size: 14px;
 	position: relative;
+	font-weight: 700;
 }
 
 #menu08999 .ratePlanTop li.on .tapBtn {
@@ -444,6 +561,22 @@
 #menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label .bottom {
 	font-size: 16px;
 	padding: 15px;
+}
+
+#menu08999 .ratePlanTop li .mid02 input[type="radio"] + label {
+	width: 645px;
+}
+
+#menu08999 .ratePlanTop li .mid02 input[type="radio"]:checked + label::before {
+	width: 645px;
+	height: 169px;
+}
+
+
+
+#menu08999 .ratePlanTop li .mid02 input[type="radio"] + label .top {
+	color: #222;
+	font-size: 30px;
 }
 
 #menu08999 .ratePlanBottom {

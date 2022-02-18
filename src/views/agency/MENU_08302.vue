@@ -95,6 +95,15 @@
           </tr>
           <tr>
             <th>
+              랜딩페이지 대체
+            </th>
+            <td>
+              <input type="checkbox" id="landrep" v-model="landReplace" @change="Replace()">
+              <label for="landrep"></label>
+            </td>
+          </tr>
+          <tr>
+            <th>
               페이지 명
             </th>
             <td v-if="landReplace == false">
@@ -113,11 +122,18 @@
           </tr>
           <tr>
             <th>
-              랜딩페이지 대체
+              타이틀 명
             </th>
             <td>
-              <input type="checkbox" id="landrep" v-model="landReplace" @change="Replace()">
-              <label for="landrep"></label>
+              <input type="text" class="" v-model="titleName">
+            </td>
+          </tr>
+          <tr>
+            <th>
+              메모
+            </th>
+            <td>
+              <textarea v-model="memo" ></textarea>
             </td>
           </tr>
         </table>
@@ -200,7 +216,8 @@
 
         , landName        : ''
         , landReplace     : false
-
+        , titleName       : ''
+        , memo            : ''
         , landPgId        : 0
 
         , landingDataObj  : '' 
@@ -254,11 +271,10 @@
 						, adId   : this.$store.state.adId
             , mkId   : this.$store.state.mkId
             , caId   : this.campaignSelect
+            //, caId   : index
           }
         })
         .then(response => {
-          // console.log(response);
-
           if(response.data[0].status == true) {
             this.campData = response.data[1];
             this.formView = response.data[2];
@@ -359,7 +375,6 @@
               }
             }
           }
-          console.log(this.formView)
           this.campaignSelect =index;
           this.ReplacePage();
         })
@@ -444,12 +459,25 @@
           , formData    : formData
           , stipulationTitle : this.formView.stipulationTitle
           , stipulationDesc  : this.formView.stipulationDesc
+          , titleName   : this.titleName
+          , memo        : this.memo
         };
 
         const frm = new FormData();
         for(let i = 0 ; i < this.$store.state.lendchooseObj.length ; i++) {
           if(this.$store.state.lendchooseObj[i].tp == '01') {
+            if(this.$store.state.lendchooseObj[i].fileNm == null || this.$store.state.lendchooseObj[i].fileNm == '') {
+              alert("이미지 등록 항목에 파일등록이 되어있지 않습니다.");
+              return;
+            }
+
             frm.append("upFile" , this.$store.state.lendchooseObj[i].fileNmOrg);
+          }
+          if(this.$store.state.lendchooseObj[i].tp == '03') {
+            if(this.$store.state.lendchooseObj[i].formDesc.borderLine == 'undefinedpx') {
+              alert("추가된 폼항목에서 '폼 적용하기'를 누르지 않으셨습니다.");
+              return;
+            }
           }
         }
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
@@ -1168,12 +1196,17 @@
     text-align: left;
   }
   .menu0804 .landChoice .basicInfo table td input,
-  .menu0804 .landChoice .basicInfo table td select {
+  .menu0804 .landChoice .basicInfo table td select,
+  .menu0804 .landChoice .basicInfo table td textarea {
     border: 1px solid #e5e5e5;
     padding: 7px 10px;
     margin: 2px 0;
     width: 100%;
     height: 32px;
+  }
+  .menu0804 .landChoice .basicInfo table td textarea {
+    height: 200px;
+    resize: none;
   }
   .menu0804 .landChoice .basicInfo table td input[type="checkbox"] {
     display: none;

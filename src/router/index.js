@@ -28,6 +28,7 @@ import MENU_08201 from "../views/agency/MENU_08201.vue";
 import MENU_08301 from "../views/agency/MENU_08301.vue";
 import MENU_08302 from "../views/agency/MENU_08302.vue";
 import MENU_08303 from "../views/agency/MENU_08303.vue";
+import MENU_08304 from "../views/agency/MENU_08304.vue";
 import MENU_08401 from "../views/agency/MENU_08401.vue";
 import MENU_08402 from "../views/agency/MENU_08402.vue";
 import MENU_08403 from "../views/agency/MENU_08403.vue";
@@ -206,10 +207,16 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     component: MENU_08302,
     meta: { requiresAuth: true }
   },
-  {// 랜딩페이지 수정
+  {// 외부 어드민 계정 설정
     path: "/MENU_08303",
     name: "MENU_08303",
     component: MENU_08303,
+    meta: { requiresAuth: true }
+  },
+  {// 외부 도메인 연결 설정
+    path: "/MENU_08304",
+    name: "MENU_08304",
+    component: MENU_08304,
     meta: { requiresAuth: true }
   },
   {// 포스트백 목록

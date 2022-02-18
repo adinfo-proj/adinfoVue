@@ -22,11 +22,12 @@
 
       </div>
       <div id="sectionBody">
-        <router-view />
+        <router-view v-bind:style="{minHeight:minHigh}" />
       </div>
       <div id="sectionFooter">
         <div class="footerTop">
           <div class="left">
+            (주)마케팅디자인<br>
             서울특별시 구로구 디지털로 26길 111, 제이앤케이디지털타워 708호<br>
             대표자: 유기옥&nbsp;&nbsp;&nbsp;&nbsp;대표번호:1533-3757&nbsp;&nbsp;&nbsp;사업자등록번호: 567-87-00066&nbsp;&nbsp;&nbsp;&nbsp;통신판매 신고번호: 제2020-서울구로-2892호
           </div>
@@ -76,7 +77,8 @@
     },
     data() {
       return {
-        todayDt: this.$DateAdd(0)
+          todayDt: this.$DateAdd(0)
+        , minHigh: ''
       }
     },
     methods: {
@@ -88,14 +90,29 @@
         sessionStorage.clear();
         this.$router.push({ path : "Login" });
       },
+      //******************************************************************************
+      // 내정보 보기
+      //******************************************************************************
       Mypage() {
         this.$router.push({ path : "MENU_08901" });
       },
+      //******************************************************************************
+      // 개인정보 처리 방침
+      //******************************************************************************
       PopUpPrivacy () {
         $("#privacyPolicy").css({display: "block"})
       },
+      //******************************************************************************
+      // 이용약관
+      //******************************************************************************
       PopUpTerms () {
         $("#useTerms").css({display: "block"})
+      },
+      //******************************************************************************
+      // Height에 최소값 지정
+      //******************************************************************************
+      setDivHeight() {
+        this.minHigh = window.innerHeight - 202 + 'px'
       }
     },
     created() {
@@ -109,6 +126,7 @@
       this.$store.state.adId         = sessionStorage.getItem("adId");
       this.$store.state.mkId         = sessionStorage.getItem("mkId");
       this.$store.state.mkCd         = sessionStorage.getItem("mkCd");
+      this.setDivHeight();
     }
   }
 </script>

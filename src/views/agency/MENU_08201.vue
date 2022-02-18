@@ -9,7 +9,7 @@
 					>{{ campaignNameList.name }}
 				</option>
 			</select>
-      <select v-model="landSelect" @change="getLandingPageLst(landSelect)">
+      <select v-model="landSelect" @change="getLandingPageLst(landSelect)" :disabled="campSelect == '-1'">
         <option value="-1">전체</option>
 				<option v-for="(landingData, index) in landingDataObj"
 					:key="index" 
@@ -60,7 +60,7 @@
       <div class="dailyDataMiddle">
         <i class="icon-chart-bars"></i>
         <h2 class="dataEm">
-          <span >광고주 지급 합계</span><br>
+          <span >광고비 합계</span><br>
           {{adPriceSum}} 원
         </h2>
         </div>
@@ -102,8 +102,8 @@
 							<th class="maketerCode">랜딩페이지명</th>
 							<th class="inTime"     >수집 시간</th>
 							<th class="inIP"       >접수 IP</th>
-							<th class="dbState"    >광고주단가</th>
-							<th class="dbPrice"    >마케터단가</th>
+							<th class="dbState"    >광고 단가</th>
+							<th class="dbPrice"    >마케터 단가</th>
 							<th class="inData"     >메모</th>
 						</tr>
 					</thead>
@@ -139,9 +139,9 @@
                       <table>
                         <tr>
                           <th>{{ askList[0] }}</th>
-                          <td>{{ campaignFullData.value01 }}</td>
-                          <th>{{ askList[1] }}</th>
                           <td>{{ campaignFullData.value02 }}</td>
+                          <th>{{ askList[1] }}</th>
+                          <td>{{ campaignFullData.value01 }}</td>
                           <th>{{ askList[2] }} </th>
                           <td>{{ campaignFullData.value03 }}</td>
                         </tr>
@@ -806,17 +806,17 @@
   .dailyDataSub .dailySub table .dailyName {
     width: 155px;
   }
-    .dailyDataSub .dailySub table .maketerCode {
-    width: 143px;
+  .dailyDataSub .dailySub table .maketerCode {
+    width: 250px;
   }
   .dailyDataSub .dailySub table .inTime {
-    width: 197px;
+    width: 170px;
   }
   .dailyDataSub .dailySub table .inIP {
-    width: 200px;
+    width: 150px;
   }
   .dailyDataSub .dailySub table .dbState {
-    width: 150px;
+    width: 120px;
   }
   .dailyDataSub .dailySub table .inData {
     width: 315px;
@@ -824,6 +824,13 @@
   .dailyDataSub .dailySub table .inData i {
     float: right;
     font-size: 13px;
+  }
+  .dailyDataSub .dailySub table td.dailyName,
+  .dailyDataSub .dailySub table td.maketerCode  {
+    text-align: left;
+  }
+  .dailyDataSub .dailySub table td.dbPrice {
+    text-align: right;
   }
   .dailyDataSub .dailySub table thead th:after {
     position: absolute;
