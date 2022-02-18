@@ -31,7 +31,7 @@
 		<div class="dailyDataBox">
 			<div class="dailyDataMiddle">
         <i class="icon-users"></i>
-        <h2 class="dataEm">
+        <h2 class="dataEm Pointer" @click="gotoPush('MENU_08301');">
           <span>랜딩페이지 수</span><br>
           {{summaryDataObj.landingCount  }} 개
         </h2>
@@ -60,7 +60,7 @@
       <div class="dailyDataMiddle">
         <i class="icon-chart-bars"></i>
         <h2 class="dataEm">
-          <span >광고비 합계</span><br>
+          <span >광고주 지급 합계</span><br>
           {{adPriceSum}} 원
         </h2>
         </div>
@@ -102,8 +102,8 @@
 							<th class="maketerCode">랜딩페이지명</th>
 							<th class="inTime"     >수집 시간</th>
 							<th class="inIP"       >접수 IP</th>
-							<th class="dbState"    >광고 단가</th>
-							<th class="dbPrice"    >마케터 단가</th>
+							<th class="dbState"    >광고주단가</th>
+							<th class="dbPrice"    >마케터단가</th>
 							<th class="inData"     >메모</th>
 						</tr>
 					</thead>
@@ -257,6 +257,12 @@
 			}
 		},
 		methods: {
+      gotoPush(url) {
+        this.$router.push({ 
+					name : url
+					// params: { caId: caId, pgId: pgId }
+				});
+      },
 			//******************************************************************************
 			// 
 			//******************************************************************************
@@ -282,7 +288,6 @@
 				.then(response => {
 					// this.campSelect          = response.data[0].caId;
 					this.campaignNameListObj = response.data;
-
           this.getLandingPageLst();
 				})
 				.catch(error => {
@@ -353,7 +358,6 @@
             this.HeadCount();
             return;
           }
-
           //--------------------------------------------------------------------
           // 페이지처리 시작
           //--------------------------------------------------------------------
@@ -365,7 +369,7 @@
             this.curRunTotalPages = Math.ceil(response.data[0][0].rowTotalCount / this.selectRowCount);
 
             // 페이지가 10개 이하이면...
-            if( this.curRunTotalPages < 10) {
+            if(this.curRunTotalPages < 10) {
               for(let i = 0; i < this.curRunTotalPages; i++) {
                 arrGab.push(i+1);
               }
@@ -376,16 +380,14 @@
               // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
               //--------------------------------------------------------------------
               let pageCut = Math.floor((selectPage) / 10) * 10;
-
               if( (selectPage % 10) != 0 ) {
                 let nLoop = 0;
                 for(let i = pageCut; i < this.curRunTotalPages; i++) {
                   if( (nLoop+pageUpPage) >= 10 + pageUpPage)
                     break;
-                  arrGab.push( i + 1 );
+                  arrGab.push(i+1);
                   nLoop++;
                 }
-
                 this.pageCount = arrGab;
               }
             }
@@ -400,37 +402,31 @@
         axios.get("http://api.adinfo.co.kr:30000/GetCampaignHeadCount",
         {
           params: {
-              mbId: this.$store.state.mbId
-            , adId: this.$store.state.mbId
-            , caId: this.campSelect
-            , mkId: this.$store.state.mbId
-            , pgId: this.landSelect
-            , srtDt: this.serchDataFromDt
-            , endDt: this.serchDataToDt
-            , curPage: 1
-            , rowCount: this.selectRowCount
+              mbId     : this.$store.state.mbId
+            , adId     : this.$store.state.mbId
+            , mkId     : this.$store.state.mbId
+            , caId     : this.campSelect
+            , pgId     : this.landSelect
+            , srtDt    : this.serchDataFromDt
+            , endDt    : this.serchDataToDt
+            , curPage  : 1
+            , rowCount : this.selectRowCount
           }
         })
         .then(response1 => {
           this.summaryDataObj = response1.data;
-
-          if(this.summaryDataObj.adPriceSum == '' ||
-             this.summaryDataObj.adPriceSum == null )
-          {
+          if( (this.summaryDataObj.adPriceSum == ''  ) ||
+              (this.summaryDataObj.adPriceSum == null) ) {
             this.adPriceSum = 0;
           }
-          else
-          {
+          else {
             this.adPriceSum = this.summaryDataObj.adPriceSum;
           }
-
-          if(this.summaryDataObj.mkPriceSum == '' ||
-             this.summaryDataObj.mkPriceSum == null )
-          {
+          if( (this.summaryDataObj.mkPriceSum == ''  ) ||
+              (this.summaryDataObj.mkPriceSum == null) ) {
             this.mkPriceSum = 0;
           }
-          else
-          {
+          else {
             this.mkPriceSum = this.summaryDataObj.mkPriceSum;
           }
         })
@@ -438,8 +434,11 @@
           console.log(error);
         })
 			},
-			campaignListChange(index) {
-				this.campSelect = index;
+			campaignListChange(campSelect) {
+				this.campSelect = campSelect;
+        if(this.campSelect == "-1") {
+          this.landSelect = "-1";
+        }
 				this.getLandingPageLst();
 				this.getCampaignFullData(1, true);
 			},
@@ -471,15 +470,14 @@
 				else {
 					return;
 				}
-
 				this.getCampaignFullData(1, true);
 			},
 			makeExcel() {
+        var myJSON = new Array();
+
 				let d = new Date();
         let curDate = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(0,10).replace(/-/g, "");
 				let curTime = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(11,19).replace(/:/g, "");
-
-				var myJSON = new Array();
 
 				for(let i = 0; i < this.campaignFullDataObj.length; i++) {
 					let seqNo, caName, pgName, insDt, insTm, regIp, confirmTp, price, mkPrice, deviceMachine, countryCd, deviceOs, deviceModel, urlReferer, value01, value02, value03, value04, value05, value06, value07, value08, value09, value10;
@@ -659,7 +657,10 @@
     padding: 17px;
     align-items: center;
   }
-  
+  .dailyDataBox .Pointer {
+    cursor: pointer;
+  }
+
   .dailyDataBox .dailyDataMiddle i {
     display: flex;
     width: 40px;
@@ -806,17 +807,17 @@
   .dailyDataSub .dailySub table .dailyName {
     width: 155px;
   }
-  .dailyDataSub .dailySub table .maketerCode {
-    width: 250px;
+    .dailyDataSub .dailySub table .maketerCode {
+    width: 143px;
   }
   .dailyDataSub .dailySub table .inTime {
-    width: 170px;
+    width: 197px;
   }
   .dailyDataSub .dailySub table .inIP {
-    width: 150px;
+    width: 200px;
   }
   .dailyDataSub .dailySub table .dbState {
-    width: 120px;
+    width: 150px;
   }
   .dailyDataSub .dailySub table .inData {
     width: 315px;
@@ -824,13 +825,6 @@
   .dailyDataSub .dailySub table .inData i {
     float: right;
     font-size: 13px;
-  }
-  .dailyDataSub .dailySub table td.dailyName,
-  .dailyDataSub .dailySub table td.maketerCode  {
-    text-align: left;
-  }
-  .dailyDataSub .dailySub table td.dbPrice {
-    text-align: right;
   }
   .dailyDataSub .dailySub table thead th:after {
     position: absolute;
