@@ -5,7 +5,7 @@
 				<h1>공지사항</h1>
 				<p>안내, 정책변경, 업데이트등 디비마스터의 다양한 소식을 확인하실 수 있습니다.</p>
 				<!-- 나중에 != =>  == 으로 바꿔야함 -->
-				<div class="btnBox" v-if="$store.state.adGradeCd != '01'">
+				<div class="btnBox" v-if="$store.state.adGradeCd == '001'">
 					<button @click="WriteNotice()">공지사항 작성하기</button>
 				</div>
 			</div>

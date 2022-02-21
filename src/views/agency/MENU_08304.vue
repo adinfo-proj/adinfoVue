@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="right">
-          ddddd
+
         </div>
       </div>
       <div class="tableBox adminData">
@@ -140,7 +140,6 @@
 					}
 				})
 				.then(response => {
-					console.log(response);
 					this.campaignNameListObj = response.data;
           //this.getLandingPageLst();
 
@@ -201,7 +200,6 @@
           }
         })
         .then(response => {
-          console.log(response);
           this.landingDataOne = response.data;
 
           if(response.data.useTp == "00") {
@@ -247,7 +245,6 @@
           , description : ''
         };
 
-        console.log(data);
 
         const frm = new FormData();
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
@@ -255,7 +252,6 @@
           headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
-          console.log(response);
 
           alert(response.data.message);
 
@@ -307,7 +303,6 @@
           }
         })
         .then(response => {
-          console.log(response);
           this.stUserListObj = response.data[1];
 
           //--------------------------------------------------------------------

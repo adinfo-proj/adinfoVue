@@ -28,7 +28,7 @@
 							<th class="landDbNum">URL</th>
 							<th class="landAdv"  >상태</th>
 							<th class="landColl" >수집항목</th>
-							<th class="landBtn"  >삭제</th>
+							<th class="landBtn"  >처리</th>
 						</tr>
 					</thead>
 					<tbody v-if="LandingListObj.length <= 0">
@@ -148,7 +148,6 @@
 					}
 				})
 				.then(response => {
-					console.log(response.data[0]);
 					this.LandingListObj = response.data[0];
 
 
@@ -266,11 +265,11 @@
 				})
 				.then(response => {
 					if(response.data.status == true) {
-						alert("[" + adName + "] 포스트백을 정상적으로 삭제하였습니다.");
+						alert("[" + adName + "] 랜딩페이지를 정상적으로 삭제하였습니다.");
 						this.getCampaignNameLst();
 					}
 					else {
-						alert("포스트백을 삭제에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
+						alert("랜딩페이지를 삭제에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
 					}
 				})
 				.catch(error => {
@@ -308,11 +307,11 @@
 				})
 				.then(response => {
 					if(response.data.status == true) {
-						alert("[" + adName + "] 포스트백을 정상적으로 정지하였습니다.");
+						alert("[" + adName + "] 랜딩페이지를 정상적으로 정지하였습니다.");
 						this.getCampaignNameLst();
 					}
 					else {
-						alert("포스트백을 정지에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
+						alert("랜딩페이지를 정지에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
 					}
 				})
 				.catch(error => {

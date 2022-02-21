@@ -9,7 +9,11 @@
       <div v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index">
         <!-- 이미지 -->
         <div v-if="$store.state.lendchooseObj[index].tp == '01'">
-          <img :src="$store.state.lendchooseObj[index].fileNm" alt="">
+          <p v-if="$store.state.lendchooseObj[index].fileNm == null || $store.state.lendchooseObj[index].fileNm == ''" style="text-align:  center; padding: 20px; background-color: #fff">
+            이미지를 선택해주세요.
+          </p>
+
+          <img v-else :src="$store.state.lendchooseObj[index].fileNm" alt="">
         </div>
         <!-- 텍스트 -->
         <div v-if="lendchoose.tp == '02'" v-html="$store.state.lendchooseObj[index].descript">
@@ -51,6 +55,11 @@
                 </option>
               </select>  
             </div>
+            <!-- 메모장 -->
+            <div v-if="inObj.values == 'textArea'" class="textArea">
+              <span class="formInputName">{{inObj.names}}</span>
+              <textarea></textarea> 
+            </div>
           </div>
           <div class="agreeBox">
             <input type="checkbox" name="agree01" id="agree01">
@@ -70,9 +79,7 @@
       </div>
       <div class="bgColor">
       </div>
-      <div class="subBox">
-        <button class="saveBtn" @click="PreviewSend()">랜딩페이지 생성하기</button>
-      </div>
+
     </div>
     <div class="landChoice">
       <div class="basicInfo landBox">
@@ -128,14 +135,14 @@
               <input type="text" class="" v-model="titleName">
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th>
               메모
             </th>
             <td>
               <textarea v-model="memo" ></textarea>
             </td>
-          </tr>
+          </tr> -->
         </table>
       </div>
       <div class="landScr landScr01 landBox">
@@ -187,6 +194,9 @@
         <!-- <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button> -->
         <button class="formBtn" @click="FormChooseBtn()">폼 추가</button>
         <button class="iniBtn" @click="InitForm()">초기화</button>
+      </div>
+      <div class="subBox">
+        <button class="saveBtn" @click="PreviewSend()">랜딩페이지 생성하기</button>
       </div>
     </div>
   </div>
@@ -281,6 +291,8 @@
 
             for(let i = 0 ; i < 10; i++) {
               var arrS = [];
+
+              
               switch(i) {
                 case 0 : if(this.formView.type01 == '02' || 
                             this.formView.type01 == '03' || 
@@ -930,13 +942,13 @@
         $(".menu0804 .landPrev .bgColor").css({display:'none'})
       }
     },
-    mounted: function() {
-      this.$watch('this.$store.state.inputObj', function(newVal, oldVal) {
-        console.log("this?");
-        console.log(newVal);
-        console.log(oldVal);
-      })
-    },
+    // mounted: function() {
+    //   this.$watch('this.$store.state.inputObj', function(newVal, oldVal) {
+    //     console.log("this?");
+    //     console.log(newVal);
+    //     console.log(oldVal);
+    //   })
+    // },
     created() {
       this.InitForm();
       this.$store.state.headerTopTitle = "랜딩페이지";
@@ -1138,18 +1150,18 @@
   }
   /* 개인정보 수집 동의 항목 */
   /* 랜딩페이지 저장 버튼 */
-  .menu0804 .landPrev .subBox {
+  .menu0804 .subBox {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 30px;
   }
-  .menu0804 .landPrev .saveBtn {
+  .menu0804 .saveBtn {
     padding: 13px 33px;
     font-size: 16px;
     border-radius: 40px;
     border: none;
     color: #fff;
     font-weight: 700;
-    background: #e25b45;
+    background: #000;
   }
   /* 랜딩페이지 저장 버튼 */
   .menu0804 .landChoice {

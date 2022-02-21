@@ -94,7 +94,7 @@
 									총 금액
 								</span>
 								<span class="org">
-									29,700원
+									-
 								</span>
 							</p>
 							<div class="btn">
@@ -143,7 +143,7 @@
 									총 금액
 								</span>
 								<span class="org">
-									29,700원
+									-
 								</span>
 							</p>
 							<div class="btn">
@@ -192,7 +192,7 @@
 									총 금액
 								</span>
 								<span class="org">
-									29,700원
+									-
 								</span>
 							</p>
 							<div class="btn">
@@ -241,7 +241,7 @@
 									총 금액
 								</span>
 								<span class="org">
-									29,700원
+									-
 								</span>
 							</p>
 							<div class="btn">
@@ -295,7 +295,7 @@
 									총 금액
 								</span>
 								<span class="org">
-									55,000원
+									-
 								</span>
 							</p>
 							<div class="btn">
@@ -345,7 +345,7 @@
 									총 금액
 								</span>
 								<span class="org">
-									29,700원
+									-
 								</span>
 							</p>
 							<div class="btn">
@@ -356,8 +356,8 @@
 					<div	class="planInfo">
 						<h6>디비마스터 상품정보</h6>
 
-						<img v-if="subPlan == 'post'" src="../../assets/images/ratePlan/postPlan.jpg" alt="basicPlan">
-						<img v-if="subPlan == 'sms'" src="../../assets/images/ratePlan/smsPlan.jpg" alt="basicPlan">
+						<img v-if="subPlan == 'post'" src="../../assets/images/ratePlan/postPlan.jpg" alt="postPlan">
+						<img v-if="subPlan == 'sms'" src="../../assets/images/ratePlan/smsPlan.jpg" alt="smsPlan">
 					</div>
 				</div>
 				<div class="ratePlanFooter">

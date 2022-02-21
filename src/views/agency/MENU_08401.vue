@@ -58,7 +58,7 @@
 
 							<th class="dbNum"       >전송항목수</th>
 							<th class="campDate"    >등록일자</th>
-							<th class="modifyBtn"   >수정</th>
+							<th class="modifyBtn"   >처리</th>
 						</tr>
 					</thead>
 					<tbody v-if="postbackDataObj.length == '0'" class="noLength">
@@ -258,7 +258,6 @@
 					}
 				})
 				.then(response => {
-					console.log(response);
 					this.postbackDataObj = response.data;
 
 					for(let i = 0 ; i < this.postbackDataObj.length; i++) {

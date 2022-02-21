@@ -52,7 +52,7 @@
 					</tfoot>
 				</table>
 			</div>
-			<div class="flatRate">
+			<!-- <div class="flatRate">
 				<span>SILVER (1개월)</span> ( 2022-02-01 만료 / 잔여기간: 5일) 
 			</div>
 			<div class="tableBox priceData">
@@ -97,7 +97,7 @@
 
 								</ul>
                 <span class="pageright"><i class="icon-chevron-right1"></i></span>
-                <!-- <span class="pageleft" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
+                <span class="pageleft" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
 								<ul>
 									<li
 										v-bind:class="{on : (indexPage) == curPage}" 
@@ -107,13 +107,13 @@
 										{{indexPage}}
 									</li>
 								</ul>
-                <span class="pageright" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage + 1, false)"><i class="icon-chevron-right1"></i></span> -->
+                <span class="pageright" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
 							</td>
 						</tr>
 					</tfoot>
 
 				</table>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>

@@ -222,7 +222,6 @@
 					}
 				})
 				.then(response => {
-					console.log(response);
 					this.campaignNameListObj = response.data;
 
 					for(let i = 0 ; i < response.data.length; i++) {
@@ -331,7 +330,6 @@
           }
         })
         .then(response => {
-					console.log(response);
 					if(response.data != null) {
 						this.sendUrl  = response.data.postbackUrl;
 						this.encrypt  = response.data.sslYn;

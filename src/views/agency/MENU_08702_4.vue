@@ -91,7 +91,6 @@
           }
         })
         .then(response => {
-          console.log(response.data);
           if(response.data > 0) {
             alert("문의글이 정상적으로 수정되었습니다. \n\n 빠른시간내로 답변 드리겠습니다.");
             this.$router.push({ 
@@ -111,8 +110,7 @@
 			//******************************************************************************
 			// 문의사항 리스트로 돌아가기
 			//******************************************************************************
-			CancleBoardList() { 
-				console.log();
+			CancleBoardList() {
 				this.$router.push({ name : 'MENU_08702' })
 			}
 		},

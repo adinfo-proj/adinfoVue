@@ -5,12 +5,6 @@
     </div>
     <div class="headerNav">
       <ul>
-        <li @click="DBMenuBar(2)" v-bind:class="{on : 2 == menuSelect}">
-          <router-link to="MENU_08201">
-            <i class="icon-layers"></i>
-            수집 DB
-          </router-link>
-        </li>
         <li v-bind:class="{on : 1 == menuSelect}">
           <a href="javascript:void(0)" @click="DBMenuBar(1)" >
             <i class="icon-file-text"></i>
@@ -45,17 +39,18 @@
                  랜딩페이지 목록
               </router-link>
             </li>
-            <li @click="DbSubMenu('303')"  v-bind:class="{subOn : '303' == subMenuSelect}">
-              <router-link to="MENU_08303">
-                외부 어드민 계정 설정
-              </router-link>
-            </li>
             <li @click="DbSubMenu('304')"  v-bind:class="{subOn : '304' == subMenuSelect}">
               <router-link to="MENU_08304">
                  외부 도메인 연결 설정
               </router-link>
             </li>
           </ul>
+        </li>
+        <li @click="DBMenuBar(2)" v-bind:class="{on : 2 == menuSelect}">
+          <router-link to="MENU_08201">
+            <i class="icon-layers"></i>
+            수집 DB
+          </router-link>
         </li>
 
         <li v-bind:class="{on : 4 == menuSelect}">
@@ -171,6 +166,5 @@
   #sectionHeader, #sectionBody {
     margin-left: 200px;
     border-right: solid 1px #e5e5e5;
-    width: 1400px;
   }
 </style>

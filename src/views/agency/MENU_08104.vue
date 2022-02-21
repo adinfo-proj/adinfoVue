@@ -1,6 +1,7 @@
 <template>
   <div class="container"> 
     <div class="tableBox">
+      <!-- 캠페인 보기 메뉴 -->
       <table>
 				<tr>
 					<th>
@@ -237,8 +238,6 @@ export default {
       })
       .then(response => {
         this.campainData = response.data[1];
-
-        console.log(response);
 
         for(let i = 0 ; i < 10 ; i++) {
           let formView = {

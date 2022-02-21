@@ -277,8 +277,6 @@ export default {
       .then(response => {
         this.campainData = response.data[1];
 
-        console.log(response);
-
         for(let i = 0 ; i < 10 ; i++) {
           let formView = {
               no    : 0
@@ -506,8 +504,7 @@ export default {
     // 캠페인 상태 수정하기 
     //****************************************************************************** 
      updateCampaign() {
-      // console.log(this.campainData);
-      // console.log(this.formObj);
+
       
       
       //campainData.status
@@ -518,8 +515,6 @@ export default {
       this.campainData.smsNo            = this.smsNo;
       this.campainData.smsYn            = this.smsYn;
 
-      console.log(this.campainData);
-      console.log(this.formObj);
 
       const frm = new FormData();
       frm.append("dataObj", new Blob([JSON.stringify(this.campainData)], {type: "application/json"}));

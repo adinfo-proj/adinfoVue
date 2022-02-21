@@ -386,13 +386,10 @@ export default {
         return;
       }
 
-      console.log(this.formObj.length);
-
 
       for(let i = 2 ; i < this.formObj.length ; i++) {
         let nuText = i+1;
 
-        console.log(this.formObj[i].value);
         //------------------------------------
         // 폼 설정하기 항목
         //------------------------------------
@@ -450,7 +447,6 @@ export default {
         headers: {'Content-Type': 'multipart/form-data'}    
       })
       .then(response => {
-        console.log(response);
         alert(response.data.message);
         if( response.data.result == true) {
           this.$router.push({ path : "MENU_08101" })

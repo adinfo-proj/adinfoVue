@@ -11,8 +11,8 @@
       <div id="sectionHeader">
         <div class="menuPage">
           {{ this.$store.state.headerTopTitle }}
-          <span>></span>
-          <span class="subMenuName">{{ this.$store.state.headerMidTitle }}</span>
+          <span> > </span>
+          <span class="subMenuName"> {{ this.$store.state.headerMidTitle }}</span>
         </div>
         <div class="userNamePage">
           <span @click="Mypage()">{{ this.$store.state.clntNm }}님</span>
