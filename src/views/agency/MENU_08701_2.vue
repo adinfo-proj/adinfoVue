@@ -20,9 +20,10 @@
 						<span>{{contentsData.createDt}}</span>
 					</p>
 				</h3>
-        <p>
-          <span v-html="contentsData.contents"></span>
-        </p>
+        <div class="textBox">
+					<ckeditor v-model="contentsData.contents" :config="editorConfig"></ckeditor>
+          <!-- <span v-html="contentsData.contents"></span> -->
+        </div>
 			</div>
 			<div class="tableBox prevBox">
 				<p @click="getNotifyContents(contentsAfter.bodySeqNo)">
@@ -66,6 +67,19 @@
           contentsData: ''
         , contentsBefore: ''
         , contentsAfter: ''
+				, editorConfig: { 
+							toolbarGroups: [] 
+						, height: '600px' 
+						, width: '1358px'
+						, language: 'ko'
+						, toolbarStartupExpanded: false
+						, resize_enabled: false 
+						, autoParagraph: false 
+						, removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format'
+						, readOnly: true
+						, removePlugins: 'toolbar'
+						, allowedContent: true
+        } 
 			}
 		},
 		methods: {
@@ -172,7 +186,7 @@
 		margin-bottom: 7px;
 		color: #222;
 		padding-left: 12px;
-		position: relative;
+		position: relative;    
 	}
 	#menu08701_2 .noticeTop h1::before {
 		clear: both;
@@ -184,19 +198,32 @@
 		left: 0;
 		background: #e25b45;
 	}
+	#menu08701_2 .noticeView {
+		overflow: hidden;
+		height: 649px;
+	}
 	#menu08701_2 .noticeView h3 {
 		padding: 16px 0 16px 20px;
 		border-bottom: 1px solid #939393;
 		color: #222;
 	}
+	#menu08701_2 .noticeView p {
+		/* display: inline-block; */
+		padding-top: 20px;;
+		margin-top: -19px;
+		margin-left: -20px;
+		/* float: right; */
+	}
+
 	#menu08701_2 .noticeView h3 p{
 		/* display: inline-block; */
+		/* margin-top: -20px; */
 		float: right;
 	}
 	#menu08701_2 .noticeView h3 p span {
 		display: inline-block;
 		position: relative;
-		padding: 0 20px;
+		padding: 0 20px;		
 	}
 	#menu08701_2 .noticeView h3 p span:before {
 		clear: both;
@@ -209,10 +236,16 @@
 		transform: translateY(-50%);
 		background: #d2d2d2;
 	}
-	#menu08701_2 > .noticeView > p {
-		padding: 17px 19px;
+	#menu08701_2 .noticeView .textBox {
+		/* padding: 17px 19px; */
+		margin-left: -1px ;
 		line-height: 20px;
 		color: #444;
+		overflow: hidden;
+	}
+
+	#menu08701_2>.noticeView>.textBox>div {
+		margin-top: -10px;
 	}
 	#menu08701_2 .prevBox p {
 		padding: 11px;

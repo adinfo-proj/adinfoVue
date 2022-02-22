@@ -163,7 +163,11 @@
     width: 1400px;
     height: 100%;
   }
-
+  
+  input::placeholder {
+    font-size: 90%;
+    opacity: 0.7;
+  }
   /* 메뉴 nav CSS */
 
   #nav {

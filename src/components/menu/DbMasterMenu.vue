@@ -39,6 +39,11 @@
                  랜딩페이지 목록
               </router-link>
             </li>
+            <!-- <li @click="DbSubMenu('303')"  v-bind:class="{subOn : '303' == subMenuSelect}">
+              <router-link to="MENU_08303">
+                외부 어드민 계정 설정
+              </router-link>
+            </li> -->
             <li @click="DbSubMenu('304')"  v-bind:class="{subOn : '304' == subMenuSelect}">
               <router-link to="MENU_08304">
                  외부 도메인 연결 설정
@@ -67,6 +72,11 @@
             <li @click="DbSubMenu('401')"  v-bind:class="{subOn : '401' == subMenuSelect}">
               <router-link to="MENU_08401">
                  API 목록
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('404')"  v-bind:class="{subOn : '404' == subMenuSelect}">
+              <router-link to="MENU_08404">
+                 API 전송 결과
               </router-link>
             </li>
           </ul>

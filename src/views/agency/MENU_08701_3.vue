@@ -67,18 +67,15 @@
 			// 공지사항 등록
 			//******************************************************************************
 			CreateNotify() {
-        let data = {
-						clntId    : this.$store.state.clntId
-					, groupTp   : '00'
-					, head      : this.preface
-					, title     : this.title
-					, contents  : this.editorData
-        };
-
-        const frm = new FormData();
-        frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-        axios.post("http://api.adinfo.co.kr:30000/notice/create", frm, {
-          headers: {'Content-Type': 'multipart/form-data'}
+        axios.get("http://api.adinfo.co.kr:30000/notice/create",
+        {
+          params: {
+              clntId: this.$store.state.clntId
+						, groupTp   : '00'
+            , head      : this.preface
+            , title     : this.title
+            , contents  : this.editorData
+          }
         })
         .then(response => {
           if(response.data > 0) {
