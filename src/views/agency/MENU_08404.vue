@@ -216,7 +216,7 @@
 
 				this.curPage = selectPage;
 
-				axios.get("http://127.0.0.1:30000/GetSelPostbackResult", 
+				axios.get("http://api.adinfo.co.kr:30000/GetSelPostbackResult", 
 				{
 					params: {
 							mbId: this.$store.state.mbId

@@ -70,22 +70,22 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="(askList, index) in stServerObj"
+							<tr v-for="(stServer, index) in stServerObj"
 								:key="index" 
-								:value="askList"
+								:value="stServer"
 							> 
-								<td class="info" v-if="askList.name != ''"> 
-									{{ askList.name }} 
+								<td class="info" v-if="stServer.name != ''"> 
+									{{ stServer.name }} 
 								</td>
 								<td class="infofix" v-else>
 									고정 항목
 								</td>
-								<td class="opp" ><input type="text" name="" id="memberId" v-model="askList.memberId"></td>
+								<td class="opp" ><input type="text" name="" id="memberId" v-model="stServer.memberId"></td>
 								<td class="oppData">
-									{{askList.place}}
+									{{stServer.place}}
 								</td>
 								<td class="useCheck">
-									<input type="checkbox" :id="'useYnS'+index" v-model="askList.useYn">
+									<input type="checkbox" :id="'useYnS'+index" v-model="stServer.useYn">
 									<label :for="'useYnS'+index"></label>
 								</td>
 							</tr>
@@ -230,16 +230,11 @@
 				//-------------------------------------------------------
 				for(let i = 0 ; i < this.stServerObj.length; i++) {
 					if(this.stServerObj[i].useYn == true) {
-						this.stServerObj[i].useYn = 'Y';
 						if(this.stServerObj[i].memberId == null || this.stServerObj[i].memberId == '' ) {
 							alert("헤더 전송 항목 중 고정항목의 수신측 변수명을 입력해주세요.");
 							return;
 						}
 					}
-					else
-						this.stServerObj[i].useYn = 'N';
-
-					this.stServerObj[i].place = '';
 				}
 
 				//-------------------------------------------------------
@@ -247,55 +242,61 @@
 				//-------------------------------------------------------
 				for(let i = 0 ; i < this.stAskList.length; i++) {
 					//-------------------------------------------------------
-					// 전송여부 체크 정보를 true/false에서 Y/N 값으로 대체한다.
-					//-------------------------------------------------------
-					if(this.stAskList[i].useYn == true)
-						this.stAskList[i].useYn = 'Y';
-					else
-						this.stAskList[i].useYn = 'N';
-
-					//-------------------------------------------------------
 					// 정보기입이 정확한지 확인한다.
 					//-------------------------------------------------------
 					if(this.stAskList[i].memberId == null || this.stAskList[i].memberId == '' ) {
-						if(this.stAskList[i].useYn == 'N')
+						if(this.stAskList[i].useYn == true) {
 							alert("1 데이터 전송 항목 중 " + this.stAskList[i].name + "의 수신측 변수명을 입력해주세요.");
-						else
-							alert("1 데이터 전송 항목 중 고정항목의 수신측 변수명을 입력해주세요.");
-						return;
+							return;
+						}
 					}
 
-					if(this.stAskList[i].useYn == 'Y') {
-						//--------------------------------------------------------------
-						// 캠페인에서 등록한 항목의 경우
-						//--------------------------------------------------------------
-						if(this.stAskList[i].memberValue == null || this.stAskList[i].memberValue == '' ) {
-							//--------------------------------------------------------------
-							// 캠페인에 등록된 항목인 경우는 수신측 변수명만 확인한다.
-							//--------------------------------------------------------------
-							if(this.stAskList[i].memberId == null || this.stAskList[i].memberId == '') {
-								alert("2 데이터 전송 항목 중 " + this.stAskList[i].name + "의 수신측 변수명을 입력해주세요.");
-								return;
-							}
-						}
-						//--------------------------------------------------------------
-						// 항목 추가를 한 경우
-						//--------------------------------------------------------------
-						else {
-							//--------------------------------------------------------------
-							// 항목 추가의 경우 수신측 변수명과 고정값을 모두 확인한다.
-							//--------------------------------------------------------------
-							if(this.stAskList[i].memberId == null || this.stAskList[i].memberId == '') {
-								alert("3 데이터 전송 항목 중 수신측 변수명을 입력해주세요.");
-								return;
-							}
-							if(this.stAskList[i].memberValue == null || this.stAskList[i].memberValue == '') {
-								alert("3 데이터 전송 항목 중 수신측 고정값을 입력해주세요.");
+					if(this.stAskList[i].memberValue == null || this.stAskList[i].memberValue == '' ) {
+						if(this.stAskList[i].useYn == true) {
+							if(this.stAskList[i].tp == 'Y') {
+								alert("2 데이터 전송 항목 중 " + this.stAskList[i].name + "의 고정값을 입력해주세요.");
 								return;
 							}
 						}
 					}
+
+
+					// if(this.stAskList[i].useYn == 'Y') {
+					// 	//--------------------------------------------------------------
+					// 	// 캠페인에서 등록한 항목의 경우
+					// 	//--------------------------------------------------------------
+					// 	if(this.stAskList[i].memberValue == null || this.stAskList[i].memberValue == '' ) {
+					// 			alert("데이터 전송 항목 중 " + this.stAskList[i].name + "의 수신측 변수명을 입력해주세요.");
+					// 			return;
+					// 	}
+
+					// 	//--------------------------------------------------------------
+					// 	// 캠페인에 등록된 항목인 경우는 수신측 변수명만 확인한다.
+					// 	//--------------------------------------------------------------
+					// 	if(this.stAskList[i].memberId == null || this.stAskList[i].memberId == '') {
+					// 		alert("데이터 전송 항목 중 " + this.stAskList[i].name + "의 수신측 변수명을 입력해주세요.");
+					// 		return;
+					// 	}
+
+					// 	//--------------------------------------------------------------
+					// 	// 항목 추가를 한 경우
+					// 	//--------------------------------------------------------------
+					// 	else {
+					// 		//--------------------------------------------------------------
+					// 		// 항목 추가의 경우 수신측 변수명과 고정값을 모두 확인한다.
+					// 		//--------------------------------------------------------------
+					// 		if(this.stAskList[i].memberId == null || this.stAskList[i].memberId == '') {
+					// 			alert("3 데이터 전송 항목 중 수신측 변수명을 입력해주세요.");
+					// 			return;
+					// 		}
+					// 		if(this.stAskList[i].memberValue == null || this.stAskList[i].memberValue == '') {
+					// 			alert("3 데이터 전송 항목 중 수신측 고정값을 입력해주세요.");
+					// 			return;
+					// 		}
+					// 	}
+					// }
 				}
+
 				//------------------------------------------------------------------------------
 				// 정보 보내기
 				//------------------------------------------------------------------------------
@@ -315,8 +316,8 @@
 				};
 
 				const frm = new FormData();
-				frm.append("dataObj", new Blob([JSON.stringify(data)]        , {type: "application/json"}));
-				axios.post("http://127.0.0.1:30000/newSendPostback", frm, {
+				frm.append("dataObj", new Blob([JSON.stringify(data)], {type: "application/json"}));
+				axios.post("http://api.aadinfo.co.kr:30000/newSendPostback", frm, {
 					headers: {'Content-Type': 'multipart/form-data'}    
 				})
 				.then(response => {
