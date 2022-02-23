@@ -37,7 +37,7 @@
 						<div class="ratePlanMiddle mid02">
 							<input type="radio" v-model="subPlan" id="post" value="post">
 							<label for="post">
-								<span class="top">포스트백 프리미엄 서비스</span>
+								<span class="top">API 프리미엄 서비스</span>
 								<span class="middle">55,000 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>DB 데이터 보내기 + 받기 + 다중전송이 가능</span></span>
 							</label>
@@ -91,7 +91,8 @@
 								</span>
 								<span>
 									<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
-									<input type="checkbox" id="extraSms" value="02" v-model="extraService"><label for="extraSms">SMS 수신</label>
+									<!-- <input type="checkbox" id="extraSms" value="02" v-model="extraService" @change="SelectBox()"><label for="extraSms">SMS 수신</label> -->
+
 								</span>
 							</p>
 							<p>
@@ -100,6 +101,7 @@
 								</span>
 								<span class="org">
 									-
+									<!-- {{ total }} 원 -->
 								</span>
 							</p>
 							<div class="btn">
@@ -117,14 +119,14 @@
 					</div>
 				</div>
 				<div v-if="tapbtn == 2">
-					<div class="detailPlan" v-if="subPlan == 'post'">
+					<div class="detailPlan">
 						<div class="left">
-							<img src="../../assets/images/ratePlan/post.jpg" alt="basic">
+							<img v-if="subPlan == 'post'" src="../../assets/images/ratePlan/post.jpg" alt="post">
+							<img v-if="subPlan == 'sms'" src="../../assets/images/ratePlan/sms.jpg" alt="sms">
 						</div>
 						<div class="right">
-							<h6>
-								[디비마스터] 포스트백 프리미엄 서비스 1개월
-							</h6>
+							<h6 v-if="subPlan == 'post'">[디비마스터] API 프리미엄 서비스 1개월 </h6>
+							<h6 v-if="subPlan == 'sms'"> [디비마스터] SMS 수신 서비스</h6>
 							<p class="subtitle">
 								디비마스터의 유료 서비스상품을 구매 후 이용할 수 있는 상품입니다. 
 							</p>
@@ -132,9 +134,8 @@
 								<span class="planTitle">
 									상품가
 								</span>
-								<span class="org">
-									55,000원
-								</span>
+								<span v-if="subPlan == 'post'" class="org">55,000원</span>
+								<span v-if="subPlan == 'sms'" class="org">2,200원 ~</span>
 							</p>
 							<p>
 								<span class="planTitle">
@@ -148,57 +149,14 @@
 								<span class="planTitle">
 									상품선택
 								</span>
-								<span>
-									단일상품
-								</span>
-							</p>
-							<p>
-								<span class="planTitle">
-									총 금액
-								</span>
-								<span class="org">
-									-
-								</span>
-							</p>
-							<div class="btn">
-								<button>바로 구매</button>
-							</div>
-						</div>
-					</div>
-					<div class="detailPlan" v-if="subPlan == 'sms'">
-						<div class="left">
-							<img src="../../assets/images/ratePlan/sms.jpg" alt="silver">
-						</div>
-						<div class="right">
-							<h6>
-								[디비마스터] SMS 수신 서비스
-							</h6>
-							<p class="subtitle">
-								디비마스터의 유료 서비스상품을 구매 후 이용할 수 있는 상품입니다. 
-							</p>
-							<p>
-								<span class="planTitle">
-									상품가
-								</span>
-								<span class="org">
-									2,200원 ~
-								</span>
-							</p>
-							<p>
-								<span class="planTitle">
-									개발사
-								</span>
-								<span class="gray">
-									디비마스터
-								</span>
-							</p>
-							<p>
-								<span class="planTitle">
-									상품선택
-								</span>
-								<span>
-									<select name="" id="">
-										<option value="2200"></option>
+								<span v-if="subPlan == 'post'">단일상품</span>
+								<span v-if="subPlan == 'sms'">
+										<select name="" id="">
+										<option value="0">발송 건수 선택</option>
+										<option value="2200">100개</option>
+										<option value="6600">300개</option>
+										<option value="11000">1,000개</option>
+										<option value="22000">2,000개</option>
 									</select>
 								</span>
 							</p>
@@ -208,6 +166,7 @@
 								</span>
 								<span class="org">
 									-
+									<!-- {{extraTotal}} 원 -->
 								</span>
 							</p>
 							<div class="btn">
@@ -248,15 +207,18 @@
 <script>
 
 	// import axios from "axios";
+	// import $ from 'jquery';
 
 
 	export default {
 		data() {
 			return {
-					servicePlan: 'basic'
+					servicePlan: ''
 				, tapbtn: 1
 				, subPlan: 'post'
 				, extraService: []
+				, total : 29700
+				, extraTotal : 0
 			}
 		},
 		methods: {
@@ -272,6 +234,38 @@
 			},
 			Init() {
 				this.extraService = []
+				// this.TotalPrice();
+			},
+
+			// TotalPrice() {
+			// 	let price = 29700;
+			// 	// let extraPrice = 0;
+			// 	if(this.servicePlan == 'basic') {
+			// 		price = 29700;
+			// 	}else if(this.servicePlan == 'silver') {
+			// 		price = 66000;
+			// 	}else if(this.servicePlan == 'gold') {
+			// 		price = 99000;
+			// 	}else if(this.servicePlan == 'vip') {
+			// 		price = 220000;
+			// 	}
+			// 	console.log(this.servicePlan)
+			// 	console.log(price)
+				
+			// 	this.total = price
+				
+			// },
+			
+			// SelectBox() {
+
+			// 	for(let i = 0 ; i < this.extraService.length ; i++){
+			// 		if(this.extraService[i] == '01'){
+
+			// 		}
+			// 	}
+			// },
+			TapClear() {
+				this.servicePlan = 'basic'
 			}
 
 
@@ -279,6 +273,8 @@
 		created() {
 			this.$store.state.headerTopTitle = "DBMASTER";
 			this.$store.state.headerMidTitle = "요금제";
+
+			this.TapClear();
 			
 
 		}

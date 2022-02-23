@@ -317,7 +317,7 @@
 
 				const frm = new FormData();
 				frm.append("dataObj", new Blob([JSON.stringify(data)], {type: "application/json"}));
-				axios.post("http://api.aadinfo.co.kr:30000/newSendPostback", frm, {
+				axios.post("http://api.adinfo.co.kr:30000/newSendPostback", frm, {
 					headers: {'Content-Type': 'multipart/form-data'}    
 				})
 				.then(response => {
