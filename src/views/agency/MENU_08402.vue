@@ -29,32 +29,81 @@
 							</td>
 						</tr>
 						<tr>
-							<th>발송주소(URL)</th>
+							<th>발송주소(URI)</th>
 							<td>
 								<input type="text" v-model="sendUrl">
 							</td>
 						</tr>
-						<!-- <tr>
-							<th>암호화 여부</th>
-							<td>
-								<input type="radio" v-model="encrypt" name="encrypt" id="http"  value='N'><label for="http">일반 사이트</label>
-								<input type="radio" v-model="encrypt" name="encrypt" id="https" value='Y'><label for="https">SSL 사이트</label>
-							</td>
-						</tr> -->
 						<tr>
 							<th>전송 방식</th>
 							<td>
-								<input type="radio" v-model="postBack" name="postBack" id="goGet"  value='G'><label for="goGet">GET 전송</label>
+								<input type="radio" v-model="postBack" name="postBack" id="goGet"  value='G'><label for="goGet" >GET 전송</label>
 								<input type="radio" v-model="postBack" name="postBack" id="goPost" value='P'><label for="goPost">POST 전송</label>
 							</td>
 						</tr>
 					</table>
 				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				<div class="tableBox valueList">
 					<table>
 						<thead>
 							<tr>
-								<th class="info">전송 항목</th>
+								<th class="info">헤더 전송 항목</th>
+								<th class="infofix">수신측 변수명</th>
+								<th class="opp">서버정보코드</th>
+								<th class="useCheck">전송여부
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="(askList, index) in stServerObj"
+								:key="index" 
+								:value="askList"
+							> 
+								<td class="info" v-if="askList.name != ''"> 
+									{{ askList.name }} 
+								</td>
+								<td class="infofix" v-else>
+									고정 항목
+								</td>
+								<td class="opp" ><input type="text" name="" id="memberId" v-model="askList.memberId"></td>
+								<td class="oppData">
+									{{askList.place}}
+								</td>
+								<td class="useCheck">
+									<input type="checkbox" :id="'useYnS'+index" v-model="askList.useYn">
+									<label :for="'useYnS'+index"></label>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+
+
+
+
+
+
+				<div class="tableBox valueList">
+					<table>
+						<thead>
+							<tr>
+								<th class="info">데이터 전송 항목</th>
 								<th class="infofix">수신측 변수명</th>
 								<th class="opp">고정값</th>
 								<th class="useCheck">전송여부
@@ -95,6 +144,28 @@
 						</tfoot>
 					</table>
 				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				<div class="btnBox">
 					<button @click="RegisterPostback()">등록하기</button>
 					<button @click="CancelUpdate()">취소하기</button>
@@ -120,6 +191,7 @@
 				, sendUrl             : ''
 				, encrypt             : 'N'
         , postBack            : ''
+				, stServerObj         : []
 				, stAskListObj        : []
 				, stAskList           : []
 			}
@@ -152,23 +224,75 @@
 					this.$refs.postBack.focus(); ///$refs
 					return;
 				}
-          //   tp          : true
-					// , name        : ''
-					// , memberId    : ''
-					// , memberValue : ''
-					// , useYn       : true
+
+				//-------------------------------------------------------
+				// 헤더 전송 항목을 입력정보를 확인한다.
+				//-------------------------------------------------------
+				for(let i = 0 ; i < this.stServerObj.length; i++) {
+					if(this.stServerObj[i].useYn == true) {
+						this.stServerObj[i].useYn = 'Y';
+						if(this.stServerObj[i].memberId == null || this.stServerObj[i].memberId == '' ) {
+							alert("헤더 전송 항목 중 고정항목의 수신측 변수명을 입력해주세요.");
+							return;
+						}
+					}
+					else
+						this.stServerObj[i].useYn = 'N';
+
+					this.stServerObj[i].place = '';
+				}
+
+				//-------------------------------------------------------
+				// 데이터 전송 항목을 입력정보를 확인한다.
+				//-------------------------------------------------------
 				for(let i = 0 ; i < this.stAskList.length; i++) {
+					//-------------------------------------------------------
+					// 전송여부 체크 정보를 true/false에서 Y/N 값으로 대체한다.
+					//-------------------------------------------------------
+					if(this.stAskList[i].useYn == true)
+						this.stAskList[i].useYn = 'Y';
+					else
+						this.stAskList[i].useYn = 'N';
+
+					//-------------------------------------------------------
+					// 정보기입이 정확한지 확인한다.
+					//-------------------------------------------------------
 					if(this.stAskList[i].memberId == null || this.stAskList[i].memberId == '' ) {
-						if(this.stAskList[i].tp == false)
-							alert("전송 항목 중 " + this.stAskList[i].name + "의 수신측 변수명을 입력해주세요.");
+						if(this.stAskList[i].useYn == 'N')
+							alert("1 데이터 전송 항목 중 " + this.stAskList[i].name + "의 수신측 변수명을 입력해주세요.");
 						else
-							alert("전송 항목 중 고정항목의 수신측 변수명을 입력해주세요.");
+							alert("1 데이터 전송 항목 중 고정항목의 수신측 변수명을 입력해주세요.");
 						return;
 					}
-					if(this.stAskList[i].tp == true) {
+
+					if(this.stAskList[i].useYn == 'Y') {
+						//--------------------------------------------------------------
+						// 캠페인에서 등록한 항목의 경우
+						//--------------------------------------------------------------
 						if(this.stAskList[i].memberValue == null || this.stAskList[i].memberValue == '' ) {
-							alert("전송 항목 중 " + this.stAskList[i].name + "의 고정값을 입력해주세요.");
-							return;
+							//--------------------------------------------------------------
+							// 캠페인에 등록된 항목인 경우는 수신측 변수명만 확인한다.
+							//--------------------------------------------------------------
+							if(this.stAskList[i].memberId == null || this.stAskList[i].memberId == '') {
+								alert("2 데이터 전송 항목 중 " + this.stAskList[i].name + "의 수신측 변수명을 입력해주세요.");
+								return;
+							}
+						}
+						//--------------------------------------------------------------
+						// 항목 추가를 한 경우
+						//--------------------------------------------------------------
+						else {
+							//--------------------------------------------------------------
+							// 항목 추가의 경우 수신측 변수명과 고정값을 모두 확인한다.
+							//--------------------------------------------------------------
+							if(this.stAskList[i].memberId == null || this.stAskList[i].memberId == '') {
+								alert("3 데이터 전송 항목 중 수신측 변수명을 입력해주세요.");
+								return;
+							}
+							if(this.stAskList[i].memberValue == null || this.stAskList[i].memberValue == '') {
+								alert("3 데이터 전송 항목 중 수신측 고정값을 입력해주세요.");
+								return;
+							}
 						}
 					}
 				}
@@ -185,17 +309,14 @@
 					, sendUrl           : this.sendUrl
 					, encrypt           : this.encrypt
 					, postBack          : this.postBack
+					, serverParam       : this.stServerObj
 					, inputParam        : this.stAskList
 					, status            : '00'
 				};
 
-				if(data.length < 0) {
-					return;
-				}
-				
 				const frm = new FormData();
 				frm.append("dataObj", new Blob([JSON.stringify(data)]        , {type: "application/json"}));
-				axios.post("http://api.adinfo.co.kr:30000/newSendPostback", frm, {
+				axios.post("http://127.0.0.1:30000/newSendPostback", frm, {
 					headers: {'Content-Type': 'multipart/form-data'}    
 				})
 				.then(response => {
@@ -244,10 +365,11 @@
 					return;
 				}
 				let paramAdd = {
-            tp          : true
+            tp          : 'Y'
 					, name        : ''
 					, memberId    : ''
 					, memberValue : ''
+					, place       : ''
 					, useYn       : true
 				}
 				this.stAskList.push(paramAdd);
@@ -266,17 +388,18 @@
 					this.stAskList.splice(i);
 				}
 				//--------------------------------------------------------------------
-				// DB 컬럼에는 없음이 '-'로 처리되어있음.
+				// DB 컬럼에는 없음이 'S'로 처리되어있음.
 				//--------------------------------------------------------------------
 				for(let i = 0 ; i < 10; i++) {
-					if( this.stAskListObj[i] == '-' )
+					if( this.stAskListObj[i] == 'S' )
 						continue;
 					let paramAdd = {
-							tp          : false
-						,	name        : this.stAskListObj[i]
+							tp          : 'N'
+						, name        : this.stAskListObj[i]
 						, memberId    : ''
 						, memberValue : ''
-						, useYn       : ''
+						, place       : ''
+						, useYn       : true
 					}
 					this.stAskList.push(paramAdd);
 				}
@@ -326,11 +449,12 @@
 						if( AskList[i] == '-' )
 							continue;
             let paramAdd = {
-                tp          : false
-							,	name        : AskList[i]
+								tp          : 'N'
+              , name        : AskList[i]
 							, memberId    : ''
 							, memberValue : ''
-							, useYn       : ''
+							, place       : ''
+							, useYn       : true
 						}
 						this.stAskList.push(paramAdd);
 					}
@@ -344,6 +468,21 @@
 			this.$store.state.headerTopTitle = "포스트백";
 			this.$store.state.headerMidTitle = "포스트백 등록";
 			this.getCampaignNameLst();
+
+			let arr = ['에이전트', '접수 IP', '접수 URL', '접수 도메인명', '접수 도메인 정보'];
+			let arr1 = ['$_SERVER[\'HTTP_USER_AGENT\']', '$_SERVER[\'REMOTE_ADDR\']', '$_SERVER[\'HTTP_REFERER\']', '$_SERVER[\'HTTP_HOST\']', '$_SERVER[\'REQUEST_URI\']'];
+
+			for(let i = 0 ; i < 5; i++) {
+				let paramAdd = {
+						tp          : 'N'
+					, name        : arr[i]
+					, memberId    : ''
+					, memberValue : ''
+					, place       : arr1[i]
+					, useYn       : false
+				}
+				this.stServerObj.push(paramAdd);
+			}
 		}
 	}
 </script>
@@ -417,6 +556,9 @@
 	#menu08402 .left .valueList table .opp{
 		font-weight: 700;
 		width: 30%;
+	}
+	#menu08402 .left .valueList table .oppData {
+		text-align: left;
 	}
 	#menu08402 .left .valueList table th::after {
 		width: 1px;

@@ -777,7 +777,7 @@
     overflow: hidden;
   }
   .dailyDataSub .dailySub .noLength {
-    height: 600px;
+    height: 250px;
     font-weight: 700;
   }
   .dailyDataSub .dailySub .noLength tr {

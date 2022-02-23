@@ -11,7 +11,7 @@
 							>{{ campaignNameList.name}}
 						</option>
 					</select>
-					<select v-model="landSelect" @change="getLandingPageLst(landSelect)">
+					<select v-model="landSelect" @change="getLandingPageLst(landSelect)" :disabled="campSelect == '-1'">
 						<option value="-1">전체</option>
 						<option v-for="(landingData, index) in landingDataObj"
 							:key="index" 
@@ -54,15 +54,19 @@
 				<table class="campTable">
 					<thead>
 						<tr>
-							<th class="campNum"     >번호</th>
-							<th class="campName"    >발생일시</th>
-							<th class="campCode"    >처리일자</th>
-							<th class="campPay"     >처리시간</th>
-							<th class="marketer"    >처리결과</th>
-							<th class="dbNum"       >전송데이터</th>
+							<th class="campNum" >번호</th>
+							<th class="campName">발생일시</th>
+							<th class="campCode">처리일자</th>
+							<th class="campPay" >처리시간</th>
+
+              <th class="campPay" >캠페인명</th>
+              <th class="campPay" >랜딩페이지명</th>
+
+							<th class="marketer">처리결과</th>
+							<th class="dbNum"   >전송데이터</th>
 						</tr>
 					</thead>
-					<tbody v-if="postbackDataObj.length == '0'" class="noLength">
+					<tbody v-if="postbackDataObj[1].length == '0'" class="noLength">
 						<br>
 						<br><br>
 						<tr>
@@ -73,13 +77,21 @@
 						</tr>
 					</tbody>
 					<tbody>
-						<tr v-for="(postbackData, index) in postbackDataObj" :key="index">
+						<tr v-for="(postbackData, index) in postbackDataObj[1]" :key="index">
 							<th class="campNum"      >{{ index+1 }}</th>							
 							<td class="campNameData" >{{ postbackData.createDt }}</td>
 							<td class="campCodeData" >{{ postbackData.processDt }}</td>
 							<td class="campPay"      >{{ postbackData.processTm }}</td>
-							<td class="marketer"     >{{ postbackData.resultComment }}</td>
-							<td class="dbNumData"        >{{ postbackData.sendUrl }}/{{ postbackData.sendValue }}</td>
+
+              <td class="campPay"      >{{ postbackData.caName }}</td>
+              <td class="campPay"      >{{ postbackData.pgName }}</td>
+
+              <td class="marketer"     v-if="postbackData.resultCd == '0'">성공</td>
+              <td class="marketer"     v-else>실패</td>
+
+
+							<!-- <td class="marketer"     >{{ postbackData.resultComment }}</td> -->
+							<td class="dbNumData"    >{{ postbackData.sendUrl }}/{{ postbackData.sendValue }}</td>
 							<!-- <td class="modifyBtnBox"    >
 								<button class="modifyBtn" @click='UpdatePostback(postbackData.caId, postbackData.pgId, postbackData.pbId)'>수정</button> 
 								<button @click='DeletePostback(postbackData.caId, postbackData.pgId, postbackData.pbId, index)'>삭제</button>
@@ -158,8 +170,13 @@
 			// 캠페인 변경
 			//******************************************************************************
 			campaignListChange(index) {
+
+        console.log(index);
 				this.campSelect = index;
-				this.landSelect = -1;
+        if(index == "-1") {
+          this.landSelect = "-1";
+        }
+
 				this.getLandingPageLst();
 				// this.getCampaignFullData(1, true);
 			},
@@ -199,7 +216,7 @@
 
 				this.curPage = selectPage;
 
-				axios.get("http://api.adinfo.co.kr:30000/GetSelPostbackResult", 
+				axios.get("http://127.0.0.1:30000/GetSelPostbackResult", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -215,16 +232,54 @@
 					console.log(response);
 					this.postbackDataObj = response.data;
 
-          for(let i = 0 ; i < this.postbackDataObj.length; i++) {
-            let year  = this.postbackDataObj[i].processDt.substr(0,4);
-            let month = this.postbackDataObj[i].processDt.substr(4,2);
-            let day   = this.postbackDataObj[i].processDt.substr(6,2);
-            this.postbackDataObj[i].processDt = year + "-" + month + "-" + day;
+          for(let i = 0 ; i < this.postbackDataObj[1].length; i++) {
+            let year  = this.postbackDataObj[1][i].processDt.substr(0,4);
+            let month = this.postbackDataObj[1][i].processDt.substr(4,2);
+            let day   = this.postbackDataObj[1][i].processDt.substr(6,2);
+            this.postbackDataObj[1][i].processDt = year + "-" + month + "-" + day;
 
-            year  = this.postbackDataObj[i].processTm.substr(0,2);
-            month = this.postbackDataObj[i].processTm.substr(2,2);
-            day   = this.postbackDataObj[i].processTm.substr(4,2);
-            this.postbackDataObj[i].processTm = year + ":" + month + ":" + day;
+            year  = this.postbackDataObj[1][i].processTm.substr(0,2);
+            month = this.postbackDataObj[1][i].processTm.substr(2,2);
+            day   = this.postbackDataObj[1][i].processTm.substr(4,2);
+            this.postbackDataObj[1][i].processTm = year + ":" + month + ":" + day;
+          }
+
+          if(response.data[0][0].rowTotalCount <= 0) {
+            return;
+          }
+          //--------------------------------------------------------------------
+          // 페이지처리 시작
+          //--------------------------------------------------------------------
+          {
+            let arrGab     = [];
+            let pageUpPage = 0;
+
+            // 전체 페이지의 수를 확인한다.
+            this.curRunTotalPages = Math.ceil(response.data[0][0].rowTotalCount / this.selectRowCount);
+
+            // 페이지가 10개 이하이면...
+            if(this.curRunTotalPages < 10) {
+              for(let i = 0; i < this.curRunTotalPages; i++) {
+                arrGab.push(i+1);
+              }
+              this.pageCount = arrGab;
+            }
+            else {
+              //--------------------------------------------------------------------
+              // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
+              //--------------------------------------------------------------------
+              let pageCut = Math.floor((selectPage) / 10) * 10;
+              if( (selectPage % 10) != 0 ) {
+                let nLoop = 0;
+                for(let i = pageCut; i < this.curRunTotalPages; i++) {
+                  if( (nLoop+pageUpPage) >= 10 + pageUpPage)
+                    break;
+                  arrGab.push(i+1);
+                  nLoop++;
+                }
+                this.pageCount = arrGab;
+              }
+            }
           }
 				})
 				.catch(error => {

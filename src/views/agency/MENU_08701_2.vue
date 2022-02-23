@@ -69,7 +69,7 @@
         , contentsAfter: ''
 				, editorConfig: { 
 							toolbarGroups: [] 
-						, height: '600px' 
+						, height: '331px' 
 						, width: '1358px'
 						, language: 'ko'
 						, toolbarStartupExpanded: false
@@ -200,7 +200,7 @@
 	}
 	#menu08701_2 .noticeView {
 		overflow: hidden;
-		height: 649px;
+		height: 380px;
 	}
 	#menu08701_2 .noticeView h3 {
 		padding: 16px 0 16px 20px;
@@ -237,7 +237,6 @@
 		background: #d2d2d2;
 	}
 	#menu08701_2 .noticeView .textBox {
-		/* padding: 17px 19px; */
 		margin-left: -1px ;
 		line-height: 20px;
 		color: #444;
