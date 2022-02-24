@@ -1,3 +1,4 @@
+<!--  랜딩페이지 제작 -->
 <template>
   <div class="container menu0804">
     <div class="landPrev">
@@ -190,13 +191,13 @@
         </div>
       </div>
       <div class="btnBox">
-        <button class="imgBtn"  @click="ImgChooseBtn()" >이미지 추가</button>
+        <button class="firstBtn"  @click="ImgChooseBtn()" >이미지 추가</button>
         <!-- <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button> -->
-        <button class="formBtn" @click="FormChooseBtn()">폼 추가</button>
+        <button class="firstBtn" @click="FormChooseBtn()">폼 추가</button>
         <button class="iniBtn" @click="InitForm()">초기화</button>
+        <button class="saveBtn" @click="PreviewSend()">랜딩 생성하기</button>
       </div>
       <div class="subBox">
-        <button class="saveBtn" @click="PreviewSend()">랜딩페이지 생성하기</button>
       </div>
     </div>
   </div>
@@ -959,6 +960,34 @@
 </script>
 
 <style scoped>
+
+  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+  .nanumgothic * {
+    font-family: 'Nanum Gothic', sans-serif;
+  }
+
+  @font-face {
+    font-family: 'TmonMonsori';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'BMJUA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'BMDOHYEON';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMDOHYEON.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
   .menu0804 {
     display: flex;
     justify-content: space-between;
@@ -1149,21 +1178,6 @@
     display: none;
   }
   /* 개인정보 수집 동의 항목 */
-  /* 랜딩페이지 저장 버튼 */
-  .menu0804 .subBox {
-    text-align: center;
-    margin-top: 30px;
-  }
-  .menu0804 .saveBtn {
-    padding: 13px 33px;
-    font-size: 16px;
-    border-radius: 40px;
-    border: none;
-    color: #fff;
-    font-weight: 700;
-    background: #000;
-  }
-  /* 랜딩페이지 저장 버튼 */
   .menu0804 .landChoice {
     width: 525px;
   }
@@ -1342,28 +1356,44 @@
     /* display: flex; */
     text-align: center;
     /* justify-content: space-between; */
-    padding: 10px 66px 0 66px;
+    /* padding: 10px 66px 0 66px; */
   }
   .menu0804 .landChoice .btnBox button {
-    padding: 13px 26px;
+    /* padding: 13px 26px; */
+    min-width: 100px;
+    height: 40px;
     font-size: 16px;
     border-radius: 40px;
     border: none;
-    color: #fff;
     font-weight: 700;
   }
-  .menu0804 .landChoice .btnBox .imgBtn {
+
+
+  .menu0804 .landChoice .btnBox .firstBtn {
     border: 1px solid #e25b45;
     color: #e25b45;
+    background: #fff;
     margin-right: 10px;
   }
-  .menu0804 .landChoice .btnBox .formBtn {
-    background: #e25b45;
-    margin-right: 10px;
-  }
+
   .menu0804 .landChoice .btnBox .iniBtn {
-    background: #868686;
+    background: #262626;
+    margin-right: 10px;
+    color: #fff;
   }
+  .menu0804 .landChoice .btnBox .saveBtn {
+    float: right;
+    width: 183px;
+    height: 100px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    background: #e25b45;
+  }
+  /* 랜딩페이지 저장 버튼 */
+
   /*************************************************/
   /*            모바일 참조 용으로 만든 것           */
   /*************************************************/
