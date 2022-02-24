@@ -49,6 +49,10 @@ import MENU_08901 from "../views/agency/MENU_08901.vue";
 import MENU_08999 from "../views/agency/MENU_08999.vue";
 import MENU_0807 from "../views/agency/MENU_0807.vue";
 
+
+import AdminLogin from "../views/customer/AdminLogin";
+
+
 import TEST_etc from "../views/agency/TEST_etc.vue";
 
 Vue.use(VueRouter);
@@ -339,6 +343,11 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     name: "TEST_etc",
     component: TEST_etc,
     meta: { requiresAuth: true }
+  },
+  {// 어드민로그인페이지
+    path: "/AdminLogin",
+    name: "AdminLogin",
+    component: AdminLogin
   },
 ];
 

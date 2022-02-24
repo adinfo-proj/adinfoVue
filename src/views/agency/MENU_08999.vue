@@ -35,11 +35,11 @@
 					<li @click="Rate(2)" v-bind:class="{ on : 2 == tapbtn}">
 						<span class="tapBtn">부가서비스 상품</span>
 						<div class="ratePlanMiddle mid02">
-							<input type="radio" v-model="subPlan" id="post" value="post">
+							<input type="radio" v-model="subPlan" id="post" value="post" :checked="ExtraPrice()">
 							<label for="post">
 								<span class="top">API 프리미엄 서비스</span>
 								<span class="middle">55,000 <span>원/월(VAT 포함)</span></span>
-								<span class="bottom"><span>DB 데이터 보내기 + 받기 + 다중전송이 가능</span></span>
+								<span class="bottom"><span>DB 데이터 보내기 + 받기</span></span>
 							</label>
 							<input type="radio" v-model="subPlan" id="sms" value="sms">
 							<label for="sms">
@@ -90,7 +90,7 @@
 									추가옵션
 								</span>
 								<span>
-									<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">포스트백 프리미엄</label>
+									<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">API 프리미엄 <span class="small">( + 55,000원 )</span></label>
 									<!-- <input type="checkbox" id="extraSms" value="02" v-model="extraService" @change="SelectBox()"><label for="extraSms">SMS 수신</label> -->
 
 								</span>
@@ -117,7 +117,7 @@
 						<img src="../../assets/images/ratePlan/common.jpg" alt="common"> 
 					</div>
 				</div>
-				<div v-if="tapbtn == 2">
+				<div v-if="tapbtn == 2" @change="ExtraPrice()">
 					<div class="detailPlan">
 						<div class="left">
 							<img v-if="subPlan == 'post'" src="../../assets/images/ratePlan/post.jpg" alt="post">
@@ -150,8 +150,8 @@
 								</span>
 								<span v-if="subPlan == 'post'">단일상품</span>
 								<span v-if="subPlan == 'sms'">
-										<select name="" id="">
-										<option value="0">발송 건수 선택</option>
+									<select v-model="smsPlan" >
+										<option value=0 disabled>발송 건수 선택</option>
 										<option value="2200">100개</option>
 										<option value="6600">300개</option>
 										<option value="11000">1,000개</option>
@@ -164,8 +164,7 @@
 									총 금액
 								</span>
 								<span class="org">
-									-
-									<!-- {{extraTotal}} 원 -->
+									{{extraPreview}} 원
 								</span>
 							</p>
 							<div class="btn">
@@ -222,6 +221,8 @@
 				, total : 29700
 				, extraTotal : 0
 				, preview : ''
+				, smsPlan : 0
+				, 
 			}
 		},
 		methods: {
@@ -264,6 +265,19 @@
 				this.preview = this.total.toLocaleString('ko-KR'); 
 				
 			},
+			ExtraPrice(){
+				let price = 0;
+				if(this.subPlan == 'post') {
+					price = 55000
+					this.smsPlan = 0;
+				}
+				else if(this.subPlan == 'sms'){
+					price = Number(this.smsPlan)
+				}
+				this.extraTotal = price
+				this.extraPreview = this.extraTotal.toLocaleString('ko-KR');
+
+			},
 			
 			// SelectBox() {
 
@@ -285,7 +299,7 @@
 
 			this.TapClear();
 
-			console.log(navigator.language);
+			// console.log(navigator.language);
 			
 
 		}
@@ -521,6 +535,11 @@
 	font-weight: 700;
 	letter-spacing: -0.36px;
 	position: relative;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p input + label span {
+	font-size: 12px;
+	font-weight: 400;
 }
 
 #menu08999 .ratePlanBottom .detailPlan .right p input + label::before {

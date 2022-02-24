@@ -449,6 +449,10 @@
     border: none;
   }
 
+  #menu08303 .flex .left .btnBox .clear {
+    background: #686868;
+  }
+
   #menu08303 .flex .left .btnBox .submit {
     background: #e25b45;
   }
