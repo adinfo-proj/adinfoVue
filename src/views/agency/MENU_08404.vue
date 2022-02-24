@@ -54,16 +54,15 @@
 				<table class="campTable">
 					<thead>
 						<tr>
-							<th class="campNum" >번호</th>
-							<th class="campName">발생일시</th>
-							<th class="campCode">처리일자</th>
-							<th class="campPay" >처리시간</th>
+							<th class="apiNum" >번호</th>
+							<th class="apiStart">발생일시</th>
+							<th class="apiDis">처리일시</th>
 
-              <th class="campPay" >캠페인명</th>
-              <th class="campPay" >랜딩페이지명</th>
+              <th class="campNm" >캠페인명</th>
+              <th class="landNm" >랜딩페이지명</th>
 
-							<th class="marketer">처리결과</th>
-							<th class="dbNum"   >전송데이터</th>
+							<th class="apiResult">처리결과</th>
+							<th class="sendData"   >전송데이터</th>
 						</tr>
 					</thead>
 					<tbody v-if="postbackDataObj[1].length == '0'" class="noLength">
@@ -78,24 +77,18 @@
 					</tbody>
 					<tbody>
 						<tr v-for="(postbackData, index) in postbackDataObj[1]" :key="index">
-							<th class="campNum"      >{{ index+1 }}</th>							
-							<td class="campNameData" >{{ postbackData.createDt }}</td>
-							<td class="campCodeData" >{{ postbackData.processDt }}</td>
-							<td class="campPay"      >{{ postbackData.processTm }}</td>
+							<th class="apiNum"      >{{ index+1 }}</th>							
+							<td class="apiStart" >{{ postbackData.createDt }}</td>
+							<td class="apiDis" >{{ postbackData.processDt }} {{ postbackData.processTm }}</td>
 
-              <td class="campPay"      >{{ postbackData.caName }}</td>
-              <td class="campPay"      >{{ postbackData.pgName }}</td>
+              <td class="campNm"      >{{ postbackData.caName }}</td>
+              <td class="landNm"      >{{ postbackData.pgName }}</td>
 
-              <td class="marketer"     v-if="postbackData.resultCd == '0'">성공</td>
-              <td class="marketer"     v-else>실패</td>
+              <td class="apiResult"     v-if="postbackData.resultCd == '0'">성공</td>
+              <td class="apiResult"     v-else>실패</td>
 
 
-							<!-- <td class="marketer"     >{{ postbackData.resultComment }}</td> -->
-							<td class="dbNumData"    >{{ postbackData.sendUrl }}/{{ postbackData.sendValue }}</td>
-							<!-- <td class="modifyBtnBox"    >
-								<button class="modifyBtn" @click='UpdatePostback(postbackData.caId, postbackData.pgId, postbackData.pbId)'>수정</button> 
-								<button @click='DeletePostback(postbackData.caId, postbackData.pgId, postbackData.pbId, index)'>삭제</button>
-							</td> -->
+							<td class="sendData"    >{{ postbackData.sendUrl }}/{{ postbackData.sendValue }}</td>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -381,64 +374,35 @@
 	#menu08404 .campDataBox tbody tr {
     border-bottom: 1px solid #ececec;
 	}
-	#menu08404 .campDataBox .campNum {
+	#menu08404 .campDataBox .apiNum{
 		width: 5%;
 	}
-	#menu08404 .campDataBox .campName {
+	#menu08404 .campDataBox .apiStart{
 		width: 12%;
 	}
-	#menu08404 .campDataBox .campCode {
-		width: 8%;
+	#menu08404 .campDataBox .apiDis{
+		width: 12%;
 	}
-	#menu08404 .campDataBox .campCodeData {
-		text-align: left;
+	#menu08404 .campDataBox .campNm{
+		width: 17%;
 	}
-	#menu08404 .campDataBox .campPay {
+	#menu08404 .campDataBox .landNm{
+		width: 17%;
+	}
+	#menu08404 .campDataBox .apiResult{
 		width: 7%;
 	}
-	#menu08404 .campDataBox .marketer {
-		width: 15%;
+	#menu08404 .campDataBox .sendData{
+		width: 30%;
 	}
-	#menu08404 .campDataBox .dbNum {
-		width: 80%;
-	}
-	#menu08404 .campDataBox .dbNumData {
+
+	#menu08404 .campDataBox td.campNm,
+	#menu08404 .campDataBox td.landNm,
+	#menu08404 .campDataBox td.sendData {
 		text-align: left;
 	}
-	#menu08404 .campDataBox .campNameData {
-		text-align: left;
-	}
-	#menu08404 .campDataBox .campDate {
-		width: 7%;
-	}
-	#menu08404 .campDataBox .modifyBtnBox{
-		padding: 0;
-		width: 7%;
-	}
-/* 
-	#menu08404 .campDataBox td.campName {
-		text-align: left;
-	} */
-	#menu08404 .campDataBox td.campPay {
-		text-align: left;
-	}
-	#menu08404 .campDataBox td.marketer {
-		text-align: center;
-	}
-	#menu08404 .campDataBox .modifyBtnBox button {
-		width: 40px;
-    height: 20px;
-    border-radius: 20px;
-    border: none;
-    background: #838383;
-    color: #fff;
-	}
-	#menu08404 .campDataBox .modifyBtnBox .modifyBtn {
-		margin-right: 5px;
-	}
-	#menu08404 .campDataBox .modifyBtnBox button:hover {
-		background: #e25b45;
-	}
+
+
 	#menu08404 .campDataBox tfoot td i {
     display: inline-block;
     width: 25px;

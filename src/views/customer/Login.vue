@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="logSearch">
-        <!-- <input type="checkbox" name="stayLog" id="stayLog"><label for="stayLog"> 로그인 유지</label> -->
+        <input type="checkbox" name="stayLog" id="stayLog"><label for="stayLog"> 로그인 유지</label>
         <ul>
             <li><a href="javascript:void(0)"
             @click="SignMadal();">회원가입</a></li>
@@ -248,16 +248,16 @@ export default {
     position: absolute;
     width: 20px;
     height: 20px;
-    content: "\f078";
+    content: "\e91c";
+    font-family: "icomoon";
     color: #c9c9c9;
-    font-family: "Font Awesome 5 Free";
     font-weight: 900;
-    font-size: 11.5px;
+    font-size: 15px;
     border: 2px solid #c9c9c9;
     border-radius: 50%;
     text-align: center;
     box-sizing: border-box;
-    padding-top: 3px;
+    padding-top: 1px;
     left: 0px;
     top: 3px;
   }

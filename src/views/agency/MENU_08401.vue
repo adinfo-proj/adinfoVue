@@ -53,12 +53,12 @@
 							<th class="campName"    >캠페인명</th>
 							<th class="campCode"    >랜딩페이지명</th>
 
-							<th class="campPay"     >발송주소</th>
+							<th class="landUrl"     >발송주소</th>
 							<th class="marketer"    >전송방식</th>
 
 							<th class="dbNum"       >전송항목수</th>
 							<th class="campDate"    >등록일자</th>
-							<th class="modifyBtn"   >처리</th>
+							<th class="modifyBtnBox"   >처리</th>
 						</tr>
 					</thead>
 					<tbody v-if="postbackDataObj.length == '0'" class="noLength">
@@ -74,9 +74,9 @@
 					<tbody>
 						<tr v-for="(postbackData, index) in postbackDataObj" :key="index">
 							<th class="campNum"      >{{ index+1 }}</th>							
-							<td class="campNameData" >{{ postbackData.caName }}</td>
-							<td class="campCodeData" >{{ postbackData.pgName }}</td>
-							<td class="campPay"      >{{ postbackData.postbackUrl }}</td>
+							<td class="campName" >{{ postbackData.caName }}</td>
+							<td class="campCode" >{{ postbackData.pgName }}</td>
+							<td class="landUrl"      >{{ postbackData.postbackUrl }}</td>
 
 							<td class="marketer"     v-if="postbackData.sendType=='G'">GET</td>
 							<td class="marketer"     v-else>POST</td>
@@ -448,10 +448,18 @@
 		width: 100%;
 		text-align: center;
 		border-collapse: collapse;
+		border-style: hidden;
+    table-layout: fixed;
 	}
 	#menu08401 .campDataBox th,
 	#menu08401 .campDataBox td {
 		padding: 15px 18px;
+		white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    word-break:break-all;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3
 	}
 	#menu08401 .campDataBox thead th {
     position: relative;
@@ -476,14 +484,14 @@
 	#menu08401 .campDataBox .campNum {
 		width: 5%;
 	}
+	#menu08401 .campDataBox .campName {
+		width: 20%;
+	}
 	#menu08401 .campDataBox .campCode {
-		width: 16%;
+		width: 20%;
 	}
-	#menu08401 .campDataBox .campCodeData {
-		text-align: left;
-	}
-	#menu08401 .campDataBox .campPay {
-		width: 16%;
+	#menu08401 .campDataBox .landUrl {
+		width: 24%;
 	}
 	#menu08401 .campDataBox .marketer {
 		width: 7%;
@@ -491,23 +499,19 @@
 	#menu08401 .campDataBox .dbNum {
 		width: 7%;
 	}
-	#menu08401 .campDataBox .campName {
-		width: 16%;
-	}
-	#menu08401 .campDataBox .campNameData {
-		text-align: left;
-	}
 	#menu08401 .campDataBox .campDate {
-		width: 7%;
+		width: 9%;
 	}
 	#menu08401 .campDataBox .modifyBtnBox{
 		padding: 0;
-		width: 7%;
+		width: 8%;
 	}
-/* 
-	#menu08401 .campDataBox td.campName {
+
+	#menu08401 .campDataBox td.campName,
+	#menu08401 .campDataBox td.campCode,
+	#menu08401 .campDataBox td.landUrl {
 		text-align: left;
-	} */
+	}
 	#menu08401 .campDataBox td.campPay {
 		text-align: left;
 	}

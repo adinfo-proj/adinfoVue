@@ -28,8 +28,8 @@
         <div class="footerTop">
           <div class="left">
             (주)마케팅디자인<br>
-            서울특별시 구로구 디지털로 26길 111, 제이앤케이디지털타워 708호<br>
-            대표자: 유기옥&nbsp;&nbsp;&nbsp;&nbsp;대표번호:1533-3757&nbsp;&nbsp;&nbsp;사업자등록번호: 567-87-00066&nbsp;&nbsp;&nbsp;&nbsp;통신판매 신고번호: 제2020-서울구로-2892호
+            서울특별시 구로구 디지털로 26길 111, 제이앤케이디지털타워 708호&nbsp;&nbsp;&nbsp;대표자: 유기옥<br>
+            민원 담당자 : 김화성&nbsp;&nbsp;&nbsp;&nbsp;대표번호:1533-3757&nbsp;&nbsp;&nbsp;사업자등록번호: 567-87-00066&nbsp;&nbsp;&nbsp;&nbsp;통신판매 신고번호: 제2020-서울구로-2892호
           </div>
           <div class="right">
             <img src="./assets/images/footerIcon01.png" alt="">

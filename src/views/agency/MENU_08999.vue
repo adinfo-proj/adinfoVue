@@ -6,13 +6,13 @@
 					<li @click="Rate(1)" v-bind:class="{ on : 1 == tapbtn}">
 						<span class="tapBtn" >디미바스터 서비스 상품</span>
 						<div class="ratePlanMiddle mid01">
-							<input type="radio" id="basic" value="basic" v-model="servicePlan">
+							<input type="radio" id="basic" value="basic" v-model="servicePlan" :checked="TotalPrice()">
 							<label for="basic" @click="Init()">
 								<span class="top">BASIC</span>
 								<span class="middle">29,700 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>랜딩 갯 수</span> 3개</span>
 							</label>
-							<input type="radio" id="silver" value="silver" v-model="servicePlan">
+							<input type="radio" id="silver" value="silver" v-model="servicePlan" >
 							<label for="silver" @click="Init()">
 								<span class="top">SILVER</span>
 								<span class="middle">66,000 <span>원/월(VAT 포함)</span></span>
@@ -24,7 +24,7 @@
 								<span class="middle">99,000 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>랜딩 갯 수</span> 12개</span>
 							</label>
-							<input type="radio" id="vip" value="vip" v-model="servicePlan">
+							<input type="radio" id="vip" value="vip" v-model="servicePlan" >
 							<label for="vip" @click="Init()">
 								<span class="top">VIP</span>
 								<span class="middle">220,000 <span>원/월(VAT 포함)</span></span>
@@ -100,8 +100,7 @@
 									총 금액
 								</span>
 								<span class="org">
-									-
-									<!-- {{ total }} 원 -->
+									{{ preview }} 원
 								</span>
 							</p>
 							<div class="btn">
@@ -197,6 +196,9 @@
 							즉 환불액은 [서비스 신청금액 *0.80] - [(서비스 신청금액/30일) * 서비스 사용일]이 됩니다.<br>
 						</span>
 						④ 단, 휴대폰결제는 3일 이내 취소만 가능하며 3일 이후는 환불 및 취소가 불가능합니다<br>
+						<br>
+							'디비마스터'의 모든 거래에 대한 책임과 배송.교환.환불.민원등의 처리는  (주)마케팅디자인에서 진행합니다.<br>
+							*민원 담당자 : 김화성   / 연락처 : 1533-3757 
 					</p>
 				</div>
 			</div>
@@ -219,6 +221,7 @@
 				, extraService: []
 				, total : 29700
 				, extraTotal : 0
+				, preview : ''
 			}
 		},
 		methods: {
@@ -237,24 +240,30 @@
 				// this.TotalPrice();
 			},
 
-			// TotalPrice() {
-			// 	let price = 29700;
-			// 	// let extraPrice = 0;
-			// 	if(this.servicePlan == 'basic') {
-			// 		price = 29700;
-			// 	}else if(this.servicePlan == 'silver') {
-			// 		price = 66000;
-			// 	}else if(this.servicePlan == 'gold') {
-			// 		price = 99000;
-			// 	}else if(this.servicePlan == 'vip') {
-			// 		price = 220000;
-			// 	}
-			// 	console.log(this.servicePlan)
-			// 	console.log(price)
+			TotalPrice() {
+
+				let price = 29700;
+				let extraPrice = 0;
+				if(this.servicePlan == 'basic'){
+					price = 29700;
+				}else if(this.servicePlan == 'silver') {
+					price = 66000;
+				}else if(this.servicePlan == 'gold') {
+					price = 99000;
+				}else if(this.servicePlan == 'vip') {
+					price = 220000;
+				}
 				
-			// 	this.total = price
+				for(let i = 0 ; i <this.extraService.length ; i++){
+					if(this.extraService[i] == '01') {
+						extraPrice = extraPrice + 55000
+					}
+				}
+
+				this.total = price +extraPrice
+				this.preview = this.total.toLocaleString('ko-KR'); 
 				
-			// },
+			},
 			
 			// SelectBox() {
 
@@ -275,6 +284,8 @@
 			this.$store.state.headerMidTitle = "요금제";
 
 			this.TapClear();
+
+			console.log(navigator.language);
 			
 
 		}
