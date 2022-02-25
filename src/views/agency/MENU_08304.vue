@@ -18,7 +18,7 @@
                       >{{ campaignNameList.name }}
                     </option>
                   </select>
-                  <select v-model="landSelect" @change="getLandingPageLst(landSelect)">
+                  <select v-model="landSelect" @change="getLandingPageOne(landSelect)">
                     <option value="-1">선택하세요</option>
                     <option v-for="(landingData, index) in landingDataObj"
                       :key="index" 
@@ -30,7 +30,7 @@
               </tr>
               <tr>
                 <th>
-                  랜딩페이지 상태
+                  랜딩페이지 URL
                 </th>
                 <td class="pad">{{landStatus}}</td>
               </tr>
@@ -200,21 +200,24 @@
           }
         })
         .then(response => {
+          console.log(response.data);
           this.landingDataOne = response.data;
 
-          if(response.data.useTp == "00") {
-            this.landStatus = '랜딩페이지 사용 가능';
-          }
-          else if(response.data.useTp == "01") {
-            this.landStatus = '랜딩페이지 이용 정지';
-          }
-          else if(response.data.useTp == "02") {
-            this.landStatus = '랜딩페이지 이용 정료';
-          }
-          else { // if(response.data.useTp == "03") {
-            this.landStatus = '';
-            return;            
-          }
+          this.landStatus = 'http://dbmaster.co.kr/' + response.data.url;
+
+          // if(response.data.useTp == "00") {
+          //   this.landStatus = '랜딩페이지 사용 가능';
+          // }
+          // else if(response.data.useTp == "01") {
+          //   this.landStatus = '랜딩페이지 이용 정지';
+          // }
+          // else if(response.data.useTp == "02") {
+          //   this.landStatus = '랜딩페이지 이용 정료';
+          // }
+          // else { // if(response.data.useTp == "03") {
+          //   this.landStatus = '';
+          //   return;
+          // }
         })
         .catch(error => {
           console.log(error);

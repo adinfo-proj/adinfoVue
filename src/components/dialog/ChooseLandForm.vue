@@ -9,48 +9,49 @@
       <div class="formStyle category">
         <h6>폼 유형 선택</h6>
         <div class="flex">
-          <input type="radio" name="formType"  v-model="formType" :id="'form01_'+this.indexNum" value="01">
+          <input type="radio" :name="formType+this.indexNum"  v-model="formType" :id="'form01_'+this.indexNum" value="01">
           <label :for="'form01_'+this.indexNum">
             <img src="../../assets/images/menu08302/ex01.jpg" alt="">
           </label>
-          <input type="radio" name="formType"  v-model="formType" :id="'form02_'+this.indexNum" value="02">
+          <input type="radio" :name="formType+this.indexNum"  v-model="formType" :id="'form02_'+this.indexNum" value="02">
           <label :for="'form02_'+this.indexNum">
             <img src="../../assets/images/menu08302/ex02.jpg" alt="">
           </label>
-          <input type="radio" name="formType"  v-model="formType" :id="'form03_'+this.indexNum" value="03">
+          <input type="radio" :name="formType+this.indexNum"  v-model="formType" :id="'form03_'+this.indexNum" value="03">
           <label :for="'form03_'+this.indexNum">
             <img src="../../assets/images/menu08302/ex03.jpg" alt="">
           </label>
-          <input type="radio" name="formType"  v-model="formType" :id="'form04_'+this.indexNum" value="04">
+          <input type="radio" :name="formType+this.indexNum"  v-model="formType" :id="'form04_'+this.indexNum" value="04">
           <label :for="'form04_'+this.indexNum">
             <img src="../../assets/images/menu08302/ex04.png" alt="">
           </label>
         </div>
       </div>
-      <div class="formStyle">
+      <div class="formStyle formTitle">
         <h6 class="leftBox"> 폼 타이틀</h6>
-        <input type="text" v-model="formTitle" id="formTitle">
+        <input type="text" v-model="formTitle" id="formTitle" placeholder="폼 상단에 타이틀 문구를 삽입할 수 있습니다. 필요시 작성하세요. (10자 내외)">
       </div>
-      <div class="formStyle">
+      <div class="formStyle formTitleColor">
         <h6 class="leftBox"> 폼 타이틀 폰트 색상</h6>
         <input type="color" v-model="formTitleColor">
+        <span>*폼 타이틀을 추가하신 경우에만 선택해 주세요.</span>
       </div>
       <div class="formStyle fontStyle">
         <h6>타이틀 및 버튼 폰트 선택</h6>
         <div class="flex">
-          <input type="radio" name="fontType" :id="'font01_'+this.indexNum" value="Nanum Gothic" class="nanum">
+          <input type="radio" v-model="fontType" :name="fontType+this.indexNum" :id="'font01_'+this.indexNum" value="Nanum Gothic" class="nanum">
           <label :for="'font01_'+this.indexNum">
             나눔고딕
           </label>
-          <input type="radio" name="fontType" :id="'font02_'+this.indexNum" value="TmonMonsori" class="tmon">
+          <input type="radio" v-model="fontType" :name="fontType+this.indexNum" :id="'font02_'+this.indexNum" value="TmonMonsori" class="tmon">
           <label :for="'font02_'+this.indexNum">
             티몬체
           </label>
-          <input type="radio" name="fontType" :id="'font03_'+this.indexNum" value="BMJUA" class="jua">
+          <input type="radio" v-model="fontType" :name="fontType+this.indexNum" :id="'font03_'+this.indexNum" value="BMJUA" class="jua">
           <label :for="'font03_'+this.indexNum">
             배민 주아체
           </label>
-          <input type="radio" name="fontType" :id="'font04_'+this.indexNum" value="BMDOHYEON" class="dohyeon">
+          <input type="radio" v-model="fontType" :name="fontType+this.indexNum" :id="'font04_'+this.indexNum" value="BMDOHYEON" class="dohyeon">
           <label :for="'font04_'+this.indexNum">
             배민 도현체
           </label>
@@ -62,41 +63,41 @@
       </div>
       <div class="formStyle btnShape">
         <h6>버튼 모양 선택</h6>
-        <div>
-          <input type="radio" v-model="btnShape" :id="'btn01_'+this.indexNum" value="0"   ><label :for="'btn01_'+this.indexNum">신청버튼</label>
-          <input type="radio" v-model="btnShape" :id="'btn02_'+this.indexNum" value="10px"><label :for="'btn02_'+this.indexNum">신청버튼</label>
-          <input type="radio" v-model="btnShape" :id="'btn03_'+this.indexNum" value="50px"><label :for="'btn03_'+this.indexNum">신청버튼</label>
+        <div class="flex">
+          <input type="radio" v-model="btnShape" :name="btnShape+this.indexNum" :id="'btn01_'+this.indexNum" value="0"   ><label :for="'btn01_'+this.indexNum">신청버튼</label>
+          <input type="radio" v-model="btnShape" :name="btnShape+this.indexNum" class="btn02" :id="'btn02_'+this.indexNum" value="10px"><label :for="'btn02_'+this.indexNum">신청버튼</label>
+          <input type="radio" v-model="btnShape" :name="btnShape+this.indexNum" class="btn03" :id="'btn03_'+this.indexNum" value="50px"><label :for="'btn03_'+this.indexNum">신청버튼</label>
         </div>
       </div>
 
-      <div class="formStyle btnColor">
+      <div class="formStyle formTable">
         <table>
           <tr>
-            <td>
+            <td class="left">
               <h6 class="leftBox">버튼 텍스트 색상</h6>
               <input type="color" v-model="textColor">
             </td>
-            <td>
+            <td class="right">
               <h6 class="leftBox">버튼 색상 선택</h6>
               <input type="color" v-model="btnColor">
             </td>
           </tr>
           <tr>
-            <td>
+            <td class="left line">
               <h6 class="leftBox">폼 테두리 굵기</h6>
-              <input type="text" id="boxLine" v-model="borderLine"><label for="#">px</label>
+              <input type="text" id="boxLine" v-model="borderLine"><label for="#"><span>px</span></label>
             </td>
-            <td>
+            <td class="right">
               <h6 class="leftBox">폼 테두리 색상</h6>
               <input type="color" v-model="lineColor">
             </td>
           </tr>
           <tr>
-            <td>
+            <td class="left">
               <h6 class="leftBox">폼 배경 색상</h6>
               <input type="color" v-model="bgColor">
             </td>
-            <td>
+            <td class="right">
               <h6 class="leftBox">약관 텍스트 색상</h6>
               <input type="color" v-model="agreeColor">
             </td>
@@ -128,12 +129,13 @@
         , btnNm     : '신청하기' // 버튼내용
         , agreeTitle : this.$store.state.lendchooseObj[this.indexNum].formDesc.priNm
         , agreeCon   : this.$store.state.lendchooseObj[this.indexNum].formDesc.priCon
-        , btnShape   : ''
+        , btnShape   : '0'
         , btnColor   : ''
         , textColor  : '#fff'
         , borderLine : 0
         , lineColor : ''
         , formType : '01'
+        , fontType : 'Nanum Gothic'
       }
     },
     methods: {
@@ -262,9 +264,8 @@
   }
   .landForm .formStyle .leftBox {
     float: left;
-    padding: 7px 6px 0 0;
+    padding: 7px 10px 0 0;
   }
-
   .landForm input[type="color"] {
     display: inline-block;
     padding: 0;
@@ -279,7 +280,8 @@
 
   .landForm .category input[type="radio"] + label{
     position: relative;
-  } 
+  }
+
   .landForm .btnShape div,
   .landForm .formStyle .flex {
     padding: 10px 0 0 0;
@@ -305,16 +307,168 @@
     box-sizing: border-box;
   }
 
+  .landForm .formTitle input[type="text"] {
+    width: 414px;
+  }
+
+  .landForm .formTitleColor span {
+    transform: translateY(-3px);
+    display: inline-block;
+    padding-left: 9px;
+    font-weight: 700;
+  }
+
+  .landForm .fontStyle .flex {
+    padding: 14px 17px 12px;
+  }
+
+  .landForm .fontStyle input[type="radio"] + label {
+    padding-left: 20px;
+    position: relative;
+    font-size: 14px;
+  }
+
+  .landForm .fontStyle input[type="radio"].nanum + label{
+    font-weight: 700;
+  }
+
+  .landForm .fontStyle input[type="radio"].tmon + label{
+    font-weight: 700;
+    font-family: 'TmonMonsori';
+  }
+
+  .landForm .fontStyle input[type="radio"].jua + label{
+    font-family: 'BMJUA';
+  }
+
+  .landForm .fontStyle input[type="radio"].dohyeon + label{
+    font-family: 'BMDOHYEON';
+  }
+  
+  .landForm .fontStyle input[type="radio"] + label::before {
+    clear: both;
+    position: absolute;
+    content: "";
+    width: 11px;
+    height: 11px;
+    background: #f6f6f6;
+    border: 1px solid #cbcbcb;
+    border-radius: 2px;
+    transform: translateY(-50%);
+    left: 0;
+    top: 50%;
+  }
+
+  .landForm .fontStyle input[type="radio"]:checked + label:after {
+    clear: both;
+    position: absolute;
+    content: "\e91c";
+    font-family: "icomoon";
+    font-weight: 900;
+    font-size: 13px;
+    color: #e25b45;
+    transform: translateY(-50%);
+    left: 0;
+    top: 50%;
+  }
+
+  .landForm .btnName input[type="text"] {
+    width: 414px;
+  }
+
+  .landForm .btnShape .flex {
+    padding: 14px 20px 12px;
+  }
+
+  .landForm .btnShape input[type="radio"] + label {
+    display: block;
+    padding: 7.5px 29px;
+    background: #5c5c5c;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    box-sizing: border-box;
+  }
+
+
+  .landForm .btnShape input[type="radio"].btn02 + label {
+    border-radius: 4px;
+  }
+
+  .landForm .btnShape input[type="radio"].btn03 + label {
+    border-radius: 20px;
+  }
+
+  .landForm .btnShape input[type="radio"]:checked + label {
+    border: 4px solid #e25b45;
+    padding: 3.5px 25px;
+  }
+
+  .landForm .formTable {
+    padding: 0;
+  }
+
+  .landForm table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .landForm .formTable .leftBox {
+    padding-top: 3px;
+    width: 107px;
+    letter-spacing: -0.35px;
+  }
+
+  .landForm table td {
+    width: 50%; 
+    border: 1px solid #e5e5e5;
+    padding:  11px 20px; 
+  }
+  
+
+  .landForm table tr:first-child td {
+    border-top: none;
+  }
+
+  .landForm table .left{
+    border-left: none;
+  }
+
+  .landForm table .right{
+    border-right: none;
+  }
+
+  .landForm table input[type="color"] {
+    margin-top: -4px;
+  }
+
+  .landForm table td.line {
+    padding: 8px 20px;
+  }
+
+  .landForm .formTable td.line .leftBox {
+    padding-top: 6px;
+  }
+
+  .landForm table input[type="text"] {
+    width: 70px;
+  }
+  .landForm table input[type="text"] + label span {
+    padding-left: 9px;
+    font-weight: 700;
+  }
+
+
+
+
+   /* .landForm table td */
+
 
 
 /* 
   .landForm .btnShape input[type="radio"] + label,
   .landForm .fontStyle input[type="radio"] + label {
     padding: 0 29px 0 25px;
-  }
-  .landForm table input[type="checkbox"] + label{
-    display: inline-block;
-    transform: translate(-5px, -9px);
   }
   .landForm table input[type="checkbox"] + label,
   .landForm .btnShape input[type="radio"] + label,
@@ -348,9 +502,7 @@
     left: 0;
     top: 0px;
   }
-  .landForm .btnColor h6 {
-    padding: 6px 7px 0 0 ;
-  }
+
   .landForm .btnColor input[type="radio"] {
     display: none;
   }
@@ -395,13 +547,13 @@
     text-align: center;
     padding: 20px;
   } 
-  .landForm button {
+  .landForm .formSub button {
     width: 100px;
     height: 30px;
     border: 1px solid #e5e5e5;
     border-radius: 10px;
     background: #f0f0f0;
     text-align: center;
-    margin-bottom: 10px;
   }
+
 </style>

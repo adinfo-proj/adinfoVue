@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import axios from 'axios';
 
 import LOGIN from "../views/customer/Login";
+import AdminLogin from "../views/customer/AdminLogin";
 
 import MENU_0000 from "../views/agency/MENU_0000.vue";
 import MENU_0101 from "../views/agency/MENU_0101.vue";
@@ -21,10 +22,12 @@ import MENU_0303 from "../views/agency/MENU_0303.vue";
 import MENU_0601 from "../views/agency/MENU_0601.vue";
 import MENU_0701 from "../views/agency/MENU_0701.vue";
 import MENU_08101 from "../views/agency/MENU_08101.vue";
+import MENU_08150 from "../views/agency/MENU_08150.vue";
 import MENU_08102 from "../views/agency/MENU_08102.vue";
 import MENU_08103 from "../views/agency/MENU_08103.vue";
 import MENU_08104 from "../views/agency/MENU_08104.vue";
 import MENU_08201 from "../views/agency/MENU_08201.vue";
+import MENU_08250 from "../views/agency/MENU_08250.vue";
 import MENU_08301 from "../views/agency/MENU_08301.vue";
 import MENU_08302 from "../views/agency/MENU_08302.vue";
 import MENU_08303 from "../views/agency/MENU_08303.vue";
@@ -50,7 +53,6 @@ import MENU_08999 from "../views/agency/MENU_08999.vue";
 import MENU_0807 from "../views/agency/MENU_0807.vue";
 
 
-import AdminLogin from "../views/customer/AdminLogin";
 
 
 import TEST_etc from "../views/agency/TEST_etc.vue";
@@ -68,7 +70,6 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     name: "HOME",
     component: MENU_08201,
     meta: { requiresAuth: true }
-    
   },
   {// 메인페이지
     path: "/MENU_0000",
@@ -194,10 +195,24 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     component: MENU_08104,
     meta: { requiresAuth: true }
   },
+  {// 캠페인 목록 (DB마스터 어드민용)
+    path: "/MENU_08150",
+    name: "MENU_08150",
+    component: MENU_08150,
+    meta: { requiresAuth: true },
+    // 
+    props: true
+  },
   {// DB확인
     path: "/MENU_08201",
     name: "MENU_08201",
     component: MENU_08201,
+    meta: { requiresAuth: true }
+  },
+  {// DB확인 (DB마스터 어드민용)
+    path: "/MENU_08250",
+    name: "MENU_08250",
+    component: MENU_08250,
     meta: { requiresAuth: true }
   },
   {// 랜딩페이지 목록
@@ -361,8 +376,29 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // 이 라우트는 인증이 필요하며 로그인 한 경우 확인하십시오.
     // 그렇지 않은 경우 로그인 페이지로 리디렉션하십시오.
+
+    //------------------------------------------------------------------
+    // DATE : 2022.02.25
+    // DESC : 디비마스터 관리자페이지를 사용중인 경우 아래 MENU가 아닌 다른곳으로 이동시 
+    //        08201로 강제로 이동시킨다.
+    //------------------------------------------------------------------
+    // if(sessionStorage.getItem("grade") == '06') {
+    //   if( !(to.name == 'MENU_08150' || to.name == 'MENU_08250') ) {
+    //     next('/MENU_08201');
+    //     return;
+    //   }
+    // }
+
+    //------------------------------------------------------------------
+    // DATE : 2021.11.25
+    // DESC : 페이지 전환시마다 토큰값을 확인하여 인증을 재 확인한다.
+    //------------------------------------------------------------------
     if (sessionStorage.getItem("token") == null || sessionStorage.getItem("token") == '') {
-      next('/login')
+      //if(window.location.hostname == 'admin.dbmaster.co.kr')
+      // if(window.location.hostname == 'admin.dbmaster.co.kr')
+      //   next('/AdminLogin');
+      // else
+        next('/login');
     } else {
       // api call 후 유효시간 확인
       axios.get("http://api.adinfo.co.kr:30000/vaildauth",
@@ -374,16 +410,22 @@ router.beforeEach((to, from, next) => {
       .then(response => {
         if(response.data.status == false) {
           sessionStorage.clear();
-          next('/login');
+          // if(window.location.hostname == 'admin.dbmaster.co.kr') {
+          //   next('/AdminLogin');
+          // }
+          // else {
+            next('/login');
+          // }
         }
       })
       .catch(error => {
         console.log(error);
-
         sessionStorage.clear();
-        next('/login');
+        // if(window.location.hostname == 'admin.dbmaster.co.kr')
+        //   next('/AdminLogin');
+        // else
+          next('/login');
       })
-
       next();
     }
   } else {

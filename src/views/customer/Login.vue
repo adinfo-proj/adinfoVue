@@ -134,6 +134,12 @@ export default {
     , SearchIdModal() {
       $("#searchModar").css({display: "block"})
     }
+  },
+  created() {
+    // if(window.location.hostname != 'admin.dbmaster.co.kr')
+    //   this.$router.push({ path : "AdminLogin" })
+    // else
+    //   this.$router.push({ path : "login" })
   }
 }
 </script>

@@ -7,6 +7,7 @@
         <sponser-menu   v-if="$store.state.adGradeCd == '03'">3</sponser-menu>
         <marketer-menu  v-if="$store.state.adGradeCd == '04'">4</marketer-menu>
         <dbMaster-menu  v-if="$store.state.adGradeCd == '05'">5</dbMaster-menu>
+        <AdminDbmasterMenu  v-if="$store.state.adGradeCd == '06'">6</AdminDbmasterMenu>
       </div>
       <div id="sectionHeader">
         <div class="menuPage">
@@ -15,8 +16,11 @@
           <span class="subMenuName"> {{ this.$store.state.headerMidTitle }}</span>
         </div>
         <div class="userNamePage">
-          <span @click="Mypage()">{{ this.$store.state.clntNm }}님</span>
-          <span class="rate"> 14일 무료 이용중</span>
+          <span @click="Mypage()" v-if="$store.state.adGradeCd != '06'">{{ this.$store.state.clntNm }}님</span>
+          <span                   v-else                               >{{ this.$store.state.clntNm }}님</span>
+          
+          <span class="rate" v-if="$store.state.adGradeCd != '06'"> 14일 무료 이용중</span>
+
           <button class="logOutBtn" @click="LogOut()">로그아웃</button>
         </div>
 
@@ -55,14 +59,15 @@
 </template>
 <script>
   // import axios from "axios";
-  import $              from 'jquery';
-  import AdminMenu      from './components/menu/AdminMenu'
-  import AdExcuteMenu   from './components/menu/AdExcuteMenu'
-  import SponserMenu    from './components/menu/SponserMenu'
-  import MarketerMenu   from './components/menu/MarketerMenu'
-  import DbMasterMenu   from './components/menu/DbMasterMenu'
-  import UseTerms       from './components/dialog/UseTerms'
-  import PrivacyPolicy  from './components/dialog/PrivacyPolicy'
+  import $                  from 'jquery';
+  import AdminMenu          from './components/menu/AdminMenu'
+  import AdExcuteMenu       from './components/menu/AdExcuteMenu'
+  import SponserMenu        from './components/menu/SponserMenu'
+  import MarketerMenu       from './components/menu/MarketerMenu'
+  import DbMasterMenu       from './components/menu/DbMasterMenu'
+  import AdminDbmasterMenu  from './components/menu/AdminDbmasterMenu'
+  import UseTerms           from './components/dialog/UseTerms'
+  import PrivacyPolicy      from './components/dialog/PrivacyPolicy'
 
   export default {
     components: {
@@ -71,9 +76,9 @@
       , SponserMenu
       , MarketerMenu
       , DbMasterMenu
+      , AdminDbmasterMenu
       , UseTerms
       , PrivacyPolicy
-
     },
     data() {
       return {
@@ -124,8 +129,10 @@
       this.$store.state.adGradeCd    = sessionStorage.getItem("grade");
       this.$store.state.mbId         = sessionStorage.getItem("mbId");
       this.$store.state.adId         = sessionStorage.getItem("adId");
+      this.$store.state.caId         = sessionStorage.getItem("caId");
       this.$store.state.mkId         = sessionStorage.getItem("mkId");
       this.$store.state.mkCd         = sessionStorage.getItem("mkCd");
+      
       this.setDivHeight();
     }
   }

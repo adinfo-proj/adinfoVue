@@ -13,6 +13,7 @@ export default new Vuex.Store({
     , nickNm: ''
     , mbId: 0
     , adId: 0
+    , caId: 0
     , mkId: 0
     , pgId: 0
     , mkCd: ''

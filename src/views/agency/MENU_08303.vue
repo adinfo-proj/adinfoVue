@@ -18,7 +18,7 @@
                       >{{ campaignNameList.name }}
                     </option>
                   </select>
-                  <select v-model="landSelect" @change="getLandingPageLst(landSelect)">
+                  <select v-model="landSelect" @change="getLandingPageOne(landSelect)">
                     <option value="-1">선택하세요</option>
                     <option v-for="(landingData, index) in landingDataObj"
                       :key="index" 
@@ -28,12 +28,7 @@
                   </select>
                 </td>
               </tr>
-              <tr>
-                <th>
-                  랜딩페이지 상태
-                </th>
-                <td class="pad">{{landStatus}}</td>
-              </tr>
+
               <tr>
                 <th>
                   DB확인 페이지 ID명
@@ -189,7 +184,7 @@
 			getLandingPageLst() {
         if(this.campSelect == "-1") {
           this.landSelect = "-1";
-          return;
+//          return;
         }
         axios.get("http://api.adinfo.co.kr:30000/GetLandingListForMbAdCaCode",
         {
@@ -221,8 +216,8 @@
 			// 랜딩페이지 단건 조회
 			//******************************************************************************
 			getLandingPageOne() {
-        if(this.landSelect == "-1")
-          return;
+        // if(this.landSelect == "-1")
+        //   return;
 
         axios.get("http://api.adinfo.co.kr:30000/GetLandingListOne",
         {

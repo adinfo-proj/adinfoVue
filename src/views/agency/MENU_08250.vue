@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<div class="campanignSearch">
-			<select v-model="campSelect" @change="campaignListChange(campSelect)">
+			<select v-model="campSelect" @change="campaignListChange(campSelect)" :disabled="true">
         <option value="-1">전체</option>
 				<option v-for="(campaignNameList, index) in campaignNameListObj"
 					:key="index" 
@@ -34,8 +34,8 @@
 		<div class="dailyDataBox">
 			<div class="dailyDataMiddle">
         <i class="icon-users"></i>
-        <h2 class="dataEm Pointer" @click="gotoPush('MENU_08301');">
-          <span>랜딩페이지 수</span><br>
+        <h2 class="dataEm">
+          <span>제작된 랜딩페이지 수</span><br>
           {{summaryDataObj.landingCount  }} 개
         </h2>
       </div>
@@ -49,7 +49,7 @@
 			<div class="dailyDataMiddle">
         <i class="icon-pie-chart"></i>
         <h2 class="dataEm">
-          <span>페이지 노출 건수</span><br>
+          <span>해당캠페인에서 페이지 노출된 수</span><br>
           {{summaryDataObj.viewCount  }} 건
         </h2>
       </div>
@@ -60,23 +60,21 @@
           {{summaryDataObj.commitPer}} %
         </h2>
         </div>
-      <div class="dailyDataMiddle">
+      <!-- <div class="dailyDataMiddle">
         <i class="icon-chart-bars"></i>
         <h2 class="dataEm">
           <span >광고주 지급 합계</span><br>
           {{adPriceSum}} 원
         </h2>
-        </div>
+      </div>
 			<div class="dailyDataMiddle">
         <i class="icon-eye bgo"></i>
         <h2 class="dataEm">
           <span>마케터 수익 합계</span><br>
           {{mkPriceSum}} 원
         </h2>
-        </div>
+      </div> -->
 		</div>
-
-    
 		<div class="dailyDataSub">
       <div class="dailyDataTop">
         <div class="dailyTab">
@@ -107,8 +105,8 @@
 							<th class="maketerCode">랜딩페이지명</th>
 							<th class="inTime"     >수집 시간</th>
 							<th class="inIP"       >접수 IP</th>
-							<th class="dbState"    >광고주단가</th>
-							<th class="dbPrice"    >마케터단가</th>
+							<th class="dbState"    >이름</th>
+							<th class="dbPrice"    >전화번호</th>
 							<th class="inData"     >메모</th>
 						</tr>
 					</thead>
@@ -129,8 +127,12 @@
 							<td class="maketerCode">{{ campaignFullData.pgName  }}</td>
 							<td class="inTime"     >{{ campaignFullData.insDt   }} {{campaignFullData.insTm}}</td>
 							<td class="inIP"       >{{ campaignFullData.regIp   }}</td>
-							<td class="dbPrice"    >{{ campaignFullData.price   }} 원</td>
-							<td class="dbPrice"    >{{ campaignFullData.mkPrice }} 원</td>
+
+							<td class="dbPrice"    >{{ campaignFullData.value02 }} </td>
+							<td class="dbPrice"    >{{ campaignFullData.value01 }} </td>
+
+
+
 							<td class="inData"     >메모 등록 예정
                 <i class="icon-arrow2"></i>
               </td>
@@ -309,7 +311,7 @@
               mbId: this.$store.state.mbId
             , adId: this.$store.state.mbId
             , mkId: this.$store.state.mbId
-            , caId: this.campSelect
+            , caId: this.$store.state.caId
             , useTp: '00'
           }
         })
@@ -341,7 +343,7 @@
 					params: {
 							mbId      : this.$store.state.mbId
 						, adId      : this.$store.state.mbId
-						, caId      : this.campSelect
+						, caId      : this.$store.state.caId
 						, mkId      : this.$store.state.mbId
             , pgId      : this.landSelect
 						, srtDt     : this.serchDataFromDt
@@ -415,7 +417,7 @@
               mbId     : this.$store.state.mbId
             , adId     : this.$store.state.mbId
             , mkId     : this.$store.state.mbId
-            , caId     : this.campSelect
+            , caId     : this.$store.state.caId
             , pgId     : this.landSelect
             , srtDt    : this.serchDataFromDt
             , endDt    : this.serchDataToDt
@@ -658,7 +660,7 @@
     justify-content: space-between;
   }
   .dailyDataBox .dailyDataMiddle {
-    width: 218px;
+    width: 330px;
     height: 81px;
     display: flex;
     background: #fff;
@@ -815,16 +817,16 @@
     width: 65px;
   }
   .dailyDataSub .dailySub table .dailyName {
-    width: 155px;
+    width: 175px;
   }
     .dailyDataSub .dailySub table .maketerCode {
-    width: 143px;
+    width: 183px;
   }
   .dailyDataSub .dailySub table .inTime {
-    width: 197px;
+    width: 167px;
   }
   .dailyDataSub .dailySub table .inIP {
-    width: 200px;
+    width: 160px;
   }
   .dailyDataSub .dailySub table .dbState {
     width: 150px;

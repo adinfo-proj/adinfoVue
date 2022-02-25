@@ -49,13 +49,19 @@ export default {
     // 로그인 함수
     //******************************************************************************    
     LogIn() {
-      axios.post("http://api.adinfo.co.kr:30000/login", {
+      axios.post("http://api.adinfo.co.kr:30000/AdminLogin", {
         clntId: this.clntId,
         clntPw: this.clntPw,
         siteCode: '01'
       })
       .then(response => {
         if( response.data.status == "0" ) {
+
+
+          console.log(response);
+
+
+
           this.$store.state.clntId       = response.data.clntId
           this.$store.state.clntNm       = response.data.clntNm
           this.$store.state.nickNm       = response.data.nickNm
@@ -65,8 +71,8 @@ export default {
 
           this.$store.state.mbId = response.data.mbId
           this.$store.state.adId = response.data.adId
-          this.$store.state.mkId = response.data.mkId
-          this.$store.state.mkCd = response.data.mkCd
+          this.$store.state.caId = response.data.caId
+          this.$store.state.pgId = response.data.pgId
 
           // 토큰값을 LocalStorage에 저장한다.
           
@@ -78,10 +84,13 @@ export default {
 
           sessionStorage.setItem("mbId"  , this.$store.state.mbId);
           sessionStorage.setItem("adId"  , this.$store.state.adId);
-          sessionStorage.setItem("mkId"  , this.$store.state.mkId);
-          sessionStorage.setItem("mkCd"  , this.$store.state.mkCd);
+          sessionStorage.setItem("caId"  , this.$store.state.caId);
+          sessionStorage.setItem("pgId"  , this.$store.state.pgId);
 
-          if( this.$store.state.adGradeCd == '05' ){
+          if( this.$store.state.adGradeCd == '06' ) {
+            this.$router.push({ path : "MENU_08250" })
+          }
+          else if( this.$store.state.adGradeCd == '05' ) {
             this.$router.push({ path : "MENU_08201" })
           } else {
             this.$router.push({ path : "MENU_0000" })
@@ -94,7 +103,10 @@ export default {
         console.log(error);
       })
     }
-
+  },
+  created() {
+    // if(window.location.hostname != 'admin.dbmaster.co.kr')
+    //   this.$router.push({ path : "login" })
   }
 }
 </script>

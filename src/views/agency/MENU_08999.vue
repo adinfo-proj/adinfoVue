@@ -72,10 +72,19 @@
 								<span class="planTitle">
 									상품가
 								</span>
-								<span v-if="servicePlan == 'basic'" class="org">29,700원</span>
-								<span v-if="servicePlan == 'silver'" class="org">66,000원</span>
-								<span v-if="servicePlan == 'gold'" class="org">99,000원</span>
-								<span v-if="servicePlan == 'vip'" class="org">220,000원</span>
+								<span v-if="servicePlan == 'basic'" class="line">29,700원</span>
+								<span v-if="servicePlan == 'silver'" class="line">69,300원</span>
+								<span v-if="servicePlan == 'gold'" class="line">118,000원</span>
+								<span v-if="servicePlan == 'vip'" class="line">297,000원</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									판매가
+								</span>
+								<span v-if="servicePlan == 'basic'" class="org">29,700원 </span>
+								<span v-if="servicePlan == 'silver'" class="org">66,000원 <span>(4.7% 할인)</span></span>
+								<span v-if="servicePlan == 'gold'" class="org">99,000원 <span>(16.7% 할인)</span></span>
+								<span v-if="servicePlan == 'vip'" class="org">220,000원 <span>(25.9% 할인)</span></span>
 							</p>
 							<p>
 								<span class="planTitle">
@@ -133,7 +142,14 @@
 								<span class="planTitle">
 									상품가
 								</span>
-								<span v-if="subPlan == 'post'" class="org">55,000원</span>
+								<span v-if="subPlan == 'post'" class="line">110,000원</span>
+								<span v-if="subPlan == 'sms'" class="line">DB접수 알림 건당 20원 발생</span>
+							</p>
+							<p>
+								<span class="planTitle">
+									판매가
+								</span>
+								<span v-if="subPlan == 'post'" class="org">55,000원 <span>(50% 할인)</span></span>
 								<span v-if="subPlan == 'sms'" class="org">2,200원 ~</span>
 							</p>
 							<p>
@@ -520,10 +536,19 @@
 	font-weight: 700;
 }
 
+#menu08999 .ratePlanBottom .detailPlan .right p .line {
+	/* font-size: 16px; */
+	text-decoration: line-through;
+}
+
 #menu08999 .ratePlanBottom .detailPlan .right p .org {
 	font-size: 16px;
 	font-weight: 700;
 	color: #e25b45;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p .org span {
+	font-weight: 400;
 }
 
 #menu08999 .ratePlanBottom .detailPlan .right p input {
