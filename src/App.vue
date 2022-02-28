@@ -93,6 +93,7 @@
       LogOut() {
                 // LocalStorage 전체를 지운다.
         sessionStorage.clear();
+        localStorage.clear();
         this.$router.push({ path : "Login" });
       },
       //******************************************************************************

@@ -241,11 +241,12 @@
 				var myJSON = new Array();
 
 				for(let i = 0; i < this.campaignFullDataObj.length; i++) {
-					let seqNo, name, landCount, price, marketerPrice, createCount, viewCount, status, srtDt;				
+					let seqNo, name, adName, landCount, price, marketerPrice, createCount, viewCount, status, srtDt, smsYn;				
 
 					seqNo = i + 1;
 
-					if(this.campaignFullDataObj[i].name          == null) name          = ''; else name          = this.campaignFullDataObj[i].name;					
+					if(this.campaignFullDataObj[i].name          == null) name          = ''; else name          = this.campaignFullDataObj[i].name;
+					if(this.campaignFullDataObj[i].adName        == null) adName        = ''; else adName        = this.campaignFullDataObj[i].adName;
 					if(this.campaignFullDataObj[i].landCount     == null) landCount     = 0 ; else landCount     = this.campaignFullDataObj[i].landCount;
 					if(this.campaignFullDataObj[i].price         == null) price         = 0 ; else price         = this.campaignFullDataObj[i].price;
 					if(this.campaignFullDataObj[i].marketerPrice == null) marketerPrice = 0 ; else marketerPrice = this.campaignFullDataObj[i].marketerPrice;
@@ -254,6 +255,8 @@
 
 					price         = price.replace(/,/g, '');
 					marketerPrice = marketerPrice.replace(/,/g, '');
+
+					if(this.campaignFullDataObj[i].smsYn == 'Y') smsYn = '예' ; else smsYn = '아니오';
 
                if(this.campaignFullDataObj[i].status == '01') status = '진행중';
 					else if(this.campaignFullDataObj[i].status == '02') status = '대기중';
@@ -269,8 +272,8 @@
 							'번호': seqNo
 						, '캠페인명': name
 						, '랜딩페이지수': Number(landCount)
-						, '광고주단가': Number(price)
-						, '마케터단가': Number(marketerPrice)
+						, '광고주명': adName
+						, 'SMS 수신 여부': smsYn
 						, 'DB접수건수': Number(createCount)
 						, '페이지 조회수': Number(viewCount)
 						, '캠페인상태': status

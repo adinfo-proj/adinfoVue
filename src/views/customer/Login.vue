@@ -136,10 +136,9 @@ export default {
     }
   },
   created() {
-    // if(window.location.hostname != 'admin.dbmaster.co.kr')
-    //   this.$router.push({ path : "AdminLogin" })
-    // else
-    //   this.$router.push({ path : "login" })
+    //if(window.location.hostname == 'admin.dbmaster.co.kr')
+    if(window.location.hostname != '192.168.0.109')
+      this.$router.push({ name : "AdminLogin" });
   }
 }
 </script>

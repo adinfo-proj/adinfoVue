@@ -18,7 +18,7 @@
                       >{{ campaignNameList.name }}
                     </option>
                   </select>
-                  <select v-model="landSelect" @change="getLandingPageOne(landSelect)">
+                  <select v-model="landSelect" @change="getLandingPageOne(landSelect)" :disabled="campSelect == '-1'">
                     <option value="-1">선택하세요</option>
                     <option v-for="(landingData, index) in landingDataObj"
                       :key="index" 
@@ -200,7 +200,6 @@
           }
         })
         .then(response => {
-          console.log(response.data);
           this.landingDataOne = response.data;
 
           this.landStatus = 'http://dbmaster.co.kr/' + response.data.url;

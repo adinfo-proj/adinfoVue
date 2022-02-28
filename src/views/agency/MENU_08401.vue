@@ -11,7 +11,7 @@
 							>{{ campaignNameList.name}}
 						</option>
 					</select>
-					<select v-model="landSelect" @change="getLandingPageLst(landSelect)">
+					<select v-model="landSelect" @change="getLandingPageLst(landSelect)" :disabled="campSelect == '-1'">
 						<option value="-1">전체</option>
 						<option v-for="(landingData, index) in landingDataObj"
 							:key="index" 
@@ -23,12 +23,18 @@
 				</div>
 				<div class="campDataSub">
 					<div class="campEx">
-						<button @click="makeExcel">
-							엑셀 다운로드
+						<button @click="downloadManual">
+							API 처리 방법
 							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="11" height="12" viewBox="0 0 11 12">
 								<image id="icon" width="11" height="12" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAMCAYAAAC0qUeeAAAABHNCSVQICAgIfAhkiAAAAGxJREFUKFNj/P//PwM6eBzjBhJklF2yC0WKcSgrhnoK5CFGIAZ7EEozAD0KYjPAPQhUDOJjBg1EE0gDhmJ0DWCFGIpBAlDTYRrgJsI0MD6Kdv0PcxNMMchKZDbUoP8oitFMh1uPohgjvnEIAACmsll1nvDKAQAAAABJRU5ErkJggg=="/>
 							</svg>
 						</button>
+						<!-- <button @click="makeExcel">
+							엑셀 다운로드
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="11" height="12" viewBox="0 0 11 12">
+								<image id="icon" width="11" height="12" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAMCAYAAAC0qUeeAAAABHNCSVQICAgIfAhkiAAAAGxJREFUKFNj/P//PwM6eBzjBhJklF2yC0WKcSgrhnoK5CFGIAZ7EEozAD0KYjPAPQhUDOJjBg1EE0gDhmJ0DWCFGIpBAlDTYRrgJsI0MD6Kdv0PcxNMMchKZDbUoP8oitFMh1uPohgjvnEIAACmsll1nvDKAQAAAABJRU5ErkJggg=="/>
+							</svg>
+						</button> -->
 						<!-- <select>
 							<option value="" >등록일 내림차순</option>
 							<option value="" >등록일 오름차순</option>
@@ -55,10 +61,11 @@
 
 							<th class="landUrl"     >발송주소</th>
 							<th class="marketer"    >전송방식</th>
+							<th class="marketer"    >처리방식</th>
 
-							<th class="dbNum"       >전송항목수</th>
+							<th class="dbNum"       >전송수</th>
 							<th class="campDate"    >등록일자</th>
-							<th class="modifyBtnBox"   >처리</th>
+							<th class="modifyBtnBox">처리</th>
 						</tr>
 					</thead>
 					<tbody v-if="postbackDataObj.length == '0'" class="noLength">
@@ -81,10 +88,13 @@
 							<td class="marketer"     v-if="postbackData.sendType=='G'">GET</td>
 							<td class="marketer"     v-else>POST</td>
 
+							<td class="marketer red"  v-if="postbackData.postbackIo=='I'">수신</td>
+							<td class="marketer blue" v-else>발신</td>
+
 							<td class="dbNum"        >{{ postbackData.accessFlag }} 개</td>
 							<td class="campDate"	   >{{ postbackData.updateDt.substring(0, 10) }}</td>
 							<td class="modifyBtnBox"    >
-								<button class="modifyBtn" @click='UpdatePostback(postbackData.caId, postbackData.pgId, postbackData.pbId)'>수정</button> 
+								<button class="modifyBtn" v-if="postbackData.postbackIo=='O'" @click='UpdatePostback(postbackData.caId, postbackData.pgId, postbackData.pbId)'>수정</button> 
 								<button @click='DeletePostback(postbackData.caId, postbackData.pgId, postbackData.pbId, index)'>삭제</button>
 							</td>
 						</tr>
@@ -235,16 +245,17 @@
 			//******************************************************************************
 			// 포스트백 목록 조회 (상태에 따른 목록)
 			//******************************************************************************
-			postbackListChange(selectPage, firstSel) {
-        if( firstSel == true) {
-          this.curRunTotalPages = 100000000;
-        }
+			//postbackListChange(selectPage, firstSel) {
+			postbackListChange(selectPage) {
+        // if( firstSel == true) {
+        //   this.curRunTotalPages = 100000000;
+        // }
 
-        if( (selectPage > this.curRunTotalPages) || (selectPage <= 0) ) {
-          return false;
-        }
+        // if( (selectPage > this.curRunTotalPages) || (selectPage <= 0) ) {
+        //   return false;
+        // }
 
-				this.curPage = selectPage;
+				// this.curPage = selectPage;
 
 				axios.get("http://api.adinfo.co.kr:30000/GetSelPostbackList", 
 				{
@@ -277,46 +288,59 @@
 						this.postbackDataObj[i].accessFlag = lSendCount;
 					}
 
-          //--------------------------------------------------------------------
-          // 페이지처리 시작
-          //--------------------------------------------------------------------
-          {
-            let arrGab     = [];
-            let pageUpPage = 0;
+          // //--------------------------------------------------------------------
+          // // 페이지처리 시작
+          // //--------------------------------------------------------------------
+          // {
+          //   let arrGab     = [];
+          //   let pageUpPage = 0;
 
-            // 전체 페이지의 수를 확인한다.
-            this.curRunTotalPages = Math.ceil(response.data[0][0].rowTotalCount / this.selectRowCount);
+          //   // 전체 페이지의 수를 확인한다.
+          //   this.curRunTotalPages = Math.ceil(response.data[0][0].rowTotalCount / this.selectRowCount);
 
-            // 페이지가 10개 이하이면...
-            if( this.curRunTotalPages < 10) {
-              for(let i = 0; i < this.curRunTotalPages; i++) {
-                arrGab.push(i+1);
-              }
-              this.pageCount = arrGab;
-            }
-            else {
-              //--------------------------------------------------------------------
-              // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
-              //--------------------------------------------------------------------
-              let pageCut = Math.floor((selectPage) / 10) * 10;
+          //   // 페이지가 10개 이하이면...
+          //   if( this.curRunTotalPages < 10) {
+          //     for(let i = 0; i < this.curRunTotalPages; i++) {
+          //       arrGab.push(i+1);
+          //     }
+          //     this.pageCount = arrGab;
+          //   }
+          //   else {
+          //     //--------------------------------------------------------------------
+          //     // 10페이지 이하면 10으로 나눴을때 0이 되어 따로 처리함.
+          //     //--------------------------------------------------------------------
+          //     let pageCut = Math.floor((selectPage) / 10) * 10;
 
-              if( (selectPage % 10) != 0 ) {
-                let nLoop = 0;
-                for(let i = pageCut; i < this.curRunTotalPages; i++) {
-                  if( (nLoop+pageUpPage) >= 10 + pageUpPage)
-                    break;
-                  arrGab.push( i + 1 );
-                  nLoop++;
-                }
+          //     if( (selectPage % 10) != 0 ) {
+          //       let nLoop = 0;
+          //       for(let i = pageCut; i < this.curRunTotalPages; i++) {
+          //         if( (nLoop+pageUpPage) >= 10 + pageUpPage)
+          //           break;
+          //         arrGab.push( i + 1 );
+          //         nLoop++;
+          //       }
 
-                this.pageCount = arrGab;
-              }
-            }
-          }					
+          //       this.pageCount = arrGab;
+          //     }
+          //   }
+          // }					
 				})
 				.catch(error => {
 					console.log(error);
 				})
+			},
+			//******************************************************************************
+			// API 수신방법 다운로드
+			//******************************************************************************
+			downloadManual() {
+				try {
+						let element = document.createElement('a');
+						element.setAttribute('target','_blank');
+						element.setAttribute('href','/files/API_사용매뉴얼.pdf');
+						element.click();
+				} catch(error) {
+						console.log(error)
+				}
 			},
 			//******************************************************************************
 			// 엑셀로 내려받기
@@ -414,6 +438,7 @@
     border-radius: 13px;
     color: #fff;
 	}
+
 	#menu08401 .campSearch .campEx {
 		float: right;
 		height: 100%;
@@ -429,6 +454,7 @@
     margin-right: 5px;
     margin-top: 1px;
 	}
+
 	#menu08401 .campSearch .campEx select {
     /* width: 76px; */
     height: 35px;
@@ -485,10 +511,10 @@
 		width: 5%;
 	}
 	#menu08401 .campDataBox .campName {
-		width: 20%;
+		width: 15%;
 	}
 	#menu08401 .campDataBox .campCode {
-		width: 20%;
+		width: 15%;
 	}
 	#menu08401 .campDataBox .landUrl {
 		width: 24%;
@@ -568,4 +594,11 @@
 		border-bottom: none;
 		font-weight: 900;
 	}
+	#red {
+		color: #bd2121;
+	}
+	#blue {
+		color: #2c206d;
+	}
+
 </style>

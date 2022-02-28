@@ -36,6 +36,7 @@ import MENU_08401 from "../views/agency/MENU_08401.vue";
 import MENU_08402 from "../views/agency/MENU_08402.vue";
 import MENU_08403 from "../views/agency/MENU_08403.vue";
 import MENU_08404 from "../views/agency/MENU_08404.vue";
+import MENU_08405 from "../views/agency/MENU_08405.vue";
 import MENU_08501 from "../views/agency/MENU_08501.vue";
 import MENU_08601 from "../views/agency/MENU_08601.vue";
 import MENU_08701 from "../views/agency/MENU_08701.vue";
@@ -245,7 +246,7 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     component: MENU_08401,
     meta: { requiresAuth: true }
   },
-  {// 포스트백 제작
+  {// 포스트백 전송 등록
     path: "/MENU_08402",
     name: "MENU_08402",
     component: MENU_08402,
@@ -261,6 +262,12 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     path: "/MENU_08404",
     name: "MENU_08404",
     component: MENU_08404,
+    meta: { requiresAuth: true }
+  },
+  {// 포스트백 수신 등록
+    path: "/MENU_08405",
+    name: "MENU_08405",
+    component: MENU_08405,
     meta: { requiresAuth: true }
   },
   {// 랜딩페이지 샘플
@@ -378,26 +385,13 @@ router.beforeEach((to, from, next) => {
     // 그렇지 않은 경우 로그인 페이지로 리디렉션하십시오.
 
     //------------------------------------------------------------------
-    // DATE : 2022.02.25
-    // DESC : 디비마스터 관리자페이지를 사용중인 경우 아래 MENU가 아닌 다른곳으로 이동시 
-    //        08201로 강제로 이동시킨다.
-    //------------------------------------------------------------------
-    // if(sessionStorage.getItem("grade") == '06') {
-    //   if( !(to.name == 'MENU_08150' || to.name == 'MENU_08250') ) {
-    //     next('/MENU_08201');
-    //     return;
-    //   }
-    // }
-
-    //------------------------------------------------------------------
     // DATE : 2021.11.25
     // DESC : 페이지 전환시마다 토큰값을 확인하여 인증을 재 확인한다.
     //------------------------------------------------------------------
     if (sessionStorage.getItem("token") == null || sessionStorage.getItem("token") == '') {
-      //if(window.location.hostname == 'admin.dbmaster.co.kr')
-      // if(window.location.hostname == 'admin.dbmaster.co.kr')
-      //   next('/AdminLogin');
-      // else
+      if(window.location.hostname == 'admin.dbmaster.co.kr')
+        next('/AdminLogin');
+      else
         next('/login');
     } else {
       // api call 후 유효시간 확인
@@ -410,26 +404,40 @@ router.beforeEach((to, from, next) => {
       .then(response => {
         if(response.data.status == false) {
           sessionStorage.clear();
-          // if(window.location.hostname == 'admin.dbmaster.co.kr') {
-          //   next('/AdminLogin');
-          // }
-          // else {
+          if(window.location.hostname == 'admin.dbmaster.co.kr') {
+            next('/AdminLogin');
+          }
+          else {
             next('/login');
-          // }
+          }
         }
       })
       .catch(error => {
         console.log(error);
         sessionStorage.clear();
-        // if(window.location.hostname == 'admin.dbmaster.co.kr')
-        //   next('/AdminLogin');
-        // else
+        if(window.location.hostname == 'admin.dbmaster.co.kr')
+          next('/AdminLogin');
+        else
           next('/login');
       })
       next();
     }
-  } else {
-    next() // 반드시 next()를 호출하십시오!
+  } 
+  else {
+    //------------------------------------------------------------------
+    // DATE : 2022.02.25
+    // DESC : 디비마스터 관리자페이지를 사용중인 경우 아래 MENU가 아닌 다른곳으로 이동시 
+    //        08201로 강제로 이동시킨다.
+    //------------------------------------------------------------------
+    if(sessionStorage.getItem("grade") == '06') {
+      if( !(to.name == 'MENU_08150' || to.name == 'MENU_08250') ) {
+        next('/MENU_08201');
+        return;
+      }
+    }
+    else {
+      next() // 반드시 next()를 호출하십시오!
+    }
   }
 })
 export default router;

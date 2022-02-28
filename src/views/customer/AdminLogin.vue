@@ -56,12 +56,6 @@ export default {
       })
       .then(response => {
         if( response.data.status == "0" ) {
-
-
-          console.log(response);
-
-
-
           this.$store.state.clntId       = response.data.clntId
           this.$store.state.clntNm       = response.data.clntNm
           this.$store.state.nickNm       = response.data.nickNm
@@ -74,8 +68,7 @@ export default {
           this.$store.state.caId = response.data.caId
           this.$store.state.pgId = response.data.pgId
 
-          // 토큰값을 LocalStorage에 저장한다.
-          
+          // 토큰값을 LocalStorage에 저장한다.          
           sessionStorage.setItem("clntId", this.$store.state.clntId);
           sessionStorage.setItem("clntNm", this.$store.state.clntNm);
           sessionStorage.setItem("nickNm", this.$store.state.nickNm);
@@ -105,8 +98,10 @@ export default {
     }
   },
   created() {
-    // if(window.location.hostname != 'admin.dbmaster.co.kr')
-    //   this.$router.push({ path : "login" })
+    alert(window.location.hostname);
+    //if(window.location.hostname != 'admin.dbmaster.co.kr')
+    if(window.location.hostname == '192.168.0.109')
+      this.$router.push({ name : "Login" });
   }
 }
 </script>

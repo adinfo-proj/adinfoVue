@@ -39,11 +39,11 @@
                  랜딩페이지 목록
               </router-link>
             </li>
-            <!-- <li @click="DbSubMenu('303')"  v-bind:class="{subOn : '303' == subMenuSelect}">
+            <li @click="DbSubMenu('303')"  v-bind:class="{subOn : '303' == subMenuSelect}">
               <router-link to="MENU_08303">
                 외부 어드민 계정 설정
               </router-link>
-            </li> -->
+            </li>
             <li @click="DbSubMenu('304')"  v-bind:class="{subOn : '304' == subMenuSelect}">
               <router-link to="MENU_08304">
                  외부 도메인 연결 설정
@@ -51,13 +51,109 @@
             </li>
           </ul>
         </li>
-        <li @click="DBMenuBar(2)" v-bind:class="{on : 2 == menuSelect}">
-          <router-link to="MENU_08201">
-            <i class="icon-layers"></i>
-            수집 DB
-          </router-link>
+
+        <li v-bind:class="{on : 2 == menuSelect}">
+          <a  href="javascript:void(0)" @click="DBMenuBar(2)">
+            <i class="icon-free-transform"></i>
+            DB 확인 및 집계
+          </a>
+          <ul>
+            <li @click="DbSubMenu('201')"  v-bind:class="{subOn : '201' == subMenuSelect}">
+              <router-link to="MENU_08201">
+                수집 DB 집계
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('202')"  v-bind:class="{subOn : '202' == subMenuSelect}">
+              <router-link to="MENU_08202">
+                 입력별 데이터 조회
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('203')"  v-bind:class="{subOn : '203' == subMenuSelect}">
+              <router-link to="MENU_08203">
+                매체별 데이터 조회
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('204')"  v-bind:class="{subOn : '204' == subMenuSelect}">
+              <router-link to="MENU_08204">
+                 해외 접수 데이터 조회
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('205')"  v-bind:class="{subOn : '205' == subMenuSelect}">
+              <router-link to="MENU_08205">
+                 기기별 데이터 조회
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('206')"  v-bind:class="{subOn : '206' == subMenuSelect}">
+              <router-link to="MENU_08206">
+                 기기별 데이터 조회
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('207')"  v-bind:class="{subOn : '207' == subMenuSelect}">
+              <router-link to="MENU_08207">
+                 URL별 데이터 조회
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('208')"  v-bind:class="{subOn : '208' == subMenuSelect}">
+              <router-link to="MENU_08208">
+                 메모된 데이터 조회
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('209')"  v-bind:class="{subOn : '209' == subMenuSelect}">
+              <router-link to="MENU_08209">
+                 블랙 DB 조회
+              </router-link>
+            </li>
+          </ul>
         </li>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <li v-bind:class="{on : 5 == menuSelect}">
+          <a  href="javascript:void(0)" @click="DBMenuBar(5)">
+            <i class="icon-stats"></i>
+            통계 및 분석
+          </a>
+          <ul>
+            <li @click="DbSubMenu('501')"  v-bind:class="{subOn : '501' == subMenuSelect}">
+              <router-link to="MENU_08501">
+                서비스 예정
+              </router-link>
+            </li>
+          </ul>
+        </li>
+
+
+
+        <li v-bind:class="{on : 6 == menuSelect}">
+          <a  href="javascript:void(0)" @click="DBMenuBar(6)">
+            <i class="icon-stats"></i>
+            어뷰징 분석
+          </a>
+          <ul>
+            <li @click="DbSubMenu('601')"  v-bind:class="{subOn : '601' == subMenuSelect}">
+              <router-link to="MENU_08601">
+                시간당 수집 정보
+              </router-link>
+            </li>
+          </ul>
+        </li>
         <li v-bind:class="{on : 4 == menuSelect}">
           <a  href="javascript:void(0)" @click="DBMenuBar(4)">
             <i class="icon-stats"></i>
@@ -66,7 +162,12 @@
           <ul>
             <li @click="DbSubMenu('402')"  v-bind:class="{subOn : '402' == subMenuSelect}">
               <router-link to="MENU_08402">
-                API 등록
+                API 전송 등록
+              </router-link>
+            </li>
+            <li @click="DbSubMenu('405')"  v-bind:class="{subOn : '405' == subMenuSelect}">
+              <router-link to="MENU_08405">
+                 API 수신 등록
               </router-link>
             </li>
             <li @click="DbSubMenu('401')"  v-bind:class="{subOn : '401' == subMenuSelect}">
@@ -81,18 +182,8 @@
             </li>
           </ul>
         </li>
-        <!-- <li @click="DBMenuBar(5)" v-bind:class="{on : 5 == menuSelect}">
-          <router-link to="MENU_08501">
-            <i class="icon-picture1"></i>
-            랜딩 샘플 보기
-          </router-link>
-        </li>
-        <li @click="DBMenuBar(6)" v-bind:class="{on : 6 == menuSelect}">
-          <router-link to="MENU_08501">
-            <i class="icon-brush"></i>
-            랜딩 제작 의뢰
-          </router-link>
-        </li> -->
+
+
         <li v-bind:class="{on : 7 == menuSelect}">
           <a  href="javascript:void(0)" @click="DBMenuBar(7)">
             <i class="icon-bubble-text"></i>

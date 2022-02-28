@@ -492,7 +492,7 @@
 				let curTime = (new Date(d.getTime() - (d.getTimezoneOffset() * 60000))).toISOString().substring(11,19).replace(/:/g, "");
 
 				for(let i = 0; i < this.campaignFullDataObj.length; i++) {
-					let seqNo, caName, pgName, insDt, insTm, regIp, confirmTp, price, mkPrice, deviceMachine, countryCd, deviceOs, deviceModel, urlReferer, value01, value02, value03, value04, value05, value06, value07, value08, value09, value10;
+					let seqNo, caName, pgName, insDt, insTm, regIp, confirmTp, deviceMachine, countryCd, deviceOs, deviceModel, urlReferer, value01, value02, value03, value04, value05, value06, value07, value08, value09, value10;
 
 					if(this.campaignFullDataObj[i].seqNo  == null) seqNo    = ''; else seqNo  = this.campaignFullDataObj[i].seqNo   ;
 					if(this.campaignFullDataObj[i].caName == null) caName   = ''; else caName = this.campaignFullDataObj[i].caName  ;
@@ -508,15 +508,15 @@
 					else if(this.campaignFullDataObj[i].confirmTp == 'P') confirmTp = '기타';
           else                                                  confirmTp = '미정';
 
-					if(this.campaignFullDataObj[i].price   == null) 
-						price = '0';
-					else 
-						price = this.campaignFullDataObj[i].price.replace(/,/g, "");
+					// if(this.campaignFullDataObj[i].price   == null) 
+					// 	price = '0';
+					// else 
+					// 	price = this.campaignFullDataObj[i].price.replace(/,/g, "");
 
-					if(this.campaignFullDataObj[i].mkPrice   == null) 
-						mkPrice = '0';
-					else 
-						mkPrice = this.campaignFullDataObj[i].mkPrice.replace(/,/g, "");
+					// if(this.campaignFullDataObj[i].mkPrice   == null) 
+					// 	mkPrice = '0';
+					// else 
+					// 	mkPrice = this.campaignFullDataObj[i].mkPrice.replace(/,/g, "");
 
           if(this.campaignFullDataObj[i].deviceMachine == null) deviceMachine = ''; else deviceMachine = this.campaignFullDataObj[i].deviceMachine;
           if(this.campaignFullDataObj[i].countryCd == null) 
@@ -549,8 +549,6 @@
 						, '수집시간': insTm
 						, '접수IP': regIp
 						, 'DB상태': confirmTp
-            , '광고주단가': Number(price)
-						, '마케터단가': Number(mkPrice)
             , '유입매체': deviceMachine
             , '접수지역': countryCd
             , '기기OS': deviceOs
@@ -562,7 +560,7 @@
 						, [this.askList[3]]: value04
 						, [this.askList[4]]: value05
 						, [this.askList[5]]: value06
-						, [this.askList[6]]: value07
+						, [this.askList[6]]: value07            
 						, [this.askList[7]]: value08
 						, [this.askList[8]]: value09
 						, [this.askList[9]]: value10

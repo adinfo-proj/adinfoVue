@@ -65,7 +65,7 @@
 							<th class="sendData"   >전송데이터</th>
 						</tr>
 					</thead>
-					<tbody v-if="postbackDataObj[1].length == '0'" class="noLength">
+					<tbody v-if="this.dataLength == '0'" class="noLength">
 						<br>
 						<br><br>
 						<tr>
@@ -75,7 +75,7 @@
 							</td>
 						</tr>
 					</tbody>
-					<tbody>
+					<tbody v-else>
 						<tr v-for="(postbackData, index) in postbackDataObj[1]" :key="index">
 							<th class="apiNum"      >{{ index+1 }}</th>							
 							<td class="apiStart" >{{ postbackData.createDt }}</td>
@@ -131,6 +131,7 @@
         , postbackDataObj       : ''
         , campaignStatusCode    : ''
         , campaignStatusCodeObj : ''
+				, dataLength            : 0
 				, pageCount             : []
 				, selectRowCount        : 10
 				, curRunTotalPages      : 0
@@ -222,8 +223,8 @@
 					}
 				})
 				.then(response => {
-					console.log(response);
 					this.postbackDataObj = response.data;
+					this.dataLength = response.data[0][0].rowTotalCount;
 
           for(let i = 0 ; i < this.postbackDataObj[1].length; i++) {
             let year  = this.postbackDataObj[1][i].processDt.substr(0,4);

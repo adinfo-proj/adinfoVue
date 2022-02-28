@@ -11,7 +11,7 @@
                 </th>
                 <td>
                   <select v-model="campSelect" @change="getLandingPageLst(campSelect)">
-                    <option value="-1">선택하세요</option>
+                    <option value="-1">전체</option>
                     <option v-for="(campaignNameList, index) in campaignNameListObj"
                       :key="index" 
                       :value="campaignNameList.caId"
@@ -19,7 +19,7 @@
                     </option>
                   </select>
                   <select v-model="landSelect" @change="getLandingPageOne(landSelect)">
-                    <option value="-1">선택하세요</option>
+                    <option value="-1">전체</option>
                     <option v-for="(landingData, index) in landingDataObj"
                       :key="index" 
                       :value="landingData.pgId"
@@ -65,9 +65,6 @@
             <button class="modify">변경</button>
             <button class="del">삭제</button>
           </div>
-        </div>
-        <div class="right">
-          ddddd
         </div>
       </div>
       <div class="tableBox adminData">
@@ -297,18 +294,13 @@
 
             this.campSelect = "-1";
             this.landSelect = "-1";
+            this.idComment = '';
             this.passWd = '';
+            this.getClntUser(1, true);
           }
           else {
             this.idComment = '';
           }
-
-          // alert(response.data.message);
-          // if( response.data.status == true) {
-          //   window.open(response.data.landingUrl);
-          //   this.InitForm();
-          //   this.$router.push({ path : "MENU_08301" });
-          // }
         })
         .catch(error => {
           console.log(error);
@@ -339,7 +331,6 @@
           }
         })
         .then(response => {
-          console.log(response);
           this.stUserListObj = response.data[1];
           // this.landingDataOne = response.data;
 

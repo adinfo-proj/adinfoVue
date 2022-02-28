@@ -119,11 +119,15 @@
 					</div>
 					<div	class="planInfo">
 						<h6>디비마스터 상품정보</h6>
-						<img v-if="servicePlan == 'basic'" src="../../assets/images/ratePlan/basicPlan.jpg" alt="basicPlan">
-						<img v-if="servicePlan == 'silver'" src="../../assets/images/ratePlan/silverPlan.jpg" alt="silverPlan">
-						<img v-if="servicePlan == 'gold'" src="../../assets/images/ratePlan/goldPlan.jpg" alt="goldPlan">
-						<img v-if="servicePlan == 'vip'" src="../../assets/images/ratePlan/vipPlan.jpg" alt="vipPlan">
-						<img src="../../assets/images/ratePlan/common.jpg" alt="common"> 
+						<div class="planSub">
+							<img v-if="servicePlan == 'basic'" src="../../assets/images/ratePlan/basicPlan.jpg" alt="basicPlan">
+							<img v-if="servicePlan == 'silver'" src="../../assets/images/ratePlan/silverPlan.jpg" alt="silverPlan">
+							<img v-if="servicePlan == 'gold'" src="../../assets/images/ratePlan/goldPlan.jpg" alt="goldPlan">
+							<img v-if="servicePlan == 'vip'" src="../../assets/images/ratePlan/vipPlan.jpg" alt="vipPlan">
+						</div>
+						<img src="../../assets/images/ratePlan/common01.jpg" alt="common01"> 
+						<img src="../../assets/images/ratePlan/common02.jpg" alt="common02"> 
+						<img src="../../assets/images/ratePlan/common03.jpg" alt="common03"> 
 					</div>
 				</div>
 				<div v-if="tapbtn == 2" @change="ExtraPrice()">
@@ -619,7 +623,7 @@
 
 #menu08999 .ratePlanBottom .planInfo h6{
 	font-size: 24px;
-	line-height: 1.02;
+	line-height: 39px;
 	letter-spacing: -0.84px;
 	color: #262626;
 	text-align: center;
@@ -641,6 +645,16 @@
 }
 #menu08999 .ratePlanBottom .planInfo h6::after {
 	right: 0;
+}
+
+#menu08999 .ratePlanBottom .planInfo .planSub {
+	padding: 50px 0;
+}
+
+
+#menu08999 .ratePlanBottom .planInfo img {
+	display: block;
+	width: 100%;
 }
 
 

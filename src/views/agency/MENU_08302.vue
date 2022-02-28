@@ -20,62 +20,209 @@
         <div v-if="lendchoose.tp == '02'" v-html="$store.state.lendchooseObj[index].descript">
         </div>
         <!-- 폼 -->
-        <div class="formPrev" 
+        <div
           v-if="lendchoose.tp == '03'" 
-          v-bind="$store.state.lendchooseObj[index].formDesc" 
-          :style="{borderColor:lendchoose.formDesc.lineColor, borderWidth:lendchoose.formDesc.borderLine} ">
+          v-bind="$store.state.lendchooseObj[index].formDesc">
+
+          <div class="formPrev formPrev01" v-if="lendchoose.formDesc.formStyle == '01'" :style="{borderColor:lendchoose.formDesc.lineColor, borderWidth:lendchoose.formDesc.borderLine, backgroundColor:lendchoose.formDesc.bgColor} ">
+            <h1 v-if="lendchoose.formDesc.formTitle.length > 0" :style="{color:lendchoose.formDesc.titleColor, fontFamily:lendchoose.formDesc.fontType} ">
+              {{lendchoose.formDesc.formTitle}}
+            </h1>
+
+            <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
+              <!-- 텍스트 박스 -->
+              <div v-if="inObj.values == 'textForm'" class="formInput">
+                <input type="text" :placeholder="inObj.names">
+              </div>
+              <!-- 라디오 버튼 -->
+              <div v-if="inObj.values == 'radioForm'" class="formInput">
+                <h2 class="formInputName">{{inObj.names}}</h2>
+                <span v-for="index in inObj.lab" :key="index">
+                  <input :id="index" :name="inObj.lab[index]" type="radio" >
+                  <label :for="index">{{index}}</label>
+                </span>
+              </div>
+              <!-- 체크박스 -->
+              <div v-if="inObj.values == 'checkForm'" class="formInput">
+                <h2 class="formInputName">{{inObj.names}}</h2>
+                <span v-for="index in inObj.lab" :key="index">
+                  <input :id="index" type="checkbox" >
+                  <label :for="index">{{index}}</label>
+                </span>
+              </div>
+              <!-- 셀렉트박스 -->
+              <div v-if="inObj.values == 'selForm'" class="formInput">
+                <select>
+                  <option value="0" se disabled>{{inObj.names}}</option>
+                  <option v-for="index in inObj.lab" :key="index" :value="index">
+                    {{index}}
+                  </option>
+                </select>  
+              </div>
+              <!-- 메모장 -->
+              <div v-if="inObj.values == 'textArea'" class="textArea">
+                <h2 class="formInputName">{{inObj.names}}</h2>
+                <textarea></textarea> 
+              </div>
+            </div>
+            <div class="agreeBox">
+              <input type="checkbox" name="agree01" id="agree01">
+              <label for="agree01">{{formView.stipulationTitle}}</label>
+              <span @click="PriModal()">[보러가기]</span>
+            </div>
+            <div class="centerBox">
+              <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor, color:lendchoose.formDesc.textColor, fontFamily:lendchoose.formDesc.fontType}">{{lendchoose.formDesc.btnNm}}</button>
+            </div>
+            <!-- 개인정보 동의 모달 팝업 내용 -->
+            <div class="priBox">
+              <h6>개인정보 취급방침</h6>
+              <div v-html="formView.stipulationDesc"></div>
+              <button @click="PriCancle()">확인</button>
+            </div>
+          </div>
+
+
+
+          <div class="formPrev formPrev02" v-if="lendchoose.formDesc.formStyle == '02'" :style="{borderColor:lendchoose.formDesc.lineColor, borderWidth:lendchoose.formDesc.borderLine, backgroundColor:lendchoose.formDesc.bgColor} ">
+            <h1 v-if="lendchoose.formDesc.formTitle.length > 0" :style="{color:lendchoose.formDesc.titleColor, fontFamily:lendchoose.formDesc.fontType} ">
+              {{lendchoose.formDesc.formTitle}}
+            </h1>
+
+            <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
+              <!-- 텍스트 박스 -->
+              <div v-if="inObj.values == 'textForm'"  class="flex">
+                <div class="left">
+                  {{inObj.names}}
+                </div>
+                <div class="right">
+                  <input type='text'   name='value2' >
+                </div>
+              </div>
+              <!-- 라디오 버튼 -->
+              <div v-if="inObj.values == 'radioForm'"  class="flex">
+                <div class="left">
+                  {{inObj.names}}
+                </div>
+                <div class="right">
+                  <span v-for="index in inObj.lab" :key="index">
+                    <input :id="index" :name="inObj.lab[index]" type="radio" >
+                    <label :for="index">{{index}}</label>
+                  </span>
+                </div>
+              </div>
+              <!-- 체크박스 -->
+              <div v-if="inObj.values == 'checkForm'"  class="flex">
+                <div class="left">
+                  {{inObj.names}}
+                </div>
+                <div class="right">
+                  <span v-for="index in inObj.lab" :key="index">
+                    <input :id="index" type="checkbox" >
+                    <label :for="index">{{index}}</label>
+                  </span>
+                </div>
+              </div>
+              <!-- 셀렉트박스 -->
+              <div v-if="inObj.values == 'selForm'"  class="flex">
+                <div class="left">
+                  {{inObj.names}}
+                </div>
+                <div class="right">
+                  <select>
+                    <option v-for="index in inObj.lab" :key="index" :value="index">
+                      {{index}}
+                    </option>
+                  </select> 
+                </div>
+              </div>
+              <!-- 메모장 -->
+              <div v-if="inObj.values == 'textArea'"  class="flex">
+                <div class="left">
+                  {{inObj.names}}
+                </div>
+                <div class="right">
+                  <textarea></textarea> 
+                </div>
+              </div>
+            </div>
+            <div class="agreeBox">
+              <input type="checkbox" name="agree01" id="agree01">
+              <label for="agree01">{{formView.stipulationTitle}}</label>
+              <span @click="PriModal()">[보러가기]</span>
+            </div>
+            <div class="centerBox">
+              <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor, color:lendchoose.formDesc.textColor, fontFamily:lendchoose.formDesc.fontType}">{{lendchoose.formDesc.btnNm}}</button>
+            </div>
+            <!-- 개인정보 동의 모달 팝업 내용 -->
+            <div class="priBox">
+              <h6>개인정보 취급방침</h6>
+              <div v-html="formView.stipulationDesc"></div>
+              <button @click="PriCancle()">확인</button>
+            </div>
+          </div>
+
+
+
+
+          
+          <div class="formPrev formPrev04" v-if="lendchoose.formDesc.formStyle == '04'" :style="{borderColor:lendchoose.formDesc.lineColor, borderWidth:lendchoose.formDesc.borderLine, backgroundColor:lendchoose.formDesc.bgColor} ">
+            <h1 v-if="lendchoose.formDesc.formTitle.length > 0" :style="{color:lendchoose.formDesc.titleColor, fontFamily:lendchoose.formDesc.fontType} ">
+              {{lendchoose.formDesc.formTitle}}
+            </h1>
+
+            <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
+              <!-- 텍스트 박스 -->
+              <div v-if="inObj.values == 'textForm'" class="formInput">
+                <h2 class="formInputName">{{inObj.names}}</h2>
+                <input type="text">
+              </div>
+              <!-- 라디오 버튼 -->
+              <div v-if="inObj.values == 'radioForm'" class="formInput">
+                <h2 class="formInputName">{{inObj.names}}</h2>
+                <span v-for="index in inObj.lab" :key="index">
+                  <input :id="index" :name="inObj.lab[index]" type="radio" >
+                  <label :for="index">{{index}}</label>
+                </span>
+              </div>
+              <!-- 체크박스 -->
+              <div v-if="inObj.values == 'checkForm'" class="formInput">
+                <h2 class="formInputName">{{inObj.names}}</h2>
+                <span v-for="index in inObj.lab" :key="index">
+                  <input :id="index" type="checkbox" >
+                  <label :for="index">{{index}}</label>
+                </span>
+              </div>
+              <!-- 셀렉트박스 -->
+              <div v-if="inObj.values == 'selForm'" class="formInput">
+                <h2 class="formInputName">{{inObj.names}}</h2>
+                <select>
+                  <option v-for="index in inObj.lab" :key="index" :value="index">
+                    {{index}}
+                  </option>
+                </select>  
+              </div>
+              <!-- 메모장 -->
+              <div v-if="inObj.values == 'textArea'" class="textArea">
+                <h2 class="formInputName">{{inObj.names}}</h2>
+                <textarea></textarea> 
+              </div>
+            </div>
+            <div class="agreeBox">
+              <input type="checkbox" name="agree01" id="agree01">
+              <label for="agree01">{{formView.stipulationTitle}}</label>
+              <span @click="PriModal()">[보러가기]</span>
+            </div>
+            <div class="centerBox">
+              <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor, color:lendchoose.formDesc.textColor, fontFamily:lendchoose.formDesc.fontType}">{{lendchoose.formDesc.btnNm}}</button>
+            </div>
+            <!-- 개인정보 동의 모달 팝업 내용 -->
+            <div class="priBox">
+              <h6>개인정보 취급방침</h6>
+              <div v-html="formView.stipulationDesc"></div>
+              <button @click="PriCancle()">확인</button>
+            </div>
+          </div>
           <!-- <div v-for="(inObj, index) in $store.state.inputObj" :key="index"> -->
-          <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
-            <!-- 텍스트 박스 -->
-            <div v-if="inObj.values == 'textForm'" class="formInput">
-              <span class="formInputName">{{inObj.names}}</span>
-              <input type="text" :placeholder="inObj.names">
-            </div>
-            <!-- 라디오 버튼 -->
-            <div v-if="inObj.values == 'radioForm'" class="formInput">
-              <span class="formInputName">{{inObj.names}}</span>
-              <span v-for="index in inObj.lab" :key="index">
-                <input :id="index" :name="inObj.lab[index]" type="radio" >
-                <label :for="index">{{index}}</label>
-              </span>
-            </div>
-            <!-- 체크박스 -->
-            <div v-if="inObj.values == 'checkForm'" class="formInput">
-              <span class="formInputName">{{inObj.names}}</span>
-              <span v-for="index in inObj.lab" :key="index">
-                <input :id="index" type="checkbox" >
-                <label :for="index">{{index}}</label>
-              </span>
-            </div>
-            <!-- 셀렉트박스 -->
-            <div v-if="inObj.values == 'selForm'" class="formInput">
-              <span class="formInputName">{{inObj.names}}</span>
-              <select>
-                <option v-for="index in inObj.lab" :key="index" :value="index">
-                  {{index}}
-                </option>
-              </select>  
-            </div>
-            <!-- 메모장 -->
-            <div v-if="inObj.values == 'textArea'" class="textArea">
-              <span class="formInputName">{{inObj.names}}</span>
-              <textarea></textarea> 
-            </div>
-          </div>
-          <div class="agreeBox">
-            <input type="checkbox" name="agree01" id="agree01">
-            <label for="agree01">{{formView.stipulationTitle}}</label>
-            <span @click="PriModal()">[보러가기]</span>
-          </div>
-          <div class="centerBox">
-            <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor, color:lendchoose.formDesc.textColor}">{{lendchoose.formDesc.btnNm}}</button>
-          </div>
-          <!-- 개인정보 동의 모달 팝업 내용 -->
-          <div class="priBox">
-            <h6>개인정보 취급방침</h6>
-            <div v-html="formView.stipulationDesc"></div>
-            <button @click="PriCancle()">확인</button>
-          </div>
         </div>
       </div>
       <div class="bgColor">
@@ -603,14 +750,18 @@
       // 이미지 추가 함수
       //******************************************************************************
       ImgChooseBtn() {
-        if(this.$store.state.lendchooseObj.length > 9) {
-          alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
-          return;
-        }
+
         if(this.campData.caId == null || this.campData.caId == '') {
           alert("캠페인명을 선택해주세요.");
           return;
         }
+
+
+        if(this.$store.state.lendchooseObj.length > 9) {
+          alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
+          return;
+        }
+        
         let plusObj = {
             tp: ''
           , fileNm: ''
@@ -625,6 +776,11 @@
       // 텍스트 추가 함수
       //******************************************************************************
       TextChooseBtn() {
+        if(this.campData.caId == null || this.campData.caId == '') {
+          alert("캠페인명을 선택해주세요.");
+          return;
+        }
+
         if(this.$store.state.lendchooseObj.length > 9) {
           alert("이미지, 폼은 10개 까지만 등록 가능합니다.")
           return;
@@ -647,6 +803,13 @@
           alert("캠페인명을 선택해주세요.");
           return;
         }
+  
+        if(this.$store.state.lendchooseObj.length > 9) {
+          alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
+          return;
+        }
+
+
         let inputBoxObj = [];
         for(let i = 0 ; i < 10; i++) {
           let inputBox = {
@@ -993,8 +1156,7 @@
     justify-content: space-between;
   }
   .menu0804 .landPrev {
-    width: 820px;
-    padding-right: 20px;
+    width: 800px;
     position: relative;
   }
   .menu0804 .landPrev img {
@@ -1018,21 +1180,75 @@
     position: relative;
     background: #fff;
   }
+  .menu0804 .landPrev .formPrev h1 {
+    font-size: 38px;
+    line-height: 51px;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .menu0804 .landPrev .formPrev .flex {
+    width: 100%;
+    display: flex;
+    margin-bottom: 10px;
+    background: #fff;
+  }
+
+  .menu0804 .landPrev .formPrev03 .flex {
+    border: 1px solid #b3b3b3;
+    margin-bottom: 20px;
+  }
+  .menu0804 .landPrev .formPrev .flex div {
+    padding: 5px;
+  }
+  .menu0804 .landPrev .formPrev .flex .left {
+    width: 20%;
+    font-size: 24px;
+    line-height: 44px;
+    letter-spacing: -0.7px;
+    color: #000;
+    font-weight: 700;
+  }
+  .menu0804 .landPrev .formPrev03 .flex .left {
+    width: 21%;
+    padding-left: 20px;
+    position: relative;
+  }
+  .menu0804 .landPrev .formPrev03 .after .left::after {
+    clear: both;
+    position: absolute;
+    content: "";
+    width: 2px;
+    height: 28px;
+    right: 0;
+    top: 13px;
+    background: #000;
+  }
+  .menu0804 .landPrev .formPrev .flex .right {
+    width: 80%;
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .menu0804 .landPrev .formPrev03 .flex .right {
+    width: 79%;
+  }
   .menu0804 .landPrev .formPrev input[type="text"] {
     width: 100%;
-    margin-bottom: 10px;
     font-size: 14px;
     padding: 12px 16px;
   }
+  .menu0804 .landPrev .formPrev03 input[type="text"],
+  .menu0804 .landPrev .formPrev03 textarea {
+    border: none;
+  }
   .menu0804 .landPrev .formPrev  .formInput {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+    background: #fff;
+    padding: 5px 3px;
   }
   .menu0804 .landPrev .formPrev .formInputName {
-    display: block;
     font-size: 18px;
     color: #333;
     font-weight: 700;
-    width: 20%;
     height: 100%;
     margin: 10px 0;
     padding-left: 10px;
@@ -1051,7 +1267,6 @@
   }
   .menu0804 .landPrev .formPrev select{
     padding: 12px 16px;
-    margin-bottom: 10px;
     width: 100%;
   }
   .menu0804 .landPrev .formPrev input[type="radio"],
@@ -1061,11 +1276,19 @@
   .menu0804 .landPrev .formPrev label {
     font-size: 16px;
     display: inline-block;
-    margin: 10px 10px 0px 0px ;
+    margin: 0 10px 0px 0px ;
     position: relative;
-    text-align: right;
     padding: 0 10px 0 35px;
     font-weight: 600;
+  }
+  .menu0804 .landPrev .formPrev02 .flex label  {
+    transform: translateY(11px);
+  }
+
+  .menu0804 .landPrev .formPrev03 .flex label {
+    font-size: 24px;
+    margin-right: 0 10px;
+    transform: translateY(5px);
   }
   .menu0804 .landPrev .formPrev input[type="radio"] + label:before,
   .menu0804 .landPrev .formPrev	input[type="checkbox"] + label:before {
@@ -1080,10 +1303,28 @@
     transform: translateY(-50%);
     content: "";
     border-radius: 2px;
+    box-sizing: border-box;
   }
   .menu0804 .landPrev .formPrev input[type="radio"] + label:before {
     border-radius: 50%;
   }
+
+  .menu0804 .landPrev .formPrev03 input[type="radio"] + label:before,
+  .menu0804 .landPrev .formPrev03	input[type="checkbox"] + label:before,
+  .menu0804 .landPrev .formPrev04 input[type="radio"] + label:before,
+  .menu0804 .landPrev .formPrev04	input[type="checkbox"] + label:before {
+    border: 2px solid #787878;
+    background: #fff;
+  }
+
+  .menu0804 .landPrev .formPrev03 input[type="radio"]:checked + label:before,
+  .menu0804 .landPrev .formPrev03	input[type="checkbox"]:checked + label:before,
+  .menu0804 .landPrev .formPrev04 input[type="radio"]:checked + label:before,
+  .menu0804 .landPrev .formPrev04	input[type="checkbox"]:checked + label:before {
+    background: #787878;
+  }
+
+
   .menu0804 .landPrev .formPrev	input[type="checkbox"]:checked + label:after,
   .menu0804 .landPrev .formPrev input[type="radio"]:checked + label:after {
     clear: both;
@@ -1093,13 +1334,45 @@
     font-family: "icomoon";
     font-weight: 900;
     font-size: 15px;
-    left: 6.5px;
+    left: 5px;
     top: 2px;
     color: #4b4b4b;
   }
+  .menu0804 .landPrev .formPrev03	input[type="checkbox"]:checked + label:after,
+  .menu0804 .landPrev .formPrev03 input[type="radio"]:checked + label:after{
+    font-size: 12px;
+    left: 6.5px;
+    top: 10px;
+    color: #fff;
+  }
+  .menu0804 .landPrev .formPrev04	input[type="checkbox"]:checked + label:after,
+  .menu0804 .landPrev .formPrev04 input[type="radio"]:checked + label:after  {
+    font-size: 12px;
+    left: 6.5px;
+    top: 5px;
+    color: #fff;
+  }
+  .menu0804 .landPrev .formPrev textarea {
+    width: 100%;
+    height: 120px;
+    border: 1px solid #b3b3b3;
+    resize: none;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  .menu0804 .landPrev .formPrev03 textarea {
+    border: none;
+  }
   .menu0804 .landPrev .formPrev .agreeBox label {
     margin: 10px 0 0 0;
-    padding-right: 0;
+  }
+
+  .menu0804 .landPrev .formPrev03 .agreeBox label {
+    transform: translate(0);
+  }
+
+  .menu0804 .landPrev .formPrev03 .agreeBox input[type="checkbox"]:checked + label:after {
+    top: 6px;
   }
  .menu0804 .landPrev .formPrev .agreeBox span{
     font-size: 16px;
@@ -1110,7 +1383,6 @@
     width: 100%;
     height: 120px;
     resize: none;
-    margin-bottom: 16px;
     padding: 10px;
     font-size: 16px;
   }
@@ -1118,15 +1390,16 @@
     text-align: center;
   }
   .menu0804 .landPrev .formPrev .centerBox button {
-    width: 50%;
+    width: 80%;
+    height: 100px;
     background: #aa00e5;
     color: #fff;
     border: none;
-    padding: 25px;
-    font-size: 28px;
+    font-size: 30px;
     border-radius: 100px;
-    font-weight: 700;
-    margin-top: 15px;
+    font-weight: bold;
+    margin-top: 25px;
+    letter-spacing: 2px;
   }
   /* 개인정보 수집 동의 항목 */
   .menu0804 .landPrev .formPrev .priBox {
