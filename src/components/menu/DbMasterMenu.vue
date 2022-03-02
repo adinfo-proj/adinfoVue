@@ -51,108 +51,11 @@
             </li>
           </ul>
         </li>
-
-        <li v-bind:class="{on : 2 == menuSelect}">
-          <a  href="javascript:void(0)" @click="DBMenuBar(2)">
-            <i class="icon-free-transform"></i>
-            DB 확인 및 집계
-          </a>
-          <ul>
-            <li @click="DbSubMenu('201')"  v-bind:class="{subOn : '201' == subMenuSelect}">
-              <router-link to="MENU_08201">
-                수집 DB 집계
-              </router-link>
-            </li>
-            <li @click="DbSubMenu('202')"  v-bind:class="{subOn : '202' == subMenuSelect}">
-              <router-link to="MENU_08202">
-                 입력별 데이터 조회
-              </router-link>
-            </li>
-            <li @click="DbSubMenu('203')"  v-bind:class="{subOn : '203' == subMenuSelect}">
-              <router-link to="MENU_08203">
-                매체별 데이터 조회
-              </router-link>
-            </li>
-            <li @click="DbSubMenu('204')"  v-bind:class="{subOn : '204' == subMenuSelect}">
-              <router-link to="MENU_08204">
-                 해외 접수 데이터 조회
-              </router-link>
-            </li>
-            <li @click="DbSubMenu('205')"  v-bind:class="{subOn : '205' == subMenuSelect}">
-              <router-link to="MENU_08205">
-                 기기별 데이터 조회
-              </router-link>
-            </li>
-            <li @click="DbSubMenu('206')"  v-bind:class="{subOn : '206' == subMenuSelect}">
-              <router-link to="MENU_08206">
-                 기기별 데이터 조회
-              </router-link>
-            </li>
-            <li @click="DbSubMenu('207')"  v-bind:class="{subOn : '207' == subMenuSelect}">
-              <router-link to="MENU_08207">
-                 URL별 데이터 조회
-              </router-link>
-            </li>
-            <li @click="DbSubMenu('208')"  v-bind:class="{subOn : '208' == subMenuSelect}">
-              <router-link to="MENU_08208">
-                 메모된 데이터 조회
-              </router-link>
-            </li>
-            <li @click="DbSubMenu('209')"  v-bind:class="{subOn : '209' == subMenuSelect}">
-              <router-link to="MENU_08209">
-                 블랙 DB 조회
-              </router-link>
-            </li>
-          </ul>
-        </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <li v-bind:class="{on : 5 == menuSelect}">
-          <a  href="javascript:void(0)" @click="DBMenuBar(5)">
-            <i class="icon-stats"></i>
-            통계 및 분석
-          </a>
-          <ul>
-            <li @click="DbSubMenu('501')"  v-bind:class="{subOn : '501' == subMenuSelect}">
-              <router-link to="MENU_08501">
-                서비스 예정
-              </router-link>
-            </li>
-          </ul>
-        </li>
-
-
-
-        <li v-bind:class="{on : 6 == menuSelect}">
-          <a  href="javascript:void(0)" @click="DBMenuBar(6)">
-            <i class="icon-stats"></i>
-            어뷰징 분석
-          </a>
-          <ul>
-            <li @click="DbSubMenu('601')"  v-bind:class="{subOn : '601' == subMenuSelect}">
-              <router-link to="MENU_08601">
-                시간당 수집 정보
-              </router-link>
-            </li>
-          </ul>
+        <li @click="DBMenuBar(2)" v-bind:class="{on : 2 == menuSelect}">
+          <router-link to="MENU_08201">
+            <i class="icon-user"></i>
+            수집 DB 집계
+          </router-link>
         </li>
         <li v-bind:class="{on : 4 == menuSelect}">
           <a  href="javascript:void(0)" @click="DBMenuBar(4)">
@@ -182,8 +85,6 @@
             </li>
           </ul>
         </li>
-
-
         <li v-bind:class="{on : 7 == menuSelect}">
           <a  href="javascript:void(0)" @click="DBMenuBar(7)">
             <i class="icon-bubble-text"></i>
