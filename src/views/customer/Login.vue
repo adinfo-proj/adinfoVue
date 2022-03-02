@@ -76,7 +76,7 @@ export default {
     // 로그인 함수
     //******************************************************************************    
     LogIn() {
-      axios.post("http://api.adinfo.co.kr:30000/login", {
+      axios.post("http://192.168.0.200:30000/login", {
         clntId: this.clntId,
         clntPw: this.clntPw,
         siteCode: '01'

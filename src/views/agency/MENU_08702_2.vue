@@ -65,7 +65,7 @@
 			// 공지사항 내용조회하기
 			//******************************************************************************
       getNotifyContents(bodySeqNo) {
-        axios.get("http://api.adinfo.co.kr:30000/notice/contents",
+        axios.get("http://192.168.0.200:30000/notice/contents",
         {
           params: {
               seqNo   : bodySeqNo
@@ -117,7 +117,7 @@
            return;
          }
 
-        axios.get("http://api.adinfo.co.kr:30000/notice/delete",
+        axios.get("http://192.168.0.200:30000/notice/delete",
         {
           params: {
               seqNo    : bodySeqNo

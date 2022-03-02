@@ -84,7 +84,7 @@
           <tbody>
             <tr v-for="(stUserList, index) in stUserListObj"
               :key="index"
-              @click="ServeData(index)"
+              @click="ServeAdminData(index)"
             >
               <th class="admNo">{{index+1}}</th>
               <td class="admStart">{{stUserList.createDt}}</td>
@@ -177,7 +177,7 @@
           this.landSelect = "-1";
           return;
         }
-				axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst", 
+				axios.get("http://192.168.0.200:30000/GetCampaignNameLst", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -200,7 +200,7 @@
           this.landSelect = "-1";
 //          return;
         }
-        axios.get("http://api.adinfo.co.kr:30000/GetLandingListForMbAdCaCode",
+        axios.get("http://192.168.0.200:30000/GetLandingListForMbAdCaCode",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -233,7 +233,7 @@
         // if(this.landSelect == "-1")
         //   return;
 
-        axios.get("http://api.adinfo.co.kr:30000/GetLandingListOne",
+        axios.get("http://192.168.0.200:30000/GetLandingListOne",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -283,7 +283,6 @@
             return
           }
         }
-                    console.log('dddsss')
 
         let lAdSrtDt = this.srtDt.replace(/-/gi,"", (match) => {
           return '' + match + '';
@@ -309,7 +308,7 @@
 
         const frm = new FormData();
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-        axios.post("http://api.adinfo.co.kr:30000/CreExternalUser", frm, {
+        axios.post("http://192.168.0.200:30000/CreExternalUser", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
@@ -345,7 +344,7 @@
 
 				this.curPage = selectPage;
 
-        axios.get("http://api.adinfo.co.kr:30000/GetExternalUserList",
+        axios.get("http://192.168.0.200:30000/GetExternalUserList",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -403,7 +402,7 @@
 			//******************************************************************************
 			// 데이터 전송
 			//******************************************************************************
-      ServeData(index){
+      ServeAdminData(index){
         let dataServe = this.stUserListObj[index];
         this.getLandingPageLst(dataServe.caId)
 
@@ -422,7 +421,46 @@
         this.passWd     = dataServe.externalClntPw;
         this.srtDt      = srtDay
         this.endDt      = endDay
+        console.log(dataServe)
       },
+      //******************************************************************************
+			// 랜딩페이지 삭제
+			//******************************************************************************
+		// 	RemoveAdmin(caId, pgId, externalClntId) {
+		// 		if(confirm("해당 외부 어드민 설정을 삭제하시겠습니까??") == false) {
+		// 			return;
+		// 		}
+
+		// 		axios.get("http://192.168.0.200:30000/ChangeLandingStatus",
+		// 		{
+		// 			params: {
+    //           mbId            : this.$store.state.mbId
+    //         , adId            : this.$store.state.adId
+    //         , caId            : this.campSelect
+    //         , mkId            : this.$store.state.adId
+    //         , pgId            : this.landSelect
+    //         , clntId          : this.$store.state.clntId
+    //         , status          : '02'  // 00:생성, 01:일시정지, 02:삭제
+    //         , externalClntId  : this.idComment
+    //         , externalClntPw  : this.passWd
+    //         , srtDt           : lAdSrtDt
+    //         , endDt           : lAdEndDt
+    //         , description     : ''
+		// 			}
+		// 		})
+		// 		.then(response => {
+		// 			if(response.data.status == true) {
+		// 				alert("해당 외부 어드민 설정을 정상적으로 삭제하였습니다.");
+		// 				this.getCampaignNameLst();
+		// 			}
+		// 			else {
+		// 				alert("해당 외부 어드민 설정을 삭제에 실패하였습니다.\n\n고객센터 [1533-3757]로 연락하세요.");
+		// 			}
+		// 		})
+		// 		.catch(error => {
+		// 			console.log(error);
+		// 		})
+		// 	},
     },
 		created() {
 			this.$store.state.headerTopTitle = "랜딩페이지";
@@ -501,7 +539,7 @@
     background: #000;
   }
 
-  #menu08303 .adminData tr {
+  #menu08303 .adminData tbody tr {
     cursor: pointer;
   }
   #menu08303 .adminData th,

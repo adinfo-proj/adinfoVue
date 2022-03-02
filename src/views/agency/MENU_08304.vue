@@ -69,6 +69,7 @@
           <tbody>
             <tr v-for="(stUserList, index) in stUserListObj"
               :key="index"
+              @click="ServestdomainData(index)"
             >
               <th class="admNo"    >{{index+1}}</th>
               <td class="admStart" >{{stUserList.createDt}}</td>
@@ -132,7 +133,7 @@
           this.landSelect = "-1";
           return;
         }
-				axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst", 
+				axios.get("http://192.168.0.200:30000/GetCampaignNameLst", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -157,7 +158,7 @@
           this.landSelect = "-1";
           return;
         }
-        axios.get("http://api.adinfo.co.kr:30000/GetLandingListForMbAdCaCode",
+        axios.get("http://192.168.0.200:30000/GetLandingListForMbAdCaCode",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -190,7 +191,7 @@
         if(this.landSelect == "-1")
           return;
 
-        axios.get("http://api.adinfo.co.kr:30000/GetLandingListOne",
+        axios.get("http://192.168.0.200:30000/GetLandingListOne",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -250,7 +251,7 @@
 
         const frm = new FormData();
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-        axios.post("http://api.adinfo.co.kr:30000/CreExternalUrl", frm, {
+        axios.post("http://192.168.0.200:30000/CreExternalUrl", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
@@ -293,7 +294,7 @@
 
 				this.curPage = selectPage;
         
-        axios.get("http://api.adinfo.co.kr:30000/GetExternalUrlList",
+        axios.get("http://192.168.0.200:30000/GetExternalUrlList",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -348,6 +349,20 @@
           console.log(error);
         })
 			},
+
+      //******************************************************************************
+			// 데이터 전송
+			//******************************************************************************
+      ServestdomainData(index){
+        let dataServe = this.stUserListObj[index];
+
+        console.log(dataServe)
+        this.campSelect = dataServe.caId;
+        this.landSelect = dataServe.pgId;
+        this.externalUrl  = dataServe.externalUrl;
+        this.getLandingPageLst(dataServe.caId)
+        this.getLandingPageOne(dataServe.pgId)
+      },
     },
 		created() {
 			this.$store.state.headerTopTitle = "랜딩페이지";
@@ -428,6 +443,9 @@
     background: #000;
   }
 
+  #menu08304 .adminData tbody tr {
+    cursor: pointer;
+  }
   #menu08304 .adminData th,
   #menu08304 .adminData td {
     border: none;

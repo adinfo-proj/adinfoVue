@@ -253,7 +253,7 @@
 			// 수집항목 목록
 			//******************************************************************************
 			getCampaignNameLst() {
-				axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst", 
+				axios.get("http://192.168.0.200:30000/GetCampaignNameLst", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -276,7 +276,7 @@
 			getCampaignTopLst() {
 				console.log("getCampaignTopLst Start...");
 
-				axios.get("http://api.adinfo.co.kr:30000:30000/DataCenter/TopSummary", 
+				axios.get("http://192.168.0.200:30000:30000/DataCenter/TopSummary", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -324,7 +324,7 @@
 				this.dbSelectData = null;
 				this.curPage = selectPage;        
 
-				axios.get("http://api.adinfo.co.kr:30000/GetCpaDataForAll", 
+				axios.get("http://192.168.0.200:30000/GetCpaDataForAll", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -343,7 +343,7 @@
 					//------------------------------------------------------------------------------
 					// 페이지 정보 조회
 					//------------------------------------------------------------------------------
-					axios.get("http://api.adinfo.co.kr:30000/GetCpaDataForAllPageCount", 
+					axios.get("http://192.168.0.200:30000/GetCpaDataForAllPageCount", 
 					{
 						params: {
 								mbId: this.$store.state.mbId

@@ -259,7 +259,7 @@
 
 				const frm = new FormData();
 				frm.append("dataObj", new Blob([JSON.stringify(data)], {type: "application/json"}));
-				axios.post("http://api.adinfo.co.kr:30000/newSendPostback", frm, {
+				axios.post("http://192.168.0.200:30000/newSendPostback", frm, {
 					headers: {'Content-Type': 'multipart/form-data'}    
 				})
 				.then(response => {
@@ -282,7 +282,7 @@
 			// 캠페인 목록
 			//******************************************************************************
 			getCampaignNameLst() {
-				axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst", 
+				axios.get("http://192.168.0.200:30000/GetCampaignNameLst", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -353,7 +353,7 @@
 			// 랜딩페이지 목록
 			//******************************************************************************
 			getLandingPageLst() {
-        axios.get("http://api.adinfo.co.kr:30000/GetLandingListForMbAdCaCode",
+        axios.get("http://192.168.0.200:30000/GetLandingListForMbAdCaCode",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -375,7 +375,7 @@
 			// 랜딩페이지 목록
 			//******************************************************************************
 			getCampAsk() {
-        axios.get("http://api.adinfo.co.kr:30000/GetCampaignAskList",
+        axios.get("http://192.168.0.200:30000/GetCampaignAskList",
         {
           params: {
               mbId: this.$store.state.mbId

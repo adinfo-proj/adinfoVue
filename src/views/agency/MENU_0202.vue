@@ -464,7 +464,7 @@ export default {
     // 캠페인 목적
     //******************************************************************************
     getCommonByTp0005 () { // 캠페인 목적
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
         {
           params: {
             tp: '0005'
@@ -484,7 +484,7 @@ export default {
     // 캠페인 분류(대분류)
     //******************************************************************************
     getCommonByTp0000 () { // 캠페인 분류(대분류)
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
         {
           params: {
             tp: '0000'
@@ -505,7 +505,7 @@ export default {
     // 캠페인 분류(중분류)
     //******************************************************************************
     firstComboChg(code) { // 캼패안 분류(소분류)
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonCodeByCode", 
         {
           params: {
             tp: '0001',
@@ -526,8 +526,8 @@ export default {
     // 캠페인 금지 채널 목록
     //******************************************************************************
     getCommonByTp0015(inPos) {
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
-      // --> 나중에 수정할것 // "http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
+      // --> 나중에 수정할것 // "http://192.168.0.200:30000/CommonCode/getCommonCodeByCode", 
       {
         params: {
           tp: '0015'
@@ -554,7 +554,7 @@ export default {
     // DB무효조건 목록
     //******************************************************************************
     getCommonByTp0017() {
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
       {
         params: {
           tp: '0017'
@@ -578,7 +578,7 @@ export default {
     // DB취소조건 목록
     //******************************************************************************
     getCommonByTp0020() {
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
       {
         params: {
           tp: '0020'
@@ -602,7 +602,7 @@ export default {
     // 수집항목 목록
     //******************************************************************************
     getCommonByTp0021() {
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
       {
         params: {
           tp: '0021'
@@ -864,7 +864,7 @@ export default {
         frm.append("upFile", this.adBanner[0]);
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));		
 
-      axios.post("http://api.adinfo.co.kr:30000/newcampaign", frm, {
+      axios.post("http://192.168.0.200:30000/newcampaign", frm, {
         headers: {'Content-Type': 'multipart/form-data'}    
       })
       .then(response => {

@@ -395,7 +395,7 @@ router.beforeEach((to, from, next) => {
         next('/login');
     } else {
       // api call 후 유효시간 확인
-      axios.get("http://api.adinfo.co.kr:30000/vaildauth",
+      axios.get("http://192.168.0.200:30000/vaildauth",
       {
         params: {
           token: sessionStorage.getItem("token")

@@ -134,7 +134,7 @@
 			// 캠페인 상태
 			//******************************************************************************
 			getCommonByTp0009() {
-				axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+				axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
 				{
 					params: {
 						tp: '0009'
@@ -168,7 +168,7 @@
 
         console.log(this.$store.state.caId);
 
-				axios.get("http://api.adinfo.co.kr:30000/GetCampaignForMbAdCaStatus", 
+				axios.get("http://192.168.0.200:30000/GetCampaignForMbAdCaStatus", 
 				{
 					params: {
 							mbId: this.$store.state.mbId

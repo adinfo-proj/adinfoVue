@@ -142,7 +142,7 @@
           const frm = new FormData();
           frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));		
 
-          axios.post("http://api.adinfo.co.kr:30000/FindUserId", frm)
+          axios.post("http://192.168.0.200:30000/FindUserId", frm)
           .then(response => {
             if( response.data.status == true ) {
               console.log(response.data)
@@ -191,7 +191,7 @@
           const frm = new FormData();
           frm.append("dataObj", new Blob([JSON.stringify(data1)] , {type: "application/json"}));		
 
-          axios.post("http://api.adinfo.co.kr:30000/UpdateUserPw", frm)
+          axios.post("http://192.168.0.200:30000/UpdateUserPw", frm)
           .then(response => {
             if( response.data.status == true ) {
               $(".searchPw .serachSubBox1").css({display: "none"})

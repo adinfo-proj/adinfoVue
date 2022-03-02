@@ -135,7 +135,7 @@
 				this.dbSelectData = null;
 				this.curPage = selectPage;
 
-				axios.get("http://api.adinfo.co.kr:30000/GetLandingListForMbAdCa", 
+				axios.get("http://192.168.0.200:30000/GetLandingListForMbAdCa", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -199,7 +199,7 @@
 			// 캠페인 목록 불러오기
 			//******************************************************************************
 			getCampaignNameLst() {
-				axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst", 
+				axios.get("http://192.168.0.200:30000/GetCampaignNameLst", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -250,7 +250,7 @@
 					return;
 				}
 
-				axios.get("http://api.adinfo.co.kr:30000/ChangeLandingStatus",
+				axios.get("http://192.168.0.200:30000/ChangeLandingStatus",
 				{
 					params: {
               clntId      : this.$store.state.clntId
@@ -292,7 +292,7 @@
 					status = '00';
 				}
 
-				axios.get("http://api.adinfo.co.kr:30000/ChangeLandingStatus",
+				axios.get("http://192.168.0.200:30000/ChangeLandingStatus",
 				{
 					params: {
               clntId      : this.$store.state.clntId

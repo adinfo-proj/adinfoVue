@@ -81,8 +81,6 @@
             </div>
           </div>
 
-
-
           <div class="formPrev formPrev02" v-if="lendchoose.formDesc.formStyle == '02'" :style="{borderColor:lendchoose.formDesc.lineColor, borderWidth:lendchoose.formDesc.borderLine, backgroundColor:lendchoose.formDesc.bgColor} ">
             <h1 v-if="lendchoose.formDesc.formTitle.length > 0" :style="{color:lendchoose.formDesc.titleColor, fontFamily:lendchoose.formDesc.fontType} ">
               {{lendchoose.formDesc.formTitle}}
@@ -238,10 +236,6 @@
               <button @click="PriCancle()">확인</button>
             </div>
           </div>
-
-
-
-
           
           <div class="formPrev formPrev04" v-if="lendchoose.formDesc.formStyle == '04'" :style="{borderColor:lendchoose.formDesc.lineColor, borderWidth:lendchoose.formDesc.borderLine, backgroundColor:lendchoose.formDesc.bgColor} ">
             <h1 v-if="lendchoose.formDesc.formTitle.length > 0" :style="{color:lendchoose.formDesc.titleColor, fontFamily:lendchoose.formDesc.fontType} ">
@@ -500,7 +494,7 @@
       // Open Event
       //******************************************************************************
       getCampaignSelect(index) { // 캠페인 분류(대분류)
-        axios.get("http://api.adinfo.co.kr:30000/GetCampInfo",
+        axios.get("http://192.168.0.200:30000/GetCampInfo",
         {
           params: {
               mbId   : this.$store.state.mbId
@@ -660,6 +654,14 @@
               , lineColor : element.formDesc.lineColor
               , textColor : element.formDesc.textColor
               , borderLine: element.formDesc.borderLine
+              , formStyle : element.formDesc.formStyle
+              , formTitle : element.formDesc.formTitle
+              , titleColor: element.formDesc.titleColor
+              , fontType  : element.formDesc.fontType
+              , bgColor   : element.formDesc.bgColor
+              , agreeColor: element.formDesc.agreeColor
+              , textA     : element.formDesc.textA
+              , textB     : element.formDesc.textB
             };
             formData.push(forms);
           }
@@ -719,7 +721,7 @@
           }
         }
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-        axios.post("http://api.adinfo.co.kr:30000/newlandingpage", frm, {
+        axios.post("http://192.168.0.200:30000/newlandingpage", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
@@ -738,7 +740,7 @@
       // 캠페인 분류(대분류)
       //******************************************************************************
       getCampaignAllList() { // 캠페인 분류(대분류)
-        axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst",
+        axios.get("http://192.168.0.200:30000/GetCampaignNameLst",
         {
           params: {
               mbId   : this.$store.state.mbId
@@ -766,7 +768,7 @@
       // 캠페인 대체 시 
       //******************************************************************************
       ReplacePage(){
-        axios.get("http://api.adinfo.co.kr:30000/GetLandingListForMbAdCaCode",
+        axios.get("http://192.168.0.200:30000/GetLandingListForMbAdCaCode",
         {
           params: {
               mbId: this.$store.state.mbId

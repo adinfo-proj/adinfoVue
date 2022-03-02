@@ -88,7 +88,7 @@ export default {
     // 지역선택 목록
     //******************************************************************************
     getCommonByTp0022 () { // 캠페인 분류(대분류)
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
         {
           params: {
             tp: '0022'
@@ -110,7 +110,7 @@ export default {
     //******************************************************************************
     areaComboChg(code) { // 캼패안 분류(소분류)
       this.befAdAreaCityCode = code;
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonCodeByCode", 
         {
           params: {
             tp: '0019',

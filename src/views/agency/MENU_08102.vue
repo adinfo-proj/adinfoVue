@@ -228,7 +228,7 @@ export default {
     // 캠페인 목적
     //******************************************************************************
     getCommonByTp0005 () { // 캠페인 목적
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
       {
         params: {
           tp: '0005'
@@ -248,7 +248,7 @@ export default {
     // 캠페인 분류(대분류)
     //******************************************************************************
     getCommonByTp(code) { // 캠페인 분류(대분류)
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
       {
         params: {
           tp: code
@@ -269,7 +269,7 @@ export default {
     // 캠페인 분류(중분류)
     //******************************************************************************
     firstComboChg(code) { // 캼패인 분류(소분류)
-      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
+      axios.get("http://192.168.0.200:30000/CommonCode/getCommonCodeByCode", 
       {
         params: {
           tp: '0001',
@@ -444,7 +444,7 @@ export default {
       frm.append("dataObj", new Blob([JSON.stringify(data)]        , {type: "application/json"}));
       frm.append("formObj", new Blob([JSON.stringify(this.formObj)], {type: "application/json"}));
 
-      axios.post("http://api.adinfo.co.kr:30000/newcampaign", frm, {
+      axios.post("http://192.168.0.200:30000/newcampaign", frm, {
         headers: {'Content-Type': 'multipart/form-data'}    
       })
       .then(response => {
