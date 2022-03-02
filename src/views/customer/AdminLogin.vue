@@ -98,9 +98,9 @@ export default {
     }
   },
   created() {
-    alert(window.location.hostname);
-    //if(window.location.hostname != 'admin.dbmaster.co.kr')
-    if(window.location.hostname == '192.168.0.109')
+    // alert(window.location.hostname);
+    if(window.location.hostname != 'admin.dbmaster.co.kr')
+    // if(window.location.hostname == '192.168.0.104')
       this.$router.push({ name : "Login" });
   }
 }

@@ -36,18 +36,18 @@
               </div>
               <!-- 라디오 버튼 -->
               <div v-if="inObj.values == 'radioForm'" class="formInput">
-                <h2 class="formInputName">{{inObj.names}}</h2>
+                <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
                 <span v-for="index in inObj.lab" :key="index">
                   <input :id="index" :name="inObj.lab[index]" type="radio" >
-                  <label :for="index">{{index}}</label>
+                  <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
                 </span>
               </div>
               <!-- 체크박스 -->
               <div v-if="inObj.values == 'checkForm'" class="formInput">
-                <h2 class="formInputName">{{inObj.names}}</h2>
+                <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
                 <span v-for="index in inObj.lab" :key="index">
                   <input :id="index" type="checkbox" >
-                  <label :for="index">{{index}}</label>
+                  <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
                 </span>
               </div>
               <!-- 셀렉트박스 -->
@@ -61,14 +61,14 @@
               </div>
               <!-- 메모장 -->
               <div v-if="inObj.values == 'textArea'" class="textArea">
-                <h2 class="formInputName">{{inObj.names}}</h2>
+                <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
                 <textarea></textarea> 
               </div>
             </div>
             <div class="agreeBox">
               <input type="checkbox" name="agree01" id="agree01">
-              <label for="agree01">{{formView.stipulationTitle}}</label>
-              <span @click="PriModal()">[보러가기]</span>
+              <label for="agree01" :style="{color:lendchoose.formDesc.agreeColor}">{{formView.stipulationTitle}}</label>
+              <span :style="{color:lendchoose.formDesc.agreeColor}" @click="PriModal()">[보러가기]</span>
             </div>
             <div class="centerBox">
               <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor, color:lendchoose.formDesc.textColor, fontFamily:lendchoose.formDesc.fontType}">{{lendchoose.formDesc.btnNm}}</button>
@@ -91,7 +91,7 @@
             <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
               <!-- 텍스트 박스 -->
               <div v-if="inObj.values == 'textForm'"  class="flex">
-                <div class="left">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
                   {{inObj.names}}
                 </div>
                 <div class="right">
@@ -100,31 +100,31 @@
               </div>
               <!-- 라디오 버튼 -->
               <div v-if="inObj.values == 'radioForm'"  class="flex">
-                <div class="left">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
                   {{inObj.names}}
                 </div>
                 <div class="right">
                   <span v-for="index in inObj.lab" :key="index">
                     <input :id="index" :name="inObj.lab[index]" type="radio" >
-                    <label :for="index">{{index}}</label>
+                    <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
                   </span>
                 </div>
               </div>
               <!-- 체크박스 -->
               <div v-if="inObj.values == 'checkForm'"  class="flex">
-                <div class="left">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
                   {{inObj.names}}
                 </div>
                 <div class="right">
                   <span v-for="index in inObj.lab" :key="index">
                     <input :id="index" type="checkbox" >
-                    <label :for="index">{{index}}</label>
+                    <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
                   </span>
                 </div>
               </div>
               <!-- 셀렉트박스 -->
               <div v-if="inObj.values == 'selForm'"  class="flex">
-                <div class="left">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
                   {{inObj.names}}
                 </div>
                 <div class="right">
@@ -137,7 +137,7 @@
               </div>
               <!-- 메모장 -->
               <div v-if="inObj.values == 'textArea'"  class="flex">
-                <div class="left">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
                   {{inObj.names}}
                 </div>
                 <div class="right">
@@ -147,8 +147,86 @@
             </div>
             <div class="agreeBox">
               <input type="checkbox" name="agree01" id="agree01">
-              <label for="agree01">{{formView.stipulationTitle}}</label>
-              <span @click="PriModal()">[보러가기]</span>
+              <label for="agree01" :style="{color:lendchoose.formDesc.agreeColor}">{{formView.stipulationTitle}}</label>
+              <span :style="{color:lendchoose.formDesc.agreeColor}" @click="PriModal()">[보러가기]</span>
+            </div>
+            <div class="centerBox">
+              <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor, color:lendchoose.formDesc.textColor, fontFamily:lendchoose.formDesc.fontType}">{{lendchoose.formDesc.btnNm}}</button>
+            </div>
+            <!-- 개인정보 동의 모달 팝업 내용 -->
+            <div class="priBox">
+              <h6>개인정보 취급방침</h6>
+              <div v-html="formView.stipulationDesc"></div>
+              <button @click="PriCancle()">확인</button>
+            </div>
+          </div>
+
+          <div class="formPrev formPrev03" v-if="lendchoose.formDesc.formStyle == '03'" :style="{borderColor:lendchoose.formDesc.lineColor, borderWidth:lendchoose.formDesc.borderLine, backgroundColor:lendchoose.formDesc.bgColor} ">
+            <h1 v-if="lendchoose.formDesc.formTitle.length > 0" :style="{color:lendchoose.formDesc.titleColor, fontFamily:lendchoose.formDesc.fontType} ">
+              {{lendchoose.formDesc.formTitle}}
+            </h1>
+
+            <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
+              <!-- 텍스트 박스 -->
+              <div v-if="inObj.values == 'textForm'"  class="flex after">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
+                  {{inObj.names}}
+                </div>
+                <div class="right">
+                  <input type='text'   name='value2' >
+                </div>
+              </div>
+              <!-- 라디오 버튼 -->
+              <div v-if="inObj.values == 'radioForm'"  class="flex">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
+                  {{inObj.names}}
+                </div>
+                <div class="right">
+                  <span v-for="index in inObj.lab" :key="index">
+                    <input :id="index" :name="inObj.lab[index]" type="radio" >
+                    <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
+                  </span>
+                </div>
+              </div>
+              <!-- 체크박스 -->
+              <div v-if="inObj.values == 'checkForm'"  class="flex">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
+                  {{inObj.names}}
+                </div>
+                <div class="right">
+                  <span v-for="index in inObj.lab" :key="index">
+                    <input :id="index" type="checkbox" >
+                    <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
+                  </span>
+                </div>
+              </div>
+              <!-- 셀렉트박스 -->
+              <div v-if="inObj.values == 'selForm'"  class="flex">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
+                  {{inObj.names}}
+                </div>
+                <div class="right">
+                  <select>
+                    <option v-for="index in inObj.lab" :key="index" :value="index">
+                      {{index}}
+                    </option>
+                  </select> 
+                </div>
+              </div>
+              <!-- 메모장 -->
+              <div v-if="inObj.values == 'textArea'"  class="flex">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
+                  {{inObj.names}}
+                </div>
+                <div class="right">
+                  <textarea></textarea> 
+                </div>
+              </div>
+            </div>
+            <div class="agreeBox">
+              <input type="checkbox" name="agree01" id="agree01">
+              <label for="agree01" :style="{color:lendchoose.formDesc.agreeColor}">{{formView.stipulationTitle}}</label>
+              <span :style="{color:lendchoose.formDesc.agreeColor}" @click="PriModal()">[보러가기]</span>
             </div>
             <div class="centerBox">
               <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor, color:lendchoose.formDesc.textColor, fontFamily:lendchoose.formDesc.fontType}">{{lendchoose.formDesc.btnNm}}</button>
@@ -173,28 +251,28 @@
             <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
               <!-- 텍스트 박스 -->
               <div v-if="inObj.values == 'textForm'" class="formInput">
-                <h2 class="formInputName">{{inObj.names}}</h2>
+                <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
                 <input type="text">
               </div>
               <!-- 라디오 버튼 -->
               <div v-if="inObj.values == 'radioForm'" class="formInput">
-                <h2 class="formInputName">{{inObj.names}}</h2>
+                <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
                 <span v-for="index in inObj.lab" :key="index">
                   <input :id="index" :name="inObj.lab[index]" type="radio" >
-                  <label :for="index">{{index}}</label>
+                  <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
                 </span>
               </div>
               <!-- 체크박스 -->
               <div v-if="inObj.values == 'checkForm'" class="formInput">
-                <h2 class="formInputName">{{inObj.names}}</h2>
+                <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
                 <span v-for="index in inObj.lab" :key="index">
                   <input :id="index" type="checkbox" >
-                  <label :for="index">{{index}}</label>
+                  <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
                 </span>
               </div>
               <!-- 셀렉트박스 -->
               <div v-if="inObj.values == 'selForm'" class="formInput">
-                <h2 class="formInputName">{{inObj.names}}</h2>
+                <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
                 <select>
                   <option v-for="index in inObj.lab" :key="index" :value="index">
                     {{index}}
@@ -203,14 +281,14 @@
               </div>
               <!-- 메모장 -->
               <div v-if="inObj.values == 'textArea'" class="textArea">
-                <h2 class="formInputName">{{inObj.names}}</h2>
+                <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
                 <textarea></textarea> 
               </div>
             </div>
             <div class="agreeBox">
               <input type="checkbox" name="agree01" id="agree01">
-              <label for="agree01">{{formView.stipulationTitle}}</label>
-              <span @click="PriModal()">[보러가기]</span>
+              <label for="agree01" :style="{color:lendchoose.formDesc.agreeColor}">{{formView.stipulationTitle}}</label>
+              <span :style="{color:lendchoose.formDesc.agreeColor}" @click="PriModal()">[보러가기]</span>
             </div>
             <div class="centerBox">
               <button v-bind:style="{borderRadius:lendchoose.formDesc.btnShape, background:lendchoose.formDesc.btnColor, color:lendchoose.formDesc.textColor, fontFamily:lendchoose.formDesc.fontType}">{{lendchoose.formDesc.btnNm}}</button>
@@ -1185,6 +1263,7 @@
     line-height: 51px;
     text-align: center;
     margin-bottom: 50px;
+    letter-spacing: 2px;
   }
   .menu0804 .landPrev .formPrev .flex {
     width: 100%;
@@ -1235,6 +1314,7 @@
     width: 100%;
     font-size: 14px;
     padding: 12px 16px;
+    border: 1px solid #b3b3b3;
   }
   .menu0804 .landPrev .formPrev03 input[type="text"],
   .menu0804 .landPrev .formPrev03 textarea {
@@ -1242,7 +1322,6 @@
   }
   .menu0804 .landPrev .formPrev  .formInput {
     margin-bottom: 15px;
-    background: #fff;
     padding: 5px 3px;
   }
   .menu0804 .landPrev .formPrev .formInputName {
@@ -1268,6 +1347,7 @@
   .menu0804 .landPrev .formPrev select{
     padding: 12px 16px;
     width: 100%;
+    border: 1px solid #b3b3b3;
   }
   .menu0804 .landPrev .formPrev input[type="radio"],
   .menu0804 .landPrev .formPrev	input[type="checkbox"] {
@@ -1288,7 +1368,7 @@
   .menu0804 .landPrev .formPrev03 .flex label {
     font-size: 24px;
     margin-right: 0 10px;
-    transform: translateY(5px);
+    transform: translateY(8px);
   }
   .menu0804 .landPrev .formPrev input[type="radio"] + label:before,
   .menu0804 .landPrev .formPrev	input[type="checkbox"] + label:before {
@@ -1341,8 +1421,8 @@
   .menu0804 .landPrev .formPrev03	input[type="checkbox"]:checked + label:after,
   .menu0804 .landPrev .formPrev03 input[type="radio"]:checked + label:after{
     font-size: 12px;
-    left: 6.5px;
-    top: 10px;
+    left: 7px;
+    top: 8.5px;
     color: #fff;
   }
   .menu0804 .landPrev .formPrev04	input[type="checkbox"]:checked + label:after,

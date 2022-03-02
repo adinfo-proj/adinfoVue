@@ -29,11 +29,11 @@
       </div>
       <div class="formStyle formTitle">
         <h6 class="leftBox"> 폼 타이틀</h6>
-        <input type="text" v-model="formTitle" id="formTitle" placeholder="폼 상단에 타이틀 문구를 삽입할 수 있습니다. 필요시 작성하세요. (10자 내외)">
+        <input type="text" v-model="formviewModel.formDesc.formTitle" id="formTitle" placeholder="폼 상단에 타이틀 문구를 삽입할 수 있습니다. 필요시 작성하세요. (10자 내외)">
       </div>
       <div class="formStyle formTitleColor">
         <h6 class="leftBox"> 폼 타이틀 폰트 색상</h6>
-        <input type="color" v-model="formTitleColor">
+        <input type="color" v-model="formviewModel.formDesc.titleColor">
         <span>*폼 타이틀을 추가하신 경우에만 선택해 주세요.</span>
       </div>
       <div class="formStyle fontStyle">
@@ -59,7 +59,7 @@
       </div>
       <div class="formStyle btnName">
         <h6 class="leftBox">버튼 이름</h6>
-        <input type="text" v-model="btnNm" id="btnNm">
+        <input type="text" v-model="formviewModel.formDesc.btnNm" id="btnNm">
       </div>
       <div class="formStyle btnShape">
         <h6>버튼 모양 선택</h6>
@@ -75,31 +75,41 @@
           <tr>
             <td class="left">
               <h6 class="leftBox">버튼 텍스트 색상</h6>
-              <input type="color" v-model="textColor">
+              <input type="color" v-model="formviewModel.formDesc.textColor">
             </td>
             <td class="right">
               <h6 class="leftBox">버튼 색상 선택</h6>
-              <input type="color" v-model="btnColor">
+              <input type="color" v-model="formviewModel.formDesc.btnColor">
             </td>
           </tr>
           <tr>
             <td class="left line">
               <h6 class="leftBox">폼 테두리 굵기</h6>
-              <input type="text" id="boxLine" v-model="borderLine"><label for="#"><span>px</span></label>
+              <input type="text" id="boxLine" v-model="borderLine"><span>px</span>
             </td>
             <td class="right">
               <h6 class="leftBox">폼 테두리 색상</h6>
-              <input type="color" v-model="lineColor">
+              <input type="color" v-model="formviewModel.formDesc.lineColor">
+            </td>
+          </tr>
+          <tr>
+            <td class="left">
+              <h6 class="leftBox">텍스트A 색상</h6>
+              <input type="color" v-model="formviewModel.formDesc.textA">
+            </td>
+            <td class="right">
+              <h6 class="leftBox">텍스트B 색상</h6>
+              <input type="color" v-model="formviewModel.formDesc.textB">
             </td>
           </tr>
           <tr>
             <td class="left">
               <h6 class="leftBox">폼 배경 색상</h6>
-              <input type="color" v-model="bgColor">
+              <input type="color" v-model="formviewModel.formDesc.bgColor">
             </td>
             <td class="right">
               <h6 class="leftBox">약관 텍스트 색상</h6>
-              <input type="color" v-model="agreeColor">
+              <input type="color" v-model="formviewModel.formDesc.agreeColor">
             </td>
           </tr>
         </table>
@@ -125,21 +135,38 @@
     },
     data() {
       return{
-          inputForm       : ''
-        , btnNm           : '신청하기' // 버튼내용
-        , agreeTitle      : this.$store.state.lendchooseObj[this.indexNum].formDesc.priNm
-        , agreeCon        : this.$store.state.lendchooseObj[this.indexNum].formDesc.priCon
-        , btnShape        : '0'
-        , btnColor        : '#000000'
-        , textColor       : '#ffffff'
-        , borderLine      : 0
-        , lineColor       : '#000000'
-        , formStyle       : '01'
-        , fontType        : 'Nanum Gothic'
-        , bgColor         : '#ffffff'
-        , formTitleColor  : '#000000'
-        , formTitle       : ''
-        , agreeColor      : '#000000'
+          inputForm     : ''
+        , btnShape      : '0'
+        , formStyle     : '01'
+        , fontType      : 'Nanum Gothic'
+        , borderLine    : 0
+
+        , formviewModel : {
+            tp        : '03'
+          , fileNm    : ''
+          , descript  : ''
+          , landImgNm : ''
+          , formDesc  : {
+              inputBox  : this.$store.state.lendchooseObj[this.indexNum].formDesc.inputBox
+            , priNm     : this.$store.state.lendchooseObj[this.indexNum].formDesc.priNm
+            , priCon    : this.$store.state.lendchooseObj[this.indexNum].formDesc.priCon
+            , btnNm     : '신청하기'
+            , btnShape  : ''
+            , textColor : '#ffffff'
+            , btnColor  : '#000000'
+            , borderLine: ''
+            , lineColor : '#000000'
+            // 폼스타일에 따른 추가 된 항목들
+            , formStyle : ''  // 폼 타입
+            , formTitle : '' // 타이틀
+            , titleColor: '#000000'     // 타이틀 컬러
+            , fontType  : ''            // 폰트타입
+            , bgColor   : '#ffffff'     // 폼 백그라운드
+            , agreeColor: '#000000'     // 동의항목 컬러
+            , textA     : '#000000'
+            , textB     : '#666666'
+          }
+        }
       }
     },
     methods: {
@@ -166,56 +193,35 @@
       DelLandForm(){
         this.$store.state.lendchooseObj.splice(this.indexNum, 1);
       },
-      PrivacyText() {
-        this.agreeCon = "<b>[개인정보 수집 및 이용안내]</b><br>"
-        this.agreeCon += " 개인정보 수집주체 : " 
-        this.agreeCon += this.store.state.company 
-        this.agreeCon += "<br>"
-        this.agreeCon += " 개인정보 수집항목 : 성명, 휴대폰, 이메일, IP등을 포함한 고객이 입력한 정보<br>"
-        this.agreeCon += " 개인정보 수집 이용목적 : 전화, SMS를 통한 상품안내 및 상담<br>"
-        this.agreeCon += " 개인정보보유/이용기간 : 수집일로부터 1년(고객동의 철회시 지체없이 파기)<br><br>"
-        this.agreeCon += "<b>[개인정보의 취급 위탁]</b><br>"
-        this.agreeCon += " 당사는 서비스 이행 및 향상을 위해 개인정보 취급업무를 전문업체에 위탁 운영하고 있습니다."
-        this.agreeCon += " 또한 개인정보를 안전하게 처리하기 위하여 필요한 사항등을 명확히 규정하고 있으며,"
-        this.agreeCon += " 당해 계약 내용을 서면 또는 전자적으로 보관하고 있습니다.<br>"
-        this.agreeCon += " 위탁업체 및 위탁업무내용<br>"
-        this.agreeCon += " " 
-        this.agreeCon += this.$store.state.company 
-        this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>"
-        this.agreeCon += " $('.agreeBox div').slideUp(0);"
-      },
+      // PrivacyText() {
+      //   this.agreeCon = "<b>[개인정보 수집 및 이용안내]</b><br>"
+      //   this.agreeCon += " 개인정보 수집주체 : " 
+      //   this.agreeCon += this.store.state.company 
+      //   this.agreeCon += "<br>"
+      //   this.agreeCon += " 개인정보 수집항목 : 성명, 휴대폰, 이메일, IP등을 포함한 고객이 입력한 정보<br>"
+      //   this.agreeCon += " 개인정보 수집 이용목적 : 전화, SMS를 통한 상품안내 및 상담<br>"
+      //   this.agreeCon += " 개인정보보유/이용기간 : 수집일로부터 1년(고객동의 철회시 지체없이 파기)<br><br>"
+      //   this.agreeCon += "<b>[개인정보의 취급 위탁]</b><br>"
+      //   this.agreeCon += " 당사는 서비스 이행 및 향상을 위해 개인정보 취급업무를 전문업체에 위탁 운영하고 있습니다."
+      //   this.agreeCon += " 또한 개인정보를 안전하게 처리하기 위하여 필요한 사항등을 명확히 규정하고 있으며,"
+      //   this.agreeCon += " 당해 계약 내용을 서면 또는 전자적으로 보관하고 있습니다.<br>"
+      //   this.agreeCon += " 위탁업체 및 위탁업무내용<br>"
+      //   this.agreeCon += " " 
+      //   this.agreeCon += this.$store.state.company 
+      //   this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>"
+      //   this.agreeCon += " $('.agreeBox div').slideUp(0);"
+      // },
       //******************************************************************************
       // 폼 적용되는 함수
       //******************************************************************************
       FormApp() {
-        // console.log("타이틀")
-        // console.log(this.formTitle)
+        this.formviewModel.formDesc.formStyle   = this.formStyle;
+        this.formviewModel.formDesc.fontType    = this.fontType;
+        this.formviewModel.formDesc.btnShape    = this.btnShape;
+        this.formviewModel.formDesc.borderLine  = this.borderLine + 'px';
 
-        let formviewObj = {
-            tp        : '03'
-          , fileNm    : ''
-          , descript  : ''
-          , landImgNm : ''
-          , formDesc: {
-              inputBox  : this.$store.state.lendchooseObj[this.indexNum].formDesc.inputBox
-            , priNm     : this.agreeTitle
-            , priCon    : this.agreeCon
-            , btnNm     : this.btnNm
-            , btnShape  : this.btnShape
-            , textColor : this.textColor
-            , btnColor  : this.btnColor
-            , borderLine: this.borderLine + 'px'
-            , lineColor : this.lineColor
-            // 폼스타일에 따른 추가 된 항목들
-            , formStyle : this.formStyle  // 폼 타입
-            , formTitle : this.formTitle // 타이틀
-            , titleColor: this.formTitleColor // 타이틀 컬러
-            , fontType  : this.fontType       // 폰트타입
-            , bgColor   : this.bgColor        // 폼 백그라운드
-            , agreeColor: this.agreeColor     // 동의항목 컬러
-          }
-        }
-        console.log(formviewObj)
+        let formviewObj = this.formviewModel;
+
         this.$set(this.$store.state.lendchooseObj, this.indexNum, formviewObj);
       }
     }
@@ -442,7 +448,7 @@
   .landForm table input[type="text"] {
     width: 70px;
   }
-  .landForm table input[type="text"] + label span {
+  .landForm table input[type="text"] + span {
     padding-left: 9px;
     font-weight: 700;
   }

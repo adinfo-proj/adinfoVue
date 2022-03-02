@@ -32,42 +32,42 @@
 
 
 		<div class="dailyDataBox">
-			<div class="dailyDataMiddle">
+			<div class="dailyDataExtra">
         <i class="icon-users"></i>
         <h2 class="dataEm Pointer" @click="gotoPush('MENU_08301');">
           <span>랜딩페이지 수</span><br>
           {{summaryDataObj.landingCount  }} 개
         </h2>
       </div>
-			<div class="dailyDataMiddle">
+			<div class="dailyDataExtra">
         <i class="icon-laptop-phone bgo"></i>
         <h2  class="dataEm">
           <span>DB 수집 건수</span><br>
           {{summaryDataObj.commitCount }} 건
         </h2>
       </div>
-			<div class="dailyDataMiddle">
+			<div class="dailyDataExtra">
         <i class="icon-pie-chart"></i>
         <h2 class="dataEm">
           <span>페이지 노출 건수</span><br>
           {{summaryDataObj.viewCount  }} 건
         </h2>
       </div>
-			<div class="dailyDataMiddle">
+			<div class="dailyDataExtra">
         <i class="icon-pie-chart bgo"></i>
         <h2 class="dataEm">
           <span>노출 대비 접수율</span><br>
           {{summaryDataObj.commitPer}} %
         </h2>
         </div>
-      <div class="dailyDataMiddle">
+      <div class="dailyDataExtra">
         <i class="icon-chart-bars"></i>
         <h2 class="dataEm">
           <span >광고주 지급 합계</span><br>
           {{adPriceSum}} 원
         </h2>
         </div>
-			<div class="dailyDataMiddle">
+			<div class="dailyDataExtra">
         <i class="icon-eye bgo"></i>
         <h2 class="dataEm">
           <span>마케터 수익 합계</span><br>
@@ -179,14 +179,14 @@
                     <h6>고객 추가정보</h6>
                     <div>
                       <table>
-                        <tr>
-                          <th>유입 매체</th>
-                          <td>{{ campaignFullData.deviceMachine }}</td>
-                          <th>접수지역</th>
-                          <td v-if="campaignFullData.countryCd == 'KR'">국내</td>
-                          <td v-else-if="campaignFullData.countryCd == null">없음</td>
-                          <td v-else-if="campaignFullData.countryCd == ''">없음</td>
-                          <td v-else>해외</td>
+                        <tr> 
+                          <th>유입 매체</th> 
+                          <td>{{ campaignFullData.deviceMachine }}</td> 
+                          <th>접수지역</th> 
+                          <td v-if="campaignFullData.countryCd == '국내'">국내</td> 
+                          <td v-else-if="campaignFullData.countryCd == null">없음</td> 
+                          <td v-else-if="campaignFullData.countryCd == ''">없음</td> 
+                          <td v-else>{{campaignFullData.countryCd}}</td> 
                         </tr>
                         <tr>
                           <th>기기 OS</th>
@@ -657,7 +657,7 @@
     display: flex;
     justify-content: space-between;
   }
-  .dailyDataBox .dailyDataMiddle {
+  .dailyDataBox .dailyDataExtra {
     width: 218px;
     height: 81px;
     display: flex;
@@ -671,7 +671,7 @@
     cursor: pointer;
   }
 
-  .dailyDataBox .dailyDataMiddle i {
+  .dailyDataBox .dailyDataExtra i {
     display: flex;
     width: 40px;
     height: 40px;
@@ -683,17 +683,17 @@
     align-items: center;
   }
 
-  .dailyDataBox .dailyDataMiddle .bgo {
+  .dailyDataBox .dailyDataExtra .bgo {
     background: #e25b45;
   }
 
-  .dailyDataBox .dailyDataMiddle h2 {
+  .dailyDataBox .dailyDataExtra h2 {
     margin-left: 15px;
     font-size: 18px;
     color: #e25b45;
   }
 
-  .dailyDataBox .dailyDataMiddle h2 span{
+  .dailyDataBox .dailyDataExtra h2 span{
     font-size: 14px;
     font-weight: 400;
     padding-bottom: 5px;
@@ -701,21 +701,21 @@
     display: inline-block;
   }
 
-  /* .dailyDataBox .dailyDataMiddle h2,
-  .dailyDataBox .dailyDataMiddle p {
+  /* .dailyDataBox .dailyDataExtra h2,
+  .dailyDataBox .dailyDataExtra p {
     color: #222;
   }
-  .dailyDataBox .dailyDataMiddle h2 {
+  .dailyDataBox .dailyDataExtra h2 {
     font-size: 18px;
     margin-bottom: 5px;
   }
-  .dailyDataBox .dailyDataMiddle h2.dataEm {
+  .dailyDataBox .dailyDataExtra h2.dataEm {
     color: #e25b45;
   }
-  .dailyDataBox .dailyDataMiddle p {
+  .dailyDataBox .dailyDataExtra p {
     font-size: 14px;
   }
-  .dailyDataBox .dailyDataMiddle .dailyFake {
+  .dailyDataBox .dailyDataExtra .dailyFake {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -725,7 +725,7 @@
     background: #ddd;
     padding: 17px;
   }
-  .dailyDataBox .dailyDataMiddle .dailyFake p {
+  .dailyDataBox .dailyDataExtra .dailyFake p {
     margin-bottom: 13px;
     color: #929292;
   } */

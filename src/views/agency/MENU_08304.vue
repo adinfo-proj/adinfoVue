@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div id="menu08303">
+    <div id="menu08304">
       <div class="flex">
         <div class="left">
           <div class="tableBox">
@@ -361,22 +361,22 @@
 
 <style scoped>
 
-  #menu08303 .flex {
+  #menu08304 .flex {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
   }
 
-  #menu08303 .flex .left {
+  #menu08304 .flex .left {
     width: 800px;
   }
 
-  #menu08303 .flex .left .tableBox {
+  #menu08304 .flex .left .tableBox {
     margin-bottom: 10px;
   }
 
-  #menu08303 .flex .left .tableBox td input,
-  #menu08303 .flex .left .tableBox td select{
+  #menu08304 .flex .left .tableBox td input,
+  #menu08304 .flex .left .tableBox td select{
     border: 1px solid #e5e5e5;
     margin: 0 5px;
     height: 100%;
@@ -384,23 +384,23 @@
     width: 200px;
   }
 
-  #menu08303 .flex .left .tableBox td.pad {
+  #menu08304 .flex .left .tableBox td.pad {
     padding-left: 15px;
   }
 
-  #menu08303 .flex .left .tableBox td input[type="date"] {
+  #menu08304 .flex .left .tableBox td input[type="date"] {
     height: 29px;
   }
 
-  #menu08303 .flex .left .tableBox .boxSz{
+  #menu08304 .flex .left .tableBox .boxSz{
     width: 620px;
   }
 
-  #menu08303 .flex .left .btnBox {
+  #menu08304 .flex .left .btnBox {
     text-align: center;
   }
 
-  #menu08303 .flex .left .btnBox button {
+  #menu08304 .flex .left .btnBox button {
     font-weight: 700;
     margin: 0 5px;
     width: 92px;
@@ -410,26 +410,26 @@
     border: none;
   }
 
-  #menu08303 .flex .left .btnBox .clear {
+  #menu08304 .flex .left .btnBox .clear {
     background: #686868;
   }
 
-  #menu08303 .flex .left .btnBox .submit {
+  #menu08304 .flex .left .btnBox .submit {
     background: #e25b45;
   }
 
-  #menu08303 .flex .left .btnBox .modify {
+  #menu08304 .flex .left .btnBox .modify {
     color: #e25b45;
     border: 1px solid #e25b45;
     background: #fff;
   }
 
-  #menu08303 .flex .left .btnBox .del {
+  #menu08304 .flex .left .btnBox .del {
     background: #000;
   }
 
-  #menu08303 .adminData th,
-  #menu08303 .adminData td {
+  #menu08304 .adminData th,
+  #menu08304 .adminData td {
     border: none;
     padding: 15px 18px;
     text-align: center;
@@ -437,11 +437,11 @@
     position: relative;
   }
 
-  #menu08303 .adminData thead {
+  #menu08304 .adminData thead {
     border-bottom: 1px solid #5c5c5c;
   }
 
-  #menu08303 .adminData thead th::after {
+  #menu08304 .adminData thead th::after {
     clear: both;
     position: absolute;
     content: "";
@@ -453,45 +453,45 @@
     transform: translateY(-50%);
   }
 
-  #menu08303 .adminData tbody tr {
+  #menu08304 .adminData tbody tr {
     border-bottom: 1px solid #ececec;
   }
 
-  #menu08303 .adminData thead th:last-child::after{
+  #menu08304 .adminData thead th:last-child::after{
     display: none;
   }
 
-  #menu08303 .adminData .admNo {
+  #menu08304 .adminData .admNo {
     width: 5%;
   }
 
-  #menu08303 .adminData .admStart{
+  #menu08304 .adminData .admStart{
     width: 15%;
   }
-  #menu08303 .adminData .admPw,
-  #menu08303 .adminData .admEnd {
+  #menu08304 .adminData .admPw,
+  #menu08304 .adminData .admEnd {
     width: 10%;
   }
-  #menu08303 .adminData .admId {
+  #menu08304 .adminData .admId {
     width: 50%;
   }
-  #menu08303 .adminData .admIdData {
+  #menu08304 .adminData .admIdData {
     text-align: left;
   }
 
-  #menu08303 .adminData .admCamp,
-  #menu08303 .adminData .admLand {
+  #menu08304 .adminData .admCamp,
+  #menu08304 .adminData .admLand {
     width: 20%;
   }
-  #menu08303 .adminData .admAccess{
+  #menu08304 .adminData .admAccess{
     width: 15%;
   }
 
-  #menu08303 tfoot ul,
-  #menu08303 tfoot ul li {
+  #menu08304 tfoot ul,
+  #menu08304 tfoot ul li {
     display: inline-block;
   }
-  #menu08303 tfoot span {
+  #menu08304 tfoot span {
     display: inline-block;
     width: 25px;
     height: 25px;
@@ -502,15 +502,15 @@
     text-align: left;
     cursor: pointer;
   }
-  #menu08303 tfoot ul li {
+  #menu08304 tfoot ul li {
     margin: 0 10px;
     cursor: pointer;
   }
-  #menu08303 tfoot ul li.on {
+  #menu08304 tfoot ul li.on {
     font-weight: 900;
     position: relative;
   }
-  #menu08303 tfoot ul li.on:after {
+  #menu08304 tfoot ul li.on:after {
     clear: both;
     position: absolute;
     height: 1px;

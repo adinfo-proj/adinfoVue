@@ -84,6 +84,7 @@
           <tbody>
             <tr v-for="(stUserList, index) in stUserListObj"
               :key="index"
+              @click="ServeData(index)"
             >
               <th class="admNo">{{index+1}}</th>
               <td class="admStart">{{stUserList.createDt}}</td>
@@ -91,8 +92,8 @@
               <td class="admLand">{{stUserList.pgNm}}</td>
               <td class="admId">{{stUserList.externalClntId}}</td>
               <td class="admPw">{{stUserList.externalClntPw}}</td>
-              <td class="admAccess">추후 제공 예정</td>
-              <td class="admEnd">{{stUserList.endDt}}</td>
+              <td class="admAccess">{{stUserList.createDt}}</td>
+              <td class="admEnd">{{stUserList.endDt | yyyyMMdd}}</td>
             </tr>
           </tbody>
           <tfoot>
@@ -151,6 +152,22 @@
         , curPage               : 0
 			}
 		},
+    filters: {
+      yyyyMMdd : function(value){
+        if(value == '') return '';
+          let dateStr = new String(value);
+
+          // 연도, 월, 일 추출
+          let year = dateStr.substring(0,4);
+          let month = dateStr.substring(4,6);
+          let day = dateStr.substring(6,8);
+
+          if ( dateStr.length!=8){
+            return false;
+          }
+          return year + '-' + month + '-' + day;
+        }
+    },
 		methods: {
 			//******************************************************************************
 			// 캠페인 목록
@@ -259,6 +276,14 @@
           alert("등록하실 외부 접속 비밀번호를 입력해주세요.");
           return;
         }
+
+        for(let i = 0 ; i < this.stUserListObj.length; i++){
+          if (this.idComment == this.stUserListObj[i].externalClntId) {
+            alert("이미 등록된 아이디입니다.")
+            return
+          }
+        }
+                    console.log('dddsss')
 
         let lAdSrtDt = this.srtDt.replace(/-/gi,"", (match) => {
           return '' + match + '';
@@ -375,6 +400,29 @@
           console.log(error);
         })
 			},
+			//******************************************************************************
+			// 데이터 전송
+			//******************************************************************************
+      ServeData(index){
+        let dataServe = this.stUserListObj[index];
+        this.getLandingPageLst(dataServe.caId)
+
+        let srtDay    = dataServe.createDt.substring(0,10);
+        let endDay    = dataServe.endDt
+
+        let y = endDay.substring(0,4);
+        let m = endDay.substring(4,6);
+        let d = endDay.substring(6,8);
+
+        endDay = y + '-' + m + '-' + d
+
+        this.campSelect = dataServe.caId;
+        this.landSelect = dataServe.pgId;
+        this.idComment  = dataServe.externalClntId;
+        this.passWd     = dataServe.externalClntPw;
+        this.srtDt      = srtDay
+        this.endDt      = endDay
+      },
     },
 		created() {
 			this.$store.state.headerTopTitle = "랜딩페이지";
@@ -453,6 +501,9 @@
     background: #000;
   }
 
+  #menu08303 .adminData tr {
+    cursor: pointer;
+  }
   #menu08303 .adminData th,
   #menu08303 .adminData td {
     border: none;
@@ -490,7 +541,9 @@
     width: 5%;
   }
 
-  #menu08303 .adminData .admStart,
+  #menu08303 .adminData .admStart{
+    width: 12.5%;
+  }
   #menu08303 .adminData .admId,
   #menu08303 .adminData .admPw,
   #menu08303 .adminData .admEnd {
@@ -504,7 +557,7 @@
     width: 20%;
   }
   #menu08303 .adminData .admAccess{
-    width: 15%;
+    width: 12.5%;
   }
 
 
