@@ -63,7 +63,7 @@
 			// 선택된 데이터 불러오기
 			//******************************************************************************
 			getBoardContents(seqNo) {
-				axios.get("http://192.168.0.200:30000/ask/contents",
+				axios.get("http://api.adinfo.co.kr:30000/ask/contents",
 				{
 					params: {
 							seqNo: seqNo
@@ -80,7 +80,7 @@
 			// 문의사항 수정
 			//******************************************************************************
 			UpDateBoard() {
-        axios.get("http://192.168.0.200:30000/ask/update",
+        axios.get("http://api.adinfo.co.kr:30000/ask/update",
         {
           params: {
               clntId: this.$store.state.clntId

@@ -64,7 +64,7 @@
 			//******************************************************************************
 			getTechContents(seqNo) {
 				console.log(seqNo)
-				axios.get("http://192.168.0.200:30000/inprove/contents",
+				axios.get("http://api.adinfo.co.kr:30000/inprove/contents",
 				{
 					params: {
 							seqNo: seqNo
@@ -82,7 +82,7 @@
 			// 기능개선 요청 수정
 			//******************************************************************************
 			UpDateTech() {
-        axios.get("http://192.168.0.200:30000/inprove/update",
+        axios.get("http://api.adinfo.co.kr:30000/inprove/update",
         {
           params: {
               clntId: this.$store.state.clntId

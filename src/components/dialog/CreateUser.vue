@@ -706,7 +706,7 @@
           type: "application/json"
         }));
 
-        axios.post("http://192.168.0.200:30000/addmember", frm)
+        axios.post("http://api.adinfo.co.kr:30000/addmember", frm)
         .then(response => {
           if (response.data.status == true) {
             $("#singPopUp").css({
@@ -746,7 +746,7 @@
 
         $('#singPopUp table td .certain span').css({display : "inline"})
 
-        axios.get("http://192.168.0.200:30000/InsertAuthSms", {
+        axios.get("http://api.adinfo.co.kr:30000/InsertAuthSms", {
           params: {
             to: this.clntSubsNo,
             from: '15333757'

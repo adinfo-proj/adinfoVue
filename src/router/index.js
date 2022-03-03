@@ -389,13 +389,13 @@ router.beforeEach((to, from, next) => {
     // DESC : 페이지 전환시마다 토큰값을 확인하여 인증을 재 확인한다.
     //------------------------------------------------------------------
     if (sessionStorage.getItem("token") == null || sessionStorage.getItem("token") == '') {
-      if(window.location.hostname == 'admin.dbmaster.co.kr')
+      if(window.location.hostname == 'adm.dbmaster.co.kr')
         next('/AdminLogin');
       else
         next('/login');
     } else {
       // api call 후 유효시간 확인
-      axios.get("http://192.168.0.200:30000/vaildauth",
+      axios.get("http://api.adinfo.co.kr:30000/vaildauth",
       {
         params: {
           token: sessionStorage.getItem("token")
@@ -404,7 +404,7 @@ router.beforeEach((to, from, next) => {
       .then(response => {
         if(response.data.status == false) {
           sessionStorage.clear();
-          if(window.location.hostname == 'admin.dbmaster.co.kr') {
+          if(window.location.hostname == 'adm.dbmaster.co.kr') {
             next('/AdminLogin');
           }
           else {
@@ -415,7 +415,7 @@ router.beforeEach((to, from, next) => {
       .catch(error => {
         console.log(error);
         sessionStorage.clear();
-        if(window.location.hostname == 'admin.dbmaster.co.kr')
+        if(window.location.hostname == 'adm.dbmaster.co.kr')
           next('/AdminLogin');
         else
           next('/login');

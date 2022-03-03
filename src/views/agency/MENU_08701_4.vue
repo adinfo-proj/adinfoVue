@@ -68,7 +68,7 @@
 			// 선택된 데이터 불러오기
 			//******************************************************************************
 			getModifyContents(seqNo) {
-				axios.get("http://192.168.0.200:30000/notice/contents",
+				axios.get("http://api.adinfo.co.kr:30000/notice/contents",
 				{
 					params: {
 							seqNo: seqNo
@@ -88,7 +88,7 @@
 			// 공지사항 변경
 			//******************************************************************************
 			UpDateNotify(seqNo) {
-        axios.get("http://192.168.0.200:30000/notice/update",
+        axios.get("http://api.adinfo.co.kr:30000/notice/update",
         {
           params: {
               seqNo     : seqNo

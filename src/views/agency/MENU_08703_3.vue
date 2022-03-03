@@ -62,7 +62,7 @@
 			// 문의사항 등록
 			//******************************************************************************
 			CreateBoard() {
-        axios.get("http://192.168.0.200:30000/notice/create",
+        axios.get("http://api.adinfo.co.kr:30000/notice/create",
         {
           params: {
               clntId: this.$store.state.clntId

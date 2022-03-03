@@ -49,7 +49,7 @@ export default {
     // 로그인 함수
     //******************************************************************************    
     LogIn() {
-      axios.post("http://192.168.0.200:30000/AdminLogin", {
+      axios.post("http://api.adinfo.co.kr:30000/AdminLogin", {
         clntId: this.clntId,
         clntPw: this.clntPw,
         siteCode: '01'
@@ -99,7 +99,7 @@ export default {
   },
   created() {
     // alert(window.location.hostname);
-    if(window.location.hostname != 'admin.dbmaster.co.kr')
+    if(window.location.hostname != 'adm.dbmaster.co.kr')
     // if(window.location.hostname == '192.168.0.104')
       this.$router.push({ name : "Login" });
   }

@@ -177,7 +177,7 @@
           this.landSelect = "-1";
           return;
         }
-				axios.get("http://192.168.0.200:30000/GetCampaignNameLst", 
+				axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst", 
 				{
 					params: {
 							mbId: this.$store.state.mbId
@@ -200,7 +200,7 @@
           this.landSelect = "-1";
 //          return;
         }
-        axios.get("http://192.168.0.200:30000/GetLandingListForMbAdCaCode",
+        axios.get("http://api.adinfo.co.kr:30000/GetLandingListForMbAdCaCode",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -233,7 +233,7 @@
         // if(this.landSelect == "-1")
         //   return;
 
-        axios.get("http://192.168.0.200:30000/GetLandingListOne",
+        axios.get("http://api.adinfo.co.kr:30000/GetLandingListOne",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -308,7 +308,7 @@
 
         const frm = new FormData();
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-        axios.post("http://192.168.0.200:30000/CreExternalUser", frm, {
+        axios.post("http://api.adinfo.co.kr:30000/CreExternalUser", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
@@ -344,7 +344,7 @@
 
 				this.curPage = selectPage;
 
-        axios.get("http://192.168.0.200:30000/GetExternalUserList",
+        axios.get("http://api.adinfo.co.kr:30000/GetExternalUserList",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -431,7 +431,7 @@
 		// 			return;
 		// 		}
 
-		// 		axios.get("http://192.168.0.200:30000/ChangeLandingStatus",
+		// 		axios.get("http://api.adinfo.co.kr:30000/ChangeLandingStatus",
 		// 		{
 		// 			params: {
     //           mbId            : this.$store.state.mbId

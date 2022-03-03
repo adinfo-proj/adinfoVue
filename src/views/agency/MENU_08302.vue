@@ -298,9 +298,9 @@
         </div>
 
         <!-- 동영상 -->
-        <div v-if="lendchoose.tp == '04'">
+        <!-- <div v-if="lendchoose.tp == '04'">
             <iframe :src="lendchoose.descript" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; muteded; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
-        </div>
+        </div> -->
 
       </div>
       <div class="bgColor">
@@ -423,7 +423,7 @@
           <button class="firstBtn"  @click="ImgChooseBtn()" >이미지 추가</button>
           <!-- <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button> -->
           <button class="firstBtn" @click="FormChooseBtn()">폼 추가</button>
-          <button class="firstBtn" @click="VideoChooseBtn()">유투브 추가</button>
+          <!-- <button class="firstBtn" @click="VideoChooseBtn()">유투브 추가</button> -->
           <button class="iniBtn" @click="InitForm()">초기화</button>
         </div>
         <div class="right">
@@ -510,7 +510,7 @@
       // Open Event
       //******************************************************************************
       getCampaignSelect(index) { // 캠페인 분류(대분류)
-        axios.get("http://192.168.0.200:30000/GetCampInfo",
+        axios.get("http://api.adinfo.co.kr:30000/GetCampInfo",
         {
           params: {
               mbId   : this.$store.state.mbId
@@ -737,7 +737,7 @@
           }
         }
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-        axios.post("http://192.168.0.200:30000/newlandingpage", frm, {
+        axios.post("http://api.adinfo.co.kr:30000/newlandingpage", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
@@ -756,7 +756,7 @@
       // 캠페인 분류(대분류)
       //******************************************************************************
       getCampaignAllList() { // 캠페인 분류(대분류)
-        axios.get("http://192.168.0.200:30000/GetCampaignNameLst",
+        axios.get("http://api.adinfo.co.kr:30000/GetCampaignNameLst",
         {
           params: {
               mbId   : this.$store.state.mbId
@@ -784,7 +784,7 @@
       // 캠페인 대체 시 
       //******************************************************************************
       ReplacePage(){
-        axios.get("http://192.168.0.200:30000/GetLandingListForMbAdCaCode",
+        axios.get("http://api.adinfo.co.kr:30000/GetLandingListForMbAdCaCode",
         {
           params: {
               mbId: this.$store.state.mbId
@@ -1311,10 +1311,10 @@
     width: 100%;
     display: flex;
     margin-bottom: 10px;
-    background: #fff;
   }
 
   .menu0804 .landPrev .formPrev03 .flex {
+    background: #fff;
     border: 1px solid #b3b3b3;
     margin-bottom: 20px;
   }

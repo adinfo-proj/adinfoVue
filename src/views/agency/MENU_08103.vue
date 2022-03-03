@@ -267,7 +267,7 @@ export default {
     // 선택된 데이터 불러오기
     //******************************************************************************
     getCommonByCampData() {
-      axios.get("http://192.168.0.200:30000/GetCampInfo",
+      axios.get("http://api.adinfo.co.kr:30000/GetCampInfo",
       {
         params: {
             mbId: this.$store.state.mbId
@@ -382,7 +382,7 @@ export default {
     // 캠페인 목적
     //******************************************************************************
     getCommonByTp0005 () { // 캠페인 목적
-      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp",
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp",
       {
         params: {
           tp: '0005'
@@ -402,7 +402,7 @@ export default {
     // 캠페인 분류(대분류)
     //******************************************************************************
     getCommonByTp(code) { // 캠페인 분류(대분류)
-      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
       {
         params: {
           tp: code
@@ -423,7 +423,7 @@ export default {
     // 캠페인 분류(중분류)
     //******************************************************************************
     firstComboChg(code, status) { // 캼패인 분류(소분류)
-      axios.get("http://192.168.0.200:30000/CommonCode/getCommonCodeByCode", 
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonCodeByCode", 
       {
         params: {
           tp: '0001',
@@ -449,7 +449,7 @@ export default {
     // 캠페인 상태
     //******************************************************************************
     getCommonByTp0009() {
-      axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
+      axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
       {
         params: {
           tp: '0009'
@@ -522,7 +522,7 @@ export default {
       frm.append("dataObj", new Blob([JSON.stringify(this.campainData)], {type: "application/json"}));
       frm.append("formObj", new Blob([JSON.stringify(this.formObj    )], {type: "application/json"}));
 
-      axios.post("http://192.168.0.200:30000/upcampaign", frm, {
+      axios.post("http://api.adinfo.co.kr:30000/upcampaign", frm, {
         headers: {'Content-Type': 'multipart/form-data'}
       })
       .then(response => {

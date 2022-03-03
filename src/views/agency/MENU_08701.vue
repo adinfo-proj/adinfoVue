@@ -86,7 +86,7 @@
 				this.dbSelectData = null;
 				this.curPage = selectPage;
 
-        axios.get("http://192.168.0.200:30000/notice/titlelist",
+        axios.get("http://api.adinfo.co.kr:30000/notice/titlelist",
         {
           params: {
               seqNo     : 9999999999

@@ -155,7 +155,7 @@
 					return;
 				}
 
-				axios.get("http://192.168.0.200:30000/ChangeCampaignStatus", 
+				axios.get("http://api.adinfo.co.kr:30000/ChangeCampaignStatus", 
 				{
 					params: {
 							mbId        : this.$store.state.mbId
@@ -184,7 +184,7 @@
 			// 캠페인 상태
 			//******************************************************************************
 			getCommonByTp0009() {
-				axios.get("http://192.168.0.200:30000/CommonCode/getCommonByTp", 
+				axios.get("http://api.adinfo.co.kr:30000/CommonCode/getCommonByTp", 
 				{
 					params: {
 						tp: '0009'
@@ -215,7 +215,7 @@
 
 				this.curPage = selectPage;
 
-				axios.get("http://192.168.0.200:30000/GetCampaignForMbAdStatus", 
+				axios.get("http://api.adinfo.co.kr:30000/GetCampaignForMbAdStatus", 
 				{
 					params: {
 							mbId: this.$store.state.mbId

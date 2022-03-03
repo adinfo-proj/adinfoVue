@@ -145,7 +145,7 @@
           type: "application/json"
         }));
 
-				axios.post("http://192.168.0.200:30000/selectmember", frm)
+				axios.post("http://api.adinfo.co.kr:30000/selectmember", frm)
         .then(response => {
 					this.clntNm = response.data.clntNm
 					this.clntSubsNo = response.data.clntSubsNo
@@ -189,7 +189,7 @@
           type: "application/json"
         }));
 
-				axios.post("http://192.168.0.200:30000/modifymember", frm)
+				axios.post("http://api.adinfo.co.kr:30000/modifymember", frm)
         .then(response => {
 
 					alert(response.data.message)
