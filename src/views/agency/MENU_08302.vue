@@ -212,7 +212,7 @@
                 </div>
               </div>
               <!-- 메모장 -->
-              <div v-if="inObj.values == 'textArea'"  class="flex">
+              <div v-if="inObj.values == 'textArea'"  class="flex after">
                 <div class="left" :style="{color:lendchoose.formDesc.textA}">
                   {{inObj.names}}
                 </div>
@@ -296,6 +296,12 @@
           </div>
           <!-- <div v-for="(inObj, index) in $store.state.inputObj" :key="index"> -->
         </div>
+
+        <!-- 동영상 -->
+        <div v-if="lendchoose.tp == '04'">
+            <iframe :src="lendchoose.descript" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; muteded; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
+        </div>
+
       </div>
       <div class="bgColor">
       </div>
@@ -390,7 +396,7 @@
         </div>
       </div>
       
-      
+
 
       <!------------------------------------------------------------------------------------------------------
        이곳부터 for 루프안에서 이미지/텍스트/폼의 경우를 위해 콤포넌트를 처리한다.
@@ -408,13 +414,21 @@
         <div v-if="lendchoose.tp == '03'">
           <ChooseLandForm :indexNum="index"></ChooseLandForm>
         </div>
+        <div v-if="lendchoose.tp == '04'">
+          <ChooseLandVideo :indexNum="index"></ChooseLandVideo>
+        </div>
       </div>
       <div class="btnBox">
-        <button class="firstBtn"  @click="ImgChooseBtn()" >이미지 추가</button>
-        <!-- <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button> -->
-        <button class="firstBtn" @click="FormChooseBtn()">폼 추가</button>
-        <button class="iniBtn" @click="InitForm()">초기화</button>
-        <button class="saveBtn" @click="PreviewSend()">랜딩 생성하기</button>
+        <div class="left">
+          <button class="firstBtn"  @click="ImgChooseBtn()" >이미지 추가</button>
+          <!-- <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button> -->
+          <button class="firstBtn" @click="FormChooseBtn()">폼 추가</button>
+          <button class="firstBtn" @click="VideoChooseBtn()">유투브 추가</button>
+          <button class="iniBtn" @click="InitForm()">초기화</button>
+        </div>
+        <div class="right">
+          <button class="saveBtn" @click="PreviewSend()">랜딩 생성하기</button>
+        </div>
       </div>
       <div class="subBox">
       </div>
@@ -428,11 +442,13 @@
   import ChooseLandImg  from '../../components/dialog/ChooseLandImg.vue';
   import ChooseLandText from '../../components/dialog/ChooseLandText.vue';
   import ChooseLandForm from '../../components/dialog/ChooseLandForm.vue';
+  import ChooseLandVideo from '../../components/dialog/ChooseLandVideo.vue';
   export default {
     components: {
         ChooseLandImg
       , ChooseLandText
       , ChooseLandForm
+      , ChooseLandVideo
     },
     data() {
       return {
@@ -1172,6 +1188,30 @@
         this.$store.state.lendchooseObj.push(plusObj);
       },
       //******************************************************************************
+      // 동영상 추가 함수
+      //******************************************************************************
+      VideoChooseBtn(){
+        if(this.campData.caId == null || this.campData.caId == '') {
+          alert("캠페인명을 선택해주세요.");
+          return;
+        }
+
+        if(this.$store.state.lendchooseObj.length > 9) {
+          alert("이미지, 폼은 10개 까지만 등록 가능합니다.")
+          return;
+        }
+        let plusObj = {
+            tp: ''
+          , fileNm: ''
+          , descript: ''
+          , formDesc: ''
+          , landImgNm: ''
+        };
+        plusObj.tp = '04';
+        this.$store.state.lendchooseObj.push(plusObj);
+
+      },
+      //******************************************************************************
       // 폼 안에 개인정보 모달 박스 팝업
       //******************************************************************************
       PriModal() {
@@ -1533,6 +1573,13 @@
     display: none;
   }
   /* 개인정보 수집 동의 항목 */
+
+
+  .menu0804 .landPrev iframe{
+    width: 800px;
+    height: 450px;
+  }
+
   .menu0804 .landChoice {
     width: 525px;
   }
@@ -1707,14 +1754,15 @@
     font-size: 16px;
     margin-top: 20px;
   }
-  .menu0804 .landChoice .btnBox {
-    /* display: flex; */
-    text-align: center;
-    /* justify-content: space-between; */
-    /* padding: 10px 66px 0 66px; */
+  .menu0804 .landChoice .btnBox .left {
+    float: left;
+    width: 330px;
+  }
+
+  .menu0804 .landChoice .btnBox .right {
+    float: right;
   }
   .menu0804 .landChoice .btnBox button {
-    /* padding: 13px 26px; */
     min-width: 100px;
     height: 40px;
     font-size: 16px;
@@ -1728,12 +1776,11 @@
     border: 1px solid #e25b45;
     color: #e25b45;
     background: #fff;
-    margin-right: 10px;
+    margin: 0 10px 10px 0;
   }
 
   .menu0804 .landChoice .btnBox .iniBtn {
     background: #262626;
-    margin-right: 10px;
     color: #fff;
   }
   .menu0804 .landChoice .btnBox .saveBtn {
