@@ -3,7 +3,7 @@
 		<div id="menu08701">
 			<div class="tableBox noticeTop">
 				<h1>기능 개선 요청</h1>
-				<p>기능개선과 원하신느 추가 기능을 편하게 요청해주세요. 디비마스터에서 반영을 위해 힘쓰겠습니다.</p>
+				<p>기능개선과 원하시는 추가 기능을 편하게 요청해주세요. 디비마스터에서 반영을 위해 힘쓰겠습니다.</p>
 				<!-- 나중에 != =>  == 으로 바꿔야함 -->
 				<!-- <div class="btnBox" v-if="$store.state.adGradeCd != '01'"> -->
 				<div class="btnBox">

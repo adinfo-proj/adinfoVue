@@ -3,7 +3,7 @@
 		<div id="menu08701_2">
 			<div class="tableBox noticeTop">
 				<h1>기능 개선 요청</h1>
-				<p>안내, 정책변경, 업데이트등 디비마스터의 다양한 소식을 확인하실 수 있습니다.</p>
+				<p>기능개선과 원하시는 추가 기능을 편하게 요청해주세요. 디비마스터에서 반영을 위해 힘쓰겠습니다.</p>
 			</div>
 			<div class="tableBox noticeView">
 				<h3>

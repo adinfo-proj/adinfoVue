@@ -10,25 +10,25 @@
 							<label for="basic" @click="Init()">
 								<span class="top">BASIC</span>
 								<span class="middle">29,700 <span>원/월(VAT 포함)</span></span>
-								<span class="bottom"><span>랜딩 갯 수</span> 3개</span>
+								<span class="bottom"><span>랜딩(라이브) 갯 수</span> 3개</span>
 							</label>
 							<input type="radio" id="silver" value="silver" v-model="servicePlan" >
 							<label for="silver" @click="Init()">
 								<span class="top">SILVER</span>
 								<span class="middle">66,000 <span>원/월(VAT 포함)</span></span>
-								<span class="bottom"><span>랜딩 갯 수</span> 7개</span>
+								<span class="bottom"><span>랜딩(라이브) 갯 수</span> 7개</span>
 							</label>
 							<input type="radio" id="gold" value="gold" v-model="servicePlan">
 							<label for="gold" @click="Init()">
 								<span class="top">GOLD</span>
 								<span class="middle">99,000 <span>원/월(VAT 포함)</span></span>
-								<span class="bottom"><span>랜딩 갯 수</span> 12개</span>
+								<span class="bottom"><span>랜딩(라이브) 갯 수</span> 12개</span>
 							</label>
 							<input type="radio" id="vip" value="vip" v-model="servicePlan" >
 							<label for="vip" @click="Init()">
 								<span class="top">VIP</span>
 								<span class="middle">220,000 <span>원/월(VAT 포함)</span></span>
-								<span class="bottom"><span>랜딩 갯 수</span> 30개</span>
+								<span class="bottom"><span>랜딩(라이브) 갯 수</span> 30개</span>
 							</label>
 						</div>
 					</li>
@@ -46,6 +46,12 @@
 								<span class="top">SMS 수신 서비스</span>
 								<span class="middle">2,200 / 6,600 /11,000 / 22,000 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>DB접수 시 SMS수신 서비스</span></span>
+							</label>
+							<input type="radio" v-model="subPlan" id="adminM" value="adminM">
+							<label for="adminM">
+								<span class="top">어드민 관리자 서비스</span>
+								<span class="middle">110,000 <span>원/월(VAT 포함)</span></span>
+								<span class="bottom"><span>관리 할 수 있는 어드민 페이지</span></span>
 							</label>
 						</div>
 					</li>
@@ -113,7 +119,76 @@
 								</span>
 							</p>
 							<div class="btn">
-								<button>바로 구매</button>
+
+								<!-- <form id="payForm" method="post" accept-charset="UTF-8">
+									<input type="text">
+								</form> -->
+								<!-- <button  @click="CreatePay();">바로 구매</button> -->
+								<form id="SendPayForm_id" name="" method="POST" >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+									<input type="hidden"    name="goodname" value="테스트" >
+									<input type="hidden"    name="buyername" value="홍길동" >
+									<input type="hidden"    name="buyertel" value="010-1234-5678" >
+									<input type="hidden"    name="buyeremail" value="test@inicis.com" >
+									
+									<input type="hidden"  name="mid" value="INIpayTest" ><!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
+									<input type="hidden"  name="gopaymethod" value="Card" >
+									<input type="hidden"  name="mKey" value="3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33" >
+									
+
+									<input type="hidden"  name="version" value="1.0" >
+									<input type="hidden"  name="currency" value="WON" >
+									<input type="hidden"  name="acceptmethod" value="below1000" >
+
+
+									<!-- timestamp = new Date().getTime(); -->
+
+
+									<input type="text"    name="price" v-model="total" @change="eeeeeeeeeeeee();">
+									<input type="hidden"  name="oid"  v-model="order" value="INIpayTest_1646632303451" >
+									<input type="text"  name="timestamp" v-model="nowDate" >
+
+
+									<input type="hidden"  name="signature" v-model="hashCode" value="cad3c13f2697b6ed7032746f551d92079b62d15a18f8221ea59ca9a858ed3f98" >
+
+
+
+
+
+
+
+
+
+
+
+
+											<input type="hidden"  name="returnUrl" value="http://sw.dbmaster.co.kr/stdpay/INIStdPaySample/INIStdPayReturn.php" >
+											<input type="hidden"  name="closeUrl" value="http://sw.dbmaster.co.kr/stdpay/INIStdPaySample/close.php" >
+
+								</form>
+
+								<button onclick="INIStdPay.pay('SendPayForm_id')">결제요청</button>
+
+
+
+
+
+
+								
+								<!-- <Payment></Payment> -->
 							</div>
 						</div>
 					</div>
@@ -135,10 +210,12 @@
 						<div class="left">
 							<img v-if="subPlan == 'post'" src="../../assets/images/ratePlan/post.jpg" alt="post">
 							<img v-if="subPlan == 'sms'" src="../../assets/images/ratePlan/sms.jpg" alt="sms">
+							<img v-if="subPlan == 'adminM'" src="../../assets/images/ratePlan/adminManager.jpg" alt="sms">
 						</div>
 						<div class="right">
 							<h6 v-if="subPlan == 'post'">[디비마스터] API 프리미엄 서비스 1개월 </h6>
 							<h6 v-if="subPlan == 'sms'"> [디비마스터] SMS 수신 서비스</h6>
+							<h6 v-if="subPlan == 'adminM'"> [디비마스터] 어드민 관리자 서비스 1개월</h6>
 							<p class="subtitle">
 								디비마스터의 유료 서비스상품을 구매 후 이용할 수 있는 상품입니다. 
 							</p>
@@ -148,6 +225,7 @@
 								</span>
 								<span v-if="subPlan == 'post'" class="line">110,000원</span>
 								<span v-if="subPlan == 'sms'" class="line">DB접수 알림 건당 20원 발생</span>
+								<span v-if="subPlan == 'adminM'" class="line">220,000원</span>
 							</p>
 							<p>
 								<span class="planTitle">
@@ -155,6 +233,7 @@
 								</span>
 								<span v-if="subPlan == 'post'" class="org">55,000원 <span>(50% 할인)</span></span>
 								<span v-if="subPlan == 'sms'" class="org">2,200원 ~</span>
+								<span v-if="subPlan == 'adminM'" class="org">110,000원 <span>(50% 할인)</span></span>
 							</p>
 							<p>
 								<span class="planTitle">
@@ -168,7 +247,7 @@
 								<span class="planTitle">
 									상품선택
 								</span>
-								<span v-if="subPlan == 'post'">단일상품</span>
+								<span v-if="subPlan == 'post' || subPlan == 'adminM'">단일상품</span>
 								<span v-if="subPlan == 'sms'">
 									<select v-model="smsPlan" >
 										<option value=0 disabled>발송 건수 선택</option>
@@ -188,7 +267,40 @@
 								</span>
 							</p>
 							<div class="btn">
-								<button>바로 구매</button>
+								<button  @click="CreatePay();">바로 구매</button>
+
+								
+
+
+								<!-- <form id="SendPayForm_id" name="" method="POST" > -->
+
+											<!-- <input type="text"    name="goodname" value="테스트" > -->
+											<!-- <input type="text"    name="buyername" value="홍길동" > -->
+											<!-- <input type="text"    name="buyertel" value="010-1234-5678" > -->
+											<!-- <input type="text"    name="buyeremail" value="test@inicis.com" > -->
+											
+											<!-- <input type="hidden"  name="mid" value="INIpayTest" > -->
+											<!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
+											<!-- <input type="hidden"  name="gopaymethod" value="Card" > -->
+											<!-- <input type="hidden"  name="mKey" value="3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33" > -->
+											<!-- <input type="hidden"  name="signature" value="cad3c13f2697b6ed7032746f551d92079b62d15a18f8221ea59ca9a858ed3f98" > -->
+
+											<!-- <input type="hidden"  name="version" value="1.0" > -->
+											<!-- <input type="hidden"  name="currency" value="WON" > -->
+											<!-- <input type="hidden"  name="acceptmethod" value="below1000" > -->
+											<!-- 에스크로옵션 : useescrow, 빌링(정기과금)옵션 : BILLAUTH(Card) -->
+											<!-- <input type="hidden"  name="returnUrl" value="http://localhost/stdpay/INIStdPayReturn_simple.asp" > -->
+											<!-- <input type="hidden"  name="closeUrl" value="http://localhost/stdpay/close.asp" > -->
+
+
+											<!-- <input type="text"    name="price" value="1000" > -->
+												<!--  변동되서 불러오는 값-->
+											<!-- <input type="hidden"  name="oid" value="INIpayTest_1646632303451" > -->
+											<!-- <input type="hidden"  name="timestamp" value="1646632303451" > -->
+
+								<!-- </form> -->
+
+								<!-- <button onclick="INIStdPay.pay('SendPayForm_id')" style="padding:10px; margin-left:10%">결제요청</button> -->
 							</div>
 						</div>
 					</div>
@@ -197,6 +309,7 @@
 
 						<img v-if="subPlan == 'post'" src="../../assets/images/ratePlan/postPlan.jpg" alt="postPlan">
 						<img v-if="subPlan == 'sms'" src="../../assets/images/ratePlan/smsPlan.jpg" alt="smsPlan">
+						<img v-if="subPlan == 'adminM'" src="../../assets/images/ratePlan/adminManagerPlan.jpg" alt="adminManagerPlan">
 					</div>
 				</div>
 				<div class="ratePlanFooter">
@@ -226,26 +339,70 @@
 </template>
 
 <script>
+// import Payment from '@/components/dialog/Payment.vue';
+  // import Payment from '../../components/dialog/Payment.vue';
 
 	// import axios from "axios";
 	// import $ from 'jquery';
 
 
 	export default {
+		components: { 
+			// Payment
+		},
 		data() {
 			return {
-					servicePlan: ''
-				, tapbtn: 1
-				, subPlan: 'post'
-				, extraService: []
-				, total : 29700
-				, extraTotal : 0
-				, preview : ''
-				, smsPlan : 0
-				, 
+					servicePlan  : ''
+				, tapbtn       : 1
+				, subPlan      : 'post'
+				, extraService : []
+				, total        : 29700
+				, extraTotal   : 0
+				, preview      : ''
+				, smsPlan      : 0
+				, hashCode : ''
+				, nowDate: new Date().getTime()
+				// , form: {
+				// 		goodname     : '테스트'
+				// 	, buyername    : '홍길동'
+				// 	, buyertel     : '010-1234-5678'
+				// 	, buyeremail   : 'test@inicis.com'
+				// 	, price        : '1000'
+				// 	, mid          : 'INIpayTest'
+				// 	, gopaymethod  : 'Card'
+				// 	, mKey         : '3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33'
+				// 	, signature    : '9fc8b832d0ace7c1bc7827324f71d0ef742e87f991247cee52b319b8b00116ee'
+				// 	, oid          : 'INIpayTest_1646357552574'
+				// 	, timestamp    : '1646357552574'
+				// 	, version      : '1.0'
+				// 	, currency     : 'WON'
+				// 	, acceptmethod : 'below1000'
+				// 	, returnUrl    : '../../../public/stdpay/INIStdPaySample/INIStdPayReturn.php'
+				// 	, closeUrl     : '../../../public/stdpay/INIStdPaySample/close.php'
+				// }
+				// , inicis : ''
 			}
 		},
 		methods: {
+			CreatePay() {
+
+
+				// console.log("ddd")
+				// const frm = new FormData();
+				// frm.append(this.inicis, new Blob([JSON.stringify(this.form)] , {type: "application/json"}));
+				// this.inicis.INIStdPay.pay('SendPayForm_id');
+				// window.open(this.form.popUPUrl)
+
+				window.INIStdPay.pay('SendPayForm_id')
+
+
+				// window.INIStdPay.init(this.inicis);
+				// window.INIStdPay.pay(this.form.returnUrl);
+				// window.INIStdPay.
+
+				// e.preventDefault();
+
+			},
 
 			Rate(pos) {
 				this.tapbtn = pos
@@ -294,6 +451,10 @@
 				else if(this.subPlan == 'sms'){
 					price = Number(this.smsPlan)
 				}
+				else if(this.subPlan == 'adminM'){
+					price = 110000
+					this.smsPlan = 0;
+				}
 				this.extraTotal = price
 				this.extraPreview = this.extraTotal.toLocaleString('ko-KR');
 
@@ -321,6 +482,19 @@
 
 			// console.log(navigator.language);
 			
+
+		},
+		mounted() {
+			// this.inicis = document.createElement('script');
+			// this.inicis.setAttribute('src', 'https://stgstdpay.inicis.com/stdjs/INIStdPay.js');
+			// document.head.appendChild(this.inicis);
+			
+
+		}
+		,watch(){
+			// hashCode = function(s){
+			// 	return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
+			// }
 
 		}
 	}
@@ -363,6 +537,7 @@
 	font-size: 14px;
 	position: relative;
 	font-weight: 700;
+
 }
 
 #menu08999 .ratePlanTop li.on .tapBtn {
@@ -472,11 +647,11 @@
 }
 
 #menu08999 .ratePlanTop li .mid02 input[type="radio"] + label {
-	width: 645px;
+	width: 426px;
 }
 
 #menu08999 .ratePlanTop li .mid02 input[type="radio"]:checked + label::before {
-	width: 645px;
+	width: 426px;
 	height: 169px;
 }
 
@@ -628,6 +803,7 @@
 	color: #262626;
 	text-align: center;
 	position: relative;
+	margin-bottom: 50px;
 }
 #menu08999 .ratePlanBottom .planInfo h6::before,
 #menu08999 .ratePlanBottom .planInfo h6::after {
@@ -648,7 +824,7 @@
 }
 
 #menu08999 .ratePlanBottom .planInfo .planSub {
-	padding: 50px 0;
+	padding-bottom: 50px;
 }
 
 

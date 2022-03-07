@@ -8,6 +8,7 @@
 
       <!-- 랜딩페이지 미리보기  -->
       <div v-for="(lendchoose, index) in $store.state.lendchooseObj" :key="index">
+
         <!-- 이미지 -->
         <div v-if="$store.state.lendchooseObj[index].tp == '01'">
           <p v-if="$store.state.lendchooseObj[index].fileNm == null || $store.state.lendchooseObj[index].fileNm == ''" style="text-align:  center; padding: 20px; background-color: #fff">
@@ -20,16 +21,14 @@
         <div v-if="lendchoose.tp == '02'" v-html="$store.state.lendchooseObj[index].descript">
         </div>
         <!-- 폼 -->
-        <div
+        <div 
           v-if="lendchoose.tp == '03'" 
           v-bind="$store.state.lendchooseObj[index].formDesc">
-
           <div class="formPrev formPrev01" v-if="lendchoose.formDesc.formStyle == '01'" :style="{borderColor:lendchoose.formDesc.lineColor, borderWidth:lendchoose.formDesc.borderLine, backgroundColor:lendchoose.formDesc.bgColor} ">
             <h1 v-if="lendchoose.formDesc.formTitle.length > 0" :style="{color:lendchoose.formDesc.titleColor, fontFamily:lendchoose.formDesc.fontType} ">
               {{lendchoose.formDesc.formTitle}}
             </h1>
-
-            <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
+            <div v-for="(inObj, indexForm) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="indexForm">
               <!-- 텍스트 박스 -->
               <div v-if="inObj.values == 'textForm'" class="formInput">
                 <input type="text" :placeholder="inObj.names">
@@ -37,25 +36,25 @@
               <!-- 라디오 버튼 -->
               <div v-if="inObj.values == 'radioForm'" class="formInput">
                 <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
-                <span v-for="index in inObj.lab" :key="index">
-                  <input :id="index" :name="inObj.lab[index]" type="radio" >
-                  <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
+                <span v-for="indexRadio in inObj.lab" :key="indexRadio">
+                  <input :id="index+'_'+indexRadio" :name="index+'_'+inObj.names" type="radio" >
+                  <label :for="index+'_'+indexRadio" :style="{color:lendchoose.formDesc.textB}">{{indexRadio}}</label>
                 </span>
               </div>
               <!-- 체크박스 -->
               <div v-if="inObj.values == 'checkForm'" class="formInput">
                 <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
-                <span v-for="index in inObj.lab" :key="index">
-                  <input :id="index" type="checkbox" >
-                  <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
+                <span v-for="indexCheck in inObj.lab" :key="indexCheck">
+                  <input :id="index+'_'+indexCheck" type="checkbox" >
+                  <label :for="index+'_'+indexCheck" :style="{color:lendchoose.formDesc.textB}">{{indexCheck}}</label>
                 </span>
               </div>
               <!-- 셀렉트박스 -->
               <div v-if="inObj.values == 'selForm'" class="formInput">
                 <select>
                   <option value="0" se disabled>{{inObj.names}}</option>
-                  <option v-for="index in inObj.lab" :key="index" :value="index">
-                    {{index}}
+                  <option v-for="indexSelect in inObj.lab" :key="indexSelect" :value="index+'_'+indexSelect">
+                    {{indexSelect}}
                   </option>
                 </select>  
               </div>
@@ -86,7 +85,7 @@
               {{lendchoose.formDesc.formTitle}}
             </h1>
 
-            <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
+            <div v-for="(inObj, indexForm) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="indexForm">
               <!-- 텍스트 박스 -->
               <div v-if="inObj.values == 'textForm'"  class="flex">
                 <div class="left" :style="{color:lendchoose.formDesc.textA}">
@@ -102,9 +101,9 @@
                   {{inObj.names}}
                 </div>
                 <div class="right">
-                  <span v-for="index in inObj.lab" :key="index">
-                    <input :id="index" :name="inObj.lab[index]" type="radio" >
-                    <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
+                  <span v-for="indexRadio in inObj.lab" :key="indexRadio">
+                    <input :id="index+'_'+indexRadio" :name="index+'_'+inObj.names" type="radio" >
+                    <label :for="index+'_'+indexRadio" :style="{color:lendchoose.formDesc.textB}">{{indexRadio}}</label>
                   </span>
                 </div>
               </div>
@@ -114,9 +113,9 @@
                   {{inObj.names}}
                 </div>
                 <div class="right">
-                  <span v-for="index in inObj.lab" :key="index">
-                    <input :id="index" type="checkbox" >
-                    <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
+                  <span v-for="indexCheck in inObj.lab" :key="indexCheck">
+                    <input :id="index+'_'+indexCheck" type="checkbox" >
+                    <label :for="index+'_'+indexCheck" :style="{color:lendchoose.formDesc.textB}">{{indexCheck}}</label>
                   </span>
                 </div>
               </div>
@@ -127,8 +126,8 @@
                 </div>
                 <div class="right">
                   <select>
-                    <option v-for="index in inObj.lab" :key="index" :value="index">
-                      {{index}}
+                    <option v-for="indexSelect in inObj.lab" :key="indexSelect" :value="index+'_'+indexSelect">
+                      {{indexSelect}}
                     </option>
                   </select> 
                 </div>
@@ -164,7 +163,7 @@
               {{lendchoose.formDesc.formTitle}}
             </h1>
 
-            <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
+            <div v-for="(inObj, indexForm) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="indexForm">
               <!-- 텍스트 박스 -->
               <div v-if="inObj.values == 'textForm'"  class="flex after">
                 <div class="left" :style="{color:lendchoose.formDesc.textA}">
@@ -180,9 +179,9 @@
                   {{inObj.names}}
                 </div>
                 <div class="right">
-                  <span v-for="index in inObj.lab" :key="index">
-                    <input :id="index" :name="inObj.lab[index]" type="radio" >
-                    <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
+                  <span v-for="indexRadio in inObj.lab" :key="indexRadio">
+                    <input :id="index+'_'+indexRadio" :name="index+'_'+inObj.names" type="radio" >
+                    <label :for="index+'_'+indexRadio" :style="{color:lendchoose.formDesc.textB}">{{indexRadio}}</label>
                   </span>
                 </div>
               </div>
@@ -192,9 +191,9 @@
                   {{inObj.names}}
                 </div>
                 <div class="right">
-                  <span v-for="index in inObj.lab" :key="index">
-                    <input :id="index" type="checkbox" >
-                    <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
+                  <span v-for="indexCheck in inObj.lab" :key="indexCheck">
+                    <input :id="index+'_'+indexCheck" type="checkbox" >
+                    <label :for="index+'_'+indexCheck" :style="{color:lendchoose.formDesc.textB}">{{indexCheck}}</label>
                   </span>
                 </div>
               </div>
@@ -205,8 +204,8 @@
                 </div>
                 <div class="right">
                   <select>
-                    <option v-for="index in inObj.lab" :key="index" :value="index">
-                      {{index}}
+                    <option v-for="indexSelect in inObj.lab" :key="indexSelect" :value="index+'_'+indexSelect">
+                      {{indexSelect}}
                     </option>
                   </select> 
                 </div>
@@ -242,7 +241,7 @@
               {{lendchoose.formDesc.formTitle}}
             </h1>
 
-            <div v-for="(inObj, index) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="index">
+            <div v-for="(inObj, indexForm) in $store.state.lendchooseObj[index].formDesc.inputBox" :key="indexForm">
               <!-- 텍스트 박스 -->
               <div v-if="inObj.values == 'textForm'" class="formInput">
                 <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
@@ -251,25 +250,25 @@
               <!-- 라디오 버튼 -->
               <div v-if="inObj.values == 'radioForm'" class="formInput">
                 <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
-                <span v-for="index in inObj.lab" :key="index">
-                  <input :id="index" :name="inObj.lab[index]" type="radio" >
-                  <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
+                <span v-for="indexRadio in inObj.lab" :key="indexRadio">
+                  <input :id="index+'_'+indexRadio" :name="index+'_'+inObj.names" type="radio" >
+                  <label :for="index+'_'+indexRadio" :style="{color:lendchoose.formDesc.textB}">{{indexRadio}}</label>
                 </span>
               </div>
               <!-- 체크박스 -->
               <div v-if="inObj.values == 'checkForm'" class="formInput">
                 <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
-                <span v-for="index in inObj.lab" :key="index">
-                  <input :id="index" type="checkbox" >
-                  <label :for="index" :style="{color:lendchoose.formDesc.textB}">{{index}}</label>
+                <span v-for="indexCheck in inObj.lab" :key="indexCheck">
+                  <input :id="index+'_'+indexCheck" type="checkbox" >
+                  <label :for="index+'_'+indexCheck" :style="{color:lendchoose.formDesc.textB}">{{indexCheck}}</label>
                 </span>
               </div>
               <!-- 셀렉트박스 -->
               <div v-if="inObj.values == 'selForm'" class="formInput">
                 <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
                 <select>
-                  <option v-for="index in inObj.lab" :key="index" :value="index">
-                    {{index}}
+                  <option v-for="indexSelect in inObj.lab" :key="indexSelect" :value="index+'_'+indexSelect">
+                    {{indexSelect}}
                   </option>
                 </select>  
               </div>
@@ -467,6 +466,7 @@
         , landPgId        : 0
 
         , landingDataObj  : '' 
+        , formIndex : ''
         , campData: {
             gradeCd           : ''
           , mbId              : ''
@@ -903,7 +903,7 @@
         if(this.$store.state.lendchooseObj.length > 9) {
           alert("이미지, 텍스트, 폼은 10개 까지만 등록 가능합니다.")
           return;
-        }
+        }        
 
 
         let inputBoxObj = [];
@@ -934,8 +934,13 @@
                 inputBox.names = this.formView.value01;
                 inputBox.lab     = this.formView.page01;
               }
-              else {
+              else if(this.formView.type01 == '04') {
                 inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value01;
+                inputBox.lab     = this.formView.page01;
+              }
+              else if(this.formView.type01 == '05') {
+                inputBox.values  = 'textArea';
                 inputBox.names = this.formView.value01;
                 inputBox.lab     = this.formView.page01;
               }
@@ -954,13 +959,13 @@
                 inputBox.names = this.formView.value02;
                 inputBox.lab  = this.formView.page02;
               }
-              else if(this.formView.type02 == '03') {
-                inputBox.values  = 'checkForm';
+              else if(this.formView.type02 == '04') {
+                inputBox.values  = 'selForm';
                 inputBox.names = this.formView.value02;
                 inputBox.lab  = this.formView.page02;
               }
-              else {
-                inputBox.values  = 'selForm';
+              else if(this.formView.type02 == '05') {
+                inputBox.values  = 'textArea';
                 inputBox.names = this.formView.value02;
                 inputBox.lab  = this.formView.page02;
               }
@@ -984,8 +989,13 @@
                 inputBox.names = this.formView.value03;
                 inputBox.lab  = this.formView.page03;
               }
-              else {
+              else if(this.formView.type03 == '04')  {
                 inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value03;
+                inputBox.lab  = this.formView.page03;
+              }
+              else if(this.formView.type03 == '05')  {
+                inputBox.values  = 'textArea';
                 inputBox.names = this.formView.value03;
                 inputBox.lab  = this.formView.page03;
               }
@@ -1009,8 +1019,13 @@
                 inputBox.names = this.formView.value04;
                 inputBox.lab  = this.formView.page04;
               }
-              else {
+              else if(this.formView.type04 == '04') {
                 inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value04;
+                inputBox.lab  = this.formView.page04;
+              }
+              else if(this.formView.type04 == '05') {
+                inputBox.values  = 'textArea';
                 inputBox.names = this.formView.value04;
                 inputBox.lab  = this.formView.page04;
               }
@@ -1034,8 +1049,13 @@
                 inputBox.names = this.formView.value05;
                 inputBox.lab  = this.formView.page05;
               }
-              else {
+              else if(this.formView.type05 == '04') {
                 inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value05;
+                inputBox.lab  = this.formView.page05;
+              }
+              else if(this.formView.type05 == '05') {
+                inputBox.values  = 'textArea';
                 inputBox.names = this.formView.value05;
                 inputBox.lab  = this.formView.page05;
               }
@@ -1059,8 +1079,13 @@
                 inputBox.names = this.formView.value06;
                 inputBox.lab  = this.formView.page06;
               }
-              else {
+              else if(this.formView.type06 == '04')  {
                 inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value06;
+                inputBox.lab  = this.formView.page06;
+              }
+              else if(this.formView.type06 == '05')  {
+                inputBox.values  = 'textArea';
                 inputBox.names = this.formView.value06;
                 inputBox.lab  = this.formView.page06;
               }
@@ -1084,8 +1109,13 @@
                 inputBox.names = this.formView.value07;
                 inputBox.lab  = this.formView.page07;
               }
-              else {
+              else if(this.formView.type07 == '04') {
                 inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value07;
+                inputBox.lab  = this.formView.page07;
+              }
+              else if(this.formView.type07 == '05') {
+                inputBox.values  = 'textArea';
                 inputBox.names = this.formView.value07;
                 inputBox.lab  = this.formView.page07;
               }
@@ -1109,8 +1139,13 @@
                 inputBox.names = this.formView.value08;
                 inputBox.lab  = this.formView.page08;
               }
-              else {
+              else if(this.formView.type08 == '04') {
                 inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value08;
+                inputBox.lab  = this.formView.page08;
+              }
+              else if(this.formView.type08 == '05') {
+                inputBox.values  = 'textArea';
                 inputBox.names = this.formView.value08;
                 inputBox.lab  = this.formView.page08;
               }
@@ -1134,8 +1169,13 @@
                 inputBox.names = this.formView.value09;
                 inputBox.lab  = this.formView.page09;
               }
-              else {
+              else if(this.formView.type09 == '04') {
                 inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value09;
+                inputBox.lab  = this.formView.page09;
+              }
+              else if(this.formView.type09 == '05') {
+                inputBox.values  = 'textArea';
                 inputBox.names = this.formView.value09;
                 inputBox.lab  = this.formView.page09;
               }
@@ -1159,8 +1199,13 @@
                 inputBox.names = this.formView.value10;
                 inputBox.lab  = this.formView.page10;
               }
-              else {
+              else if(this.formView.type10 == '04') {
                 inputBox.values  = 'selForm';
+                inputBox.names = this.formView.value10;
+                inputBox.lab  = this.formView.page10;
+              }
+              else if(this.formView.type10 == '05') {
+                inputBox.values  = 'textArea';
                 inputBox.names = this.formView.value10;
                 inputBox.lab  = this.formView.page10;
               }
@@ -1323,7 +1368,7 @@
   }
   .menu0804 .landPrev .formPrev .flex .left {
     width: 20%;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 44px;
     letter-spacing: -0.7px;
     color: #000;
@@ -1398,7 +1443,7 @@
   .menu0804 .landPrev .formPrev label {
     font-size: 16px;
     display: inline-block;
-    margin: 0 10px 0px 0px ;
+    margin: 0 10px 20px 0;
     position: relative;
     padding: 0 10px 0 35px;
     font-weight: 600;
@@ -1408,9 +1453,10 @@
   }
 
   .menu0804 .landPrev .formPrev03 .flex label {
-    font-size: 24px;
-    margin-right: 0 10px;
-    transform: translateY(8px);
+    /* font-size: 24px; */
+    margin: 0 10px 20px 0;
+    transform: translateY(11px);
+
   }
   .menu0804 .landPrev .formPrev input[type="radio"] + label:before,
   .menu0804 .landPrev .formPrev	input[type="checkbox"] + label:before {
@@ -1464,7 +1510,7 @@
   .menu0804 .landPrev .formPrev03 input[type="radio"]:checked + label:after{
     font-size: 12px;
     left: 7px;
-    top: 8.5px;
+    top: 5px;
     color: #fff;
   }
   .menu0804 .landPrev .formPrev04	input[type="checkbox"]:checked + label:after,
