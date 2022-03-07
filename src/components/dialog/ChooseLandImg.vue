@@ -2,7 +2,7 @@
   <div class="landImg landBox">
     <h2>
       이미지 등록
-      <span>(가로사이즈 800px 필수, 용량 3MB 이하)</span>
+      <span>(가로사이즈 800px 필수, 용량 2MB 이하)</span>
       <i class="icon-x_btn" @click="DelLandImg()"></i>
       <i class="icon-arrow on"></i>
     </h2>
@@ -42,6 +42,10 @@
           , formDesc: ''
           , landImgNm: ''
         }
+
+
+
+
         //------------------------------------------------------------------------------
         // 이미지 미리보기에 보여지기
         //------------------------------------------------------------------------------
@@ -51,6 +55,18 @@
         // 이미지 이름 불러오기
         //------------------------------------------------------------------------------
         imgFiles.landImgNm = this.$refs.upImage01.files[0].name;
+
+
+
+
+        if(imgFiles.fileNmOrg.size > 1024*1024* 2){
+          alert('2MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round(imgFiles.fileNmOrg.size / 1024 / 1024 * 100) / 100) + 'MB');
+          return
+        }
+
+
+
+
         this.$set(this.$store.state.lendchooseObj, this.indexNum, imgFiles);
       },
       DelLandImg(){

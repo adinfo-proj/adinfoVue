@@ -123,7 +123,7 @@
 								<!-- <form id="payForm" method="post" accept-charset="UTF-8">
 									<input type="text">
 								</form> -->
-								<!-- <button  @click="CreatePay();">바로 구매</button> -->
+								<button  @click="CreatePay();">바로 구매</button>
 								<form id="SendPayForm_id" name="" method="POST" >
 
 
@@ -144,7 +144,8 @@
 									<input type="hidden"    name="buyertel" value="010-1234-5678" >
 									<input type="hidden"    name="buyeremail" value="test@inicis.com" >
 									
-									<input type="hidden"  name="mid" value="INIpayTest" ><!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
+									<input type="hidden"  name="mid" value="INIpayTest" >
+									<!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
 									<input type="hidden"  name="gopaymethod" value="Card" >
 									<input type="hidden"  name="mKey" value="3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33" >
 									
@@ -158,11 +159,11 @@
 
 
 									<input type="text"    name="price" v-model="total" @change="eeeeeeeeeeeee();">
-									<input type="hidden"  name="oid"  v-model="order" value="INIpayTest_1646632303451" >
+									<input type="hidden"  name="oid"  v-model="order" >
 									<input type="text"  name="timestamp" v-model="nowDate" >
 
 
-									<input type="hidden"  name="signature" v-model="hashCode" value="cad3c13f2697b6ed7032746f551d92079b62d15a18f8221ea59ca9a858ed3f98" >
+									<input type="hidden"  name="signature" v-model="hashCode" >
 
 
 
@@ -180,7 +181,7 @@
 
 								</form>
 
-								<button onclick="INIStdPay.pay('SendPayForm_id')">결제요청</button>
+								<!-- <button onclick="INIStdPay.pay('SendPayForm_id')">결제요청</button> -->
 
 
 
@@ -345,6 +346,8 @@
 	// import axios from "axios";
 	// import $ from 'jquery';
 
+	import sha256 from "js-sha256";
+
 
 	export default {
 		components: { 
@@ -362,6 +365,7 @@
 				, smsPlan      : 0
 				, hashCode : ''
 				, nowDate: new Date().getTime()
+				, order : '' // 변수 바꿀 예정
 				// , form: {
 				// 		goodname     : '테스트'
 				// 	, buyername    : '홍길동'
@@ -386,12 +390,29 @@
 		methods: {
 			CreatePay() {
 
+				// window.init("관리자 콘솔 - 내 정보 - 가맹점 식별코드");
+				// window.
+
 
 				// console.log("ddd")
 				// const frm = new FormData();
 				// frm.append(this.inicis, new Blob([JSON.stringify(this.form)] , {type: "application/json"}));
 				// this.inicis.INIStdPay.pay('SendPayForm_id');
 				// window.open(this.form.popUPUrl)
+
+				this.order = 'dbMaster_' + this.nowDate
+				console.log("oid : "+this.order)
+				console.log("time : "+this.nowDate)
+				console.log("price : "+this.total)
+				this.HashData();
+
+				console.log("HashData : "+this.hashCode)
+
+				
+				let send = document.getElementById('SendPayForm_id')
+				
+
+				console.log(send)
 
 				window.INIStdPay.pay('SendPayForm_id')
 
@@ -401,6 +422,40 @@
 				// window.INIStdPay.
 
 				// e.preventDefault();
+
+
+
+				
+      // IMP.request_pay({ // param
+      //   pg: "html5_inicis",
+      //   pay_method: "card",
+      //   merchant_uid: "ORD20180131-0000011",
+      //   name: "YOYOSTUDY",
+      //   amount: this.price,
+      //   buyer_email: "funidea_woo@naver.com",
+      //   buyer_name: "테스터",
+      //   buyer_tel: "010-8832-4280",
+      //   buyer_addr: "서울특별시 영등포구 당산동",
+      //   buyer_postcode: "07222"
+      // }, rsp => { // callback
+      //   console.log(rsp);
+      //   if (rsp.success) {
+      //     console.log("결제 성공");
+      //   } else {
+      //     console.log("결제 실패");
+      //   }
+      // });
+
+			},
+
+			HashData(){
+				this.hashCode = 'oid='+this.order+'&price='+this.total+'&timestamp='+this.nowDate;	
+
+				this.hashCode = sha256(this.hashCode)
+				console.log(this.hashCode)
+
+
+				// return sha256(this.hashCode)
 
 			},
 
