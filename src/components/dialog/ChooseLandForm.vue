@@ -74,41 +74,57 @@
         <table>
           <tr>
             <td class="left">
-              <h6 class="leftBox">버튼 텍스트 색상</h6>
+              <h6 class="leftBox">버튼 텍스트 색상
+                <i class="icon-error_outline"></i>
+              </h6>
               <input type="color" v-model="formviewModel.formDesc.textColor">
             </td>
             <td class="right">
-              <h6 class="leftBox">버튼 색상 선택</h6>
+              <h6 class="leftBox">버튼 색상 선택
+                <i class="icon-error_outline"></i>
+              </h6>
               <input type="color" v-model="formviewModel.formDesc.btnColor">
             </td>
           </tr>
           <tr>
             <td class="left line">
-              <h6 class="leftBox">폼 테두리 굵기</h6>
+              <h6 class="leftBox">폼 테두리 굵기
+                <i class="icon-error_outline"></i>
+              </h6>
               <input type="text" id="boxLine" v-model="borderLine"><span>px</span>
             </td>
             <td class="right">
-              <h6 class="leftBox">폼 테두리 색상</h6>
+              <h6 class="leftBox">폼 테두리 색상
+                <i class="icon-error_outline"></i>
+              </h6>
               <input type="color" v-model="formviewModel.formDesc.lineColor">
             </td>
           </tr>
           <tr>
             <td class="left">
-              <h6 class="leftBox">텍스트A 색상</h6>
+              <h6 class="leftBox">텍스트A 색상
+                <i class="icon-error_outline"></i>
+              </h6>
               <input type="color" v-model="formviewModel.formDesc.textA">
             </td>
             <td class="right">
-              <h6 class="leftBox">텍스트B 색상</h6>
+              <h6 class="leftBox">텍스트B 색상
+                <i class="icon-error_outline"></i>
+              </h6>
               <input type="color" v-model="formviewModel.formDesc.textB">
             </td>
           </tr>
           <tr>
             <td class="left">
-              <h6 class="leftBox">폼 배경 색상</h6>
+              <h6 class="leftBox">폼 배경 색상
+                <i class="icon-error_outline"></i>
+              </h6>
               <input type="color" v-model="formviewModel.formDesc.bgColor">
             </td>
             <td class="right">
-              <h6 class="leftBox">약관 텍스트 색상</h6>
+              <h6 class="leftBox">약관 텍스트 색상
+                <i class="icon-error_outline"></i>
+              </h6>
               <input type="color" v-model="formviewModel.formDesc.agreeColor">
             </td>
           </tr>
@@ -413,9 +429,14 @@
   }
 
   .landForm .formTable .leftBox {
-    padding-top: 3px;
-    width: 107px;
+    padding-top: 0;
+    width: 130px;
     letter-spacing: -0.35px;
+  }
+  .landForm .formTable .leftBox i{
+    font-size: 16px;
+    transform: translateY(2px);
+    display: inline-block;
   }
   .landForm table td {
     width: 50%; 
@@ -443,13 +464,13 @@
   }
 
   .landForm .formTable td.line .leftBox {
-    padding-top: 6px;
+    padding-top: 4px;
   }
   .landForm table input[type="text"] {
     width: 70px;
   }
   .landForm table input[type="text"] + span {
-    padding-left: 9px;
+    padding-left: 5px;
     font-weight: 700;
   }
   .landForm .formSub {

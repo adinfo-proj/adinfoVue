@@ -121,6 +121,9 @@
           </router-link>
         </li>
       </ul>
+      <div class="manual">
+        <a href="files/API_사용매뉴얼.pdf" download><i class="icon-download11"></i>매뉴얼 다운로드</a>
+      </div>
     </div>
   </div>
 </template>
@@ -179,4 +182,29 @@
     margin-left: 200px;
     border-right: solid 1px #e5e5e5;
   }
+
+  .headerNav .manual{
+    padding: 20px;
+  }
+  .headerNav .manual a{
+    display: block;
+    padding: 12px 18px;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    color: #2b2b2b;
+    letter-spacing: -0.35px;
+    line-height: 1.65;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .headerNav .manual a i{
+    display: inline-block;
+    background: #000;
+    padding: 3px;
+    color: #fff;
+    font-weight: 700;
+    margin-right: 12px;
+  }
+    
 </style>

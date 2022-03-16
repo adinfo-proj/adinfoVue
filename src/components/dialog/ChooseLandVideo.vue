@@ -2,12 +2,16 @@
   <div class="landVideo landBox">
     <h2>
       유투브 등록
-      <span>유투브의 마지막 '/' 뒤에 주소만 입력해주세요. </span>
+      <span>
+        <i class="icon-error_outline"></i>
+        <img src="../../assets/images/menu08302/video.png" alt="">  
+      </span>
+      <span>'https://www.youtube.com/watch?v=' 뒤에 주소만 입력해주세요. </span>
       <i class="icon-x_btn" @click="DelLandImg()"></i>
       <i class="icon-arrow on"></i>
     </h2>
     <div class="upPage">
-      <input type="text" :id="'video'+this.indexNum" v-model="dddddd">
+      <input type="text" :id="'video'+this.indexNum" v-model="videoUrl">
       <button @click="UploadVideo()">동영상 추가하기 <i class="icon-plus1"></i></button>
     </div>
   </div>
@@ -19,6 +23,11 @@
   import $ from 'jquery';
 
   export default {
+    data(){
+      return{
+        videoUrl: ''
+      }
+    },
     props: {
       indexNum: Number
     },
@@ -27,6 +36,13 @@
         $(this).toggleClass("on");
         $(this).parent().parent().find(".upPage").stop().slideToggle(300);
       })
+      $(".landVideo h2 span i").hover(
+        function(){
+          $(this).parent().find("img").fadeIn(200)
+        },
+        function(){
+          $(".landVideo h2 span img").fadeOut(200)
+        })
     },
     methods: {
       //******************************************************************************
@@ -41,7 +57,7 @@
           , formDesc: ''
           , landImgNm: ''
         }
-        VideoFiles.descript = "https://www.youtube.com/embed/"+this.dddddd+"?autoplay=1&mute=1";
+        VideoFiles.descript = "https://www.youtube.com/embed/"+this.videoUrl+"?autoplay=1&mute=1";
         this.$set(this.$store.state.lendchooseObj, this.indexNum, VideoFiles);
 
       },
@@ -73,6 +89,26 @@
   .landVideo h2 span {
     letter-spacing: -0.3px;
     color: #e25b45;
+    position: relative;
+  }
+
+  .landVideo h2 span i {
+    display: inline-block;
+    color: #636363;
+    margin-right: 11px;
+    transform: translateY(3px);
+    font-size: 16px;
+    cursor: pointer;
+    
+  }
+
+  .landVideo h2 span img{
+    position: absolute;
+    left: 7px;
+    transform: translateX(-50%);
+    top: 20px;
+    display: none;
+    z-index: 99;
   }
 
   .landVideo h2 .icon-x_btn {
