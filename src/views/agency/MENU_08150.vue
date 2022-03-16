@@ -166,7 +166,6 @@
 
 				this.curPage = selectPage;
 
-        console.log(this.$store.state.caId);
 
 				axios.get("http://api.adinfo.co.kr:30000/GetCampaignForMbAdCaStatus", 
 				{
@@ -182,7 +181,6 @@
 				.then(response => {
 					this.campaignFullDataObj = response.data[1];
 
-          console.log(response);
 
           //--------------------------------------------------------------------
           // 페이지처리 시작

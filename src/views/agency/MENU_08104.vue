@@ -41,11 +41,11 @@
 					</td>
 				</tr>
         <tr>
-          <th><span class="necItem">* </span>캠페인 명</th>
+          <th>캠페인 명</th>
           <td>
             {{ campainData.name }}
           </td>
-          <th><span class="necItem">* </span>광고주 명</th>
+          <th>광고주 명</th>
           <td>
             {{ campainData.adName }}
           </td>
@@ -64,13 +64,13 @@
           </td>
         </tr>
         <tr class="notice">
-          <th><span class="necItem">* </span>캠페인 내용</th>
+          <th>캠페인 내용</th>
           <td colspan="3">
             <span v-html="campainData.comment"></span>
           </td>
         </tr>
         <tr>
-          <th><span class="necItem"> *</span> 광고주 단가</th>
+          <th>광고주 단가</th>
           <td>
             {{adPrice}}
           </td>
@@ -439,9 +439,7 @@ export default {
     },
 
     //  updateCampaign() {
-    //   console.log(this.campainData);
-    //   console.log(this.formObj);
-      
+
       
     //   //campainData.status
     //   this.campainData.price         = this.adPrice;

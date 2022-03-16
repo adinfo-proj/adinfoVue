@@ -148,7 +148,7 @@
 
 				, pageCount             : []
 				, selectRowCount        : 10
-				, curRunTotalPages      : 0
+				, curRunTotalPages      : 1000000000
         , curPage               : 0
 			}
 		},
@@ -212,8 +212,9 @@
         })
         .then(response => {
 					this.landingDataObj = response.data;
+          this.landSelect = "-1"
 
-          this.getClntUser(1, true);
+          // this.getClntUser(1, true);
 
           // if(this.landingDataObj.length > 0) {
           //   this.landSelect = response.data[0].pgId;
@@ -320,7 +321,7 @@
             this.landSelect = "-1";
             this.idComment = '';
             this.passWd = '';
-            this.getClntUser(1, true);
+            // this.getClntUser(1, true);
           }
           else {
             this.idComment = '';
@@ -352,11 +353,12 @@
             , caId: this.campSelect
             , pgId: this.landSelect
             , status: '00'
+            , curPage   : selectPage
+						, rowCount  : this.selectRowCount 
           }
         })
         .then(response => {
           this.stUserListObj = response.data[1];
-          // this.landingDataOne = response.data;
 
           //--------------------------------------------------------------------
           // 페이지처리 시작
@@ -421,7 +423,6 @@
         this.passWd     = dataServe.externalClntPw;
         this.srtDt      = srtDay
         this.endDt      = endDay
-        console.log(dataServe)
       },
       //******************************************************************************
 			// 랜딩페이지 삭제

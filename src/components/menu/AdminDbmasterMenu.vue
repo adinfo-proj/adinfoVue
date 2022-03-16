@@ -32,18 +32,14 @@
       }
     },
     methods:{
-        DBMenuBar(pos) {
-        this.menuSelect = pos;
-        if(this.menuSelect == '2' || this.menuSelect == '5' || this.menuSelect == '6' || this.menuSelect == '9' || this.menuSelect == '999') {
-          this.subMenuSelect = ''
-          // let page = "MENU_08"+ this.menuSelect + '01'
-        }
-        else{
-          this.subMenuSelect = `${pos}01`
-          let page = "MENU_08"+ this.subMenuSelect
-          this.$router.push({ path : page })
-
-        }
+      DBMenuBar(pos) { 
+        this.menuSelect = pos; 
+        if(this.menuSelect == '1' ) { 
+          this.$router.push({ path : "MENU_08150" }) 
+        } 
+        else if(this.menuSelect == '2') { 
+          this.$router.push({ path : "MENU_08250" }) 
+        } 
       }
       , DbSubMenu(pos) {
         this.subMenuSelect = pos;

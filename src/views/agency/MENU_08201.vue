@@ -10,7 +10,7 @@
 				</option>
 			</select>
       <select v-model="landSelect" @change="getLandingPageLst(landSelect)" :disabled="campSelect == '-1'">
-        <option value="-1">전체</option>
+        <option value="-1" selected>전체</option>
 				<option v-for="(landingData, index) in landingDataObj"
 					:key="index" 
 					:value="landingData.pgId"

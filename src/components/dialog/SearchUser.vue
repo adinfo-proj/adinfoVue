@@ -145,7 +145,6 @@
           axios.post("http://api.adinfo.co.kr:30000/FindUserId", frm)
           .then(response => {
             if( response.data.status == true ) {
-              console.log(response.data)
               $(".searchId .serachSubBox1").css({display: "none"})
               $(".searchId .serachSubBox2").css({display: "block"})
               $("#searchModar .searchBox .searchTapBox .searchCheckBtn").css({display: "none"})

@@ -41,12 +41,6 @@
 								<span class="middle">55,000 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>DB 데이터 보내기 + 받기</span></span>
 							</label>
-							<input type="radio" v-model="subPlan" id="sms" value="sms">
-							<label for="sms">
-								<span class="top">SMS 수신 서비스</span>
-								<span class="middle">2,200 / 6,600 /11,000 / 22,000 <span>원/월(VAT 포함)</span></span>
-								<span class="bottom"><span>DB접수 시 SMS수신 서비스</span></span>
-							</label>
 							<input type="radio" v-model="subPlan" id="adminM" value="adminM">
 							<label for="adminM">
 								<span class="top">어드민 관리자 서비스</span>
@@ -106,8 +100,7 @@
 								</span>
 								<span>
 									<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">API 프리미엄 <span class="small">( + 55,000원 )</span></label>
-									<!-- <input type="checkbox" id="extraSms" value="02" v-model="extraService" @change="SelectBox()"><label for="extraSms">SMS 수신</label> -->
-
+									<input type="checkbox" id="extraAdmin" value="02" v-model="extraService"><label for="extraAdmin">어드민 관리자 <span class="small">( + 110,000원 )</span></label>
 								</span>
 							</p>
 							<p>
@@ -119,77 +112,38 @@
 								</span>
 							</p>
 							<div class="btn">
-
-								<!-- <form id="payForm" method="post" accept-charset="UTF-8">
-									<input type="text">
-								</form> -->
 								<button  @click="CreatePay();">바로 구매</button>
 								<form id="SendPayForm_id" name="" method="POST" >
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-									<input type="hidden"    name="goodname" value="테스트" >
-									<input type="hidden"    name="buyername" value="홍길동" >
-									<input type="hidden"    name="buyertel" value="010-1234-5678" >
-									<input type="hidden"    name="buyeremail" value="test@inicis.com" >
-									
-									<input type="hidden"  name="mid" value="INIpayTest" >
-									<!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
-									<input type="hidden"  name="gopaymethod" value="Card" >
+									<input type="hidden"  name="version"		 	value="1.0" >
+									<input type="hidden"  name="gopaymethod" 	value="Card:VBank" >
+									<input type="hidden"  name="mid" 					value="INIpayTest" ><!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
+									<!-- <input type="hidden"  name="mid" v-model="mid" > -->
+									<input type="hidden"  name="oid"  				v-model="order" >
+									<input type="hidden"  name="price" 				v-model="price">
+									<input type="hidden"  name="timestamp" 		v-model="nowDate" >
+									<input type="hidden"  name="signature" 		v-model="hashCode" >
 									<input type="hidden"  name="mKey" value="3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33" >
-									
+									<!-- <input type="hidden"  name="mKey" v-model="mKey" > -->
+									<input type="hidden"  name="goodname" 		v-model="ratePlanNm">
+									<input type="hidden"  name="currency" 		value="WON" >
 
-									<input type="hidden"  name="version" value="1.0" >
-									<input type="hidden"  name="currency" value="WON" >
+									<input type="hidden"  name="buyername" 		v-model="buyer" >
+									<input type="hidden"  name="buyertel"			v-model="telNum" >
+									<input type="hidden"  name="buyeremail"		v-model="eMail" > 
+
 									<input type="hidden"  name="acceptmethod" value="below1000" >
+									<!-- 에스크로옵션 : useescrow, 빌링(정기과금)옵션 : BILLAUTH(Card) -->
 
+									<!-- <input type="hidden" name="logo_url" value="http://sw.dbmaster.co.kr/stdpay/img/logo01.jpg">
+									<input type="hidden" name="logo_2nd" value="http://sw.dbmaster.co.kr/stdpay/img/logo02.jpg"> -->
 
-									<!-- timestamp = new Date().getTime(); -->
+									<!-- <input type="hidden"  name="returnUrl" value="http://sw.dbmaster.co.kr/#/MENU_08999" > -->
 
-
-									<input type="text"    name="price" v-model="total" @change="eeeeeeeeeeeee();">
-									<input type="hidden"  name="oid"  v-model="order" >
-									<input type="text"  name="timestamp" v-model="nowDate" >
-
-
-									<input type="hidden"  name="signature" v-model="hashCode" >
-
-
-
-
-
-
-
-
-
-
-
-
-											<input type="hidden"  name="returnUrl" value="http://sw.dbmaster.co.kr/stdpay/INIStdPaySample/INIStdPayReturn.php" >
-											<input type="hidden"  name="closeUrl" value="http://sw.dbmaster.co.kr/stdpay/INIStdPaySample/close.php" >
-
+									<input type="hidden"  name="returnUrl" 		value="http://sw.dbmaster.co.kr/stdpay/INIStdPaySample/INIStdPayReturn.php" >
+									
+									<input type="hidden"  name="closeUrl" value="http://sw.dbmaster.co.kr/stdpay/INIStdPaySample/close.php" >
 								</form>
 
-								<!-- <button onclick="INIStdPay.pay('SendPayForm_id')">결제요청</button> -->
-
-
-
-
-
-
-								
-								<!-- <Payment></Payment> -->
 							</div>
 						</div>
 					</div>
@@ -210,12 +164,10 @@
 					<div class="detailPlan">
 						<div class="left">
 							<img v-if="subPlan == 'post'" src="../../assets/images/ratePlan/post.jpg" alt="post">
-							<img v-if="subPlan == 'sms'" src="../../assets/images/ratePlan/sms.jpg" alt="sms">
-							<img v-if="subPlan == 'adminM'" src="../../assets/images/ratePlan/adminManager.jpg" alt="sms">
+							<img v-if="subPlan == 'adminM'" src="../../assets/images/ratePlan/adminManager.jpg" alt="adminM">
 						</div>
 						<div class="right">
 							<h6 v-if="subPlan == 'post'">[디비마스터] API 프리미엄 서비스 1개월 </h6>
-							<h6 v-if="subPlan == 'sms'"> [디비마스터] SMS 수신 서비스</h6>
 							<h6 v-if="subPlan == 'adminM'"> [디비마스터] 어드민 관리자 서비스 1개월</h6>
 							<p class="subtitle">
 								디비마스터의 유료 서비스상품을 구매 후 이용할 수 있는 상품입니다. 
@@ -225,7 +177,6 @@
 									상품가
 								</span>
 								<span v-if="subPlan == 'post'" class="line">110,000원</span>
-								<span v-if="subPlan == 'sms'" class="line">DB접수 알림 건당 20원 발생</span>
 								<span v-if="subPlan == 'adminM'" class="line">220,000원</span>
 							</p>
 							<p>
@@ -233,7 +184,6 @@
 									판매가
 								</span>
 								<span v-if="subPlan == 'post'" class="org">55,000원 <span>(50% 할인)</span></span>
-								<span v-if="subPlan == 'sms'" class="org">2,200원 ~</span>
 								<span v-if="subPlan == 'adminM'" class="org">110,000원 <span>(50% 할인)</span></span>
 							</p>
 							<p>
@@ -248,16 +198,7 @@
 								<span class="planTitle">
 									상품선택
 								</span>
-								<span v-if="subPlan == 'post' || subPlan == 'adminM'">단일상품</span>
-								<span v-if="subPlan == 'sms'">
-									<select v-model="smsPlan" >
-										<option value=0 disabled>발송 건수 선택</option>
-										<option value="2200">100개</option>
-										<option value="6600">300개</option>
-										<option value="11000">1,000개</option>
-										<option value="22000">2,000개</option>
-									</select>
-								</span>
+								<span>단일상품</span>
 							</p>
 							<p>
 								<span class="planTitle">
@@ -271,37 +212,36 @@
 								<button  @click="CreatePay();">바로 구매</button>
 
 								
+								<form id="SendPayForm_id" name="" method="POST" >
+									<input type="hidden"  name="version"		 	value="1.0" >
+									<input type="hidden"  name="gopaymethod" 	value="Card:VBank" >
+									<input type="hidden"  name="mid" 					value="INIpayTest" ><!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
+									<!-- <input type="hidden"  name="mid" v-model="mid" > -->
+									<input type="hidden"  name="oid"  				v-model="order" >
+									<input type="hidden"  name="price" 				v-model="price">
+									<input type="hidden"  name="timestamp" 		v-model="nowDate" >
+									<input type="hidden"  name="signature" 		v-model="hashCode" >
+									<input type="hidden"  name="mKey" value="3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33" >
+									<!-- <input type="hidden"  name="mKey" v-model="mKey" > -->
+									<input type="hidden"  name="goodname" 		v-model="ratePlanNm">
+									<input type="hidden"  name="currency" 		value="WON" >
 
+									<input type="hidden"  name="buyername" 		v-model="buyer" >
+									<input type="hidden"  name="buyertel"			v-model="telNum" >
+									<input type="hidden"  name="buyeremail"		v-model="eMail" > 
 
-								<!-- <form id="SendPayForm_id" name="" method="POST" > -->
+									<input type="hidden"  name="acceptmethod" value="below1000" >
+									<!-- 에스크로옵션 : useescrow, 빌링(정기과금)옵션 : BILLAUTH(Card) -->
 
-											<!-- <input type="text"    name="goodname" value="테스트" > -->
-											<!-- <input type="text"    name="buyername" value="홍길동" > -->
-											<!-- <input type="text"    name="buyertel" value="010-1234-5678" > -->
-											<!-- <input type="text"    name="buyeremail" value="test@inicis.com" > -->
-											
-											<!-- <input type="hidden"  name="mid" value="INIpayTest" > -->
-											<!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
-											<!-- <input type="hidden"  name="gopaymethod" value="Card" > -->
-											<!-- <input type="hidden"  name="mKey" value="3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33" > -->
-											<!-- <input type="hidden"  name="signature" value="cad3c13f2697b6ed7032746f551d92079b62d15a18f8221ea59ca9a858ed3f98" > -->
+									<!-- <input type="hidden" name="logo_url" value="http://sw.dbmaster.co.kr/stdpay/img/logo01.jpg">
+									<input type="hidden" name="logo_2nd" value="http://sw.dbmaster.co.kr/stdpay/img/logo02.jpg"> -->
 
-											<!-- <input type="hidden"  name="version" value="1.0" > -->
-											<!-- <input type="hidden"  name="currency" value="WON" > -->
-											<!-- <input type="hidden"  name="acceptmethod" value="below1000" > -->
-											<!-- 에스크로옵션 : useescrow, 빌링(정기과금)옵션 : BILLAUTH(Card) -->
-											<!-- <input type="hidden"  name="returnUrl" value="http://localhost/stdpay/INIStdPayReturn_simple.asp" > -->
-											<!-- <input type="hidden"  name="closeUrl" value="http://localhost/stdpay/close.asp" > -->
+									<!-- <input type="hidden"  name="returnUrl" value="http://sw.dbmaster.co.kr/#/MENU_08999" > -->
 
-
-											<!-- <input type="text"    name="price" value="1000" > -->
-												<!--  변동되서 불러오는 값-->
-											<!-- <input type="hidden"  name="oid" value="INIpayTest_1646632303451" > -->
-											<!-- <input type="hidden"  name="timestamp" value="1646632303451" > -->
-
-								<!-- </form> -->
-
-								<!-- <button onclick="INIStdPay.pay('SendPayForm_id')" style="padding:10px; margin-left:10%">결제요청</button> -->
+									<input type="hidden"  name="returnUrl" 		value="http://sw.dbmaster.co.kr/stdpay/INIStdPaySample/INIStdPayReturn.php" >
+									
+									<input type="hidden"  name="closeUrl" value="http://sw.dbmaster.co.kr/stdpay/INIStdPaySample/close.php" >
+								</form>
 							</div>
 						</div>
 					</div>
@@ -309,7 +249,6 @@
 						<h6>디비마스터 상품정보</h6>
 
 						<img v-if="subPlan == 'post'" src="../../assets/images/ratePlan/postPlan.jpg" alt="postPlan">
-						<img v-if="subPlan == 'sms'" src="../../assets/images/ratePlan/smsPlan.jpg" alt="smsPlan">
 						<img v-if="subPlan == 'adminM'" src="../../assets/images/ratePlan/adminManagerPlan.jpg" alt="adminManagerPlan">
 					</div>
 				</div>
@@ -343,7 +282,8 @@
 // import Payment from '@/components/dialog/Payment.vue';
   // import Payment from '../../components/dialog/Payment.vue';
 
-	// import axios from "axios";
+	import axios from "axios";
+	// import qs from "qs";
 	// import $ from 'jquery';
 
 	import sha256 from "js-sha256";
@@ -362,10 +302,16 @@
 				, total        : 29700
 				, extraTotal   : 0
 				, preview      : ''
-				, smsPlan      : 0
 				, hashCode : ''
 				, nowDate: new Date().getTime()
 				, order : '' // 변수 바꿀 예정
+				, mid : 'dbmaster00'
+				, mKey : ''
+				, ratePlanNm : ''
+				, buyer : ''
+				, eMail : ''
+				, telNum : ''
+				, paymentData : {}
 				// , form: {
 				// 		goodname     : '테스트'
 				// 	, buyername    : '홍길동'
@@ -390,39 +336,113 @@
 		methods: {
 			CreatePay() {
 
-				// window.init("관리자 콘솔 - 내 정보 - 가맹점 식별코드");
-				// window.
+				if (this.tapbtn == 1 ) {
+					
+					this.price = this.total
+
+					if (this.servicePlan == 'basic') {
+						this.ratePlanNm = '베이직 1개월'
+					}
+					else if (this.servicePlan == 'silver') {
+						this.ratePlanNm = '실버 1개월'
+					}
+					else if (this.servicePlan == 'gold') {
+						this.ratePlanNm = '골드 1개월'
+					}
+					else if (this.servicePlan == 'vip') {
+						this.ratePlanNm = '브이아이피 1개월'
+					}
+
+				}
+				else if(this.tapbtn == 2 ) {
+
+					this.price = this.extraTotal
+
+					if ( this.subPlan == 'post') {
+						this.ratePlanNm = 'API 프리미엄 서비스 1개월'
+					}
+					else if(this.subPlan == 'adminM'){
+						this.ratePlanNm = '어드민 관리자 서비스 1개월'
+					}
 
 
-				// console.log("ddd")
-				// const frm = new FormData();
-				// frm.append(this.inicis, new Blob([JSON.stringify(this.form)] , {type: "application/json"}));
-				// this.inicis.INIStdPay.pay('SendPayForm_id');
-				// window.open(this.form.popUPUrl)
+				}
 
-				this.order = 'dbMaster_' + this.nowDate
-				console.log("oid : "+this.order)
-				console.log("time : "+this.nowDate)
-				console.log("price : "+this.total)
+
+
+
+				this.buyer 		= this.$store.state.clntNm
+				this.eMail 		= this.$store.state.clntId
+
+				
+				this.order 		= 'dbMaster_' + this.nowDate
 				this.HashData();
+				this.getUeserinfo();
 
-				console.log("HashData : "+this.hashCode)
-
-				
-				let send = document.getElementById('SendPayForm_id')
-				
-
-				console.log(send)
+				// let send 			= document.getElementById('SendPayForm_id')
+				// console.log(send)
 
 				window.INIStdPay.pay('SendPayForm_id')
+				
+
+				// axios.post('http://sw.dbmaster.co.kr/stdpay/libs/HttpClient.php', qs.stringify({data:this.data}))
+				// .then(response => {
+				// 		console.log("3")
+				// 		console.log(response)
+				// 		this.paymentData=response;
+				// 		// eslint-disable-next-line no-console
+				// 		// console.log(typeof {name:this.name})
+
+				// 		console.log(this.paymentData)
+				// })
+				// .catch(error => {
+				// 	// eslint-disable-next-line no-console
+				// 	console.log(error);
+				// });
 
 
-				// window.INIStdPay.init(this.inicis);
-				// window.INIStdPay.pay(this.form.returnUrl);
-				// window.INIStdPay.
+				// rsp => { // callback
+				// 	console.log(rsp);
+				// 	if (rsp.success) {
+				// 		console.log("결제 성공");
+				// 	} else {
+				// 		console.log("결제 실패");
+				// 	}
+				// }
 
-				// e.preventDefault();
+				// window.INIStdPay.pay({send}, send => { // callback
+				// 		console.log(send);
+				// 		if (send.success) {
+				// 			console.log("결제 성공");
+				// 		} else {
+				// 			console.log("결제 실패");
+				// 		}
+				// 	});
+				
 
+			
+				// .then(rsp => {
+				// 	console.log(rsp)
+
+				// 	window.INIStdPay.pay({rsp}, rsp => { // callback
+				// 		console.log(rsp);
+				// 		if (rsp.success) {
+				// 			console.log("결제 성공");
+				// 		} else {
+				// 			console.log("결제 실패");
+				// 		}
+				// 	});
+					
+				// })
+
+				// .then(
+					
+				// )
+				// .catch(error => {
+				// 	console.log(error);
+				// })
+				
+			
 
 
 				
@@ -447,17 +467,130 @@
       // });
 
 			},
-
 			HashData(){
-				this.hashCode = 'oid='+this.order+'&price='+this.total+'&timestamp='+this.nowDate;	
+				// this.price = 100
+				this.hashCode = 'oid='+this.order+'&price='+this.price+'&timestamp='+this.nowDate;	
 
 				this.hashCode = sha256(this.hashCode)
-				console.log(this.hashCode)
-
-
-				// return sha256(this.hashCode)
+				this.mKey = sha256(this.mid)
 
 			},
+			getUeserinfo() {
+				axios.get("http://api.adinfo.co.kr:30000/GetClntSubsNo", 
+
+				{
+					params: {
+						clntId: this.$store.state.clntId
+					}
+				})
+				.then(response => {
+					this.telNum = response.data
+
+				})
+				.catch(error => {
+					console.log(error);
+				})
+			},
+
+			//******************************************************************************    
+			// LogIn() {
+			// 	axios.post("http://api.adinfo.co.kr:30000/login", {
+			// 		clntId: this.clntId,
+			// 		clntPw: this.clntPw,
+			// 		siteCode: '01'
+			// 	})
+			// 	.then(response => {
+			// 		if( response.data.status == "0" ) {
+			// 			this.$store.state.clntId       = response.data.clntId
+			// 			this.$store.state.clntNm       = response.data.clntNm
+			// 			this.$store.state.nickNm       = response.data.nickNm
+
+			// 			this.$store.state.jwtAuthToken = response.data.authToken
+			// 			this.$store.state.adGradeCd    = response.data.gradeCd
+
+			// 			this.$store.state.mbId = response.data.mbId
+			// 			this.$store.state.adId = response.data.adId
+			// 			this.$store.state.mkId = response.data.mkId
+			// 			this.$store.state.mkCd = response.data.mkCd
+
+			// 			// 토큰값을 LocalStorage에 저장한다.
+						
+			// 			sessionStorage.setItem("clntId", this.$store.state.clntId);
+			// 			sessionStorage.setItem("clntNm", this.$store.state.clntNm);
+			// 			sessionStorage.setItem("nickNm", this.$store.state.nickNm);
+			// 			sessionStorage.setItem("token" , this.$store.state.jwtAuthToken);
+			// 			sessionStorage.setItem("grade" , this.$store.state.adGradeCd);
+
+			// 			sessionStorage.setItem("mbId"  , this.$store.state.mbId);
+			// 			sessionStorage.setItem("adId"  , this.$store.state.adId);
+			// 			sessionStorage.setItem("mkId"  , this.$store.state.mkId);
+			// 			sessionStorage.setItem("mkCd"  , this.$store.state.mkCd);
+
+			// 			if( this.$store.state.adGradeCd == '05' ){
+			// 				this.$router.push({ path : "MENU_08201" })
+			// 			} else {
+			// 				this.$router.push({ path : "MENU_0000" })
+			// 			}
+			// 		} else {
+			// 			alert(response.data.message)
+			// 		}
+			// 	})
+			// 	.catch(error => {
+			// 		console.log(error);
+			// 	})
+			// },
+
+				//SearchUeser() {
+        // //------------------------------------------------------------------------------
+        // // 아이디 찾기
+        // //------------------------------------------------------------------------------
+        // if( this.searchSelect == 0) {
+        //   if(this.userName == null || this.userName == '') {
+        //     alert('이름 혹은 회사명을 입력해주세요');
+        //     this.$refs.userName.focus();
+        //     return;
+        //   }
+
+        //   if(this.clntSubsNo == null || this.clntSubsNo == '') {
+        //     alert('연락처를 입력해주세요.');
+        //     this.$refs.clntSubsNo.focus();
+        //     return;
+        //   }
+
+        //   //------------------------------------------------------------------------------
+        //   // 정보 보내기
+        //   //------------------------------------------------------------------------------
+        //   var data = {
+        //       userName   : this.userName
+        //     , clntSubsNo : this.clntSubsNo
+        //   };
+
+        //   const frm = new FormData();
+        //   frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));		
+
+        //   axios.post("http://api.adinfo.co.kr:30000/FindUserId", frm)
+        //   .then(response => {
+        //     if( response.data.status == true ) {
+        //       console.log(response.data)
+        //       $(".searchId .serachSubBox1").css({display: "none"})
+        //       $(".searchId .serachSubBox2").css({display: "block"})
+        //       $("#searchModar .searchBox .searchTapBox .searchCheckBtn").css({display: "none"})
+        //       $("#searchModar .searchBox .searchTapBox .searchBtn").css({display: "inline"})
+
+        //       this.retUeserId = response.data.message;
+        //     //   $("#singPopUp").css({display: "none"})
+        //     } else {
+        //       this.message  = '';
+        //       this.message1 = "요청하신 고객정보가 존재하지 않습니다.";
+        //       this.message2 = "다시 입력바랍니다.";
+        //       return;
+        //     }
+        //   })
+        //   .catch(error => {
+        //     console.log(error);
+        //   })
+        // }
+
 
 			Rate(pos) {
 				this.tapbtn = pos
@@ -472,9 +605,7 @@
 				this.extraService = []
 				// this.TotalPrice();
 			},
-
 			TotalPrice() {
-
 				let price = 29700;
 				let extraPrice = 0;
 				if(this.servicePlan == 'basic'){
@@ -490,25 +621,21 @@
 				for(let i = 0 ; i <this.extraService.length ; i++){
 					if(this.extraService[i] == '01') {
 						extraPrice = extraPrice + 55000
+					} else if(this.extraService[i] == '02') {
+						extraPrice = extraPrice + 110000
 					}
 				}
 
 				this.total = price +extraPrice
 				this.preview = this.total.toLocaleString('ko-KR'); 
-				
 			},
 			ExtraPrice(){
 				let price = 0;
 				if(this.subPlan == 'post') {
 					price = 55000
-					this.smsPlan = 0;
-				}
-				else if(this.subPlan == 'sms'){
-					price = Number(this.smsPlan)
 				}
 				else if(this.subPlan == 'adminM'){
 					price = 110000
-					this.smsPlan = 0;
 				}
 				this.extraTotal = price
 				this.extraPreview = this.extraTotal.toLocaleString('ko-KR');
@@ -525,15 +652,38 @@
 			// },
 			TapClear() {
 				this.servicePlan = 'basic'
-			}
+			},
+			
 
 
 		},
+		// beforeCreate(){
+		// 	console.log("0 : " + this.$route.params.resultCode)
+		// 	console.log("1 : " + this.$route.resultData)
+		// 	console.log("2 : " + this.resultData)
+		// 	console.log("3 : " + this.HttpClient)
+		// 	console.log("4 : " + this.$route.params.HttpClient)
+		// 	console.log("5 : " + this.$route.HttpClient)
+		// },
+
+		
 		created() {
 			this.$store.state.headerTopTitle = "DBMASTER";
 			this.$store.state.headerMidTitle = "요금제";
 
 			this.TapClear();
+			// this.beforeCreate
+
+			// this.$http.post('')
+
+			// this.$http.post('')
+			// console.log("1 : " + this.$route.resultData)
+			// console.log("2 : " + this.resultData)
+			// console.log(this.$route.resultCode)
+			// console.log(this.$route.authSignature)
+			// console.log(this.$route.processHTTP)
+			// console.log(this.$route.params)
+			
 
 			// console.log(navigator.language);
 			
@@ -702,11 +852,11 @@
 }
 
 #menu08999 .ratePlanTop li .mid02 input[type="radio"] + label {
-	width: 426px;
+	width: 650px;
 }
 
 #menu08999 .ratePlanTop li .mid02 input[type="radio"]:checked + label::before {
-	width: 426px;
+	width: 650px;
 	height: 169px;
 }
 

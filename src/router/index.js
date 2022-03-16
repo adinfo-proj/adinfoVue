@@ -409,6 +409,8 @@ router.beforeEach((to, from, next) => {
           }
           else {
             next('/login');
+            sessionStorage.setItem("menuSelect"   , '2');
+            sessionStorage.setItem("subMenuSelect", '');
           }
         }
       })

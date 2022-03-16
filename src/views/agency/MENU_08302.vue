@@ -297,9 +297,9 @@
         </div>
 
         <!-- 동영상 -->
-        <!-- <div v-if="lendchoose.tp == '04'">
-            <iframe :src="lendchoose.descript" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; muteded; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
-        </div> -->
+        <div v-if="lendchoose.tp == '04'">
+            <iframe :src="lendchoose.descript" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
 
       </div>
       <div class="bgColor">
@@ -422,7 +422,7 @@
           <button class="firstBtn"  @click="ImgChooseBtn()" >이미지 추가</button>
           <!-- <button class="textBtn" @click="TextChooseBtn()">텍스트 추가</button> -->
           <button class="firstBtn" @click="FormChooseBtn()">폼 추가</button>
-          <!-- <button class="firstBtn" @click="VideoChooseBtn()">유투브 추가</button> -->
+          <button class="firstBtn" @click="VideoChooseBtn()">유투브 추가</button>
           <button class="iniBtn" @click="InitForm()">초기화</button>
         </div>
         <div class="right">
@@ -1273,9 +1273,7 @@
     },
     // mounted: function() {
     //   this.$watch('this.$store.state.inputObj', function(newVal, oldVal) {
-    //     console.log("this?");
-    //     console.log(newVal);
-    //     console.log(oldVal);
+
     //   })
     // },
     created() {

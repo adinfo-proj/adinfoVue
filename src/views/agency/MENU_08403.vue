@@ -406,7 +406,6 @@
         })
         .then(response => {
 					if(response.data != null) {
-						console.log(response.data);
 
 						this.sendUrl  = response.data.postbackUrl;
 						this.encrypt  = response.data.sslYn;

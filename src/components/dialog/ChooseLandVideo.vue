@@ -41,7 +41,7 @@
           , formDesc: ''
           , landImgNm: ''
         }
-        VideoFiles.descript = "https://www.youtube.com/embed/"+this.dddddd;
+        VideoFiles.descript = "https://www.youtube.com/embed/"+this.dddddd+"?autoplay=1&mute=1";
         this.$set(this.$store.state.lendchooseObj, this.indexNum, VideoFiles);
 
       },

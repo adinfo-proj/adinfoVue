@@ -82,31 +82,39 @@ export default {
         siteCode: '01'
       })
       .then(response => {
+
         if( response.data.status == "0" ) {
-          this.$store.state.clntId       = response.data.clntId
-          this.$store.state.clntNm       = response.data.clntNm
-          this.$store.state.nickNm       = response.data.nickNm
+          this.$store.state.clntId       = response.data.clntId;
+          this.$store.state.clntNm       = response.data.clntNm;
+          this.$store.state.nickNm       = response.data.nickNm;
 
-          this.$store.state.jwtAuthToken = response.data.authToken
-          this.$store.state.adGradeCd    = response.data.gradeCd
+          this.$store.state.jwtAuthToken = response.data.authToken;
+          this.$store.state.adGradeCd    = response.data.gradeCd;
 
-          this.$store.state.mbId = response.data.mbId
-          this.$store.state.adId = response.data.adId
-          this.$store.state.mkId = response.data.mkId
-          this.$store.state.mkCd = response.data.mkCd
+          this.$store.state.mbId = response.data.mbId;
+          this.$store.state.adId = response.data.adId;
+          this.$store.state.mkId = response.data.mkId;
+          this.$store.state.mkCd = response.data.mkCd;
+
+          this.$store.state.menuSelect = 2;
+          this.$store.state.subMenuSelect = '';
 
           // 토큰값을 LocalStorage에 저장한다.
           
-          sessionStorage.setItem("clntId", this.$store.state.clntId);
-          sessionStorage.setItem("clntNm", this.$store.state.clntNm);
-          sessionStorage.setItem("nickNm", this.$store.state.nickNm);
-          sessionStorage.setItem("token" , this.$store.state.jwtAuthToken);
-          sessionStorage.setItem("grade" , this.$store.state.adGradeCd);
+          sessionStorage.setItem("clntId"       , this.$store.state.clntId);
+          sessionStorage.setItem("clntNm"       , this.$store.state.clntNm);
+          sessionStorage.setItem("nickNm"       , this.$store.state.nickNm);
+          sessionStorage.setItem("token"        , this.$store.state.jwtAuthToken);
+          sessionStorage.setItem("grade"        , this.$store.state.adGradeCd);
 
-          sessionStorage.setItem("mbId"  , this.$store.state.mbId);
-          sessionStorage.setItem("adId"  , this.$store.state.adId);
-          sessionStorage.setItem("mkId"  , this.$store.state.mkId);
-          sessionStorage.setItem("mkCd"  , this.$store.state.mkCd);
+          sessionStorage.setItem("mbId"         , this.$store.state.mbId);
+          sessionStorage.setItem("adId"         , this.$store.state.adId);
+          sessionStorage.setItem("mkId"         , this.$store.state.mkId);
+          sessionStorage.setItem("mkCd"         , this.$store.state.mkCd);
+          sessionStorage.setItem("menuSelect"   , this.$store.state.menuSelect);
+          sessionStorage.setItem("subMenuSelect", this.$store.state.subMenuSelect);
+
+
 
           if( this.$store.state.adGradeCd == '05' ){
             this.$router.push({ path : "MENU_08201" })

@@ -91,7 +91,7 @@
       // 로그아웃 함수
       //******************************************************************************
       LogOut() {
-                // LocalStorage 전체를 지운다.
+        // LocalStorage 전체를 지운다.
         sessionStorage.clear();
         localStorage.clear();
         this.$router.push({ path : "Login" });
@@ -135,6 +135,7 @@
       this.$store.state.mkCd         = sessionStorage.getItem("mkCd");
       
       this.setDivHeight();
+
     }
   }
 </script>
@@ -228,11 +229,9 @@
     display: none;
   }
 
-  .headerNav > ul > li > ul > li {
-    padding: 9px 0;
-  }
-
   .headerNav > ul > li > ul > li > a {
+    display: block;
+    padding: 9px 0;
     color: #999;
     letter-spacing: -0.3px;
     font-weight: 700;

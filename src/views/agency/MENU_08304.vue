@@ -11,7 +11,7 @@
                 </th>
                 <td>
                   <select v-model="campSelect" @change="getLandingPageLst(campSelect)">
-                    <option value="-1">선택하세요</option>
+                    <option value="-1">전체</option>
                     <option v-for="(campaignNameList, index) in campaignNameListObj"
                       :key="index" 
                       :value="campaignNameList.caId"
@@ -19,7 +19,7 @@
                     </option>
                   </select>
                   <select v-model="landSelect" @change="getLandingPageOne(landSelect)" :disabled="campSelect == '-1'">
-                    <option value="-1">선택하세요</option>
+                    <option value="-1">전체</option>
                     <option v-for="(landingData, index) in landingDataObj"
                       :key="index" 
                       :value="landingData.pgId"
@@ -71,7 +71,7 @@
               :key="index"
               @click="ServestdomainData(index)"
             >
-              <th class="admNo"    >{{index+1}}</th>
+              <th class="admNo"    >{{stUserList.seqNo}}</th>
               <td class="admStart" >{{stUserList.createDt}}</td>
               <td class="admCamp"  >{{stUserList.caNm}}</td>
               <td class="admLand"  >{{stUserList.pgNm}}</td>
@@ -144,7 +144,7 @@
 					this.campaignNameListObj = response.data;
           //this.getLandingPageLst();
 
-          this.getClntUser(1, true);
+          // this.getClntUser(1, true);
 				})
 				.catch(error => {
 					console.log(error);
@@ -170,8 +170,9 @@
         })
         .then(response => {
 					this.landingDataObj = response.data;
+          this.landSelect = "-1"
 
-          this.getClntUser(1, true);
+          // this.getClntUser(1, true);
 
           // if(this.landingDataObj.length > 0) {
           //   this.landSelect = response.data[0].pgId;
@@ -303,6 +304,8 @@
             , pgId: this.landSelect
             , status: '00'
             , description: ''
+						, curPage   : selectPage
+						, rowCount  : this.selectRowCount
           }
         })
         .then(response => {
@@ -369,7 +372,7 @@
 			this.$store.state.headerMidTitle = "외부 도메인 연결 설정";
 			this.getCampaignNameLst();
 
-      //this.getClntUser();
+      this.getClntUser(1, true);
 		}
   }
 </script>
