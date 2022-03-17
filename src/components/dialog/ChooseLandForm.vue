@@ -75,13 +75,19 @@
           <tr>
             <td class="left">
               <h6 class="leftBox">버튼 텍스트 색상
-                <i class="icon-error_outline"></i>
+                <span>
+                  <i class="icon-error_outline"></i>
+                  <img src="../../assets/images/menu08302/btnText.png" alt="btnText">
+                </span>
               </h6>
               <input type="color" v-model="formviewModel.formDesc.textColor">
             </td>
             <td class="right">
               <h6 class="leftBox">버튼 색상 선택
-                <i class="icon-error_outline"></i>
+                <span>
+                  <i class="icon-error_outline"></i>
+                  <img src="../../assets/images/menu08302/btnBg.png" alt="btnBg">
+                </span>
               </h6>
               <input type="color" v-model="formviewModel.formDesc.btnColor">
             </td>
@@ -89,13 +95,19 @@
           <tr>
             <td class="left line">
               <h6 class="leftBox">폼 테두리 굵기
-                <i class="icon-error_outline"></i>
+                <span>
+                  <i class="icon-error_outline"></i>
+                  <img src="../../assets/images/menu08302/formLine.png" alt="formLine">
+                </span>
               </h6>
               <input type="text" id="boxLine" v-model="borderLine"><span>px</span>
             </td>
             <td class="right">
               <h6 class="leftBox">폼 테두리 색상
-                <i class="icon-error_outline"></i>
+                <span>
+                  <i class="icon-error_outline"></i>
+                  <img src="../../assets/images/menu08302/formLineColor.png" alt="formLineColor">
+                </span>
               </h6>
               <input type="color" v-model="formviewModel.formDesc.lineColor">
             </td>
@@ -103,13 +115,19 @@
           <tr>
             <td class="left">
               <h6 class="leftBox">텍스트A 색상
-                <i class="icon-error_outline"></i>
+                <span>
+                  <i class="icon-error_outline"></i>
+                  <img src="../../assets/images/menu08302/textA.png" alt="textA">
+                </span>
               </h6>
               <input type="color" v-model="formviewModel.formDesc.textA">
             </td>
             <td class="right">
               <h6 class="leftBox">텍스트B 색상
-                <i class="icon-error_outline"></i>
+                <span>
+                  <i class="icon-error_outline"></i>
+                  <img src="../../assets/images/menu08302/textB.png" alt="textB">
+                </span>
               </h6>
               <input type="color" v-model="formviewModel.formDesc.textB">
             </td>
@@ -117,13 +135,15 @@
           <tr>
             <td class="left">
               <h6 class="leftBox">폼 배경 색상
-                <i class="icon-error_outline"></i>
               </h6>
               <input type="color" v-model="formviewModel.formDesc.bgColor">
             </td>
             <td class="right">
               <h6 class="leftBox">약관 텍스트 색상
-                <i class="icon-error_outline"></i>
+                <span>
+                  <i class="icon-error_outline"></i>
+                  <img src="../../assets/images/menu08302/agree.png" alt="agree">
+                </span>
               </h6>
               <input type="color" v-model="formviewModel.formDesc.agreeColor">
             </td>
@@ -145,6 +165,20 @@
   export default {
     props: {
         indexNum: Number
+    },
+    mounted(){
+      $(".landForm .formStyle .leftBox span i").hover(
+        function(){
+          $(this).parent().find("img").fadeIn(200)
+        },
+        function(){
+          $(".landForm .formStyle .leftBox span img").fadeOut(200)
+      })
+      $(".landForm .icon-arrow").click(function(){
+        $(this).toggleClass("on");
+        $(this).parent().parent().find(".upPage").slideToggle(300);
+      })
+
     },
     components:{
       // InputForm
@@ -196,37 +230,20 @@
         }
         // this.$store.state.inputObj.push(InputForm)
       },
-      //******************************************************************************
-      // 폼 접는 함수
-      //******************************************************************************
-      FormUpPage() {
-        $(".landForm .upPage").slideToggle(300);
-        $(".landForm .icon-arrow").toggleClass("on");
-      },
+      // //******************************************************************************
+      // // 폼 접는 함수
+      // //******************************************************************************
+      // FormUpPage() {
+      //   $(this).toggleClass("on");
+      //   // $(this).
+      //   $(this).parent().parent().find(".upPage").slideToggle(300);
+      // },
       //******************************************************************************
       // 폼 삭제 함수
       //******************************************************************************
       DelLandForm(){
         this.$store.state.lendchooseObj.splice(this.indexNum, 1);
       },
-      // PrivacyText() {
-      //   this.agreeCon = "<b>[개인정보 수집 및 이용안내]</b><br>"
-      //   this.agreeCon += " 개인정보 수집주체 : " 
-      //   this.agreeCon += this.store.state.company 
-      //   this.agreeCon += "<br>"
-      //   this.agreeCon += " 개인정보 수집항목 : 성명, 휴대폰, 이메일, IP등을 포함한 고객이 입력한 정보<br>"
-      //   this.agreeCon += " 개인정보 수집 이용목적 : 전화, SMS를 통한 상품안내 및 상담<br>"
-      //   this.agreeCon += " 개인정보보유/이용기간 : 수집일로부터 1년(고객동의 철회시 지체없이 파기)<br><br>"
-      //   this.agreeCon += "<b>[개인정보의 취급 위탁]</b><br>"
-      //   this.agreeCon += " 당사는 서비스 이행 및 향상을 위해 개인정보 취급업무를 전문업체에 위탁 운영하고 있습니다."
-      //   this.agreeCon += " 또한 개인정보를 안전하게 처리하기 위하여 필요한 사항등을 명확히 규정하고 있으며,"
-      //   this.agreeCon += " 당해 계약 내용을 서면 또는 전자적으로 보관하고 있습니다.<br>"
-      //   this.agreeCon += " 위탁업체 및 위탁업무내용<br>"
-      //   this.agreeCon += " " 
-      //   this.agreeCon += this.$store.state.company 
-      //   this.agreeCon += " : 고객DB, 개인정보 수집, 보관/휴대폰 문자발송/민원처리<br>"
-      //   this.agreeCon += " $('.agreeBox div').slideUp(0);"
-      // },
       //******************************************************************************
       // 폼 적용되는 함수
       //******************************************************************************
@@ -300,6 +317,17 @@
   .landForm .formStyle .leftBox {
     float: left;
     padding: 7px 10px 0 0;
+  }
+  .landForm .formStyle .leftBox span{
+    position: relative;
+  }
+  .landForm .formStyle .leftBox span img{
+    position: absolute;
+    left: 7px;
+    top: 20px;
+    transform: translateX(-50%);
+    display: none;
+    z-index: 99;
   }
   .landForm input[type="color"] {
     display: inline-block;
