@@ -1,5 +1,5 @@
 <template>
-  <div class="landForm landBox" >
+  <div class="landForm landBox">
     <h2>
       폼 꾸미기<span> (수집 항목은 캠페인에서 지정 바랍니다.)</span>
       <i class="icon-x_btn" @click="DelLandForm()"></i>

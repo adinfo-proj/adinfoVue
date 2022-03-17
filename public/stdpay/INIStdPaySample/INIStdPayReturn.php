@@ -60,10 +60,9 @@
 					height: 450px;
 				}
 
-				.wrap button{
+				.wrap .returnBtn{
 					width: 250px;
 					height: 50px;
-					border: none;
 					border-radius: 25px;
 					background: #e25b45;
 					color: #fff;
@@ -711,7 +710,7 @@
 											echo $s;
 									}
 					?>
-					<button>이전페이지로 돌아갑니다.</button>
+					<a class="returnBtn" href="http://sw.dbmaster.co.kr/#/MENU_08999">이전페이지로 돌아갑니다.</a>
 				</div>
 			</div>
         

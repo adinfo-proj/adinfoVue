@@ -115,7 +115,6 @@ export default {
           sessionStorage.setItem("subMenuSelect", this.$store.state.subMenuSelect);
 
 
-
           if( this.$store.state.adGradeCd == '05' ){
             this.$router.push({ path : "MENU_08201" })
           } else {

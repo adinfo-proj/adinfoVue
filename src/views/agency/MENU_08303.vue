@@ -28,7 +28,6 @@
                   </select>
                 </td>
               </tr>
-
               <tr>
                 <th>
                   DB확인 페이지 ID명
