@@ -62,7 +62,7 @@
               <th class="landNm" >랜딩페이지명</th>
 
 							<th class="apiResult">처리결과</th>
-							<th class="sendData"   >전송데이터</th>
+							<th class="sendData">전송데이터</th>
 						</tr>
 					</thead>
 					<tbody v-if="this.dataLength == '0'" class="noLength">
@@ -88,7 +88,11 @@
               <td class="apiResult"     v-else>실패</td>
 
 
-							<td class="sendData"    >{{ postbackData.sendUrl }}/{{ postbackData.sendValue }}</td>
+							<td class="sendData">
+
+									{{ postbackData.sendUrl }}/{{ postbackData.sendValue }}
+
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -341,6 +345,7 @@
 		margin-left: 15px;
 	}
 	#menu08404 .campDataBox {
+		width: 100%;
 		border-radius: 10px;
     border-top-left-radius: 0px;
     background: #fff;
@@ -350,7 +355,12 @@
 		width: 100%;
 		text-align: center;
 		border-collapse: collapse;
+		table-layout: fixed;
 	}
+	/* #menu08404 .campDataBox table tr {
+
+		height: 50px;
+	} */
 	#menu08404 .campDataBox th,
 	#menu08404 .campDataBox td {
 		padding: 15px 18px;
@@ -376,7 +386,7 @@
     border-bottom: 1px solid #ececec;
 	}
 	#menu08404 .campDataBox .apiNum{
-		width: 5%;
+		width: 4.5%;
 	}
 	#menu08404 .campDataBox .apiStart{
 		width: 12%;
@@ -391,12 +401,15 @@
 		width: 17%;
 	}
 	#menu08404 .campDataBox .apiResult{
-		width: 7%;
+		width: 6%;
 	}
 	#menu08404 .campDataBox .sendData{
-		width: 30%;
+		width: 31.5%;
+		
+    word-break:break-all;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3
 	}
-
 	#menu08404 .campDataBox td.campNm,
 	#menu08404 .campDataBox td.landNm,
 	#menu08404 .campDataBox td.sendData {
@@ -410,7 +423,6 @@
     height: 25px;
     border: 1px solid #e4e4e4;
     color: #c6c6c6;
-    /* font-size: 12px; */
     padding: 5px 5px;
 		cursor: pointer;
   }

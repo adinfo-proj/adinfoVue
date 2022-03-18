@@ -161,6 +161,10 @@
     color: #666;
   }
 
+  table{
+    table-layout: fixed;
+  }
+
   ul {
     list-style: none;
   }
