@@ -121,6 +121,11 @@
 					alert(response.data.message);
 					if( response.data.result == true) {
 						this.$router.push({ path : "MENU_08401" })
+
+						this.$store.state.menuSelect = "4"
+            this.$store.state.subMenuSelect = "401"
+            sessionStorage.setItem("menuSelect"   ,    this.$store.state.menuSelect);
+            sessionStorage.setItem("subMenuSelect", this.$store.state.subMenuSelect);
 					}
 				})
 				.catch(error => {

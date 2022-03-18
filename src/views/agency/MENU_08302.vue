@@ -746,6 +746,11 @@
             window.open(response.data.landingUrl);
             this.InitForm();
             this.$router.push({ path : "MENU_08301" });
+            this.$store.state.menuSelect = "3"
+            this.$store.state.subMenuSelect = "301"
+            sessionStorage.setItem("menuSelect"   ,    this.$store.state.menuSelect);
+            sessionStorage.setItem("subMenuSelect", this.$store.state.subMenuSelect);
+
           }
         })
         .catch(error => {

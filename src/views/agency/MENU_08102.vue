@@ -451,6 +451,11 @@ export default {
         alert(response.data.message);
         if( response.data.result == true) {
           this.$router.push({ path : "MENU_08101" })
+            this.$store.state.menuSelect = "1"
+            this.$store.state.subMenuSelect = "101"
+            sessionStorage.setItem("menuSelect"   ,    this.$store.state.menuSelect);
+            sessionStorage.setItem("subMenuSelect", this.$store.state.subMenuSelect);
+
         }
       })
       .catch(error => {
