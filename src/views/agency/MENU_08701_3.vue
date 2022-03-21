@@ -17,7 +17,8 @@
 					<input type="text" v-model="title">
 				</h2>
 				<div class="textBox">
-					<ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
+					<!-- <ckeditor v-model="editorData" :config="editorConfig"></ckeditor> -->
+					<textarea name="ir1" id="ir1" rows="10" cols="100" ref="ir1" v-bind="editorData"></textarea>
 				</div>
 			</div>
 			<div class="btnBox">
@@ -29,6 +30,7 @@
 </template>
 
 <script>
+	import $ 							from "jquery";
   import axios          from "axios";
 
 	export default {
@@ -36,30 +38,8 @@
 			return {
           title: ''
 				, preface: '01'
-				, editorConfig: { 
-           toolbarGroups: [ 
-            { name: 'styles', groups: [ 'styles' ] }, 
-            { name: 'colors', groups: [ 'colors' ] }, 
-            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] }, 
-            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] }, 
-            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] }, 
-            { name: 'forms', groups: [ 'forms' ] }, 
-            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }, 
-            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] }, 
-            { name: 'links', groups: [ 'links' ] }, 
-            { name: 'insert', groups: [ 'insert' ] }, 
-            { name: 'others', groups: [ 'others' ] }, 
-            { name: 'about', groups: [ 'about' ] }, 
-            { name: 'tools', groups: [ 'tools' ] } 
-            ] 
-          , height: '590px' 
-          , language: 'ko' 
-          , resize_enabled: false 
-          , autoParagraph: false 
-          , allowedContent: true 
-          , removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format' 
-        } 
-        , editorData : ''
+        , editorData : []
+
 			}
 		},
 		methods: {
@@ -67,21 +47,30 @@
 			// 공지사항 등록
 			//******************************************************************************
 			CreateNotify() {
-        axios.get("http://api.adinfo.co.kr:30000/notice/create",
-        {
-          params: {
-              clntId: this.$store.state.clntId
-						, groupTp   : '00'
-            , head      : this.preface
-            , title     : this.title
-            , contents  : this.editorData
-          }
+
+				this.editorData.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+
+				let text = $("#ir1").val();
+
+        let data = {
+						clntId		: this.$store.state.clntId
+					, groupTp   : '00'
+					, head      : this.preface
+					, title     : this.title
+					, contents  : text
+        };
+
+				const frm = new FormData();
+				frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
+
+        axios.post("http://api.adinfo.co.kr:30000/notice/create", frm, {
+          headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
           if(response.data > 0) {
             alert("정상적으로 공지사항이 등록되었습니다.");
             this.$router.push({
-              name : 'MENU_08701_2',
+              name : 'MENU_08701',
               params: { index: response.data }
             })
             return;
@@ -97,9 +86,21 @@
 			//******************************************************************************
 			// 공지사항 리스트로 돌아가기
 			//******************************************************************************
-			CancleNoticeList() {
+			CancleNoticeList() { 
+
 				this.$router.push({ name : 'MENU_08701' })
-			}
+
+
+
+      }
+		},
+		mounted() {
+			window.nhn.husky.EZCreator.createInIFrame({
+				oAppRef: this.editorData,
+				elPlaceHolder: "ir1",
+				sSkinURI: "/smarteditor2/SmartEditor2Skin.html",
+				fCreator: "createSEditor2"
+			});
 		},
 		created() {
 			this.$store.state.headerTopTitle = "고객센터";
@@ -149,9 +150,10 @@
 	}
 	#menu08701_3 .tableBox .textBox {
 		padding: 8px 11px;
+		
 	}
 	#menu08701_3 .tableBox .textBox textarea {
-		width: 100%;
+		width: 99%;
 		height: 487px;
 		resize: none;
 		border: 1px solid #e5e5e5;

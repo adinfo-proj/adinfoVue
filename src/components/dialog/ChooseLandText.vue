@@ -5,7 +5,11 @@
       <i class="icon-arrow on"></i>
     </h2>
     <div class="upPage">
-      <ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
+      <!-- <ckeditor v-model="editorData" :config="editorConfig"></ckeditor> -->
+      <div class="textBox"> 
+      <!-- <ckeditor v-model="editorData" :config="editorConfig"></ckeditor> --> 
+      <textarea name="ir1" id="ir1" rows="10" cols="100" ref="ir1" v-bind="editorData2">에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.</textarea> 
+      </div> 
       <button :id="this.indexNum" @click="UploadText()">입력하기</button>
       <button :id="'modifyBtn'+this.indexNum" class="modifyBtn" @click="UploadText()">수정하기</button>
     </div>
@@ -19,6 +23,7 @@
   export default {
     data() {
       return {
+
 
         
         editorConfig: {        
@@ -34,6 +39,7 @@
           , resize_enabled: false
         }
         , editorData : this.$store.state.lendchooseObj[this.indexNum].descript
+        , editorData2 : ''
           
       }
     },
@@ -45,6 +51,46 @@
         $(this).toggleClass("on");
         $(this).parent().parent().find(".upPage").stop().slideToggle(300);
       })
+      // window.nhn.husky.EZCreator.createInIFrame({ 
+      //   oAppRef: this.editorData2, 
+      //   elPlaceHolder: "ir1", 
+      //   sSkinURI: "/smarteditor2/SmartEditor2Skin.html", 
+      //   fCreator: "createSEditor2" 
+      //   htParams : {
+      //       // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+      //       bUseToolbar : true,             
+      //       // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+      //       bUseVerticalResizer : true,     
+      //       // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+      //       bUseModeChanger : true,         
+      //       fOnBeforeUnload : function(){
+      //       }
+      //   }, 
+      // }); 
+
+      // window.nhn.husky.EZCreator.createInIFrame({
+      //   oAppRef: this.editorData2,
+      //   elPlaceHolder: "ir1",
+      //   //SmartEditor2Skin.html 파일이 존재하는 경로
+      //   sSkinURI: "/smarteditorSample/SE2/SmartEditor2Skin.html",  
+      //   htParams : {
+      //       // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+      //       bUseToolbar : true,             
+      //       // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+      //       bUseVerticalResizer : true,     
+      //       // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+      //       bUseModeChanger : true,         
+      //       fOnBeforeUnload : function(){
+                  
+      //       }
+      //   }, 
+      //   fOnAppLoad : function(){
+      //       //textarea 내용을 에디터상에 바로 뿌려주고자 할때 사용
+      //       document.getElementById["ir1"].exec("PASTE_HTML", ["ㅎㅇ 시작하자마자 이문구 작성됨."]);
+      //   },
+      //   fCreator: "createSEditor2"
+      // });
+
     },
     methods: {
       //******************************************************************************

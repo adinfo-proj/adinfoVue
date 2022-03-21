@@ -20,9 +20,9 @@
 						<span>{{contentsData.createDt}}</span>
 					</p>
 				</h3>
-        <div class="textBox">
-					<ckeditor v-model="contentsData.contents" :config="editorConfig"></ckeditor>
-          <!-- <span v-html="contentsData.contents"></span> -->
+        <div class="textBox" v-html="contentsData.contents">
+					<!-- <ckeditor v-model="contentsData.contents" :config="editorConfig"></ckeditor> -->
+          <!-- <span ></span> -->
         </div>
 			</div>
 			<div class="tableBox prevBox">
@@ -67,19 +67,19 @@
           contentsData: ''
         , contentsBefore: ''
         , contentsAfter: ''
-				, editorConfig: { 
-							toolbarGroups: [] 
-						, height: '331px' 
-						, width: '1358px'
-						, language: 'ko'
-						, toolbarStartupExpanded: false
-						, resize_enabled: false 
-						, autoParagraph: false 
-						, removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format'
-						, readOnly: true
-						, removePlugins: 'toolbar'
-						, allowedContent: true
-        } 
+				// , editorConfig: { 
+				// 			toolbarGroups: [] 
+				// 		, height: '331px' 
+				// 		, width: '1358px'
+				// 		, language: 'ko'
+				// 		, toolbarStartupExpanded: false
+				// 		, resize_enabled: false 
+				// 		, autoParagraph: false 
+				// 		, removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format'
+				// 		, readOnly: true
+				// 		, removePlugins: 'toolbar'
+				// 		, allowedContent: true
+        // } 
 			}
 		},
 		methods: {
@@ -200,7 +200,7 @@
 	}
 	#menu08701_2 .noticeView {
 		overflow: hidden;
-		height: 380px;
+		/* height: 380px; */
 	}
 	#menu08701_2 .noticeView h3 {
 		padding: 16px 0 16px 20px;
@@ -237,15 +237,14 @@
 		background: #d2d2d2;
 	}
 	#menu08701_2 .noticeView .textBox {
-		margin-left: -1px ;
+		padding: 40px 16px 20px;
+		/* margin-left: -1px ; */
 		line-height: 20px;
 		color: #444;
-		overflow: hidden;
+		/* overflow: hidden; */
+
 	}
 
-	#menu08701_2>.noticeView>.textBox>div {
-		margin-top: -10px;
-	}
 	#menu08701_2 .prevBox p {
 		padding: 11px;
 		
