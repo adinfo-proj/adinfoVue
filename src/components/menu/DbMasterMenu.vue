@@ -122,7 +122,7 @@
         </li>
       </ul>
       <div class="manual">
-        <a href="files/API_사용매뉴얼.pdf" download><i class="icon-download11"></i>매뉴얼 다운로드</a>
+        <a href="files/디비마스터_매뉴얼_v3.pdf" download><i class="icon-download11"></i>매뉴얼 다운로드</a>
       </div>
     </div>
   </div>

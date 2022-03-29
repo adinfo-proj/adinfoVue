@@ -426,7 +426,7 @@ export default {
         , adPurpose         : this.adPurpose
         , adTopKind         : this.adTopKind
         , adMiddleKind      : this.adMiddleKind
-        , adSrtDt           : this.$DateAdd(0)
+        , adSrtDt           : this.$DateAdd(0,0,0)
         , adSrtTm           : '235959'
         , adName            : this.adName
         , adNameAd          : this.adNameAd

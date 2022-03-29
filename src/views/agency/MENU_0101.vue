@@ -222,8 +222,8 @@
 	export default {
 		data() {
 			return {
-					serchDataFromDt: this.$DateAdd(0) 
-				, serchDataToDt: this.$DateAdd(0)
+					serchDataFromDt: this.$DateAdd(0,0,0) 
+				, serchDataToDt: this.$DateAdd(0,0,0)
 				, topArrayListObj: ''
 				, selectRowCount: 10
 				, pageCount: []
@@ -418,24 +418,24 @@
 			},
 			ChangeDateRange(pos) {
 				if(pos == 0) {
-					this.serchDataFromDt = this.$DateAdd(-364);
-					this.serchDataToDt   = this.$DateAdd(0);
+					this.serchDataFromDt = this.$DateAdd(-1,0,0);
+					this.serchDataToDt   = this.$DateAdd(0,0,0);
 				}
 				else if(pos == 1) {
-					this.serchDataFromDt = this.$DateAdd(0);
-					this.serchDataToDt   = this.$DateAdd(0);
+					this.serchDataFromDt = this.$DateAdd(0,0,0);
+					this.serchDataToDt   = this.$DateAdd(0,0,0);
 				}
 				else if(pos == 2) {
-					this.serchDataFromDt = this.$DateAdd(-1);
-					this.serchDataToDt   = this.$DateAdd(-1);
+					this.serchDataFromDt = this.$DateAdd(0,0,-1);
+					this.serchDataToDt   = this.$DateAdd(0,0,-1);
 				}
 				else if(pos == 3) {
-					this.serchDataFromDt = this.$DateAdd(-2);
-					this.serchDataToDt   = this.$DateAdd(0);
+					this.serchDataFromDt = this.$DateAdd(0,0,-2);
+					this.serchDataToDt   = this.$DateAdd(0,0,0);
 				}
 				else if(pos == 4) {
-					this.serchDataFromDt = this.$DateAdd(-6);
-					this.serchDataToDt   = this.$DateAdd(0);
+					this.serchDataFromDt = this.$DateAdd(0,0,-6);
+					this.serchDataToDt   = this.$DateAdd(0,0,0);
 				}
 				else {
 					return;

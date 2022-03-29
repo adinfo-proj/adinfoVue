@@ -28,7 +28,7 @@
       <div id="sectionBody">
         <router-view v-bind:style="{minHeight:minHigh}" />
       </div>
-      <div id="sectionFooter">
+      <div id="sectionFooter"  v-if="$store.state.adGradeCd != '06'">
         <div class="footerTop">
           <div class="left">
             (주)마케팅디자인<br>
@@ -82,7 +82,7 @@
     },
     data() {
       return {
-          todayDt: this.$DateAdd(0)
+          todayDt: this.$DateAdd(0,0,0)
         , minHigh: ''
       }
     },

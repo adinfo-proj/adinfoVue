@@ -54,7 +54,16 @@
                   <input type="date" name="" id="" v-model="srtDt"> ~ <input type="date" name="" id="" v-model="endDt">
                 </td>
               </tr>
-              <tr></tr>
+              <tr>
+                <th>
+                  로고 파일 업로드
+                </th>
+                <td>
+                  <input class="upload_name" disabled="disabled" v-bind:placeholder="logoFileNm">
+                  <input type="file" accept="image/*" id="imgfile" class="upload_hidden" ref="upImage01" @change="UploadLogoFile()">
+                  <label for="imgfile">로고 업로드 하기<i class="icon-plus1"></i></label> <span>* 로고 사이즈는 100픽셀X74픽셀 이하로 권장합니다.</span>
+                </td>
+              </tr>
               <tr></tr>
             </table>
           </div>
@@ -142,6 +151,7 @@
         , passWd              : ''
         , srtDt               : ''
         , endDt               : ''
+        , logoFileNm          : ''
         , idComment           : '만들기 클릭 후 아이디는 자동으로 생성됩니다.'
         , pwComment           : ''
 
@@ -308,11 +318,15 @@
 
         const frm = new FormData();
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
+         frm.append("upFile" , this.$refs.upImage01.files[0]); 
+
+
+
         axios.post("http://api.adinfo.co.kr:30000/CreExternalUser", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
-
+          alert(response.data.message);
           if( response.data.status == true) {
             this.idComment = response.data.externalClntId + " / " + response.data.externalClntPw;
 
@@ -320,7 +334,7 @@
             this.landSelect = "-1";
             this.idComment = '';
             this.passWd = '';
-            // this.getClntUser(1, true);
+            this.getClntUser(1, true);
           }
           else {
             this.idComment = '';
@@ -400,6 +414,34 @@
           console.log(error);
         })
 			},
+
+
+
+
+
+
+
+
+
+
+
+
+      //******************************************************************************
+			// 로고 업로드
+			//******************************************************************************
+      UploadLogoFile() { 
+        let logoFile = this.$refs.upImage01.files[0] 
+        //------------------------------------------------------------------------------ 
+        // 이미지 이름 불러오기 
+        //------------------------------------------------------------------------------ 
+        this.logoFileNm = this.$refs.upImage01.files[0].name; 
+        if(logoFile.size > 1024*1024* 2){ 
+          alert('2MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round(logoFile.size / 1024 / 1024 * 100) / 100) + 'MB'); 
+          return 
+        } 
+      },
+
+
 			//******************************************************************************
 			// 데이터 전송
 			//******************************************************************************
@@ -507,10 +549,44 @@
     height: 29px;
   }
 
+
+  #menu08303 .flex .left .tableBox td input[type="file"] {
+    display: none;
+  }
+  
+  #menu08303 .flex .left .tableBox td input[type="file"] + label {
+    display: inline-block;
+    width: 140px;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    color: #000;
+    padding: 8px 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    cursor: pointer;
+    border: 1px solid #e5e5e5;
+    position: relative;
+  }
+
+  #menu08303 .flex .left .tableBox td input[type="file"] + label > i {
+    position: absolute;
+    font-size: 18px;
+    color: #e25b45;
+    font-weight: 700;
+    right: 10px;
+    top: 7px;
+  }
+
+   #menu08303 .flex .left .tableBox td label + span {
+    font-size: 0.9em;
+    color: #999;
+    padding-left: 10px;
+    letter-spacing: 0.9%;
+  }
   #menu08303 .flex .left .btnBox {
     text-align: center;
   }
-
   #menu08303 .flex .left .btnBox button {
     font-weight: 700;
     margin: 0 5px;

@@ -403,9 +403,9 @@ export default {
       adKind: '',             // 캠페인 종류
       adArea: '',             // 광고지역
       adAreaEtc: '',          // 기타지역
-      adSrtDt: this.$DateAdd(0),            // YYYYMMDD
+      adSrtDt: this.$DateAdd(0,0,0),            // YYYYMMDD
       adSrtTm: '00',          // HHMMSS
-      adEndDt: this.$DateAdd(364),            // YYYYMMDD
+      adEndDt: this.$DateAdd(1,0,0),            // YYYYMMDD
       adEndTm: '23',          // HHMMSS
       adPurpose: '',          // 캠페인 목적
       adPurposeObj: '',       // 캠페인 목적 객체

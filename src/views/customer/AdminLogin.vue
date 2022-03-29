@@ -67,6 +67,8 @@ export default {
           this.$store.state.adId = response.data.adId
           this.$store.state.caId = response.data.caId
           this.$store.state.pgId = response.data.pgId
+          this.$store.state.logo = "http://dbmaster.co.kr/SponserHeadImage/" + response.data.clntNm + "/" + response.data.logo; 
+
 
           // 토큰값을 LocalStorage에 저장한다.          
           sessionStorage.setItem("clntId", this.$store.state.clntId);

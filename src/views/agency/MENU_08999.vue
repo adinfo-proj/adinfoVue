@@ -41,6 +41,12 @@
 								<span class="middle">55,000 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>DB 데이터 보내기 + 받기</span></span>
 							</label>
+							<input type="radio" v-model="subPlan" id="sms" value="sms">
+							<!-- <label for="sms">
+								<span class="top">SMS 수신 서비스</span>
+								<span class="middle">2,200/ 6,600/ 11,000/ 22,000 <span>원/월(VAT 포함)</span></span>
+								<span class="bottom"><span>DB접수 시 SMS수신 서비스</span></span>
+							</label> -->
 							<input type="radio" v-model="subPlan" id="adminM" value="adminM">
 							<label for="adminM">
 								<span class="top">어드민 관리자 서비스</span>
@@ -164,10 +170,12 @@
 					<div class="detailPlan">
 						<div class="left">
 							<img v-if="subPlan == 'post'" src="../../assets/images/ratePlan/post.jpg" alt="post">
+							<!-- <img v-if="subPlan == 'sms'" src="../../assets/images/ratePlan/adminManager.jpg" alt="adminM"> -->
 							<img v-if="subPlan == 'adminM'" src="../../assets/images/ratePlan/adminManager.jpg" alt="adminM">
 						</div>
 						<div class="right">
 							<h6 v-if="subPlan == 'post'">[디비마스터] API 프리미엄 서비스 1개월 </h6>
+							<!-- <h6 v-if="subPlan == 'sms'"> [디비마스터] SMS 수신 서비스</h6> -->
 							<h6 v-if="subPlan == 'adminM'"> [디비마스터] 어드민 관리자 서비스 1개월</h6>
 							<p class="subtitle">
 								디비마스터의 유료 서비스상품을 구매 후 이용할 수 있는 상품입니다. 
@@ -177,6 +185,7 @@
 									상품가
 								</span>
 								<span v-if="subPlan == 'post'" class="line">110,000원</span>
+								<!-- <span v-if="subPlan == 'sms'">DB접수 알림 건당 20원 발생</span> -->
 								<span v-if="subPlan == 'adminM'" class="line">220,000원</span>
 							</p>
 							<p>
@@ -184,6 +193,7 @@
 									판매가
 								</span>
 								<span v-if="subPlan == 'post'" class="org">55,000원 <span>(50% 할인)</span></span>
+								<!-- <span v-if="subPlan == 'sms'" class="org">2,200원 ~</span> -->
 								<span v-if="subPlan == 'adminM'" class="org">110,000원 <span>(50% 할인)</span></span>
 							</p>
 							<p>
@@ -198,7 +208,16 @@
 								<span class="planTitle">
 									상품선택
 								</span>
-								<span>단일상품</span>
+								<span v-if="subPlan == 'post' || subPlan == 'adminM'">단일상품</span>
+								<!-- <span v-if="subPlan == 'sms'">
+									<select v-model="smsPlan" >
+										<option value=0 selected disabled>발송 건수 선택</option>
+										<option value="2200">100개</option>
+										<option value="6600">300개</option>
+										<option value="11000">1,000개</option>
+										<option value="22000">2,000개</option>
+									</select>
+								</span> -->
 							</p>
 							<p>
 								<span class="planTitle">
@@ -249,6 +268,7 @@
 						<h6>디비마스터 상품정보</h6>
 
 						<img v-if="subPlan == 'post'" src="../../assets/images/ratePlan/postPlan.jpg" alt="postPlan">
+						<!-- <img v-if="subPlan == 'sms'" src="../../assets/images/ratePlan/smsPlan.jpg" alt="sms"> -->
 						<img v-if="subPlan == 'adminM'" src="../../assets/images/ratePlan/adminManagerPlan.jpg" alt="adminManagerPlan">
 					</div>
 				</div>
@@ -633,10 +653,16 @@
 				let price = 0;
 				if(this.subPlan == 'post') {
 					price = 55000
+					// this.smsPlan = 0;
 				}
+				// else if(this.subPlan == 'sms'){
+				// 	price = Number(this.smsPlan)
+				// }
 				else if(this.subPlan == 'adminM'){
 					price = 110000
+					// this.smsPlan = 0;
 				}
+
 				this.extraTotal = price
 				this.extraPreview = this.extraTotal.toLocaleString('ko-KR');
 
@@ -846,6 +872,12 @@
 	border-bottom: 1px solid #eee;
 }
 
+#menu08999 .ratePlanTop li .mid02 input[type="radio"]#sms + label .middle{
+	font-size: 16px;
+	line-height: 23px;
+}
+
+
 #menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label .bottom {
 	font-size: 16px;
 	padding: 15px;
@@ -854,6 +886,7 @@
 #menu08999 .ratePlanTop li .mid02 input[type="radio"] + label {
 	width: 650px;
 }
+
 
 #menu08999 .ratePlanTop li .mid02 input[type="radio"]:checked + label::before {
 	width: 650px;

@@ -20,9 +20,10 @@
 						<span>{{contentsData.createDt}}</span>
 					</p>
 				</h3>
-        <div class="textBox" v-html="contentsData.contents">
-					<!-- <ckeditor v-model="contentsData.contents" :config="editorConfig"></ckeditor> -->
-          <!-- <span ></span> -->
+        <div class="textBox">
+					<ckeditor v-model="contentsData.contents" :config="editorConfig"></ckeditor>
+					<!-- <ckeditor v-bind:type="'inline'" v-bind:value="contentsData.contents" v-bind:config="editorConfig"></ckeditor> -->
+          <!-- <span v-html="contentsData.contents"></span> -->
         </div>
 			</div>
 			<div class="tableBox prevBox">
@@ -52,6 +53,7 @@
 			<div class="btnBox">
 				<button @click="GoNoticeList()">목록으로</button>
 			</div>
+			<video src=""></video>
 
 		</div>
 
@@ -67,19 +69,52 @@
           contentsData: ''
         , contentsBefore: ''
         , contentsAfter: ''
-				// , editorConfig: { 
-				// 			toolbarGroups: [] 
-				// 		, height: '331px' 
-				// 		, width: '1358px'
-				// 		, language: 'ko'
-				// 		, toolbarStartupExpanded: false
-				// 		, resize_enabled: false 
-				// 		, autoParagraph: false 
-				// 		, removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format'
-				// 		, readOnly: true
-				// 		, removePlugins: 'toolbar'
-				// 		, allowedContent: true
-        // } 
+				, editorConfig: { 
+							toolbarGroups: [] 
+						, height: '331px' 
+						, width: '1358px'
+						, language: 'ko'
+						, toolbarStartupExpanded: false
+						, resize_enabled: false 
+						, autoParagraph: false 
+						, removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Image,Smiley,SpecialChar,PageBreak,Iframe,Maximize,About,ShowBlocks,Styles,Format'
+						, readOnly: true
+						, removePlugins: 'toolbar'
+						, allowedContent: true
+
+						// , stylesSet: [ 
+						// 	/* Inline Styles */ 
+						// 	{ name: 'Marker', element: 'span', attributes: { 'class': 'marker' } }, 
+						// 	{ name: 'Cited Work', element: 'cite' }, 
+						// 	{ name: 'Inline Quotation', element: 'q' }, 
+					
+						// 	/* Object Styles */ 
+						// 	{ 
+						// 		name: 'Special Container', 
+						// 		element: 'div', 
+						// 		styles: { 
+						// 			padding: '5px 10px', 
+						// 			background: '#eee', 
+						// 			border: '1px solid #ccc' 
+						// 		} 
+						// 	}, 
+						// 	{ 
+						// 		name: 'Compact table', 
+						// 		element: 'table', 
+						// 		attributes: { 
+						// 			cellpadding: '5', 
+						// 			cellspacing: '0', 
+						// 			border: '1', 
+						// 			bordercolor: '#ccc' 
+						// 		}, 
+						// 		styles: { 
+						// 			'border-collapse': 'collapse' 
+						// 		} 
+						// 	}, 
+						// 	{ name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } }, 
+						// 	{ name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } } 
+						// ] 
+        } 
 			}
 		},
 		methods: {
@@ -200,7 +235,7 @@
 	}
 	#menu08701_2 .noticeView {
 		overflow: hidden;
-		/* height: 380px; */
+		height: 380px;
 	}
 	#menu08701_2 .noticeView h3 {
 		padding: 16px 0 16px 20px;
@@ -236,15 +271,18 @@
 		transform: translateY(-50%);
 		background: #d2d2d2;
 	}
+	
 	#menu08701_2 .noticeView .textBox {
-		padding: 40px 16px 20px;
-		/* margin-left: -1px ; */
+		margin-left: -1px ;
 		line-height: 20px;
 		color: #444;
-		/* overflow: hidden; */
-
+		overflow: hidden;
 	}
 
+	#menu08701_2>.noticeView>.textBox>div {
+		margin-top: -10px;
+	}
+	
 	#menu08701_2 .prevBox p {
 		padding: 11px;
 		

@@ -372,8 +372,10 @@
 		cursor: pointer;
 	}
 
+	#menu08301 .tableBox td.landCamp,
 	#menu08301 .tableBox td.landNm,
-	#menu08301 .tableBox td.landColl {
+	#menu08301 .tableBox td.landColl,
+	#menu08301 .tableBox td.landDbNum {
 		text-align: left;
 	}
 
@@ -381,24 +383,20 @@
 		width: 5%;
 	}
 
-	#menu08301 .tableBox .landCamp {
+	#menu08301 .tableBox .landCamp,
+	#menu08301 .tableBox .landNm,
+	#menu08301 .tableBox .landColl,
+	#menu08301 .tableBox .landDbNum {
 		width: 20%;
 	}
-	#menu08301 .tableBox .landNm,
-	#menu08301 .tableBox .landColl {
-		width: 18%;
-	}
 
-	#menu08301 .tableBox .landDbNum{
-		width: 14%;
-	}
 
 	#menu08301 .tableBox .landAdv{
 		width: 6%;
 	}
 
 	#menu08301 .tableBox .landBtn{
-		width: 10%;
+		width: 9%;
 	}
 
 	#menu08301 thead {

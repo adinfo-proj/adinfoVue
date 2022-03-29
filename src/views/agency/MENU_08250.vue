@@ -185,7 +185,7 @@
                           <th>유입 매체</th>
                           <td>{{ campaignFullData.deviceMachine }}</td>
                           <th>접수지역</th>
-                          <td v-if="campaignFullData.countryCd == 'KR'">국내</td>
+                          <td v-if="campaignFullData.countryCd == '국내'">국내</td>
                           <td v-else-if="campaignFullData.countryCd == null">없음</td>
                           <td v-else-if="campaignFullData.countryCd == ''">없음</td>
                           <td v-else>해외</td>
@@ -242,8 +242,8 @@
 	export default {
 		data() {
 			return {
-					serchDataFromDt      : this.$DateAdd(0) 
-				, serchDataToDt        : this.$DateAdd(0)
+					serchDataFromDt      : this.$DateAdd(0,0,0)
+				, serchDataToDt        : this.$DateAdd(0,0,0)
 				, topArrayListObj      : ''
 				, selectRowCount       : 10
 				, pageCount            : []
@@ -456,34 +456,37 @@
 			},
 			ChangeDateRange(pos) {
 				if(pos == 0) {
-					this.serchDataFromDt = this.$DateAdd(-364);
-					this.serchDataToDt   = this.$DateAdd(0);
+					this.serchDataFromDt = this.$DateAdd(-1,0,0);
+					this.serchDataToDt   = this.$DateAdd(0,0,0);
 				}
 				else if(pos == 1) {
-					this.serchDataFromDt = this.$DateAdd(0);
-					this.serchDataToDt   = this.$DateAdd(0);
+					this.serchDataFromDt = this.$DateAdd(0,0,0);
+					this.serchDataToDt   = this.$DateAdd(0,0,0);
 				}
 				else if(pos == 2) {
-					this.serchDataFromDt = this.$DateAdd(-1);
-					this.serchDataToDt   = this.$DateAdd(-1);
+					this.serchDataFromDt = this.$DateAdd(0,0,-1);
+					this.serchDataToDt   = this.$DateAdd(0,0,-1);
 				}
 				else if(pos == 3) {
-					this.serchDataFromDt = this.$DateAdd(-2);
-					this.serchDataToDt   = this.$DateAdd(0);
+					this.serchDataFromDt = this.$DateAdd(0,0,-2);
+					this.serchDataToDt   = this.$DateAdd(0,0,0);
 				}
 				else if(pos == 4) {
-					this.serchDataFromDt = this.$DateAdd(-6);
-					this.serchDataToDt   = this.$DateAdd(0);
+					this.serchDataFromDt = this.$DateAdd(0,0,-6);
+					this.serchDataToDt   = this.$DateAdd(0,0,0);
 				}
 				else if(pos == 5) {
-					this.serchDataFromDt = this.$DateAdd(-30);
-					this.serchDataToDt   = this.$DateAdd(0);
+					this.serchDataFromDt = this.$DateAdd(0,-1,0);
+					this.serchDataToDt   = this.$DateAdd(0,0,0);
 				}
 				else {
 					return;
 				}
 				this.getCampaignFullData(1, true);
 			},
+      //******************************************************************************
+			// 엑셀 다운로드
+			//******************************************************************************
 			makeExcel() {
         var myJSON = new Array();
 
@@ -519,12 +522,7 @@
 					// 	mkPrice = this.campaignFullDataObj[i].mkPrice.replace(/,/g, "");
 
           if(this.campaignFullDataObj[i].deviceMachine == null) deviceMachine = ''; else deviceMachine = this.campaignFullDataObj[i].deviceMachine;
-          if(this.campaignFullDataObj[i].countryCd == null) 
-            countryCd = ''; 
-          else if(this.campaignFullDataObj[i].countryCd == "KR")
-            countryCd = '국내'
-          else
-            countryCd = '해외';
+
 
           if(this.campaignFullDataObj[i].deviceOs      == null) deviceOs      = ''; else deviceOs      = this.campaignFullDataObj[i].deviceOs;
           if(this.campaignFullDataObj[i].deviceModel   == null) deviceModel   = ''; else deviceModel   = this.campaignFullDataObj[i].deviceModel;
@@ -540,6 +538,8 @@
 					if(this.campaignFullDataObj[i].value08 == null) value08 = ''; else value08 = this.campaignFullDataObj[i].value08;
 					if(this.campaignFullDataObj[i].value09 == null) value09 = ''; else value09 = this.campaignFullDataObj[i].value09;
 					if(this.campaignFullDataObj[i].value10 == null) value10 = ''; else value10 = this.campaignFullDataObj[i].value10;
+
+          if(this.campaignFullDataObj[i].countryCd == null) countryCd = ''; else countryCd = this.campaignFullDataObj[i].countryCd;
 
 					let myArr = {
 							'번호': seqNo

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="headerLogo" @click="DBMenuBar(2)">
-      <router-link to="MENU_08250" ><img src="../../assets/images/header_logo_2.png" alt=""></router-link>
+      <router-link to="MENU_08250" ><img :src="$store.state.logo" alt=""></router-link>
     </div>
     <div class="headerNav">
       <ul>
@@ -59,5 +59,11 @@
   #sectionHeader, #sectionBody {
     margin-left: 200px;
     border-right: solid 1px #e5e5e5;
+  }
+
+  .headerLogo a img{
+
+    width: auto;
+    height: 74px;
   }
 </style>

@@ -198,7 +198,7 @@
         .then(response => {
 					// 설정 초기화시 사용할 오브젝트
           this.shortUrl= response.data.url;
-          this.sendUrl = "http://dbmaster.co.kr/ad/" + response.data.url + "/postback.php";
+          this.sendUrl = "http://www.dbmaster.co.kr/ad/" + response.data.url + "/postback.php";
         })
         .catch(error => {
           console.log(error);
