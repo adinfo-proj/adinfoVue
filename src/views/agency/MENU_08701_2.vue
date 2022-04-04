@@ -14,8 +14,8 @@
           {{contentsData.title}}
 					<p>
 						<!-- 나중에 != 를 == 로 바꿔야함 -->
-						<span class="noticeCursor" v-if="$store.state.adGradeCd != '01'" @click="ModifyNotice(contentsData.bodySeqNo)">수정</span>
-						<span class="noticeCursor" v-if="$store.state.adGradeCd != '01'" @click="DeleteNotice(contentsData.bodySeqNo)">삭제</span>
+						<span class="noticeCursor" v-if="$store.state.adGradeCd == '01'" @click="ModifyNotice(contentsData.bodySeqNo)">수정</span>
+						<span class="noticeCursor" v-if="$store.state.adGradeCd == '01'" @click="DeleteNotice(contentsData.bodySeqNo)">삭제</span>
 						<span>{{contentsData.clntNm}}</span>
 						<span>{{contentsData.createDt}}</span>
 					</p>

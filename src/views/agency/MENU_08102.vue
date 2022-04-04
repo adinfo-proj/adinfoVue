@@ -57,7 +57,7 @@
           <th>마케터 단가</th>
           <td><input type="text" name="" id="" v-model="adMaketerPrice"></td>
         </tr>
-        <tr>
+        <!-- <tr>
           <th>SMS 수신 여부</th>
           <td colspan="3">
             DB접수 시 SMS를 수신합니다. 
@@ -65,7 +65,7 @@
             <input type="tel" id="phoneNum" placeholder="연락처를 입력해주세요." maxlength="11" v-model="smsNo">
             <input type="radio" name="sms" id="smsN" v-model="smsYn" value="N" checked><label for="smsN">아니오</label> 
           </td>
-        </tr>
+        </tr> -->
       </table>
     </div>
     <div class="formBox">
@@ -105,14 +105,19 @@
               <!-- 항목 필터  -->
 
               <!-- 유형 필터  -->
-              <td v-if="formIn.no == 1 || formIn.no == 2" class="formType">
+              <td v-if="formIn.no == 1" class="formType">
                 <select v-model="formIn.types" disabled>
                   <option value="01">입력박스</option>
                 </select>
               </td>
+              <td v-else-if="formIn.no == 2" class="formType">
+                <select v-model="formIn.types" disabled>
+                  <option value="06">입력박스</option>
+                </select>
+              </td>
               <td v-else class="formType" @change="inputTypeVal()">
                 <select v-model="formIn.types">
-                  <option value="00" disabled>선택      </option>
+                  <option value="00" disabled>선택</option>
                   <option value="01">입력박스  </option>
                   <option value="02">라디오박스</option>
                   <option value="03">체크박스  </option>
@@ -286,6 +291,9 @@ export default {
         console.log(error);
       })
     },
+    //******************************************************************************
+    // 폼 설정하기
+    //******************************************************************************
     CreateFormObj() {
       for(let i = 0; i < 10; i++) {
         let formView = {
@@ -305,7 +313,7 @@ export default {
         }
         else if(i == 1) {
           formView.no    = 2;
-          formView.types = '01';
+          formView.types = '06';
           formView.value = '연락처';
           formView.desc  = '';
           formView.reqYn = true;
@@ -396,19 +404,19 @@ export default {
         //------------------------------------
         if(this.formObj[i].types == '00') {
           if(this.formObj[i].value != '' || this.formObj[i].desc  != '') {
-            alert("폼 설정하기의" + nuText + "번째의 정보를 확인해주세요.");
+            alert("폼 설정하기의 " + nuText + "번째의 정보를 확인해주세요.");
             return;
           }
         }
-        else if(this.formObj[i].types == '01') {
+        else if(this.formObj[i].types != '00' || this.formObj[i].types != '05' || this.formObj[i].types != '06') {
           if(this.formObj[i].value == '') {
-            alert("폼 설정하기의" + nuText + "번째의 정보를 확인해주세요.");
+            alert("폼 설정하기의 " + nuText + "번째의 정보를 확인해주세요.");
             return;
           }
         }
         else {
           if(this.formObj[i].value == '' || this.formObj[i].desc  == '') {
-            alert("폼 설정하기의" + nuText + "번째의 정보를 확인해주세요.");
+            alert("폼 설정하기의 " + nuText + "번째의 정보를 확인해주세요.");
             return;
           }
         }
@@ -443,6 +451,7 @@ export default {
       const frm = new FormData();
       frm.append("dataObj", new Blob([JSON.stringify(data)]        , {type: "application/json"}));
       frm.append("formObj", new Blob([JSON.stringify(this.formObj)], {type: "application/json"}));
+      
 
       axios.post("http://api.adinfo.co.kr:30000/newcampaign", frm, {
         headers: {'Content-Type': 'multipart/form-data'}    

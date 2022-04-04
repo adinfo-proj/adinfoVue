@@ -62,7 +62,6 @@
   }
 
   .headerLogo a img{
-
     width: auto;
     height: 74px;
   }

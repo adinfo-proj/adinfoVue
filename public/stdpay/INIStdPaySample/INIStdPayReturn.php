@@ -62,8 +62,8 @@
 
 				.wrap .returnBtn{
 					width: 250px;
-					height: 50px;
-					border-radius: 25px;
+					height: 70px;
+					border-radius: 35px;
 					background: #e25b45;
 					color: #fff;
 					font-weight: 700;

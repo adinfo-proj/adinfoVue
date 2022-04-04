@@ -10,21 +10,41 @@ export default {
       let mm = curDateKorea.getMonth()
       let dd = curDateKorea.getDate()
 
-      if(y !=0 || m !=0 || d !=0) {
-        yyyy = yyyy + y
-        mm = mm + m
-        dd = dd + d 
+      yyyy = yyyy + y
+      mm = mm + m
+      dd = dd + d 
+
+
+      // 월은 0~11로 표기 되기 때문에 1을 더해준다
+      mm++;
+
+
+
+      // 1월인 경우 -1이 되면 자동으로 12월로 표기되는게 아니라 0월로 나오기 때문에 오류 발생, 월이 0으로 표기 된경우 값을 12월로 변경해주고 해당월을 전년도로 표기
+      if(mm == 0 ){
+        mm = 12
+        yyyy--;
       }
 
-      mm++;
+      // 가져온 일자가 라스트데이보다 큰경우 라스트데이로 변경해준다
+      // if(mm == 2 || dd == 31){
+        let  febLast = new Date(yyyy,mm, 0)
+        let lastDay = febLast.getDate() //  해당월의 마지막 날짜
+        if(dd > lastDay) {
+          dd = lastDay
+        }
+      // }
       
-      if(mm <10){
+      
+      if(mm < 10){
         mm = "0"+ mm;
       }
 
-      if(dd <10){
+      if(dd < 10){
         dd = "0"+ dd;
       }
+
+
 
       let nowDate = yyyy + "-"+ mm +"-"+ dd
 

@@ -52,68 +52,6 @@
 					</tfoot>
 				</table>
 			</div>
-			<!-- <div class="flatRate">
-				<span>SILVER (1개월)</span> ( 2022-02-01 만료 / 잔여기간: 5일) 
-			</div>
-			<div class="tableBox priceData">
-				<table>
-					<thead>
-						<tr>
-							<th class="division">이용권 구분</th>
-							<th class="startDate">이용권 시작일</th>
-							<th class="lastDate">이용권 만료일</th>
-							<th class="extra">부가서비스</th>
-							<th class="pay">결제수단</th>
-							<th class="price">결제금액</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="division">SILVER <span>(랜딩페이지 7개)</span></td>
-							<td class="startDate">2021-03-26 15:29:26</td>
-							<td class="lastDate">2021-04-25</td>
-							<td class="extra"> 포스트백,  SMS 발송</td>
-							<td class="pay">계좌이체</td>
-							<td class="price">66,000원</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="5">
-								<span class="pageleft"><i class="icon-chevron-left1"></i></span>
-								<ul>
-									<li class="on">
-										1
-									</li>
-									<li>
-										2
-									</li>
-									<li>
-										3
-									</li>
-									<li>
-										4
-									</li>
-
-								</ul>
-                <span class="pageright"><i class="icon-chevron-right1"></i></span>
-                <span class="pageleft" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
-								<ul>
-									<li
-										v-bind:class="{on : (indexPage) == curPage}" 
-										v-for="(indexPage, index) in pageCount" :key="index" 
-										@click="getNotifyTitleList(pageCount[0] + index, false)"
-									>
-										{{indexPage}}
-									</li>
-								</ul>
-                <span class="pageright" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
-							</td>
-						</tr>
-					</tfoot>
-
-				</table>
-			</div> -->
 		</div>
 	</div>
 </template>

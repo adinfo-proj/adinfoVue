@@ -122,13 +122,13 @@
 								<form id="SendPayForm_id" name="" method="POST" >
 									<input type="hidden"  name="version"		 	value="1.0" >
 									<input type="hidden"  name="gopaymethod" 	value="Card:VBank" >
-									<input type="hidden"  name="mid" 					value="INIpayTest" ><!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
+									<input type="hidden"  name="mid" 					v-model="mid" ><!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
 									<!-- <input type="hidden"  name="mid" v-model="mid" > -->
 									<input type="hidden"  name="oid"  				v-model="order" >
 									<input type="hidden"  name="price" 				v-model="price">
 									<input type="hidden"  name="timestamp" 		v-model="nowDate" >
 									<input type="hidden"  name="signature" 		v-model="hashCode" >
-									<input type="hidden"  name="mKey" value="3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33" >
+									<input type="hidden"  name="mKey" 				v-model="mKey" >
 									<!-- <input type="hidden"  name="mKey" v-model="mKey" > -->
 									<input type="hidden"  name="goodname" 		v-model="ratePlanNm">
 									<input type="hidden"  name="currency" 		value="WON" >
@@ -234,8 +234,9 @@
 								<form id="SendPayForm_id" name="" method="POST" >
 									<input type="hidden"  name="version"		 	value="1.0" >
 									<input type="hidden"  name="gopaymethod" 	value="Card:VBank" >
-									<input type="hidden"  name="mid" 					value="INIpayTest" ><!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
-									<!-- <input type="hidden"  name="mid" v-model="mid" > -->
+									<!-- <input type="hidden"  name="mid" 					value="INIpayTest" > -->
+									<!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
+									<input type="hidden"  name="mid" 					v-model="mid" >
 									<input type="hidden"  name="oid"  				v-model="order" >
 									<input type="hidden"  name="price" 				v-model="price">
 									<input type="hidden"  name="timestamp" 		v-model="nowDate" >
@@ -389,8 +390,6 @@
 				}
 
 
-
-
 				this.buyer 		= this.$store.state.clntNm
 				this.eMail 		= this.$store.state.clntId
 
@@ -399,10 +398,14 @@
 				this.HashData();
 				this.getUeserinfo();
 
+				window.INIStdPay.pay('SendPayForm_id')
+
+
+
+
 				// let send 			= document.getElementById('SendPayForm_id')
 				// console.log(send)
 
-				window.INIStdPay.pay('SendPayForm_id')
 				
 
 				// axios.post('http://sw.dbmaster.co.kr/stdpay/libs/HttpClient.php', qs.stringify({data:this.data}))
@@ -492,7 +495,7 @@
 				this.hashCode = 'oid='+this.order+'&price='+this.price+'&timestamp='+this.nowDate;	
 
 				this.hashCode = sha256(this.hashCode)
-				this.mKey = sha256(this.mid)
+				this.mKey 		= sha256(this.mid)
 
 			},
 			getUeserinfo() {

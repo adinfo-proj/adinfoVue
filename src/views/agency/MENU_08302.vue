@@ -33,6 +33,28 @@
               <div v-if="inObj.values == 'textForm'" class="formInput">
                 <input type="text" :placeholder="inObj.names">
               </div>
+              <!-- 연락처 박스 -->
+              <div  v-if="inObj.values == 'telForm'" class='formInput telBox'>
+                <select>
+                  <option value='0' selected disabled>{{inObj.names}}</option>
+                  <option value='010'>010</option>
+                  <option value='011'>011</option>
+                  <option value='016'>016</option>
+                  <option value='017'>017</option>
+                  <option value='018'>018</option>
+                  <option value='019'>019</option>
+                </select>
+                <span>
+                  -
+                  <input type='hidden' value='-'>
+                </span>
+                <input type="tel" maxlength="4">
+                <span>
+                  -
+                  <input type='hidden' value='-'>
+                </span>
+                <input type="tel" maxlength="4">
+              </div>
               <!-- 라디오 버튼 -->
               <div v-if="inObj.values == 'radioForm'" class="formInput">
                 <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
@@ -52,7 +74,7 @@
               <!-- 셀렉트박스 -->
               <div v-if="inObj.values == 'selForm'" class="formInput">
                 <select>
-                  <option value="0" se disabled>{{inObj.names}}</option>
+                  <option value="0" selected disabled>{{inObj.names}}</option>
                   <option v-for="indexSelect in inObj.lab" :key="indexSelect" :value="index+'_'+indexSelect">
                     {{indexSelect}}
                   </option>
@@ -93,6 +115,32 @@
                 </div>
                 <div class="right">
                   <input type='text'   name='value2' >
+                </div>
+              </div>
+              <!--연락처 박스 -->
+              <div v-if="inObj.values == 'telForm'"  class="flex">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
+                  {{inObj.names}}
+                </div>
+                <div class="right telBox">
+                  <select name='value1_1'>
+                    <option value='010'>010</option>
+                    <option value='011'>011</option>
+                    <option value='016'>016</option>
+                    <option value='017'>017</option>
+                    <option value='018'>018</option>
+                    <option value='019'>019</option>
+                  </select>
+                  <span>
+                    -
+                    <input type='hidden' value='-'>
+                  </span>
+                  <input type="tel" maxlength="4">
+                  <span>
+                    -
+                    <input type='hidden' value='-'>
+                  </span>
+                  <input type="tel" maxlength="4">
                 </div>
               </div>
               <!-- 라디오 버튼 -->
@@ -173,6 +221,32 @@
                   <input type='text'   name='value2' >
                 </div>
               </div>
+              <!-- 연락처 박스 -->
+              <div v-if="inObj.values == 'telForm'"  class="flex after">
+                <div class="left" :style="{color:lendchoose.formDesc.textA}">
+                  {{inObj.names}}
+                </div>
+                <div class="right telBox">
+                  <select>
+                    <option value='010'>010</option>
+                    <option value='011'>011</option>
+                    <option value='016'>016</option>
+                    <option value='017'>017</option>
+                    <option value='018'>018</option>
+                    <option value='019'>019</option>
+                  </select>
+                  <span>
+                    -
+                    <input type='hidden' value='-'>
+                  </span>
+                  <input type="tel" maxlength="4">
+                  <span>
+                    -
+                    <input type='hidden' value='-'>
+                  </span>
+                  <input type="tel" maxlength="4">  
+                </div>
+              </div>
               <!-- 라디오 버튼 -->
               <div v-if="inObj.values == 'radioForm'"  class="flex">
                 <div class="left" :style="{color:lendchoose.formDesc.textA}">
@@ -198,7 +272,7 @@
                 </div>
               </div>
               <!-- 셀렉트박스 -->
-              <div v-if="inObj.values == 'selForm'"  class="flex">
+              <div v-if="inObj.values == 'selForm'"  class="flex after">
                 <div class="left" :style="{color:lendchoose.formDesc.textA}">
                   {{inObj.names}}
                 </div>
@@ -211,7 +285,7 @@
                 </div>
               </div>
               <!-- 메모장 -->
-              <div v-if="inObj.values == 'textArea'"  class="flex after">
+              <div v-if="inObj.values == 'textArea'"  class="flex after textArea">
                 <div class="left" :style="{color:lendchoose.formDesc.textA}">
                   {{inObj.names}}
                 </div>
@@ -246,6 +320,30 @@
               <div v-if="inObj.values == 'textForm'" class="formInput">
                 <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
                 <input type="text">
+              </div>
+              <!-- 연락처 박스 -->
+              <div v-if="inObj.values == 'telForm'" class="formInput">
+                <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
+                <div class="inputBox telBox">
+                  <select>
+                    <option value='010'>010</option>
+                    <option value='011'>011</option>
+                    <option value='016'>016</option>
+                    <option value='017'>017</option>
+                    <option value='018'>018</option>
+                    <option value='019'>019</option>
+                  </select>
+                  <span>
+                    -
+                    <input type='hidden' value='-'>
+                  </span>
+                  <input type="tel" maxlength="4">
+                  <span>
+                    -
+                    <input type='hidden' value='-'>
+                  </span>
+                  <input type="tel" maxlength="4">
+                </div>
               </div>
               <!-- 라디오 버튼 -->
               <div v-if="inObj.values == 'radioForm'" class="formInput">
@@ -394,6 +492,71 @@
           <textarea v-model="innerAddScr"></textarea>
         </div>
       </div>
+      <div class="landScr landScr03 landBox">
+        <p>
+          픽셀 등록
+          <span>
+            (각 사이트에서 제공하는 ID를 입력해주세요.)
+          </span>
+          <i class="icon-arrow on" @click="ScriptUp(3)"></i>
+        </p>
+        <div class="landScrChecked">
+          <div class="pixelBox">
+            <div class="left">
+              <img src="../../assets/images/menu08302/googleIcon01.png" alt="googleIcon01">
+              구글 애드워즈 이벤트
+            </div>
+            <div class="right">
+              <input type="text" v-model="pixel01" placeholder="구글 애드워즈 이벤트 ID를 입력하세요">
+            </div>
+          </div>
+          <div class="pixelBox">
+            <div class="left">
+              <img src="../../assets/images/menu08302/googleIcon02.png" alt="googleIcon02">
+              구글 애널리틱스 추적
+            </div>
+            <div class="right">
+              <input type="text" v-model="pixel02" placeholder="구글 애널리틱스 추적 ID를 입력하세요">
+            </div>
+          </div>
+          <div class="pixelBox">
+            <div class="left">
+              <img src="../../assets/images/menu08302/fbIcon.png" alt="fbIcon">
+              페이스북 픽셀
+            </div>
+            <div class="right">
+              <input type="text" v-model="pixel03" placeholder="페이스북 픽셀 ID를 입력하세요">
+            </div>
+          </div>
+          <div class="pixelBox">
+            <div class="left">
+              <img src="../../assets/images/menu08302/tiktokIcon.png" alt="tiktokIcon">
+              틱톡 픽셀
+            </div>
+            <div class="right">
+              <input type="text" v-model="pixel04" placeholder="틱톡 픽셀 ID를 입력하세요">
+            </div>
+          </div>
+          <div class="pixelBox">
+            <div class="left">
+              <img src="../../assets/images/menu08302/kakaoIcon.png" alt="kakaoIcon">
+              카카오 픽셀
+            </div>
+            <div class="right">
+              <input type="text" v-model="pixel05" placeholder="카카오 픽셀 ID를 입력하세요">
+            </div>
+          </div>
+          <div class="pixelBox">
+            <div class="left">
+              <img src="../../assets/images/menu08302/naverIcon.png" alt="naverIcon">
+              네이버 광고 로그 분석
+            </div>
+            <div class="right">
+              <input type="text" v-model="pixel06" placeholder="네이버 광고 로그 공통키를 입력하세요">
+            </div>
+          </div>
+        </div>
+      </div>
       
 
 
@@ -453,6 +616,7 @@
       return {
           scriptHeader    : false
         , scriptForm      : false
+        , scriptPixel     : false
         , campaignSelect  : '0'
         , campaignListObj : ''
         
@@ -464,8 +628,13 @@
         , titleName       : ''
         , memo            : ''
         , landPgId        : 0
-
-        , landingDataObj  : '' 
+        , landingDataObj  : ''
+        , pixel01         : ''
+        , pixel02         : ''
+        , pixel03         : ''
+        , pixel04         : ''
+        , pixel05         : ''
+        , pixel06         : ''
         , formIndex : ''
         , campData: {
             gradeCd           : ''
@@ -717,6 +886,12 @@
           , stipulationDesc  : this.formView.stipulationDesc
           , titleName   : this.titleName
           , memo        : this.memo
+          , pixel01     : this.pixel01
+          , pixel02     : this.pixel02
+          , pixel03     : this.pixel03
+          , pixel04     : this.pixel04
+          , pixel05     : this.pixel05
+          , pixel06     : this.pixel06
         };
 
         const frm = new FormData();
@@ -839,12 +1014,17 @@
           }
           $(".landScr01 .landScrChecked").slideToggle(300);
           $(".landScr01 .icon-arrow").toggleClass("on");
-        }else if(num == 2) {
+        }
+        else if(num == 2) {
           if(this.scriptForm == false) {
             return;
           }
           $(".landScr02 .landScrChecked").slideToggle(300);
           $(".landScr02 .icon-arrow").toggleClass("on");
+        }
+        else if(num == 3) {
+          $(".landScr03 .landScrChecked").slideToggle(300);
+          $(".landScr03 .icon-arrow").toggleClass("on");
         }
       },
       //******************************************************************************
@@ -931,22 +1111,27 @@
               }
               else if(this.formView.type01 == '02') {
                 inputBox.values  = 'radioForm';
-                inputBox.names = this.formView.value01;
+                inputBox.names   = this.formView.value01;
                 inputBox.lab     = this.formView.page01;
               }
               else if(this.formView.type01 == '03') {
                 inputBox.values  = 'checkForm';
-                inputBox.names = this.formView.value01;
+                inputBox.names   = this.formView.value01;
                 inputBox.lab     = this.formView.page01;
               }
               else if(this.formView.type01 == '04') {
                 inputBox.values  = 'selForm';
-                inputBox.names = this.formView.value01;
+                inputBox.names   = this.formView.value01;
                 inputBox.lab     = this.formView.page01;
               }
               else if(this.formView.type01 == '05') {
                 inputBox.values  = 'textArea';
-                inputBox.names = this.formView.value01;
+                inputBox.names   = this.formView.value01;
+                inputBox.lab     = this.formView.page01;
+              }
+              else if(this.formView.type01 == '06') {
+                inputBox.values  = 'telForm';
+                inputBox.names   = this.formView.value01;
                 inputBox.lab     = this.formView.page01;
               }
               break;
@@ -956,23 +1141,28 @@
               }
               else if(this.formView.type02 == '01') {
                 inputBox.values  = 'textForm';
-                inputBox.names = this.formView.value02;
-                inputBox.lab  = this.formView.page02;
+                inputBox.names   = this.formView.value02;
+                inputBox.lab     = this.formView.page02;
               }
               else if(this.formView.type02 == '02') {
                 inputBox.values  = 'radioForm';
-                inputBox.names = this.formView.value02;
-                inputBox.lab  = this.formView.page02;
+                inputBox.names   = this.formView.value02;
+                inputBox.lab     = this.formView.page02;
               }
               else if(this.formView.type02 == '04') {
                 inputBox.values  = 'selForm';
-                inputBox.names = this.formView.value02;
-                inputBox.lab  = this.formView.page02;
+                inputBox.names   = this.formView.value02;
+                inputBox.lab     = this.formView.page02;
               }
               else if(this.formView.type02 == '05') {
                 inputBox.values  = 'textArea';
-                inputBox.names = this.formView.value02;
-                inputBox.lab  = this.formView.page02;
+                inputBox.names   = this.formView.value02;
+                inputBox.lab     = this.formView.page02;
+              }
+              else if(this.formView.type02 == '06') {
+                inputBox.values  = 'telForm';
+                inputBox.names   = this.formView.value02;
+                inputBox.lab     = this.formView.page02;
               }
               break;
             case 2 : 
@@ -981,28 +1171,33 @@
               }
               else if(this.formView.type03 == '01') {
                 inputBox.values  = 'textForm';
-                inputBox.names = this.formView.value03;
-                inputBox.lab  = this.formView.page03;
+                inputBox.names   = this.formView.value03;
+                inputBox.lab     = this.formView.page03;
               }
               else if(this.formView.type03 == '02') {
                 inputBox.values  = 'radioForm';
-                inputBox.names = this.formView.value03;
-                inputBox.lab  = this.formView.page03;
+                inputBox.names   = this.formView.value03;
+                inputBox.lab     = this.formView.page03;
               }
               else if(this.formView.type03 == '03') {
                 inputBox.values  = 'checkForm';
-                inputBox.names = this.formView.value03;
-                inputBox.lab  = this.formView.page03;
+                inputBox.names   = this.formView.value03;
+                inputBox.lab     = this.formView.page03;
               }
               else if(this.formView.type03 == '04')  {
                 inputBox.values  = 'selForm';
-                inputBox.names = this.formView.value03;
-                inputBox.lab  = this.formView.page03;
+                inputBox.names   = this.formView.value03;
+                inputBox.lab     = this.formView.page03;
               }
               else if(this.formView.type03 == '05')  {
                 inputBox.values  = 'textArea';
-                inputBox.names = this.formView.value03;
-                inputBox.lab  = this.formView.page03;
+                inputBox.names   = this.formView.value03;
+                inputBox.lab     = this.formView.page03;
+              }
+              else if(this.formView.type03 == '06') {
+                inputBox.values  = 'telForm';
+                inputBox.names   = this.formView.value03;
+                inputBox.lab     = this.formView.page03;
               }
               break;
             case 3 : 
@@ -1011,28 +1206,33 @@
               }
               else if(this.formView.type04 == '01') {
                 inputBox.values  = 'textForm';
-                inputBox.names = this.formView.value04;
-                inputBox.lab  = this.formView.page04;
+                inputBox.names   = this.formView.value04;
+                inputBox.lab     = this.formView.page04;
               }
               else if(this.formView.type04 == '02') {
                 inputBox.values  = 'radioForm';
-                inputBox.names = this.formView.value04;
-                inputBox.lab  = this.formView.page04;
+                inputBox.names   = this.formView.value04;
+                inputBox.lab     = this.formView.page04;
               }
               else if(this.formView.type04 == '03') {
                 inputBox.values  = 'checkForm';
-                inputBox.names = this.formView.value04;
-                inputBox.lab  = this.formView.page04;
+                inputBox.names   = this.formView.value04;
+                inputBox.lab     = this.formView.page04;
               }
               else if(this.formView.type04 == '04') {
                 inputBox.values  = 'selForm';
-                inputBox.names = this.formView.value04;
-                inputBox.lab  = this.formView.page04;
+                inputBox.names   = this.formView.value04;
+                inputBox.lab     = this.formView.page04;
               }
               else if(this.formView.type04 == '05') {
                 inputBox.values  = 'textArea';
-                inputBox.names = this.formView.value04;
-                inputBox.lab  = this.formView.page04;
+                inputBox.names   = this.formView.value04;
+                inputBox.lab     = this.formView.page04;
+              }
+              else if(this.formView.type04 == '06') {
+                inputBox.values  = 'telForm';
+                inputBox.names   = this.formView.value04;
+                inputBox.lab     = this.formView.page04;
               }
               break;
             case 4 : 
@@ -1041,28 +1241,33 @@
               }
               else if(this.formView.type05 == '01') {
                 inputBox.values  = 'textForm';
-                inputBox.names = this.formView.value05;
-                inputBox.lab  = this.formView.page05;
+                inputBox.names   = this.formView.value05;
+                inputBox.lab     = this.formView.page05;
               }
               else if(this.formView.type05 == '02') {
                 inputBox.values  = 'radioForm';
-                inputBox.names = this.formView.value05;
-                inputBox.lab  = this.formView.page05;
+                inputBox.names   = this.formView.value05;
+                inputBox.lab     = this.formView.page05;
               }
               else if(this.formView.type05 == '03') {
                 inputBox.values  = 'checkForm';
-                inputBox.names = this.formView.value05;
-                inputBox.lab  = this.formView.page05;
+                inputBox.names   = this.formView.value05;
+                inputBox.lab     = this.formView.page05;
               }
               else if(this.formView.type05 == '04') {
                 inputBox.values  = 'selForm';
-                inputBox.names = this.formView.value05;
-                inputBox.lab  = this.formView.page05;
+                inputBox.names   = this.formView.value05;
+                inputBox.lab     = this.formView.page05;
               }
               else if(this.formView.type05 == '05') {
                 inputBox.values  = 'textArea';
-                inputBox.names = this.formView.value05;
-                inputBox.lab  = this.formView.page05;
+                inputBox.names   = this.formView.value05;
+                inputBox.lab     = this.formView.page05;
+              }
+              else if(this.formView.type05 == '06') {
+                inputBox.values  = 'telForm';
+                inputBox.names   = this.formView.value05;
+                inputBox.lab     = this.formView.page05;
               }
               break;
             case 5 : 
@@ -1071,28 +1276,33 @@
               }
               else if(this.formView.type06 == '01') {
                 inputBox.values  = 'textForm';
-                inputBox.names = this.formView.value06;
-                inputBox.lab  = this.formView.page06;
+                inputBox.names   = this.formView.value06;
+                inputBox.lab     = this.formView.page06;
               }
               else if(this.formView.type06 == '02') {
                 inputBox.values  = 'radioForm';
-                inputBox.names = this.formView.value06;
-                inputBox.lab  = this.formView.page06;
+                inputBox.names   = this.formView.value06;
+                inputBox.lab     = this.formView.page06;
               }
               else if(this.formView.type06 == '03') {
                 inputBox.values  = 'checkForm';
-                inputBox.names = this.formView.value06;
-                inputBox.lab  = this.formView.page06;
+                inputBox.names   = this.formView.value06;
+                inputBox.lab     = this.formView.page06;
               }
               else if(this.formView.type06 == '04')  {
                 inputBox.values  = 'selForm';
-                inputBox.names = this.formView.value06;
-                inputBox.lab  = this.formView.page06;
+                inputBox.names   = this.formView.value06;
+                inputBox.lab     = this.formView.page06;
               }
               else if(this.formView.type06 == '05')  {
                 inputBox.values  = 'textArea';
-                inputBox.names = this.formView.value06;
-                inputBox.lab  = this.formView.page06;
+                inputBox.names   = this.formView.value06;
+                inputBox.lab     = this.formView.page06;
+              }
+              else if(this.formView.type06 == '06') {
+                inputBox.values  = 'telForm';
+                inputBox.names   = this.formView.value06;
+                inputBox.lab     = this.formView.page06;
               }
               break;
             case 6 : 
@@ -1101,28 +1311,33 @@
               }
               else if(this.formView.type07 == '01') {
                 inputBox.values  = 'textForm';
-                inputBox.names = this.formView.value07;
-                inputBox.lab  = this.formView.page07;
+                inputBox.names   = this.formView.value07;
+                inputBox.lab     = this.formView.page07;
               }
               else if(this.formView.type07 == '02') {
                 inputBox.values  = 'radioForm';
-                inputBox.names = this.formView.value07;
-                inputBox.lab  = this.formView.page07;
+                inputBox.names   = this.formView.value07;
+                inputBox.lab     = this.formView.page07;
               }
               else if(this.formView.type07 == '03') {
                 inputBox.values  = 'checkForm';
-                inputBox.names = this.formView.value07;
-                inputBox.lab  = this.formView.page07;
+                inputBox.names   = this.formView.value07;
+                inputBox.lab     = this.formView.page07;
               }
               else if(this.formView.type07 == '04') {
                 inputBox.values  = 'selForm';
-                inputBox.names = this.formView.value07;
-                inputBox.lab  = this.formView.page07;
+                inputBox.names   = this.formView.value07;
+                inputBox.lab     = this.formView.page07;
               }
               else if(this.formView.type07 == '05') {
                 inputBox.values  = 'textArea';
-                inputBox.names = this.formView.value07;
-                inputBox.lab  = this.formView.page07;
+                inputBox.names   = this.formView.value07;
+                inputBox.lab     = this.formView.page07;
+              }
+              else if(this.formView.type07 == '06') {
+                inputBox.values  = 'telForm';
+                inputBox.names   = this.formView.value07;
+                inputBox.lab     = this.formView.page07;
               }
               break;
             case 7 : 
@@ -1131,28 +1346,33 @@
               }
               else if(this.formView.type08 == '01') {
                 inputBox.values  = 'textForm';
-                inputBox.names = this.formView.value08;
-                inputBox.lab  = this.formView.page08;
+                inputBox.names   = this.formView.value08;
+                inputBox.lab     = this.formView.page08;
               }
               else if(this.formView.type08 == '02') {
                 inputBox.values  = 'radioForm';
-                inputBox.names = this.formView.value08;
-                inputBox.lab  = this.formView.page08;
+                inputBox.names   = this.formView.value08;
+                inputBox.lab     = this.formView.page08;
               }
               else if(this.formView.type08 == '03') {
                 inputBox.values  = 'checkForm';
-                inputBox.names = this.formView.value08;
-                inputBox.lab  = this.formView.page08;
+                inputBox.names   = this.formView.value08;
+                inputBox.lab     = this.formView.page08;
               }
               else if(this.formView.type08 == '04') {
                 inputBox.values  = 'selForm';
-                inputBox.names = this.formView.value08;
-                inputBox.lab  = this.formView.page08;
+                inputBox.names   = this.formView.value08;
+                inputBox.lab     = this.formView.page08;
               }
               else if(this.formView.type08 == '05') {
                 inputBox.values  = 'textArea';
-                inputBox.names = this.formView.value08;
-                inputBox.lab  = this.formView.page08;
+                inputBox.names   = this.formView.value08;
+                inputBox.lab     = this.formView.page08;
+              }
+              else if(this.formView.type08 == '06') {
+                inputBox.values  = 'telForm';
+                inputBox.names   = this.formView.value08;
+                inputBox.lab     = this.formView.page08;
               }
               break;
             case 8 : 
@@ -1161,28 +1381,33 @@
               }
               else if(this.formView.type09 == '01') {
                 inputBox.values  = 'textForm';
-                inputBox.names = this.formView.value09;
-                inputBox.lab  = this.formView.page09;
+                inputBox.names   = this.formView.value09;
+                inputBox.lab     = this.formView.page09;
               }
               else if(this.formView.type09 == '02') {
                 inputBox.values  = 'radioForm';
-                inputBox.names = this.formView.value09;
-                inputBox.lab  = this.formView.page09;
+                inputBox.names   = this.formView.value09;
+                inputBox.lab     = this.formView.page09;
               }
               else if(this.formView.type09 == '03') {
                 inputBox.values  = 'checkForm';
-                inputBox.names = this.formView.value09;
-                inputBox.lab  = this.formView.page09;
+                inputBox.names   = this.formView.value09;
+                inputBox.lab     = this.formView.page09;
               }
               else if(this.formView.type09 == '04') {
                 inputBox.values  = 'selForm';
-                inputBox.names = this.formView.value09;
-                inputBox.lab  = this.formView.page09;
+                inputBox.names   = this.formView.value09;
+                inputBox.lab     = this.formView.page09;
               }
               else if(this.formView.type09 == '05') {
                 inputBox.values  = 'textArea';
-                inputBox.names = this.formView.value09;
-                inputBox.lab  = this.formView.page09;
+                inputBox.names   = this.formView.value09;
+                inputBox.lab     = this.formView.page09;
+              }
+              else if(this.formView.type09 == '06') {
+                inputBox.values  = 'telForm';
+                inputBox.names   = this.formView.value09;
+                inputBox.lab     = this.formView.page09;
               }
               break;
             case 9 : 
@@ -1191,28 +1416,33 @@
               }
               else if(this.formView.type10 == '01') {
                 inputBox.values  = 'textForm';
-                inputBox.names = this.formView.value10;
-                inputBox.lab  = this.formView.page10;
+                inputBox.names   = this.formView.value10;
+                inputBox.lab     = this.formView.page10;
               }
               else if(this.formView.type10 == '02') {
                 inputBox.values  = 'radioForm';
-                inputBox.names = this.formView.value10;
-                inputBox.lab  = this.formView.page10;
+                inputBox.names   = this.formView.value10;
+                inputBox.lab     = this.formView.page10;
               }
               else if(this.formView.type10 == '03') {
                 inputBox.values  = 'checkForm';
-                inputBox.names = this.formView.value10;
-                inputBox.lab  = this.formView.page10;
+                inputBox.names   = this.formView.value10;
+                inputBox.lab     = this.formView.page10;
               }
               else if(this.formView.type10 == '04') {
                 inputBox.values  = 'selForm';
-                inputBox.names = this.formView.value10;
-                inputBox.lab  = this.formView.page10;
+                inputBox.names   = this.formView.value10;
+                inputBox.lab     = this.formView.page10;
               }
               else if(this.formView.type10 == '05') {
                 inputBox.values  = 'textArea';
-                inputBox.names = this.formView.value10;
-                inputBox.lab  = this.formView.page10;
+                inputBox.names   = this.formView.value10;
+                inputBox.lab     = this.formView.page10;
+              }
+              else if(this.formView.type10 == '06') {
+                inputBox.values  = 'telForm';
+                inputBox.names   = this.formView.value10;
+                inputBox.lab     = this.formView.page10;
               }
               break;
           }
@@ -1274,7 +1504,7 @@
       PriCancle() {
         $(".menu0804 .landPrev .formPrev .priBox").css({display:'none'})
         $(".menu0804 .landPrev .bgColor").css({display:'none'})
-      }
+      },
     },
     // mounted: function() {
     //   this.$watch('this.$store.state.inputObj', function(newVal, oldVal) {
@@ -1394,11 +1624,15 @@
   }
   .menu0804 .landPrev .formPrev .flex .right {
     width: 80%;
-    display: table-cell;
     vertical-align: middle;
   }
   .menu0804 .landPrev .formPrev03 .flex .right {
     width: 79%;
+  }
+  .landPrev .formPrev .flex .right.telBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   .menu0804 .landPrev .formPrev input[type="text"] {
     width: 100%;
@@ -1406,8 +1640,14 @@
     padding: 12px 16px;
     border: 1px solid #b3b3b3;
   }
-  .menu0804 .landPrev .formPrev03 input[type="text"],
-  .menu0804 .landPrev .formPrev03 textarea {
+  .menu0804 .landPrev .formPrev03 .textArea {
+    align-items:flex-start;
+  }
+  .landPrev .formPrev03 input[type="text"],
+  .landPrev .formPrev03 select,
+  .landPrev .formPrev03 .telBox input[type="tel"],
+  .landPrev .formPrev03 .telBox select,
+  .landPrev .formPrev03 textarea {
     border: none;
   }
   .menu0804 .landPrev .formPrev  .formInput {
@@ -1439,6 +1679,32 @@
     width: 100%;
     border: 1px solid #b3b3b3;
   }
+  .menu0804 .landPrev .formPrev .telBox {
+    display: flex;
+    justify-content: space-between;
+  }
+  .menu0804 .landPrev .formPrev .telBox select,
+  .menu0804 .landPrev .formPrev .telBox input[type="tel"]{
+    width: 30%;
+    font-size: 14px;
+    padding: 12px 16px;
+    border: 1px solid #b3b3b3;
+  }
+  .menu0804 .landPrev .formPrev .telBox span{
+    display: inline-block;
+    font-size: 14px;
+    padding: 12px 0;
+    text-align: center;
+  }
+
+
+
+
+
+
+
+
+  
   .menu0804 .landPrev .formPrev input[type="radio"],
   .menu0804 .landPrev .formPrev	input[type="checkbox"] {
     display: none;
@@ -1454,12 +1720,10 @@
   .menu0804 .landPrev .formPrev02 .flex label  {
     transform: translateY(11px);
   }
-
   .menu0804 .landPrev .formPrev03 .flex label {
     /* font-size: 24px; */
     margin: 0 10px 20px 0;
     transform: translateY(11px);
-
   }
   .menu0804 .landPrev .formPrev input[type="radio"] + label:before,
   .menu0804 .landPrev .formPrev	input[type="checkbox"] + label:before {
@@ -1479,7 +1743,6 @@
   .menu0804 .landPrev .formPrev input[type="radio"] + label:before {
     border-radius: 50%;
   }
-
   .menu0804 .landPrev .formPrev03 input[type="radio"] + label:before,
   .menu0804 .landPrev .formPrev03	input[type="checkbox"] + label:before,
   .menu0804 .landPrev .formPrev04 input[type="radio"] + label:before,
@@ -1622,8 +1885,6 @@
     display: none;
   }
   /* 개인정보 수집 동의 항목 */
-
-
   .menu0804 .landPrev iframe{
     width: 800px;
     height: 450px;
@@ -1719,7 +1980,6 @@
     content: "OFF";
     font-size: 10px;
     font-weight: 700;
-    /* font-size: 16px; */
   }
   .menu0804 .landChoice .basicInfo table td input[type="checkbox"]:checked + label {
       background: #e25b45;
@@ -1734,6 +1994,9 @@
   }
   .menu0804 .landChoice .landScr {
     padding: 21px 18px;
+  }
+  .menu0804 .landChoice .landScr p span{
+    color: #e25b45;
   }
   .menu0804 .landChoice .landScr p .icon-arrow {
     float: right;
@@ -1795,26 +2058,75 @@
     width: 487px;
     display: none;
   }
+  .menu0804 .landChoice .landScr03 .pixelBox {
+    display: flex;
+    height: 31px;
+    margin-top: 10px;
+    border: 1px solid #e5e5e5;
+  }
+  .menu0804 .landChoice .landScr03 .pixelBox:first-child{
+    margin-top: 20px;
+  }
+  .menu0804 .landChoice .landScr03 .pixelBox .left{
+    display: flex;
+    width: 36%;
+    align-items: center;
+    letter-spacing: -0.3px;
+    font-weight: 700;
+    padding: 0 12px;
+    position: relative;
+  }
+  .menu0804 .landChoice .landScr03 .pixelBox .left::after{
+    position: absolute;
+    content: "";
+    width: 1px;
+    height: 14px;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #adadad;
+  }
+
+  .menu0804 .landChoice .landScr03 .pixelBox .left img{
+    margin-right: 16px;
+  }
+
+  .menu0804 .landChoice .landScr03 .pixelBox .right{
+    width: 64%;
+    padding: 0 12px 0 6px;
+  }
+
+  .menu0804 .landChoice .landScr03 .pixelBox .right input[type="text"]{
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 6px;
+  }
+  .menu0804 .landChoice .landScr03 .pixelBox .right input[type="text"]::placeholder {
+    font-weight: 700;
+    color: #b9b9b9;
+    letter-spacing: -0.3px;
+  }
   .menu0804 .landChoice .landScr .landScrChecked textarea {
     width: 487px;
     height: 100px;
     resize: none;
     padding: 10px;
-    font-size: 16px;
+    font-size: 12px;
     margin-top: 20px;
+    border: 1px solid #bebebe;
   }
   .menu0804 .landChoice .btnBox .left {
     float: left;
     width: 330px;
   }
-
   .menu0804 .landChoice .btnBox .right {
     float: right;
   }
   .menu0804 .landChoice .btnBox button {
     min-width: 100px;
     height: 40px;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 40px;
     border: none;
     font-weight: 700;
