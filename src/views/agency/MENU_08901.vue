@@ -21,13 +21,13 @@
 							</td>
 						</tr>
 						<tr>
-							<th>
+							<th class="pwBox">
 								비밀번호
 							</th>
 							<td>
 								<input type="password" autocomplete='new-password' v-model="clntPw" ref="clntPw">
 							</td>
-							<th>
+							<th class="pwBox">
 								비밀번호 확인
 							</th>
 							<td>
@@ -42,6 +42,47 @@
 								<input type="tel" v-model="clntSubsNo" ref="clntSubsNo">
 							</td>
 						</tr>
+						<!-- <tr>
+							<th colspan="4" style="font-size:18px; text-align:center">
+								사업자 정보
+							</th>
+						</tr>
+						<tr>
+							<th>
+								상호 명
+							</th>
+							<td>
+								<input type="text">
+							</td>
+							<th>
+								사업자등록번호
+							</th>
+							<td>
+								<input type="text">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								대표자 명
+							</th>
+							<td>
+								<input type="text">
+							</td>
+							<th>
+								세금계산서 회신용 이메일
+							</th>
+							<td>
+								<input type="text">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								등록증 내 주소
+							</th>
+							<td colspan="3">
+								<input type="text">
+							</td>
+						</tr> -->
 					</tbody>
 					<tfoot>
 						<tr>
@@ -153,9 +194,10 @@
 
 <style scoped>
 
-	#menu08901 .myData th{
+	#menu08901 .myData th ,
+	#menu08901 .myData .pwBox{
 		padding: 15px 20px;
-		width: 130px;
+		width: 11%;
 		font-size: 14px;
 		color: #666;
 	}	
@@ -189,126 +231,5 @@
 		letter-spacing: -0.3px;
 		border-radius: 10px;
 	}
-
-
-	#menu08901 .flatRate {
-		width: 100%;
-		padding: 17px;
-		border-radius: 10px;
-		background: #fff;
-		border: 1px solid #e25b45;
-		text-align: center;
-		margin-bottom: 10px;
-		font-size: 14px;
-		color: #666;
-		/* font-weight: 700; */
-	}
-
-	#menu08901 .flatRate span{
-		font-weight: 700;
-		font-size: 18px;
-		color: #e25b45;
-		letter-spacing: -0.45px;
-		line-height: 20px;
-	}
-
-	#menu08901 .priceData table th,
-	#menu08901 .priceData table td {
-		border: none;
-		position: relative;
-		padding: 13px;
-		text-align: center;
-	}
-
-	#menu08901 .priceData table th {
-		font-size: 14px;
-	}
-
-	#menu08901 .priceData .division {
-		width: 15%;
-	}
-
-	#menu08901 .priceData .startDate,
-	#menu08901 .priceData .lastDate,
-	#menu08901 .priceData .extra {
-		width: 20%;
-	}
-
-	#menu08901 .priceData .pay {
-		width: 12%;
-	}
-
-	#menu08901 .priceData .price {
-		width: 13%;
-	}
-
-	#menu08901 .priceData .division  span{
-		color: #999;
-	}
-
-	#menu08901 .priceData th::after {
-		position: absolute;
-		content: "";
-		width: 1px;
-		height: 14px;
-		background: #d2d2d2;
-		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
-	}
-
-	#menu08901 .priceData th:last-child::after {
-		display: none;
-	}
-
-	#menu08901 .priceData thead {
-		border-bottom: 1px solid #939393;
-	}
-
-	#menu08901 .priceData tbody tr {
-		border-bottom: 1px solid #ececec;
-	}
-
-	#menu08901 .priceData tfoot span,
-	#menu08901 .priceData tfoot ul,
-	#menu08901 .priceData tfoot ul li {
-		display: inline-block;
-		cursor: pointer;
-	}
-
-	#menu08901 .priceData tfoot span {
-    width: 25px;
-    height: 25px;
-    border: 1px solid #e4e4e4;
-    color: #e6e6e6;
-    font-size: 13px;
-    padding: 5px 5px;
-	}
-
-	#menu08901 .priceData tfoot ul li {
-    margin: 0 10px;
-		cursor: pointer;
-		color: #606060;
-		line-height: 14px;
-	}
-	#menu08901 .priceData tfoot ul li.on {
-    font-weight: 900;
-    position: relative;
-	}
-	#menu08901 .priceData tfoot ul li.on:after {
-    clear: both;
-    position: absolute;
-    height: 1px;
-    width: 100%;
-    content: "";
-    bottom: -1px;
-    left: 0;
-    background: #666;
-	}
-
-
-	
-
-	
 
 </style>
