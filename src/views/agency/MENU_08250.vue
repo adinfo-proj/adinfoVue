@@ -670,7 +670,6 @@
   .dailyDataBox .Pointer {
     cursor: pointer;
   }
-
   .dailyDataBox .dailyDataMiddle i {
     display: flex;
     width: 40px;
@@ -682,17 +681,14 @@
     justify-content: space-around;
     align-items: center;
   }
-
   .dailyDataBox .dailyDataMiddle .bgo {
     background: #e25b45;
   }
-
   .dailyDataBox .dailyDataMiddle h2 {
     margin-left: 15px;
     font-size: 18px;
     color: #e25b45;
   }
-
   .dailyDataBox .dailyDataMiddle h2 span{
     font-size: 14px;
     font-weight: 400;
@@ -700,35 +696,6 @@
     color: #242424;
     display: inline-block;
   }
-
-  /* .dailyDataBox .dailyDataMiddle h2,
-  .dailyDataBox .dailyDataMiddle p {
-    color: #222;
-  }
-  .dailyDataBox .dailyDataMiddle h2 {
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
-  .dailyDataBox .dailyDataMiddle h2.dataEm {
-    color: #e25b45;
-  }
-  .dailyDataBox .dailyDataMiddle p {
-    font-size: 14px;
-  }
-  .dailyDataBox .dailyDataMiddle .dailyFake {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    display: none;
-    left: 0;
-    top: 0;
-    background: #ddd;
-    padding: 17px;
-  }
-  .dailyDataBox .dailyDataMiddle .dailyFake p {
-    margin-bottom: 13px;
-    color: #929292;
-  } */
   .dailyDataSub .dailyDataTop {
     margin-top: 20px;
     height: 56px;

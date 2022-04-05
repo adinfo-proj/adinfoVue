@@ -706,7 +706,6 @@ export default {
   .container .formBox .tableB .agreeSub {
     padding: 8px 11px;
   }
-
   .container .formBox .tableB .agreeSub p{
     padding: 10px;
     overflow-y: auto;

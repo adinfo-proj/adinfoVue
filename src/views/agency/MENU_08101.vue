@@ -344,11 +344,9 @@
 		height: 35px;
 		margin-bottom: 10px;
 	}
-
 	#menu08101 .campSearch .campSearchSub {
 		float: left;
 	}
-
 	#menu08101 > .campSearch > .campSearchSub > select {
     height: 100%;
     width: 200px;
@@ -358,7 +356,6 @@
     margin-right: 5px;
     font-weight: 700;
 	}
-
 	#menu08101 .campSearch button {
     width: 50px;
     height: 35px;
@@ -368,13 +365,10 @@
     border-radius: 13px;
     color: #fff;
 	}
-
 	#menu08101 .campSearch .campEx {
 		float: right;
 		height: 100%;
 	}
-
-
 	#menu08101 .campSearch .campEx button {
     width: 139px;
     height: 35px;
@@ -386,7 +380,6 @@
     margin-right: 5px;
     margin-top: 1px;
 	}
-
 	#menu08101 .campSearch .campEx select {
     /* width: 76px; */
     height: 35px;
@@ -396,30 +389,25 @@
     font-weight: 700;
 		margin-left: 15px;
 	}
-
 	#menu08101 .campDataBox {
 		border-radius: 10px;
     border-top-left-radius: 0px;
     background: #fff;
     overflow: hidden;
 	}
-
 	#menu08101 .campDataBox table {
 		width: 100%;
 		text-align: center;
 		border-collapse: collapse;
 	}
-
 	#menu08101 .campDataBox th,
 	#menu08101 .campDataBox td {
 		padding: 15px 18px;
 	}
-
 	#menu08101 .campDataBox thead th {
     position: relative;
     border-bottom: 1px solid #5c5c5c;
 	}
-
 	#menu08101 .campDataBox thead th:after {
     position: absolute;
     content: "";
@@ -430,55 +418,42 @@
     right: 0;
     transform: translateY(-50%);
 	}
-
 	#menu08101 .campDataBox thead th:last-child:after {
 		display: none;
 	}
-
 	#menu08101 .campDataBox tbody tr {
     border-bottom: 1px solid #ececec;
 	}
-
 	#menu08101 .campDataBox .campNum {
 		width: 5%;
 	}
-
 	#menu08101 .campDataBox .campCode,
 	#menu08101 .campDataBox .campDbbState {
 		width: 8%;
 	}
-
 	#menu08101 .campDataBox .campPay,
 	#menu08101 .campDataBox .marketer,
 	#menu08101 .campDataBox .dbNum,
 	#menu08101 .campDataBox .pageOpen {
 		width: 10%;
 	}
-
 	#menu08101 .campDataBox .campName {
 		width: 15%;
 	}
-
 	#menu08101 .campDataBox .campDate {
 		width: 15%;
 	}
-
 	#menu08101 .campDataBox .modifyBtnBox{
 		padding: 0;
 		width: 9%;
 	}
-
-
-
 	#menu08101 .campDataBox td.campName {
 		cursor: pointer;
 	}
-
 	#menu08101 .campDataBox td.campPay,
 	#menu08101 .campDataBox td.marketer {
 		text-align: right;
 	}
-
 	#menu08101 .campDataBox .modifyBtnBox button {
 		width: 40px;
     height: 20px;
@@ -487,15 +462,12 @@
     background: #838383;
     color: #fff;
 	}
-
 	#menu08101 .campDataBox .modifyBtnBox .modifyBtn {
 		margin-right: 5px;
 	}
-
 	#menu08101 .campDataBox .modifyBtnBox button:hover {
 		background: #e25b45;
 	}
-
 	#menu08101 .campDataBox tfoot td i {
     display: inline-block;
     width: 25px;
@@ -506,11 +478,9 @@
     padding: 5px 5px;
 		cursor: pointer;
   }
-
 	#menu08101 .campDataBox tfoot td .pageNum {
     display: inline-block;
 	}
-
 	#menu08101 .campDataBox tfoot td li {
 		display: inline-block;
 		margin: 0 10px;
@@ -520,7 +490,6 @@
     font-weight: 900;
     position: relative;
 	}
-
 	#menu08101 .campDataBox tfoot td li.on:after {
     clear: both;
     position: absolute;
@@ -531,7 +500,6 @@
     left: 0;
     background: #666;
 	}
-
 	#menu08101 .campDataBox .noLength tr {
 		border-bottom: none;
 		font-weight: 900;

@@ -302,7 +302,6 @@
 	#menu08402 .left .valueList table td{
 		text-align: center;
 	}
-
 	#menu08402 .left .valueList tfoot td{
 		padding: 15px 0;
 	}

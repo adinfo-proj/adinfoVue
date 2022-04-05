@@ -1590,7 +1590,6 @@
     display: flex;
     margin-bottom: 10px;
   }
-
   .menu0804 .landPrev .formPrev03 .flex {
     background: #fff;
     border: 1px solid #b3b3b3;
@@ -1640,16 +1639,6 @@
     padding: 12px 16px;
     border: 1px solid #b3b3b3;
   }
-  .menu0804 .landPrev .formPrev03 .textArea {
-    align-items:flex-start;
-  }
-  .landPrev .formPrev03 input[type="text"],
-  .landPrev .formPrev03 select,
-  .landPrev .formPrev03 .telBox input[type="tel"],
-  .landPrev .formPrev03 .telBox select,
-  .landPrev .formPrev03 textarea {
-    border: none;
-  }
   .menu0804 .landPrev .formPrev  .formInput {
     margin-bottom: 15px;
     padding: 5px 3px;
@@ -1674,7 +1663,7 @@
     top: 50%;
     transform: translateY(-50%);
   }
-  .menu0804 .landPrev .formPrev select{
+  .menu0804 .landPrev .formPrev select {
     padding: 12px 16px;
     width: 100%;
     border: 1px solid #b3b3b3;
@@ -1690,21 +1679,22 @@
     padding: 12px 16px;
     border: 1px solid #b3b3b3;
   }
-  .menu0804 .landPrev .formPrev .telBox span{
+  .menu0804 .landPrev .formPrev .telBox span {
     display: inline-block;
     font-size: 14px;
     padding: 12px 0;
     text-align: center;
   }
-
-
-
-
-
-
-
-
-  
+  .menu0804 .landPrev .formPrev03 .textArea {
+    align-items:flex-start;
+  }
+  .menu0804 .landPrev .formPrev03 input[type="text"],
+  .menu0804 .landPrev .formPrev03 select,
+  .menu0804 .landPrev .formPrev03 .telBox input[type="tel"],
+  .menu0804 .landPrev .formPrev03 .telBox select,
+  .menu0804 .landPrev .formPrev03 textarea {
+    border: none;
+  }
   .menu0804 .landPrev .formPrev input[type="radio"],
   .menu0804 .landPrev .formPrev	input[type="checkbox"] {
     display: none;
@@ -1750,15 +1740,12 @@
     border: 2px solid #787878;
     background: #fff;
   }
-
   .menu0804 .landPrev .formPrev03 input[type="radio"]:checked + label:before,
   .menu0804 .landPrev .formPrev03	input[type="checkbox"]:checked + label:before,
   .menu0804 .landPrev .formPrev04 input[type="radio"]:checked + label:before,
   .menu0804 .landPrev .formPrev04	input[type="checkbox"]:checked + label:before {
     background: #787878;
   }
-
-
   .menu0804 .landPrev .formPrev	input[type="checkbox"]:checked + label:after,
   .menu0804 .landPrev .formPrev input[type="radio"]:checked + label:after {
     clear: both;
@@ -1773,7 +1760,7 @@
     color: #4b4b4b;
   }
   .menu0804 .landPrev .formPrev03	input[type="checkbox"]:checked + label:after,
-  .menu0804 .landPrev .formPrev03 input[type="radio"]:checked + label:after{
+  .menu0804 .landPrev .formPrev03 input[type="radio"]:checked + label:after {
     font-size: 12px;
     left: 7px;
     top: 5px;
@@ -1800,15 +1787,13 @@
   .menu0804 .landPrev .formPrev .agreeBox label {
     margin: 10px 0 0 0;
   }
-
   .menu0804 .landPrev .formPrev03 .agreeBox label {
     transform: translate(0);
   }
-
   .menu0804 .landPrev .formPrev03 .agreeBox input[type="checkbox"]:checked + label:after {
     top: 6px;
   }
- .menu0804 .landPrev .formPrev .agreeBox span{
+ .menu0804 .landPrev .formPrev .agreeBox span {
     font-size: 16px;
     cursor: pointer;
     font-weight: 400;
@@ -1885,11 +1870,10 @@
     display: none;
   }
   /* 개인정보 수집 동의 항목 */
-  .menu0804 .landPrev iframe{
+  .menu0804 .landPrev iframe {
     width: 800px;
     height: 450px;
   }
-
   .menu0804 .landChoice {
     width: 525px;
   }
@@ -1949,7 +1933,7 @@
   .menu0804 .landChoice .basicInfo table td input[type="checkbox"] {
     display: none;
   }
-  .menu0804 .landChoice .basicInfo table td input[type="checkbox"] + label{
+  .menu0804 .landChoice .basicInfo table td input[type="checkbox"] + label {
     display: inline-block;
     width: 45px;
     height: 20px;
@@ -1995,7 +1979,7 @@
   .menu0804 .landChoice .landScr {
     padding: 21px 18px;
   }
-  .menu0804 .landChoice .landScr p span{
+  .menu0804 .landChoice .landScr p span {
     color: #e25b45;
   }
   .menu0804 .landChoice .landScr p .icon-arrow {
@@ -2064,10 +2048,10 @@
     margin-top: 10px;
     border: 1px solid #e5e5e5;
   }
-  .menu0804 .landChoice .landScr03 .pixelBox:first-child{
+  .menu0804 .landChoice .landScr03 .pixelBox:first-child {
     margin-top: 20px;
   }
-  .menu0804 .landChoice .landScr03 .pixelBox .left{
+  .menu0804 .landChoice .landScr03 .pixelBox .left {
     display: flex;
     width: 36%;
     align-items: center;
@@ -2076,7 +2060,7 @@
     padding: 0 12px;
     position: relative;
   }
-  .menu0804 .landChoice .landScr03 .pixelBox .left::after{
+  .menu0804 .landChoice .landScr03 .pixelBox .left::after {
     position: absolute;
     content: "";
     width: 1px;
@@ -2086,16 +2070,13 @@
     transform: translateY(-50%);
     background: #adadad;
   }
-
-  .menu0804 .landChoice .landScr03 .pixelBox .left img{
+  .menu0804 .landChoice .landScr03 .pixelBox .left img {
     margin-right: 16px;
   }
-
-  .menu0804 .landChoice .landScr03 .pixelBox .right{
+  .menu0804 .landChoice .landScr03 .pixelBox .right {
     width: 64%;
     padding: 0 12px 0 6px;
   }
-
   .menu0804 .landChoice .landScr03 .pixelBox .right input[type="text"]{
     width: 100%;
     height: 100%;
@@ -2131,15 +2112,12 @@
     border: none;
     font-weight: 700;
   }
-
-
   .menu0804 .landChoice .btnBox .firstBtn {
     border: 1px solid #e25b45;
     color: #e25b45;
     background: #fff;
     margin: 0 10px 10px 0;
   }
-
   .menu0804 .landChoice .btnBox .iniBtn {
     background: #262626;
     color: #fff;

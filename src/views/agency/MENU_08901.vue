@@ -200,28 +200,23 @@
 		width: 11%;
 		font-size: 14px;
 		color: #666;
-	}	
-
+	}
 	#menu08901 .myData td {
 		padding: 9px 11px;
 	}
-
 	#menu08901 .myData td input {
 		width: 100%;
 		height: 100%;
 		border: 1px solid #e5e5e5;
     border-radius: 0;
 	}
-
 	#menu08901 .myData td input[type="tel"] {
 		width: 70%;
 	}
-
 	#menu08901 .myData tfoot td{
 		text-align: right;
 		padding: 11px;
 	}
-
 	#menu08901 .myData tfoot td button {
 		width: 90px;
 		height: 33px;
@@ -231,5 +226,4 @@
 		letter-spacing: -0.3px;
 		border-radius: 10px;
 	}
-
 </style>

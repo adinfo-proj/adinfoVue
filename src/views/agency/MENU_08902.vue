@@ -69,9 +69,7 @@
 		margin-bottom: 10px;
 		font-size: 14px;
 		color: #666;
-		/* font-weight: 700; */
 	}
-
 	#menu08902 .flatRate span{
 		font-weight: 700;
 		font-size: 18px;
@@ -79,7 +77,6 @@
 		letter-spacing: -0.45px;
 		line-height: 20px;
 	}
-
 	#menu08902 .priceData table th,
 	#menu08902 .priceData table td {
 		border: none;
@@ -87,33 +84,26 @@
 		padding: 13px;
 		text-align: center;
 	}
-
 	#menu08902 .priceData table th {
 		font-size: 14px;
 	}
-
 	#menu08902 .priceData .division {
 		width: 15%;
 	}
-
 	#menu08902 .priceData .startDate,
 	#menu08902 .priceData .lastDate,
 	#menu08902 .priceData .extra {
 		width: 20%;
 	}
-
 	#menu08902 .priceData .pay {
 		width: 12%;
 	}
-
 	#menu08902 .priceData .price {
 		width: 13%;
 	}
-
 	#menu08902 .priceData .division  span{
 		color: #999;
 	}
-
 	#menu08902 .priceData th::after {
 		position: absolute;
 		content: "";
@@ -124,26 +114,21 @@
 		top: 50%;
 		transform: translateY(-50%);
 	}
-
 	#menu08902 .priceData th:last-child::after {
 		display: none;
 	}
-
 	#menu08902 .priceData thead {
 		border-bottom: 1px solid #939393;
 	}
-
 	#menu08902 .priceData tbody tr {
 		border-bottom: 1px solid #ececec;
 	}
-
 	#menu08902 .priceData tfoot span,
 	#menu08902 .priceData tfoot ul,
 	#menu08902 .priceData tfoot ul li {
 		display: inline-block;
 		cursor: pointer;
 	}
-
 	#menu08902 .priceData tfoot span {
     width: 25px;
     height: 25px;
@@ -152,7 +137,6 @@
     font-size: 13px;
     padding: 5px 5px;
 	}
-
 	#menu08902 .priceData tfoot ul li {
     margin: 0 10px;
 		cursor: pointer;
@@ -173,10 +157,4 @@
     left: 0;
     background: #666;
 	}
-
-
-	
-
-	
-
 </style>

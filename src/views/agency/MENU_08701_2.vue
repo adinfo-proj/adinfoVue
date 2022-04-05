@@ -243,16 +243,11 @@
 		color: #222;
 	}
 	#menu08701_2 .noticeView p {
-		/* display: inline-block; */
 		padding-top: 20px;;
 		margin-top: -19px;
 		margin-left: -20px;
-		/* float: right; */
 	}
-
 	#menu08701_2 .noticeView h3 p{
-		/* display: inline-block; */
-		/* margin-top: -20px; */
 		float: right;
 	}
 	#menu08701_2 .noticeView h3 p span {
@@ -271,14 +266,12 @@
 		transform: translateY(-50%);
 		background: #d2d2d2;
 	}
-	
 	#menu08701_2 .noticeView .textBox {
 		margin-left: -1px ;
 		line-height: 20px;
 		color: #444;
 		overflow: hidden;
 	}
-
 	#menu08701_2>.noticeView>.textBox>div {
 		margin-top: -10px;
 	}

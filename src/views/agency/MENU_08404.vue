@@ -415,8 +415,6 @@
 	#menu08404 .campDataBox td.sendData {
 		text-align: left;
 	}
-
-
 	#menu08404 .campDataBox tfoot td i {
     display: inline-block;
     width: 25px;
