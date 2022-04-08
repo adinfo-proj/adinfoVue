@@ -11,7 +11,7 @@
                 </th>
                 <td>
                   <select v-model="campSelect" @change="getLandingPageLst(campSelect)">
-                    <option value="-1">전체</option>
+                    <option value="-1">캠페인 선택</option>
                     <option v-for="(campaignNameList, index) in campaignNameListObj"
                       :key="index" 
                       :value="campaignNameList.caId"
@@ -19,7 +19,7 @@
                     </option>
                   </select>
                   <select v-model="landSelect" @change="getLandingPageOne(landSelect)">
-                    <option value="-1">전체</option>
+                    <option value="-1">랜딩페이지 선택</option>
                     <option v-for="(landingData, index) in landingDataObj"
                       :key="index" 
                       :value="landingData.pgId"

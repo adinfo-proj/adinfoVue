@@ -338,7 +338,6 @@
 		height: 35px;
 		margin-bottom: 10px;
 	}
-
 	#menu08301 .landSearch select {
 		height: 100%;
 		width: 200px;
@@ -349,7 +348,6 @@
 		font-weight: 700;
 		/* min-height: ; */
 	}
-
 	#menu08301 .landSearch button {
 		width: 50px;
 		height: 35px;
@@ -358,8 +356,7 @@
 		background: #393939;
 		border-radius: 13px;
 		color: #fff;
-	}	
-
+	}
 	#menu08301 .tableBox th,
 	#menu08301 .tableBox td {
 		padding: 15px 18px;
@@ -367,42 +364,33 @@
 		border: none;
 		position: relative;
 	}
-
 	#menu08301 .tableBox .landNm {
 		cursor: pointer;
 	}
-
 	#menu08301 .tableBox td.landCamp,
 	#menu08301 .tableBox td.landNm,
 	#menu08301 .tableBox td.landColl,
 	#menu08301 .tableBox td.landDbNum {
 		text-align: left;
 	}
-
 	#menu08301 .tableBox .landNo {
 		width: 5%;
 	}
-
 	#menu08301 .tableBox .landCamp,
 	#menu08301 .tableBox .landNm,
 	#menu08301 .tableBox .landColl,
 	#menu08301 .tableBox .landDbNum {
 		width: 20%;
 	}
-
-
 	#menu08301 .tableBox .landAdv{
 		width: 6%;
 	}
-
 	#menu08301 .tableBox .landBtn{
 		width: 9%;
 	}
-
 	#menu08301 thead {
 		border-bottom: 1px solid #5c5c5c;
 	}
-
 	#menu08301 thead tr th:after{
 		position: absolute;
     content: "";
@@ -413,15 +401,12 @@
     right: 0;
     transform: translateY(-50%);
 	}
-
 	#menu08301 thead tr th:last-child:after{
 		display: none;
 	}
-
 	#menu08301 tbody tr{
 		border-bottom: 1px solid #ececec;
 	}
-
 	#menu08301 tbody .landBtn button,
 	.landDelBtn button {
     width: 40px;
@@ -431,11 +416,9 @@
     background: #838383;
     color: #fff;
 	}
-
 	#menu08301 tbody button:first-child {
 		margin-right: 5px;
 	}
-
 	#menu08301 tfoot ul,
 	#menu08301 tfoot ul li {
 		display: inline-block;
@@ -469,6 +452,4 @@
     left: 0;
     background: #666;
 	}
-
-
 </style>

@@ -122,13 +122,13 @@
 								<form id="SendPayForm_id" name="" method="POST" >
 									<input type="hidden"  name="version"		 	value="1.0" >
 									<input type="hidden"  name="gopaymethod" 	value="Card:VBank" >
-									<input type="hidden"  name="mid" 					v-model="mid" ><!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
+									<input type="hidden"  name="mid" 					value="INIpayTest" ><!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
 									<!-- <input type="hidden"  name="mid" v-model="mid" > -->
 									<input type="hidden"  name="oid"  				v-model="order" >
 									<input type="hidden"  name="price" 				v-model="price">
 									<input type="hidden"  name="timestamp" 		v-model="nowDate" >
 									<input type="hidden"  name="signature" 		v-model="hashCode" >
-									<input type="hidden"  name="mKey" 				v-model="mKey" >
+									<input type="hidden"  name="mKey" value="3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33" >
 									<!-- <input type="hidden"  name="mKey" v-model="mKey" > -->
 									<input type="hidden"  name="goodname" 		v-model="ratePlanNm">
 									<input type="hidden"  name="currency" 		value="WON" >
@@ -234,9 +234,8 @@
 								<form id="SendPayForm_id" name="" method="POST" >
 									<input type="hidden"  name="version"		 	value="1.0" >
 									<input type="hidden"  name="gopaymethod" 	value="Card:VBank" >
-									<!-- <input type="hidden"  name="mid" 					value="INIpayTest" > -->
-									<!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
-									<input type="hidden"  name="mid" 					v-model="mid" >
+									<input type="hidden"  name="mid" 					value="INIpayTest" ><!-- 에스크로테스트 : iniescrow0, 빌링(정기과금)테스트 : INIBillTst -->
+									<!-- <input type="hidden"  name="mid" v-model="mid" > -->
 									<input type="hidden"  name="oid"  				v-model="order" >
 									<input type="hidden"  name="price" 				v-model="price">
 									<input type="hidden"  name="timestamp" 		v-model="nowDate" >
@@ -389,6 +388,10 @@
 
 				}
 
+				this.price = 1000
+
+
+
 
 				this.buyer 		= this.$store.state.clntNm
 				this.eMail 		= this.$store.state.clntId
@@ -398,14 +401,10 @@
 				this.HashData();
 				this.getUeserinfo();
 
-				window.INIStdPay.pay('SendPayForm_id')
-
-
-
-
 				// let send 			= document.getElementById('SendPayForm_id')
 				// console.log(send)
 
+				window.INIStdPay.pay('SendPayForm_id')
 				
 
 				// axios.post('http://sw.dbmaster.co.kr/stdpay/libs/HttpClient.php', qs.stringify({data:this.data}))
@@ -495,7 +494,7 @@
 				this.hashCode = 'oid='+this.order+'&price='+this.price+'&timestamp='+this.nowDate;	
 
 				this.hashCode = sha256(this.hashCode)
-				this.mKey 		= sha256(this.mid)
+				this.mKey = sha256(this.mid)
 
 			},
 			getUeserinfo() {
@@ -736,312 +735,381 @@
 
 <style scoped>
 
-	@font-face {
-		font-family: 'S-CoreDream-6Bold';
-		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
-		font-weight: normal;
-		font-style: normal;
-	}
+@font-face {
+  font-family: 'S-CoreDream-6Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
-	#menu08999 .ratePlanTop ul {
-		height: 270px;
-		margin-bottom: 20px;
-		position: relative;
-	}
-	#menu08999 .ratePlanTop li {
-		float: left;
-		width: 680px;
-	}
-	#menu08999 .ratePlanTop li:last-child {
-		margin-left: -1px;
-	}
-	#menu08999 .ratePlanTop li span {
-		text-align: center;
-		cursor: pointer;
-	}
-	#menu08999 .ratePlanTop li .tapBtn {
-		display: block;
-		padding: 22px;
-		background: #e6e6e6;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-		border: 1px solid #bfbfbf;
-		border-bottom-color: #262626;
-		font-size: 14px;
-		position: relative;
-		font-weight: 700;
-	}
-	#menu08999 .ratePlanTop li.on .tapBtn {
-		background: #fff;
-		border-color: #262626;
-		border-bottom-color:#fff;
-		z-index: 9;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle {
-		position: absolute;
-		left: 0;
-		top: 62px;
-		width: 100%;
-		height: 210px;
-		background: #fff;
-		padding: 20px;
-		border: 1px solid #262626;
-		border-bottom-left-radius: 10px;
-		border-bottom-right-radius: 10px;
-		border-top: none;
-		display: none;
-	}
-	#menu08999 .ratePlanTop li.on .ratePlanMiddle {
-		display: flex;
-		justify-content: space-between;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] {
-		display: none;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label {
-		display: block;
-		width: 315px;
-		position: relative;
-		border: 1px solid #d0d0d0;
-		padding: 16px 20px;
-		cursor: pointer;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label span{
-		display: block;
-		color: #222;
-		font-weight: 700;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label span span{
-		display: inline;
-		font-weight: 400;
-		font-size: 16px;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]:checked + label::before {
-		clear: both;
-		position: absolute;
-		content: "";
-		width: 315px;
-		height: 169px;
-		border: 4px solid #f68a1e;
-		left: -1px;
-		top: -1px;
-		box-sizing: border-box;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label .top {
-		font-size: 35px;
-		font-family: 'S-CoreDream-6Bold';
-		color: #f68a1e;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#silver + label .top {
-		color: #f36c21;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#silver:checked + label::before {
-		border-color: #f36c21;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#gold + label .top {
-		color: #8fa415;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#gold:checked + label::before {
-		border-color: #8fa415;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#vip + label .top {
-		color: #1581a4;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#vip:checked + label::before {
-		border-color: #1581a4;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label .middle {
-		font-size: 20px;
-		padding: 11px;
-		border-bottom: 1px solid #eee;
-	}
-	#menu08999 .ratePlanTop li .mid02 input[type="radio"]#sms + label .middle{
-		font-size: 16px;
-		line-height: 23px;
-	}
-	#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label .bottom {
-		font-size: 16px;
-		padding: 15px;
-	}
-	#menu08999 .ratePlanTop li .mid02 input[type="radio"] + label {
-		width: 650px;
-	}
-	#menu08999 .ratePlanTop li .mid02 input[type="radio"]:checked + label::before {
-		width: 650px;
-		height: 169px;
-	}
-	#menu08999 .ratePlanTop li .mid02 input[type="radio"] + label .top {
-		color: #222;
-		font-size: 30px;
-	}
-	#menu08999 .ratePlanBottom {
-		padding: 40px;
-		background: #fff;
-		border: 1px solid #e5e5e5;
-		border-radius: 10px;
-	}
-	#menu08999 .ratePlanBottom .detailPlan {
-		display: flex;
-		justify-content: space-between;
-		margin-bottom: 60px;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .left {
-		height: 362px;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .left img {
-		height: 100%;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right {
-		width: 610px;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right h6 {
-		font-size: 20px;
-		color: #222;
-		padding-left: 15px;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p {
-		padding: 13px 15px;
-		border-bottom: 1px solid #eee;
-		font-size: 14px;
-		height: 46px;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p span {
-		font-size: 14px;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right .subtitle {
-		padding-top: 9px;
-		border-bottom-color:#3d3d3d;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p .planTitle {
-		display: inline-block;
-		width: 107px;
-		font-weight: 700;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p .line {
-		/* font-size: 16px; */
-		text-decoration: line-through;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p .org {
-		font-size: 16px;
-		font-weight: 700;
-		color: #e25b45;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p .org span {
-		font-weight: 400;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p input {
-		display: none;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p input + label {
-		padding: 0 19px 0 24px;
-		font-weight: 700;
-		letter-spacing: -0.36px;
-		position: relative;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p input + label span {
-		font-size: 12px;
-		font-weight: 400;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p input + label::before {
-		position: absolute;
-		left: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		border-radius: 2px;
-		width: 14px;
-		height: 14px;
-		border: 1px solid #b3b3b3;
-		content: "";
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p input:checked + label::before {
-		border: none;
-		background: #e25b45;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .right p input:checked + label::after {
-		content: "\e91c";
-		font-family: "icomoon";
-		position: absolute;
-		color: #fff;
-		left: 1px;
-		top: 1px;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .btn{
-		text-align: center;
-		padding-top: 30px;
-	}
-	#menu08999 .ratePlanBottom .detailPlan .btn button {
-		width: 240px;
-		height: 50px;
-		color: #fff;
-		background: #e25b45;
-		border-radius: 25px;
-		border: 2px solid #f68a1e;
-		font-weight: 700;
-		font-size: 18px;
-	}
-	#menu08999 .ratePlanBottom .planInfo h6{
-		font-size: 24px;
-		line-height: 39px;
-		letter-spacing: -0.84px;
-		color: #262626;
-		text-align: center;
-		position: relative;
-		margin-bottom: 50px;
-	}
-	#menu08999 .ratePlanBottom .planInfo h6::before,
-	#menu08999 .ratePlanBottom .planInfo h6::after {
-		clear: both;
-		width: 520px;
-		height: 1px;
-		position: absolute;
-		background: #939393;
-		content: "";
-		top: 50%;
-		transform: translateY(-50%);
-	}
-	#menu08999 .ratePlanBottom .planInfo h6::before{
-		left: 0;
-	}
-	#menu08999 .ratePlanBottom .planInfo h6::after {
-		right: 0;
-	}
-	#menu08999 .ratePlanBottom .planInfo .planSub {
-		padding-bottom: 50px;
-	}
-	#menu08999 .ratePlanBottom .planInfo img {
-		display: block;
-		width: 100%;
-	}
-	#menu08999 .ratePlanBottom .ratePlanFooter h2 {
-		margin: 100px 0 35px;
-		text-align: center;
-		font-size: 24px;
-		position: relative;
-	}
-	#menu08999 .ratePlanBottom .ratePlanFooter h2::before,
-	#menu08999 .ratePlanBottom .ratePlanFooter h2::after {
-		clear: both;
-		position: absolute;
-		content: "";
-		width: 520px;
-		height: 1px;
-		background: #939393;
-		top: 50%;
-		transform: translateY(-50%);
-	}
-	#menu08999 .ratePlanBottom .ratePlanFooter h2::before {
-		left: 0;
-	}
-	#menu08999 .ratePlanBottom .ratePlanFooter h2::after {
-		right: 0;
-	}
-	#menu08999 .ratePlanBottom .ratePlanFooter h6 {
-		font-size: 14px;
-		margin-bottom: 12px;
-	}
-	#menu08999 .ratePlanBottom .ratePlanFooter p {
-		line-height: 24.4px;
-		letter-spacing: -0.42px;
-		margin-bottom: 10px;
-	}
+#menu08999 .ratePlanTop ul {
+	height: 270px;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+#menu08999 .ratePlanTop li {
+	float: left;
+	width: 680px;
+}
+#menu08999 .ratePlanTop li:last-child {
+	margin-left: -1px;
+}
+#menu08999 .ratePlanTop li span {
+	text-align: center;
+	cursor: pointer;
+}
+#menu08999 .ratePlanTop li .tapBtn {
+	display: block;
+	padding: 22px;
+	background: #e6e6e6;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border: 1px solid #bfbfbf;
+	border-bottom-color: #262626;
+	font-size: 14px;
+	position: relative;
+	font-weight: 700;
+
+}
+
+#menu08999 .ratePlanTop li.on .tapBtn {
+	background: #fff;
+	border-color: #262626;
+	border-bottom-color:#fff;
+	z-index: 9;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle {
+	position: absolute;
+	left: 0;
+	top: 62px;
+	width: 100%;
+	height: 210px;
+	background: #fff;
+	padding: 20px;
+	border: 1px solid #262626;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-top: none;
+	display: none;
+}
+
+#menu08999 .ratePlanTop li.on .ratePlanMiddle {
+	display: flex;
+	justify-content: space-between;
+}
+
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] {
+	display: none;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label {
+	display: block;
+	width: 315px;
+	position: relative;
+	border: 1px solid #d0d0d0;
+	padding: 16px 20px;
+	cursor: pointer;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label span{
+	display: block;
+	color: #222;
+	font-weight: 700;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label span span{
+	display: inline;
+	font-weight: 400;
+	font-size: 16px;
+} 
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]:checked + label::before {
+	clear: both;
+	position: absolute;
+	content: "";
+	width: 315px;
+	height: 169px;
+	border: 4px solid #f68a1e;
+	left: -1px;
+	top: -1px;
+	box-sizing: border-box;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label .top {
+	font-size: 35px;
+	font-family: 'S-CoreDream-6Bold';
+	color: #f68a1e;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#silver + label .top {
+	color: #f36c21;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#silver:checked + label::before {
+	border-color: #f36c21;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#gold + label .top {
+	color: #8fa415;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#gold:checked + label::before {
+	border-color: #8fa415;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#vip + label .top {
+	color: #1581a4;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"]#vip:checked + label::before {
+	border-color: #1581a4;
+}
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label .middle {
+	font-size: 20px;
+	padding: 11px;
+	border-bottom: 1px solid #eee;
+}
+
+#menu08999 .ratePlanTop li .mid02 input[type="radio"]#sms + label .middle{
+	font-size: 16px;
+	line-height: 23px;
+}
+
+
+#menu08999 .ratePlanTop li .ratePlanMiddle input[type="radio"] + label .bottom {
+	font-size: 16px;
+	padding: 15px;
+}
+
+#menu08999 .ratePlanTop li .mid02 input[type="radio"] + label {
+	width: 650px;
+}
+
+
+#menu08999 .ratePlanTop li .mid02 input[type="radio"]:checked + label::before {
+	width: 650px;
+	height: 169px;
+}
+
+
+
+#menu08999 .ratePlanTop li .mid02 input[type="radio"] + label .top {
+	color: #222;
+	font-size: 30px;
+}
+
+#menu08999 .ratePlanBottom {
+	padding: 40px;
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	border-radius: 10px;
+}
+
+#menu08999 .ratePlanBottom .detailPlan {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 60px;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .left {
+	height: 362px;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .left img {
+	height: 100%;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right {
+	width: 610px;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right h6 {
+	font-size: 20px;
+	color: #222;
+	padding-left: 15px;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p {
+	padding: 13px 15px;
+	border-bottom: 1px solid #eee;
+	font-size: 14px;
+	height: 46px;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p span {
+	font-size: 14px;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right .subtitle {
+	padding-top: 9px;
+	border-bottom-color:#3d3d3d;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p .planTitle {
+	display: inline-block;
+	width: 107px;
+	font-weight: 700;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p .line {
+	/* font-size: 16px; */
+	text-decoration: line-through;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p .org {
+	font-size: 16px;
+	font-weight: 700;
+	color: #e25b45;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p .org span {
+	font-weight: 400;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p input {
+	display: none;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p input + label {
+	padding: 0 19px 0 24px;
+	font-weight: 700;
+	letter-spacing: -0.36px;
+	position: relative;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p input + label span {
+	font-size: 12px;
+	font-weight: 400;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p input + label::before {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 2px;
+	width: 14px;
+	height: 14px;
+	border: 1px solid #b3b3b3;
+	content: "";
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p input:checked + label::before {
+	border: none;
+	background: #e25b45;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .right p input:checked + label::after {
+	content: "\e91c";
+	font-family: "icomoon";
+	position: absolute;
+	color: #fff;
+	left: 1px;
+	top: 1px;
+}
+
+/* #menu08999 .ratePlanBottom .detailPlan .right p select {
+	width: 470px;
+	height: 31px;
+	padding: 6px 14px;
+	font-size: 12px;
+	margin-top: -13px;
+} */
+
+#menu08999 .ratePlanBottom .detailPlan .btn{
+	text-align: center;
+	padding-top: 30px;
+}
+
+#menu08999 .ratePlanBottom .detailPlan .btn button {
+	width: 240px;
+	height: 50px;
+	color: #fff;
+	background: #e25b45;
+	border-radius: 25px;
+	border: 2px solid #f68a1e;
+	font-weight: 700;
+	font-size: 18px;
+}
+
+#menu08999 .ratePlanBottom .planInfo h6{
+	font-size: 24px;
+	line-height: 39px;
+	letter-spacing: -0.84px;
+	color: #262626;
+	text-align: center;
+	position: relative;
+	margin-bottom: 50px;
+}
+#menu08999 .ratePlanBottom .planInfo h6::before,
+#menu08999 .ratePlanBottom .planInfo h6::after {
+	clear: both;
+	width: 520px;
+	height: 1px;
+	position: absolute;
+	background: #939393;
+	content: "";
+	top: 50%;
+	transform: translateY(-50%);
+}
+#menu08999 .ratePlanBottom .planInfo h6::before{
+	left: 0;
+}
+#menu08999 .ratePlanBottom .planInfo h6::after {
+	right: 0;
+}
+
+#menu08999 .ratePlanBottom .planInfo .planSub {
+	padding-bottom: 50px;
+}
+
+
+#menu08999 .ratePlanBottom .planInfo img {
+	display: block;
+	width: 100%;
+}
+
+
+#menu08999 .ratePlanBottom .ratePlanFooter h2 {
+	margin: 100px 0 35px;
+	text-align: center;
+	font-size: 24px;
+	position: relative;
+}
+
+#menu08999 .ratePlanBottom .ratePlanFooter h2::before,
+#menu08999 .ratePlanBottom .ratePlanFooter h2::after {
+	clear: both;
+	position: absolute;
+	content: "";
+	width: 520px;
+	height: 1px;
+	background: #939393;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#menu08999 .ratePlanBottom .ratePlanFooter h2::before {
+	left: 0;
+}
+
+#menu08999 .ratePlanBottom .ratePlanFooter h2::after {
+	right: 0;
+}
+
+#menu08999 .ratePlanBottom .ratePlanFooter h6 {
+	font-size: 14px;
+	margin-bottom: 12px;
+}
+
+#menu08999 .ratePlanBottom .ratePlanFooter p {
+	line-height: 24.4px;
+	letter-spacing: -0.42px;
+	margin-bottom: 10px;
+}
+
 </style>

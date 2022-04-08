@@ -27,7 +27,8 @@
 						</tr>
 					</tbody>
 					<tfoot>
-						<!-- <tr>
+						<!-- 
+							<tr>
 							<td colspan="5">
                 <span class="pageleft" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage - 1, false)"><i class="icon-chevron-left1"></i></span>
 								<ul>
@@ -41,7 +42,8 @@
 								</ul>
                 <span class="pageright" v-if="pageCount.length > 0" @click="getNotifyTitleList(curPage + 1, false)"><i class="icon-chevron-right1"></i></span>
 							</td>
-						</tr> -->
+						</tr> 
+					-->
 					</tfoot>
 
 				</table>
@@ -51,6 +53,7 @@
 </template>
 
 <script>
+
 
 	export default {
 

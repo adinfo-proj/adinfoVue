@@ -61,13 +61,17 @@
 				}
 
 				.wrap .returnBtn{
+					display: inline-block;
 					width: 250px;
-					height: 70px;
+					/* height: 70px; */
+					padding: 20px 0;
+					text-align: center;
 					border-radius: 35px;
 					background: #e25b45;
 					color: #fff;
 					font-weight: 700;
 					font-size: 16px;
+					text-decoration: none;
 				}
 
 
@@ -111,7 +115,7 @@
 											// 인증이 성공일 경우만
 											//#####################
 											if (strcmp("0000", $_REQUEST["resultCode"]) == 0) {
-
+													
 													echo "<h1> - 결제가 완료되었습니다. - </h1>";
 													echo "<br/>";
 
@@ -213,7 +217,11 @@
 															// echo "## 승인 API 결과 ##";
 
 															$resultMap = json_decode($authResultString, true);
-										
+
+
+															// print_r($resultMap);
+															
+															
 															echo "<pre>";
 															echo "<table width='565' border='0' cellspacing='0' cellpadding='0'>";
 															
@@ -278,7 +286,7 @@
 																			-->
 																			<tr><th class='td01'><p>결과 내용</p></th>
 																			<td class='td02'><p>" . @(in_array($resultMap["resultMsg"] , $resultMap) ? $resultMap["resultMsg"] : "null" ) . "</p></td></tr>
-																			<tr><th class='td01'><p>결제완료금액</p></th>
+																			<tr><th class='td01'><p>결제 금액</p></th>
 																			<td class='td02'><p>" . @(in_array($resultMap["TotPrice"] , $resultMap) ? $resultMap["TotPrice"] : "null" ) . "원</p></td></tr>
 																			<tr><th class='td01'><p>주문 번호</p></th>
 																			<td class='td02'><p>" . @(in_array($resultMap["MOID"] , $resultMap) ? $resultMap["MOID"] : "null" )  . "</p></td></tr>
@@ -291,10 +299,10 @@
 																	echo "
 																			<tr><th class='td01'><p>입금 계좌번호</p></th>
 																			<td class='td02'><p>" . @(in_array($resultMap["VACT_Num"] , $resultMap) ? $resultMap["VACT_Num"] : "null" ) . "</p></td></tr>
-																			
+																			<!--
 																			<tr><th class='td01'><p>입금 은행코드</p></th>
 																			<td class='td02'><p>" . @(in_array($resultMap["VACT_BankCode"] , $resultMap) ? $resultMap["VACT_BankCode"] : "null" ) . "</p></td></tr>
-																			
+																			-->
 																			<tr><th class='td01'><p>입금 은행명</p></th>
 																			<td class='td02'><p>" . @(in_array($resultMap["vactBankName"] , $resultMap) ? $resultMap["vactBankName"] : "null" ) . "</p></td></tr>
 																			
@@ -304,11 +312,12 @@
 																			<tr><th class='td01'><p>송금자 명</p></th>
 																			<td class='td02'><p>" . @(in_array($resultMap["VACT_InputName"] , $resultMap) ? $resultMap["VACT_InputName"] : "null" ) . "</p></td></tr>
 																			
-																			<tr><th class='td01'><p>송금 일자</p></th>
-																			<td class='td02'><p>" . @(in_array($resultMap["VACT_Date"] , $resultMap) ? $resultMap["VACT_Date"] : "null" ) . "</p></td></tr>
-																			
+																			<tr><th class='td01'><p>송금 기한</p></th>
+																			<td class='td02'><p>" . @(in_array($resultMap["VACT_Date"] , $resultMap) ? $resultMap["VACT_Date"] : "null" ) . " 까지 </p></td></tr>
+																			<!--
 																			<tr><th class='td01'><p>송금 시간</p></th>
 																			<td class='td02'><p>" . @(in_array($resultMap["VACT_Time"] , $resultMap) ? $resultMap["VACT_Time"] : "null" ) . "</p></td></tr>
+																			-->
 																			";
 															} else if (isset($resultMap["payMethod"]) && strcmp("DirectBank", $resultMap["payMethod"]) == 0) { //실시간계좌이체
 																	echo "
@@ -551,8 +560,7 @@
 															} else { //카드
 																	if (isset($resultMap["EventCode"]) && !is_null($resultMap["EventCode"])) {
 
-																			echo "
-																			<!--
+																			echo "<!--
 																			<tr><th class='td01'><p>이벤트 코드</p></th>
 																			<td class='td02'><p>" . @(in_array($resultMap["EventCode"] , $resultMap) ? $resultMap["EventCode"] : "null" ) . "</p></td></tr>
 																			-->";
@@ -572,8 +580,10 @@
 																			<td class='td02'><p>무이자</p></td></tr>";
 																	} else if (isset($resultMap["CARD_Interest"]) && !strcmp("1", $resultMap["CARD_Interest"]) == 0) {
 
-																			echo "<tr><th class='td01'><p>할부 유형</p></th>
-																			<td class='td02'><p>유이자 <font color='red'> *유이자로 표시되더라도 EventCode 및 EDI에 따라 무이자 처리가 될 수 있습니다.</font></p></td></tr>";
+																			echo "<!--
+																			<tr><th class='td01'><p>할부 유형</p></th>
+																			<td class='td02'><p>유이자 <font color='red'> *유이자로 표시되더라도 EventCode 및 EDI에 따라 무이자 처리가 될 수 있습니다.</font></p></td></tr>
+																			-->";
 																	}
 
 																	if (isset($resultMap["point"]) && strcmp("1", $resultMap["point"]) == 0) {
@@ -710,7 +720,7 @@
 											echo $s;
 									}
 					?>
-					<a class="returnBtn" href="http://sw.dbmaster.co.kr/#/MENU_08999">이전페이지로 돌아갑니다.</a>
+					<a class="returnBtn" href="http://sw.dbmaster.co.kr/#/MENU_08902">돌아가기</a>
 				</div>
 			</div>
         
