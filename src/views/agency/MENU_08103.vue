@@ -142,6 +142,7 @@
                   <option value="03">체크박스  </option>
                   <option value="04">셀렉트박스</option>
                   <option value="05">메모박스  </option>
+                  <option value="06">입력박스</option>
                 </select>
               </td>
               <td v-else class="formType">

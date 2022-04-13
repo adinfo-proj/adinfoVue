@@ -85,10 +85,23 @@
 								{{topAdress}}
 							</div>	
 							<input type="text" class="adressBox" placeholder="상세주소">
+							
+							</td>
+						</tr>
+						<tr>
+							<th>
+								사업자등록증
+							</th>
+							<td colspan="3">
+								<input type="text" class="upload_name" placeholder="사업자등록증을 업로드해주세요." disabled>
+								<input type="file" accept="image/*" :id="this.indexNum" class="upload_hidden" ref="upImage01" @change="UploadImg()">
+								<label :for="this.indexNum">이미지 찾기 <i class="icon-plus1"></i></label>
+								
 							</td>
 						</tr>
 
 						-->
+
 					</tbody>
 					<tfoot>
 						<tr>
@@ -143,13 +156,16 @@
 			},
 
 			Modify() {
-
 				if(this.clntNm == null || this.clntNm == '') {
 					alert('이름/회사명을 입력해주세요.');
 					this.$refs.clntNm.focus();
 					return;
 				}
-				
+				if (this.clntPw.length > 13 || this.clntPw.length < 8) {
+          alert('비밀번호는  8자 ~ 13자 이내 입력바랍니다. (영문 , 숫자 ,특수문자 조합 사용)');
+          this.$refs.clntPw.focus();
+          return;
+        }
 				if(this.clntPw != this.clntPwConfirm) {
 					alert('비밀번화 확인을 재 입력해주세요.');
 					this.$refs.clntPw.focus();
@@ -177,14 +193,11 @@
 
 				axios.post("http://api.adinfo.co.kr:30000/modifymember", frm)
         .then(response => {
-
 					alert(response.data.message)
-          
         })
         .catch(error => {
           console.log(error);
         })
-
 
 			},
 
@@ -217,6 +230,17 @@
       }
 
 		},
+		watch: {
+      //******************************************************************************
+      // 입력 값에 정규표현식 문자 및 "," 표시
+      //******************************************************************************
+      clntPw : function() { 
+        return this.clntPw = this.clntPw.replace(/\s/g,'').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,'');
+      },
+      clntPwConfirm : function() {
+        return this.clntPwConfirm = this.clntPwConfirm.replace(/\s/g,'').replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,'');
+      },
+    }, 
 		created() {
 			this.$store.state.headerTopTitle = "DBMASTER";
 			this.$store.state.headerMidTitle = "내 정보";
@@ -252,7 +276,7 @@
 		width: 70%;
 	}
 	#menu08901 .myData td .adressBox{
-		width: 40%; 
+		width: 41.5%; 
 		height: 100%;
 	}
 	#menu08901 .myData td div.adressBox{
@@ -262,6 +286,39 @@
 		border: 1px solid #e5e5e5;
 		padding: 5px;
 	}
+	#menu08901 .myData .upload_name {
+    width: 362px;
+    height: 30px;
+    margin-right: 10px;
+    padding-left: 10px;
+  }
+  #menu08901 .myData input[type="file"] {
+    display: none;
+  }
+  
+  #menu08901 .myData input[type="file"] + label {
+    display: inline-block;
+    width: 110px;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    color: #000;
+    padding: 8px 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    cursor: pointer;
+    border: 1px solid #e5e5e5;
+    position: relative;
+  }
+
+  #menu08901 .myData input[type="file"] + label > i {
+    position: absolute;
+    font-size: 18px;
+    color: #e25b45;
+    font-weight: 700;
+    right: 10px;
+    top: 7px;
+  }
 	#menu08901 .myData .business{
 		width: 14.5%;
 	}

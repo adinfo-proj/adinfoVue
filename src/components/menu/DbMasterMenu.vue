@@ -114,12 +114,12 @@
             내정보
           </router-link>
         </li>
-        <li @click="DBMenuBar(999)" v-bind:class="{on : 999 == $store.state.menuSelect}">
+        <!-- <li @click="DBMenuBar(999)" v-bind:class="{on : 999 == $store.state.menuSelect}">
           <router-link to="MENU_08999">
             <i class="icon-store"></i>
             요금제
           </router-link>
-        </li>
+        </li> -->
       </ul>
       <div class="manual">
         <a href="files/디비마스터_매뉴얼_v3.pdf" download><i class="icon-download11"></i>매뉴얼 다운로드</a>

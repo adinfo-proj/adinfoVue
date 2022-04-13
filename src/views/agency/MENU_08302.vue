@@ -114,7 +114,7 @@
                   {{inObj.names}}
                 </div>
                 <div class="right">
-                  <input type='text'   name='value2' >
+                  <input type='text'   name='value2' :placeholder="inObj.lab">
                 </div>
               </div>
               <!--연락처 박스 -->
@@ -186,7 +186,7 @@
                   {{inObj.names}}
                 </div>
                 <div class="right">
-                  <textarea></textarea> 
+                  <textarea :placeholder="inObj.lab"></textarea> 
                 </div>
               </div>
             </div>
@@ -218,7 +218,7 @@
                   {{inObj.names}}
                 </div>
                 <div class="right">
-                  <input type='text'   name='value2' >
+                  <input type='text'   name='value2'  :placeholder="inObj.lab">
                 </div>
               </div>
               <!-- 연락처 박스 -->
@@ -290,7 +290,7 @@
                   {{inObj.names}}
                 </div>
                 <div class="right">
-                  <textarea></textarea> 
+                  <textarea  :placeholder="inObj.lab"></textarea> 
                 </div>
               </div>
             </div>
@@ -319,7 +319,7 @@
               <!-- 텍스트 박스 -->
               <div v-if="inObj.values == 'textForm'" class="formInput">
                 <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
-                <input type="text">
+                <input type="text"  :placeholder="inObj.lab">
               </div>
               <!-- 연락처 박스 -->
               <div v-if="inObj.values == 'telForm'" class="formInput">
@@ -373,7 +373,7 @@
               <!-- 메모장 -->
               <div v-if="inObj.values == 'textArea'" class="textArea">
                 <h2 class="formInputName" :style="{color:lendchoose.formDesc.textA}">{{inObj.names}}</h2>
-                <textarea></textarea> 
+                <textarea :placeholder="inObj.lab"></textarea> 
               </div>
             </div>
             <div class="agreeBox">

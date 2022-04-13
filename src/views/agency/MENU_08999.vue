@@ -50,7 +50,7 @@
 							<input type="radio" v-model="subPlan" id="adminM" value="adminM">
 							<label for="adminM">
 								<span class="top">어드민 관리자 서비스</span>
-								<span class="middle">110,000 <span>원/월(VAT 포함)</span></span>
+								<span class="middle">165,000 <span>원/월(VAT 포함)</span></span>
 								<span class="bottom"><span>관리 할 수 있는 어드민 페이지</span></span>
 							</label>
 						</div>
@@ -106,7 +106,7 @@
 								</span>
 								<span>
 									<input type="checkbox" id="extraPost" value="01" v-model="extraService"><label for="extraPost">API 프리미엄 <span class="small">( + 55,000원 )</span></label>
-									<input type="checkbox" id="extraAdmin" value="02" v-model="extraService"><label for="extraAdmin">어드민 관리자 <span class="small">( + 110,000원 )</span></label>
+									<input type="checkbox" id="extraAdmin" value="02" v-model="extraService"><label for="extraAdmin">어드민 관리자 <span class="small">( + 165,000원 )</span></label>
 								</span>
 							</p>
 							<p>
@@ -186,7 +186,7 @@
 								</span>
 								<span v-if="subPlan == 'post'" class="line">110,000원</span>
 								<!-- <span v-if="subPlan == 'sms'">DB접수 알림 건당 20원 발생</span> -->
-								<span v-if="subPlan == 'adminM'" class="line">220,000원</span>
+								<span v-if="subPlan == 'adminM'" class="line">550,000원</span>
 							</p>
 							<p>
 								<span class="planTitle">
@@ -194,7 +194,7 @@
 								</span>
 								<span v-if="subPlan == 'post'" class="org">55,000원 <span>(50% 할인)</span></span>
 								<!-- <span v-if="subPlan == 'sms'" class="org">2,200원 ~</span> -->
-								<span v-if="subPlan == 'adminM'" class="org">110,000원 <span>(50% 할인)</span></span>
+								<span v-if="subPlan == 'adminM'" class="org">165,000원 <span>(70% 할인)</span></span>
 							</p>
 							<p>
 								<span class="planTitle">
@@ -644,7 +644,7 @@
 					if(this.extraService[i] == '01') {
 						extraPrice = extraPrice + 55000
 					} else if(this.extraService[i] == '02') {
-						extraPrice = extraPrice + 110000
+						extraPrice = extraPrice + 165000
 					}
 				}
 
@@ -661,7 +661,7 @@
 				// 	price = Number(this.smsPlan)
 				// }
 				else if(this.subPlan == 'adminM'){
-					price = 110000
+					price = 165000
 					// this.smsPlan = 0;
 				}
 
