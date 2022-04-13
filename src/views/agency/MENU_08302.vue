@@ -705,7 +705,6 @@
                             {
                               arrS =  this.formView.page01.split(",")
                               this.formView.page01 = arrS
-
                             }
                          break;
                 case 1 : if(this.formView.type02 == '02' || 
@@ -714,7 +713,6 @@
                             {
                               arrS =  this.formView.page02.split(",")
                               this.formView.page02 = arrS
-
                             }
                          break;
                 case 2 : if(this.formView.type03 == '02' || 
@@ -723,7 +721,6 @@
                             {
                               arrS =  this.formView.page03.split(",")
                               this.formView.page03 = arrS
-
                             }
                          break;
                 case 3 : if(this.formView.type04 == '02' || 
@@ -732,7 +729,6 @@
                             {
                               arrS =  this.formView.page04.split(",")
                               this.formView.page04 = arrS
-
                             }
                          break;
                 case 4 : if(this.formView.type05 == '02' || 
@@ -741,7 +737,6 @@
                             {
                               arrS =  this.formView.page05.split(",")
                               this.formView.page05 = arrS
-
                             }
                          break;
                 case 5 : if(this.formView.type06 == '02' || 
@@ -750,7 +745,6 @@
                             {
                               arrS =  this.formView.page06.split(",")
                               this.formView.page06 = arrS
-
                             }
                          break;
                 case 6 : if(this.formView.type07 == '02' || 
@@ -759,7 +753,6 @@
                             {
                               arrS =  this.formView.page07.split(",")
                               this.formView.page07 = arrS
-
                             }
                          break;
                 case 7 : if(this.formView.type08 == '02' || 
@@ -768,7 +761,6 @@
                             {
                               arrS =  this.formView.page08.split(",")
                               this.formView.page08 = arrS
-
                             }
                          break;
                 case 8 : if(this.formView.type09 == '02' || 
@@ -777,7 +769,6 @@
                             {
                               arrS =  this.formView.page09.split(",")
                               this.formView.page09 = arrS
-
                             }
                          break;
                 case 9 : if(this.formView.type10 == '02' || 
@@ -786,7 +777,6 @@
                             {
                               arrS =  this.formView.page10.split(",")
                               this.formView.page10 = arrS
-
                             }
                          break;
               }

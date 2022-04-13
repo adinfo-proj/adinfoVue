@@ -54,7 +54,7 @@
                   <input type="date" name="" id="" v-model="srtDt"> ~ <input type="date" name="" id="" v-model="endDt">
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <th>
                   로고 파일 업로드
                 </th>
@@ -63,7 +63,7 @@
                   <input type="file" accept="image/*" id="imgfile" class="upload_hidden" ref="upImage01" @change="UploadLogoFile()">
                   <label for="imgfile">로고 업로드 하기<i class="icon-plus1"></i></label> <span>* 로고 사이즈는 100픽셀X74픽셀 이하로 권장합니다.</span>
                 </td>
-              </tr>
+              </tr> -->
               <tr></tr>
             </table>
           </div>
@@ -521,15 +521,13 @@
     justify-content: space-between;
     margin-bottom: 20px;
   }
-
   #menu08303 .flex .left {
     width: 800px;
   }
-
   #menu08303 .flex .left .tableBox {
     margin-bottom: 10px;
+    overflow: hidden;
   }
-
   #menu08303 .flex .left .tableBox td input,
   #menu08303 .flex .left .tableBox td select{
     border: 1px solid #e5e5e5;
@@ -538,22 +536,15 @@
     padding: 5px;
     width: 200px;
   }
-
   #menu08303 .flex .left .tableBox td.pad {
     padding-left: 15px;
   }
-
-
-
   #menu08303 .flex .left .tableBox td input[type="date"] {
     height: 29px;
   }
-
-
   #menu08303 .flex .left .tableBox td input[type="file"] {
     display: none;
   }
-  
   #menu08303 .flex .left .tableBox td input[type="file"] + label {
     display: inline-block;
     width: 140px;
@@ -568,7 +559,6 @@
     border: 1px solid #e5e5e5;
     position: relative;
   }
-
   #menu08303 .flex .left .tableBox td input[type="file"] + label > i {
     position: absolute;
     font-size: 18px;
@@ -577,8 +567,7 @@
     right: 10px;
     top: 7px;
   }
-
-   #menu08303 .flex .left .tableBox td label + span {
+  #menu08303 .flex .left .tableBox td label + span {
     font-size: 0.9em;
     color: #999;
     padding-left: 10px;
@@ -596,25 +585,20 @@
     border-radius: 10px;
     border: none;
   }
-
   #menu08303 .flex .left .btnBox .clear {
     background: #686868;
   }
-
   #menu08303 .flex .left .btnBox .submit {
     background: #e25b45;
   }
-
   #menu08303 .flex .left .btnBox .modify {
     color: #e25b45;
     border: 1px solid #e25b45;
     background: #fff;
   }
-
   #menu08303 .flex .left .btnBox .del {
     background: #000;
   }
-
   #menu08303 .adminData tbody tr {
     cursor: pointer;
   }
@@ -626,11 +610,9 @@
     border: none;
     position: relative;
   }
-
   #menu08303 .adminData thead {
     border-bottom: 1px solid #5c5c5c;
   }
-
   #menu08303 .adminData thead th::after {
     clear: both;
     position: absolute;
@@ -642,19 +624,15 @@
     right: 0;
     transform: translateY(-50%);
   }
-
   #menu08303 .adminData tbody tr {
     border-bottom: 1px solid #ececec;
   }
-
   #menu08303 .adminData thead th:last-child::after{
     display: none;
   }
-
   #menu08303 .adminData .admNo {
     width: 5%;
   }
-
   #menu08303 .adminData .admStart{
     width: 12.5%;
   }
@@ -663,9 +641,6 @@
   #menu08303 .adminData .admEnd {
     width: 10%;
   }
-
-
-
   #menu08303 .adminData .admCamp,
   #menu08303 .adminData .admLand {
     width: 20%;
@@ -673,8 +648,6 @@
   #menu08303 .adminData .admAccess{
     width: 12.5%;
   }
-
-
   #menu08303 tfoot ul,
   #menu08303 tfoot ul li {
     display: inline-block;
@@ -708,7 +681,4 @@
     left: 0;
     background: #666;
   }
-
-
-
 </style>
