@@ -219,7 +219,7 @@
 															$resultMap = json_decode($authResultString, true);
 
 
-															// print_r($resultMap);
+															print_r($resultMap);
 															
 															
 															echo "<pre>";
@@ -720,7 +720,7 @@
 											echo $s;
 									}
 					?>
-					<a class="returnBtn" href="http://sw.dbmaster.co.kr/#/MENU_08902">돌아가기</a>
+					<a class="returnBtn" href="http://sw.dbmaster.co.kr/#/MENU_08902">결제내역으로 돌아가기</a>
 				</div>
 			</div>
         
