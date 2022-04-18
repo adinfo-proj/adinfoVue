@@ -220,6 +220,59 @@
 
 
 															print_r($resultMap);
+
+
+
+
+															
+
+															// $data = 'dataObj='.urlencode(mb_convert_encoding($resultMap, "EUC-KR", "UTF-8, EUC-KR, ASCII, UHC")); // 받은 데이터 전체
+
+															echo '<br><br><br><br>'
+														
+															$postvar = $resultMap;
+															print_r('1');
+														
+															// $url = 'http://api.adinfo.co.kr:30000/CreateAdTransactional';
+															$url = 'http://192.168.0.109:30000/CreateAdTransactional';
+															print_r('2');
+															$ch = curl_init();
+															print_r('3');
+															curl_setopt($ch, CURLOPT_URL, $url);
+															print_r('4');
+															// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+															curl_setopt($ch, CURLOPT_POST, 1);
+															print_r('5');
+															curl_setopt($ch, CURLOPT_POSTFIELDS, $postvar);
+															// curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+															// curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, 3000);
+															print_r('6');
+
+															$result = curl_exec($ch);
+															print_r('7');
+															curl_close($ch);
+															print_r('8');
+															// print_r($result);
+															// if(trim($result) != "success") {
+															// 	$dupl_test = 1;
+															// 	alertBack('결제에 실패하였습니다.');
+															// 	exit;
+															// }					
+															
+															print_r('9');
+
+
+
+
+
+
+
+
+
+
+
+
+
 															
 															
 															echo "<pre>";
