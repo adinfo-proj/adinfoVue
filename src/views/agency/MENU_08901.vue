@@ -42,7 +42,7 @@
 								<input type="tel" v-model="clntSubsNo" ref="clntSubsNo">
 							</td>
 						</tr>
-						<!--
+
 						<tr>
 							<th colspan="4" style="font-size:18px; text-align:center">
 								사업자 정보
@@ -53,13 +53,13 @@
 								상호 명
 							</th>
 							<td>
-								<input type="text">
+								<input type="text" v-model="businessNm">
 							</td>
 							<th class="business">
 								사업자등록번호
 							</th>
 							<td>
-								<input type="text">
+								<input type="text" v-model="businessNo">
 							</td>
 						</tr>
 						<tr>
@@ -67,13 +67,13 @@
 								대표자 명
 							</th>
 							<td>
-								<input type="text">
+								<input type="text" v-model="ceoNm">
 							</td>
 							<th class="business">
 								세금계산서 회신용 이메일
 							</th>
 							<td>
-								<input type="text">
+								<input type="text" v-model="replyAdd">
 							</td>
 						</tr>
 						<tr>
@@ -82,9 +82,9 @@
 							</th>
 							<td colspan="3">
 							<div class="adressBox" @click="AddressApi()">
-								{{topAdress}}
+								{{topAdd}}
 							</div>	
-							<input type="text" class="adressBox" placeholder="상세주소">
+							<input type="text" class="adressBox" placeholder="상세주소" v-model="subAdd">
 							
 							</td>
 						</tr>
@@ -100,7 +100,6 @@
 							</td>
 						</tr>
 
-						-->
 
 					</tbody>
 					<tfoot>
@@ -129,7 +128,12 @@
         , clntPw: ''
 				, clntPwConfirm: ''
         , clntSubsNo: ''
-				, topAdress: '주소를 입력해주세요'
+				, topAdd: '주소를 입력해주세요'
+				, subAdd: ''
+				, businessNm: ''
+				, businessNo : ''
+				, ceoNm : ''
+
 			}
 		},
 		methods: {
@@ -224,7 +228,7 @@
             fullRoadAddr += extraRoadAddr;
           } // 우편번호와 주소 정보를 해당 필드에 넣는다.
           this.zip = data.zonecode; //5자리 새우편번호 사용
-          this.topAdress = fullRoadAddr;
+          this.topAdd = fullRoadAddr;
           } })
         .open()
       }

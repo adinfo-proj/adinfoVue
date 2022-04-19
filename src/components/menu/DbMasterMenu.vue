@@ -108,18 +108,30 @@
             </li>
           </ul>
         </li>
-        <li @click="DBMenuBar(9)" v-bind:class="{on : 9 == $store.state.menuSelect}">
-          <router-link to="MENU_08901">
-            <i class="icon-user"></i>
+        <li v-bind:class="{on : 9 == $store.state.menuSelect}">
+          <a  href="javascript:void(0)" @click="DBMenuBar(9)">
+            <i class="icon-bubble-text"></i>
             내정보
-          </router-link>
+          </a>
+          <ul>
+            <li @click="DbSubMenu('901')"  v-bind:class="{subOn : '901' == $store.state.subMenuSelect}">
+              <router-link to="MENU_08901">
+                회원정보
+              </router-link>
+            </li>
+            <!-- <li @click="DbSubMenu('902')"  v-bind:class="{subOn : '902' == $store.state.subMenuSelect}">
+              <router-link to="MENU_08902">
+                결제내역
+              </router-link>
+            </li> -->
+          </ul>
         </li>
-        <!-- <li @click="DBMenuBar(999)" v-bind:class="{on : 999 == $store.state.menuSelect}">
+        <li @click="DBMenuBar(999)" v-bind:class="{on : 999 == $store.state.menuSelect}">
           <router-link to="MENU_08999">
             <i class="icon-store"></i>
             요금제
           </router-link>
-        </li> -->
+        </li>
       </ul>
       <div class="manual">
         <a href="files/디비마스터_매뉴얼_v3.pdf" download><i class="icon-download11"></i>매뉴얼 다운로드</a>
@@ -141,7 +153,7 @@
         if(sessionStorage.getItem("menuSelect") !=null){
           this.$store.state.menuSelect = pos;
         }
-        if(this.$store.state.menuSelect == '2' || this.$store.state.menuSelect == '5' || this.$store.state.menuSelect == '6' || this.$store.state.menuSelect == '9' || this.$store.state.menuSelect == '999') {
+        if(this.$store.state.menuSelect == '2' || this.$store.state.menuSelect == '5' || this.$store.state.menuSelect == '6' || this.$store.state.menuSelect == '999') {
           this.$store.state.subMenuSelect = ''
           // let page = "MENU_08"+ this.menuSelect + '01'
         }

@@ -13,6 +13,7 @@
 							<th class="lastDate">이용권 만료일</th>
 							<th class="extra">부가서비스</th>
 							<th class="pay">결제수단</th>
+							<th class="payCom">결제 완료</th>
 							<th class="price">결제금액</th>
 						</tr>
 					</thead>
@@ -23,6 +24,16 @@
 							<td class="lastDate">2021-04-25</td>
 							<td class="extra"> 포스트백,  SMS 발송</td>
 							<td class="pay">계좌이체</td>
+							<td class="payCom">입금 완료</td>
+							<td class="price">66,000원</td>
+						</tr>
+						<tr v-for="(postbackData, index) in postbackDataObj" :key="index">
+							<td class="division">SILVER <span>(랜딩페이지 7개)</span></td>
+							<td class="startDate">2021-03-26 15:29:26</td>
+							<td class="lastDate">2021-04-25</td>
+							<td class="extra"> 포스트백,  SMS 발송</td>
+							<td class="pay">계좌이체</td>
+							<td class="payCom">입금 완료</td>
 							<td class="price">66,000원</td>
 						</tr>
 					</tbody>
@@ -53,9 +64,35 @@
 </template>
 
 <script>
+	import axios from "axios";
 
 
 	export default {
+		data(){
+			return{
+
+			}
+		},
+		methods:{
+			getLandingPageLst() {
+        axios.get("http://api.adinfo.co.kr:30000/GetLandingListForMbAdCaCode",
+        {
+          params: {
+              mbId: this.$store.state.mbId
+            , adId: this.$store.state.mbId
+            , mkId: this.$store.state.mbId
+            , useTp: '00'
+          }
+        })
+        .then(response => {
+          this.landingDataObj = response.data;
+          this.postbackListChange(1, true)
+        })
+        .catch(error => {
+          console.log(error);
+        })
+			},
+		}
 
 	}
 </script>
@@ -91,18 +128,19 @@
 		font-size: 14px;
 	}
 	#menu08902 .priceData .division {
-		width: 15%;
+		width: 17%;
 	}
 	#menu08902 .priceData .startDate,
 	#menu08902 .priceData .lastDate,
 	#menu08902 .priceData .extra {
-		width: 20%;
+		width: 19%;
 	}
-	#menu08902 .priceData .pay {
-		width: 12%;
+	#menu08902 .priceData .pay,
+	#menu08902 .priceData .payCom {
+		width: 8%;
 	}
 	#menu08902 .priceData .price {
-		width: 13%;
+		width: 10%;
 	}
 	#menu08902 .priceData .division  span{
 		color: #999;
