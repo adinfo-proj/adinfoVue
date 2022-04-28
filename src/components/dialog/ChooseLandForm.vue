@@ -93,26 +93,6 @@
             </td>
           </tr>
           <tr>
-            <td class="left line">
-              <h6 class="leftBox">폼 테두리 굵기
-                <span>
-                  <i class="icon-error_outline"></i>
-                  <img src="../../assets/images/menu08302/formLine.png" alt="formLine">
-                </span>
-              </h6>
-              <input type="text" id="boxLine" v-model="borderLine"><span>px</span>
-            </td>
-            <td class="right">
-              <h6 class="leftBox">폼 테두리 색상
-                <span>
-                  <i class="icon-error_outline"></i>
-                  <img src="../../assets/images/menu08302/formLineColor.png" alt="formLineColor">
-                </span>
-              </h6>
-              <input type="color" v-model="formviewModel.formDesc.lineColor">
-            </td>
-          </tr>
-          <tr>
             <td class="left">
               <h6 class="leftBox">텍스트A 색상
                 <span>
@@ -130,6 +110,26 @@
                 </span>
               </h6>
               <input type="color" v-model="formviewModel.formDesc.textB">
+            </td>
+          </tr>
+          <tr>
+            <td class="left line">
+              <h6 class="leftBox">폼 테두리 굵기
+                <span>
+                  <i class="icon-error_outline"></i>
+                  <img src="../../assets/images/menu08302/formLine.png" alt="formLine">
+                </span>
+              </h6>
+              <input type="text" id="boxLine" v-model="borderLine"><span>px</span>
+            </td>
+            <td class="right">
+              <h6 class="leftBox">폼 테두리 색상
+                <span>
+                  <i class="icon-error_outline"></i>
+                  <img src="../../assets/images/menu08302/formLineColor.png" alt="formLineColor">
+                </span>
+              </h6>
+              <input type="color" v-model="formviewModel.formDesc.lineColor">
             </td>
           </tr>
           <tr>
@@ -323,11 +323,15 @@
   }
   .landForm .formStyle .leftBox span img{
     position: absolute;
-    left: 7px;
+    left: -30px;
     top: 20px;
     transform: translateX(-50%);
     display: none;
     z-index: 99;
+  }
+  .landForm .formStyle .left .leftBox span img{
+    left: -18px;
+    transform: translateX(0);
   }
   .landForm input[type="color"] {
     display: inline-block;
@@ -365,7 +369,7 @@
     box-sizing: border-box;
   }
   .landForm .formTitle input[type="text"] {
-    width: 414px;
+    width: 400px;
   }
   .landForm .formTitleColor span {
     transform: translateY(-3px);
@@ -424,7 +428,7 @@
     top: 50%;
   }
   .landForm .btnName input[type="text"] {
-    width: 414px;
+    width: 400px;
   }
   .landForm .btnShape .flex {
     padding: 14px 20px 12px;

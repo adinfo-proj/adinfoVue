@@ -70,7 +70,7 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
   {// 메인페이지
     path: "/",
     name: "HOME",
-    component: MENU_08201,
+    component: LOGIN,
     meta: { requiresAuth: true }
   },
   {// 메인페이지

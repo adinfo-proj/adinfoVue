@@ -7,7 +7,7 @@
       <i class="icon-arrow on"></i>
     </h2>
     <div class="upPage">
-      <input class="upload_name" disabled="disabled" v-bind:placeholder="$store.state.lendchooseObj[this.indexNum].landImgNm">
+      <input type="text" class="upload_name" disabled="disabled" v-bind:placeholder="$store.state.lendchooseObj[this.indexNum].landImgNm">
       <input type="file" accept="image/*" :id="this.indexNum" class="upload_hidden" ref="upImage01" @change="UploadImg()">
       <label :for="this.indexNum">이미지 찾기 <i class="icon-plus1"></i></label>
     </div>
@@ -123,7 +123,7 @@
   }
 
   .landImg .upload_name {
-    width: 362px;
+    width: 345px;
     height: 30px;
     margin-right: 10px;
     padding-left: 10px;

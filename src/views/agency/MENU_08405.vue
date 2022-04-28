@@ -49,7 +49,7 @@
 				</div>
 			</div>
 			<div class="right">
-				<!-- <img src="../../assets/images/menu08402/apiToWrite.png" alt=""> -->
+				<img src="../../assets/images/manual/apiToReception.png" alt="">
 			</div>
 		</div>
 

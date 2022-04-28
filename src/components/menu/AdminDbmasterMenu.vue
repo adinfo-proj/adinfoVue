@@ -1,7 +1,17 @@
 <template>
   <div>
     <div class="headerLogo" @click="DBMenuBar(2)">
-      <router-link to="MENU_08250" ><img :src="$store.state.logo" alt=""></router-link>
+
+<!-- 
+      <router-link to="MENU_08250" v-if="logoNm == null && logoNm == ''">
+        <img  src="../../assets/images/header_logo_2.png" alt="" >
+      </router-link> -->
+
+
+      <router-link to="MENU_08250">
+        <img :src="$store.state.logo" alt="" >
+      </router-link>
+
     </div>
     <div class="headerNav">
       <ul>
@@ -29,7 +39,9 @@
       return {
           menuSelect : 2
         , subMenuSelect  : ''
-      }
+        , logoNm : ''
+        , adminId : ''
+        , repText : ''      }
     },
     methods:{
       DBMenuBar(pos) { 
@@ -43,6 +55,18 @@
       }
       , DbSubMenu(pos) {
         this.subMenuSelect = pos;
+      }
+    },
+    created(){
+      this.$store.state.logo = sessionStorage.getItem("logo");
+      this.adminId = sessionStorage.getItem("clntId")
+      this.repText = 'http://dbmaster.co.kr/SponserHeadImage/' + this.adminId + '/'
+      this.logoNm = this.$store.state.logo.replace(this.repText , '')
+      console.log(this.adminId)
+      console.log(this.repText)
+      console.log(this.logoNm)
+      if( this.logoNm == null || this.logoNm == '' ){
+        this.$store.state.logo = "img/header_logo_2.0069a9a6.png"
       }
     }
   }
@@ -64,5 +88,6 @@
   .headerLogo a img{
     width: auto;
     height: 74px;
+    max-width: 100px;
   }
 </style>

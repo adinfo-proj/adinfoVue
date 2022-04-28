@@ -54,16 +54,17 @@
                   <input type="date" name="" id="" v-model="srtDt"> ~ <input type="date" name="" id="" v-model="endDt">
                 </td>
               </tr>
-              <!-- <tr>
+              <tr>
                 <th>
                   로고 파일 업로드
                 </th>
                 <td>
-                  <input class="upload_name" disabled="disabled" v-bind:placeholder="logoFileNm">
+                  <input class="upload_name"  disabled="disabled" v-bind:placeholder="logoFileNm">
                   <input type="file" accept="image/*" id="imgfile" class="upload_hidden" ref="upImage01" @change="UploadLogoFile()">
-                  <label for="imgfile">로고 업로드 하기<i class="icon-plus1"></i></label> <span>* 로고 사이즈는 100픽셀X74픽셀 이하로 권장합니다.</span>
+                  <label for="imgfile">로고 업로드 하기<i class="icon-plus1"></i></label> 
+                  <!-- <span>* 로고 사이즈는 100픽셀X74픽셀 이하로 권장합니다.</span> -->
                 </td>
-              </tr> -->
+              </tr>
               <tr></tr>
             </table>
           </div>
@@ -73,6 +74,9 @@
             <button class="modify">변경</button>
             <button class="del">삭제</button>
           </div>
+        </div>
+        <div class="right">
+          <img src="../../assets/images/manual/SetPostBack.png" alt="">
         </div>
       </div>
       <div class="tableBox adminData">
@@ -149,9 +153,9 @@
 				, stAskList           : []
         , stUserListObj       : ''
         , passWd              : ''
-        , srtDt               : ''
-        , endDt               : ''
-        , logoFileNm          : ''
+        , srtDt               : this.$DateAdd(0,0,0)
+        , endDt               : this.$DateAdd(0,0,0)
+        , logoFileNm          : '로고사이즈는 100X74px 이하로 권장'
         , idComment           : '만들기 클릭 후 아이디는 자동으로 생성됩니다.'
         , pwComment           : ''
 
@@ -159,6 +163,7 @@
 				, selectRowCount        : 10
 				, curRunTotalPages      : 1000000000
         , curPage               : 0
+
 			}
 		},
     filters: {
@@ -315,13 +320,15 @@
           , description : ''
         };
 
+        console.log(this.$refs.upImage01)
+
 
         const frm = new FormData();
         frm.append("dataObj", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-         frm.append("upFile" , this.$refs.upImage01.files[0]); 
+        frm.append("upFile" , this.$refs.upImage01.files[0]); 
 
 
-
+        /*
         axios.post("http://api.adinfo.co.kr:30000/CreExternalUser", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
@@ -343,6 +350,8 @@
         .catch(error => {
           console.log(error);
         })
+
+        */
       },
 			//******************************************************************************
 			// 사용자 목록 조회
@@ -541,6 +550,7 @@
   }
   #menu08303 .flex .left .tableBox td input[type="date"] {
     height: 29px;
+    /* width: 45%; */
   }
   #menu08303 .flex .left .tableBox td input[type="file"] {
     display: none;

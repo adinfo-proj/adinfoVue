@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="logSearch">
-        <input type="checkbox" name="stayLog" id="stayLog"><label for="stayLog"> 로그인 유지</label>
+        <!-- <input type="checkbox" v-model="stayLog" id="stayLog"><label for="stayLog"> 로그인 유지</label> -->
         <ul>
             <li><a href="javascript:void(0)"
             @click="SignMadal();">회원가입</a></li>
@@ -66,6 +66,7 @@ export default {
     return {
         clntId: ''
       , clntPw: ''
+      , stayLog : false
     }
   },
   methods: {
@@ -114,6 +115,21 @@ export default {
           sessionStorage.setItem("menuSelect"   , this.$store.state.menuSelect);
           sessionStorage.setItem("subMenuSelect", this.$store.state.subMenuSelect);
 
+          // if(this.stayLog == true ){
+          //   localStorage.setItem("clntId"       , this.$store.state.clntId);
+          //   localStorage.setItem("clntPw"       , this.clntPw);
+          //   localStorage.setItem("clntNm"       , this.$store.state.clntNm);
+          //   localStorage.setItem("nickNm"       , this.$store.state.nickNm);
+          //   localStorage.setItem("token"        , this.$store.state.jwtAuthToken);
+          //   localStorage.setItem("grade"        , this.$store.state.adGradeCd);
+
+          //   localStorage.setItem("mbId"         , this.$store.state.mbId);
+          //   localStorage.setItem("adId"         , this.$store.state.adId);
+          //   localStorage.setItem("mkId"         , this.$store.state.mkId);
+          //   localStorage.setItem("mkCd"         , this.$store.state.mkCd);
+          // }
+          // console.log(localStorage.clntId)
+
 
           if( this.$store.state.adGradeCd == '05' ){
             this.$router.push({ path : "MENU_08201" })
@@ -134,18 +150,84 @@ export default {
     , SignMadal() {
       $("#singPopUp").css({display: "block"})
     }
-
     //******************************************************************************
     // 아이디 / 비밀번호 팝업 함수
     //******************************************************************************
     , SearchIdModal() {
       $("#searchModar").css({display: "block"})
     }
+    //******************************************************************************
+    // 로그인 유지
+    //******************************************************************************
+    // , KeepLog() {
+
+    //     if(localStorage.length == 0){
+    //       return
+    //     }
+
+    //   axios.post("http://api.adinfo.co.kr:30000/login", {
+    //     clntId: localStorage.clntId,
+    //     clntPw: localStorage.clntPw,
+    //     siteCode: '01'
+    //   })
+    //   .then(response => {
+
+    //     if( response.data.status == "0" ) {
+    //       this.$store.state.clntId       = response.data.clntId;
+    //       this.$store.state.clntNm       = response.data.clntNm;
+    //       this.$store.state.nickNm       = response.data.nickNm;
+
+    //       this.$store.state.jwtAuthToken = response.data.authToken;
+    //       this.$store.state.adGradeCd    = response.data.gradeCd;
+
+    //       this.$store.state.mbId = response.data.mbId;
+    //       this.$store.state.adId = response.data.adId;
+    //       this.$store.state.mkId = response.data.mkId;
+    //       this.$store.state.mkCd = response.data.mkCd;
+
+    //       this.$store.state.menuSelect = 2;
+    //       this.$store.state.subMenuSelect = '';
+
+    //       // 토큰값을 LocalStorage에 저장한다.
+          
+    //       sessionStorage.setItem("clntId"       , this.$store.state.clntId);
+    //       sessionStorage.setItem("clntNm"       , this.$store.state.clntNm);
+    //       sessionStorage.setItem("nickNm"       , this.$store.state.nickNm);
+    //       sessionStorage.setItem("token"        , this.$store.state.jwtAuthToken);
+    //       sessionStorage.setItem("grade"        , this.$store.state.adGradeCd);
+
+    //       sessionStorage.setItem("mbId"         , this.$store.state.mbId);
+    //       sessionStorage.setItem("adId"         , this.$store.state.adId);
+    //       sessionStorage.setItem("mkId"         , this.$store.state.mkId);
+    //       sessionStorage.setItem("mkCd"         , this.$store.state.mkCd);
+    //       sessionStorage.setItem("menuSelect"   , this.$store.state.menuSelect);
+    //       sessionStorage.setItem("subMenuSelect", this.$store.state.subMenuSelect);
+
+    //       if( this.$store.state.adGradeCd == '05' ){
+    //         this.$router.push({ path : "MENU_08201" })
+    //       } else {
+    //         this.$router.push({ path : "MENU_0000" })
+    //       }
+    //     } 
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   })
+    // }
   },
   created() {
-    if(window.location.hostname == 'adm.dbmaster.co.kr')
-    // if(window.location.hostname != '192.168.0.104')
+
+
+
+    // if(window.location.hostname == 'adm.dbmaster.co.kr')
+    if(window.location.hostname == '192.168.0.104')
+    {
       this.$router.push({ name : "AdminLogin" });
+    }
+
+    this.KeepLog();
+
+    
   }
 }
 </script>
@@ -180,6 +262,8 @@ export default {
   #logIn > .logInBox > p {
     text-align: center;
   }
+
+
 
   #logIn > .logInBox > .logInLogo {
     margin-bottom: 10px;

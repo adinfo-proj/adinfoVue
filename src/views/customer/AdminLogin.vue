@@ -81,6 +81,7 @@ export default {
           sessionStorage.setItem("adId"  , this.$store.state.adId);
           sessionStorage.setItem("caId"  , this.$store.state.caId);
           sessionStorage.setItem("pgId"  , this.$store.state.pgId);
+          sessionStorage.setItem("logo"  , this.$store.state.logo);
 
           if( this.$store.state.adGradeCd == '06' ) {
             this.$router.push({ path : "MENU_08250" })
@@ -101,9 +102,11 @@ export default {
   },
   created() {
     // alert(window.location.hostname);
-    if(window.location.hostname != 'adm.dbmaster.co.kr')
-    // if(window.location.hostname == '192.168.0.104')
+    // if(window.location.hostname != 'adm.dbmaster.co.kr')
+    if(window.location.hostname != '192.168.0.104')
+    {
       this.$router.push({ name : "Login" });
+    }
   }
 }
 </script>

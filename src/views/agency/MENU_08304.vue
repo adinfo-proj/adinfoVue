@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="right">
-
+          <img src="../../assets/images/manual/SetDomein.png" alt="">
         </div>
       </div>
       <div class="tableBox adminData">

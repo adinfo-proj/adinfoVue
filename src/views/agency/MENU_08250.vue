@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<div class="campanignSearch">
-			<select v-model="campSelect" @change="campaignListChange(campSelect)" :disabled="true">
+			<!-- <select v-model="campSelect" @change="campaignListChange(campSelect)" :disabled="true">
         <option value="-1">전체</option>
 				<option v-for="(campaignNameList, index) in campaignNameListObj"
 					:key="index" 
@@ -16,7 +16,7 @@
 					:value="landingData.pgId"
 					>{{ landingData.name }}
 				</option>
-			</select>
+			</select> -->
       <input type="radio" name="searchDay" id="searchToday"     class="searchSubDate" @click="ChangeDateRange(1)" checked> <label for="searchToday">오늘</label>
       <input type="radio" name="searchDay" id="searchYesterday" class="searchSubDate" @click="ChangeDateRange(2)"> <label for="searchYesterday">어제</label>
       <input type="radio" name="searchDay" id="searchThreeDay"  class="searchSubDate" @click="ChangeDateRange(3)"> <label for="searchThreeDay">3일</label>

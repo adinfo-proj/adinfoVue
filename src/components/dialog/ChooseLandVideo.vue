@@ -104,9 +104,8 @@
 
   .landVideo h2 span img{
     position: absolute;
-    left: 7px;
-    transform: translateX(-50%);
-    top: 20px;
+    left: -20px;
+    top: -235px;
     display: none;
     z-index: 99;
   }
