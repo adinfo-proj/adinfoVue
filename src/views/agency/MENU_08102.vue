@@ -157,16 +157,26 @@
         </div>
       </div>
     </div>
-    <div class="submitBtn">
-      <button @click="createCampaign()"> 등록하기 </button>
+    <div class="btnBox">
+      <button class="submitBtn" @click="createCampaign()"> 등록하기 </button>
+      <button class="manual" @click="campManualView()">
+        캠페인 등록방법
+        <i class="icon-error_outline"></i>
+        <i class="icon-plus1"></i>
+      </button>
     </div>
+    <SetCampManual></SetCampManual>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-// import $ from 'jquery';
+import $ from 'jquery';
+import SetCampManual from '../../components/dialog/SetCampManual.vue';
 export default {
+  components:{
+      SetCampManual
+  },
   data() {
     return {
       editorConfig: { 
@@ -229,6 +239,12 @@ export default {
     }
   },
   methods: {
+    //******************************************************************************
+    // 사용방법 팝업
+    //******************************************************************************
+    campManualView(){
+      $('#campBg').css({display: 'block'})
+    },
     //******************************************************************************
     // 캠페인 목적
     //******************************************************************************
@@ -699,9 +715,6 @@ export default {
     left: 0;
     top: 0px;
   }
-  .container .submitBtn {
-    text-align: center;
-  }
   .container .formBox .tableB .agreeSub {
     padding: 8px 11px;
     text-align: center;
@@ -734,15 +747,45 @@ export default {
     background: #f0f0f0;
     text-align: center;
   }
-  .container .submitBtn button {
+  .container .btnBox {
+    text-align: center;
+    position: relative;
+  }
+  .container .btnBox button{
+    height: 40px;
+  }
+  .container .btnBox .submitBtn {
     width: 140px;
-    background: #e25b45;
+    background: #000;
     border-radius: 50px;
-    padding: 11px;
     margin: 30px auto 60px;
     color: #fff;
     font-weight: 700;
     font-size: 16px;
-    border: none   ;
+    border: none;
+  }
+  .container .btnBox .manual{
+    position: absolute;
+    top: 30px;
+    right: 0;
+    width: 260px;
+    border-radius: 10px;
+    border: 1px solid #d33c24;
+    background: #e25b45;
+    font-size: 14px;
+    padding: 0 20px;
+    color: #fff;
+    text-align: left;
+    font-weight: 700;
+  }
+  .container .btnBox .manual i{
+    display: inline-block;
+    font-size: 16px;
+    color: #fff;
+    transform: translateY(2px);
+    margin-top: -2px;
+  }
+  .container .btnBox .manual .icon-plus1{
+    float: right;
   }
 </style>

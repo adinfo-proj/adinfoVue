@@ -18,6 +18,7 @@
                       >{{ campaignNameList.name }}
                     </option>
                   </select>
+                  <!-- <select v-model="landSelect" @change="getLandingPageOne(landSelect)"> -->
                   <select v-model="landSelect" @change="getLandingPageOne(landSelect)">
                     <option value="-1">랜딩페이지 선택</option>
                     <option v-for="(landingData, index) in landingDataObj"
@@ -328,7 +329,7 @@
         frm.append("upFile" , this.$refs.upImage01.files[0]); 
 
 
-        /*
+        
         axios.post("http://api.adinfo.co.kr:30000/CreExternalUser", frm, {
           headers: {'Content-Type': 'multipart/form-data'}
         })
@@ -351,7 +352,7 @@
           console.log(error);
         })
 
-        */
+        
       },
 			//******************************************************************************
 			// 사용자 목록 조회

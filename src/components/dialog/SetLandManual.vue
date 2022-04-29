@@ -92,7 +92,10 @@
   }
   #landBg .landModal h2 i{
     color: #fff;
-    font-size: 14px;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: -2px;
+    transform: translateY(2px);
   }
 
   #landBg .landModal h2 .icon-close{
