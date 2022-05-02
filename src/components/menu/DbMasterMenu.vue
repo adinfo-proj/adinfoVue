@@ -10,7 +10,7 @@
             <i class="icon-file-text"></i>
             캠페인
           </a>
-          <ul>
+          <ul class="subManu">
             <li @click="DbSubMenu('102')"  v-bind:class="{subOn : '102' == $store.state.subMenuSelect}">
               <router-link to="MENU_08102">
                 캠페인 등록
@@ -28,7 +28,7 @@
             <i class="icon-free-transform"></i>
             랜딩페이지
           </a>
-          <ul>
+          <ul class="subManu">
             <li @click="DbSubMenu('302')"  v-bind:class="{subOn : '302' == $store.state.subMenuSelect}">
               <router-link to="MENU_08302">
                 랜딩페이지 제작
@@ -62,7 +62,7 @@
             <i class="icon-stats"></i>
             API 연동
           </a>
-          <ul>
+          <ul  class="subManu">
             <li @click="DbSubMenu('402')"  v-bind:class="{subOn : '402' == $store.state.subMenuSelect}">
               <router-link to="MENU_08402">
                 API 전송 등록
@@ -90,7 +90,7 @@
             <i class="icon-bubble-text"></i>
             고객센터
           </a>
-          <ul>
+          <ul class="subManu">
             <li @click="DbSubMenu('701')"  v-bind:class="{subOn : '701' == $store.state.subMenuSelect}">
               <router-link to="MENU_08701">
                 공지사항
@@ -113,7 +113,7 @@
             <i class="icon-bubble-text"></i>
             내정보
           </a>
-          <ul>
+          <ul class="subManu">
             <li @click="DbSubMenu('901')"  v-bind:class="{subOn : '901' == $store.state.subMenuSelect}">
               <router-link to="MENU_08901">
                 회원정보
@@ -141,13 +141,22 @@
 </template>
 
 <script>
+  // import $              from 'jquery';
   export default {
     data() {
       return {
-          // menuSelect : this.$store.state.menuSelect
-        //  subMenuSelect:  this.$store.state.subMenuSelect
+          menuSelect : this.$store.state.menuSelect
+        , subMenuSelect:  this.$store.state.subMenuSelect
       }
     },
+    // mounted(){
+    //   $(".headerNav>ul>li>a").click(
+    //     function(){
+    //       $(".headerNav ul li ul").css({display:'none'})
+    //       $(this).parent().find('ul').delay(100).slideDown(300)
+    //     }
+    //   )
+    // },
     methods:{
         DBMenuBar(pos) {
         if(sessionStorage.getItem("menuSelect") !=null){
@@ -157,7 +166,7 @@
           this.$store.state.subMenuSelect = ''
           // let page = "MENU_08"+ this.menuSelect + '01'
         }
-        else{
+        else{ 
           this.$store.state.subMenuSelect = `${pos}01`
           let page = "MENU_08"+ this.$store.state.subMenuSelect
           this.$router.push({ path : page })
@@ -165,8 +174,8 @@
 
         sessionStorage.setItem("menuSelect"   ,    this.$store.state.menuSelect);
         sessionStorage.setItem("subMenuSelect", this.$store.state.subMenuSelect);
-      }
-      , DbSubMenu(pos) {
+      },
+      DbSubMenu(pos) {
         this.$store.state.subMenuSelect = pos;
         sessionStorage.setItem("subMenuSelect", this.$store.state.subMenuSelect);
         
