@@ -49,6 +49,10 @@ import MENU_08702_3 from "../views/agency/MENU_08702_3.vue";
 import MENU_08703 from "../views/agency/MENU_08703.vue";
 import MENU_08703_2 from "../views/agency/MENU_08703_2.vue";
 import MENU_08703_3 from "../views/agency/MENU_08703_3.vue";
+import MENU_08704 from "../views/agency/MENU_08704.vue";
+import MENU_08704_2 from "../views/agency/MENU_08704_2.vue";
+import MENU_08704_3 from "../views/agency/MENU_08704_3.vue";
+import MENU_08704_4 from "../views/agency/MENU_08704_4.vue";
 import MENU_08901 from "../views/agency/MENU_08901.vue";
 import MENU_08902 from "../views/agency/MENU_08902.vue";
 import MENU_08999 from "../views/agency/MENU_08999.vue";
@@ -341,6 +345,30 @@ const routes = [ // 권한에 상관없이 모두 추가할 것, 추후 권한�
     path: "/MENU_08703_3",
     name: "MENU_08703_3",
     component: MENU_08703_3,
+    meta: { requiresAuth: true }
+  },
+  {// 이벤트 글쓰기 목록
+    path: "/MENU_08704",
+    name: "MENU_08704",
+    component: MENU_08704,
+    meta: { requiresAuth: true }
+  },
+  {// 이벤트 내용보기
+    path: "/MENU_08704_2",
+    name: "MENU_08704_2",
+    component: MENU_08704_2,
+    meta: { requiresAuth: true }
+  },
+  {// 이벤트 요청 글쓰기
+    path: "/MENU_08704_3",
+    name: "MENU_08704_3",
+    component: MENU_08704_3,
+    meta: { requiresAuth: true }
+  },
+  {// 이벤트 요청 수정
+    path: "/MENU_08704_4",
+    name: "MENU_08704_4",
+    component: MENU_08704_4,
     meta: { requiresAuth: true }
   },
   {// 내정보

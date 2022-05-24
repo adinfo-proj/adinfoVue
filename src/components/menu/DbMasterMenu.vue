@@ -106,6 +106,11 @@
                 기능 개선 요청
               </router-link>
             </li>
+            <li @click="DbSubMenu('704')"  v-bind:class="{subOn : '704' == $store.state.subMenuSelect}">
+              <router-link to="MENU_08704">
+                이벤트
+              </router-link>
+            </li>
           </ul>
         </li>
         <li v-bind:class="{on : 9 == $store.state.menuSelect}">

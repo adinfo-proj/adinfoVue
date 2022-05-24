@@ -43,6 +43,7 @@
 							</td>
 						</tr>
 
+						<!--
 						<tr>
 							<th colspan="4" style="font-size:18px; text-align:center">
 								사업자 정보
@@ -99,6 +100,7 @@
 								
 							</td>
 						</tr>
+						-->
 
 
 					</tbody>
